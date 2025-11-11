@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- NEW: Updated Title -->
     <title>Sigit Adi Irianto - Artificial Intelligence & Cyber Security Specialist</title>
     
     <link rel="icon" href="data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M41.666 87.5C33.842 87.5 27.5 81.158 27.5 73.333V50C27.5 42.175 33.842 35.833 41.666 35.833H72.5' stroke='%232563EB' stroke-width='12' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M58.334 12.5C66.158 12.5 72.5 18.842 72.5 26.667V50C72.5 57.825 66.158 64.167 58.334 64.167H27.5' stroke='%232563EB' stroke-width='12' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
@@ -16,23 +15,19 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
         
-        /* NEW: Dark mode is default, Light theme REMOVED */
         :root {
             --font-sans: 'Inter', sans-serif;
             --font-mono: 'Space Mono', monospace;
             
-            /* NEW: Brighter Dark Mode Palette (Tonal) */
-            --color-bg: #111827; /* Gray-900 */
-            --color-surface: #1F2937; /* Gray-800 */
-            --color-primary: #3B82F6; /* Brighter Blue-500 */
-            --color-accent1: #10B981; /* Emerald-500 */
-            --color-accent2: #8B5CF6; /* Violet-500 */
-            --color-text-primary: #F9FAFB; /* Gray-50 */
-            --color-text-secondary: #9CA3AF; /* Gray-400 */
-            --color-border: #374151; /* Gray-700 */
+            --color-bg: #111827; 
+            --color-surface: #1F2937; 
+            --color-primary: #3B82F6; 
+            --color-accent1: #10B981; 
+            --color-accent2: #8B5CF6; 
+            --color-text-primary: #F9FAFB;
+            --color-text-secondary: #9CA3AF; 
+            --color-border: #374151; 
         }
-
-        /* REMOVED: Light theme variables */
 
         body {
             font-family: var(--font-sans);
@@ -42,7 +37,6 @@
             line-height: 1.7;
         }
         
-        /* Scanline effect */
         body::after {
             content: '';
             position: fixed;
@@ -70,7 +64,7 @@
             width: 100%;
             height: 100%;
             z-index: -1;
-            opacity: 1; /* Always on */
+            opacity: 1;
             transition: opacity 1s ease;
             background-color: var(--color-bg);
         }
@@ -89,7 +83,6 @@
             opacity: 0.15;
         }
 
-        /* Section Heading Font & Ornament */
         .section-heading {
             font-family: var(--font-mono);
             font-weight: 700;
@@ -108,7 +101,6 @@
             text-shadow: 0 0 5px var(--color-primary);
         }
 
-        /* Stat Card */
         .stat-card {
             background-color: var(--color-surface);
             border-radius: 12px;
@@ -131,15 +123,15 @@
             color: var(--color-primary);
             margin-bottom: 0.5rem;
         }
-        /* NEW: Responsive font size for long stat text */
+        /* FIXED: Allow one line, stack on mobile */
         .stat-card .value-long {
             font-size: 1.25rem; /* 20px */
             line-height: 1.75rem;
-            min-height: 3.5rem; /* Match height of other stat values */
+            min-height: 3.5rem; 
             display: flex;
             align-items: center;
             justify-content: center;
-            flex-direction: column; /* Allow stacking */
+            /* flex-direction: column; REMOVED */
         }
         .stat-card .label {
             font-size: 0.875rem;
@@ -147,7 +139,6 @@
             color: var(--color-text-secondary);
         }
 
-        /* Interactive Particle Background */
         .particle-bg {
             position: relative;
             overflow: hidden;
@@ -161,23 +152,44 @@
             z-index: 1;
         }
         
-        /* --- NEW: Simple Stacked Card (Mobile Compatible) --- */
         .project-card {
+            perspective: 1000px;
+            z-index: 10;
+        }
+        .project-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            min-height: 380px; 
+        }
+        .project-card:hover .project-card-inner {
+            transform: rotateY(180deg);
+        }
+        .project-card-front,
+        .project-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            
             background-color: var(--color-surface);
             border: 1px solid var(--color-border);
             border-radius: 16px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-            position: relative;
             overflow: hidden;
-            z-index: 10;
             display: flex;
             flex-direction: column;
-            min-height: 380px; 
         }
-        .project-card:hover {
-            transform: translateY(-8px);
-            border-color: var(--color-primary);
-            box-shadow: 0 10px 30px -15px rgba(37, 99, 235, 0.3);
+        .project-card-front {
+            z-index: 2;
+        }
+        .project-card-back {
+            transform: rotateY(180deg);
+            padding: 1.5rem;
+            justify-content: center;
+            z-index: 1;
         }
         .card-image {
             aspect-ratio: 16 / 9;
@@ -190,7 +202,6 @@
             object-fit: cover;
         }
         
-        /* Skill Bubble Chart */
         #skill-chart-container {
             width: 100%;
             height: 600px; 
@@ -214,7 +225,6 @@
         .skill-bubble:active {
             cursor: grabbing;
         }
-        /* FIXED: Text wrapping logic is now in JS (tspan) */
         .skill-label {
             font-family: var(--font-mono);
             font-size: 11px; 
@@ -230,7 +240,7 @@
         .skill-label.group-label {
             font-size: 14px; 
             font-weight: 700;
-            fill: #F9FAFB; /* Group labels always white for contrast */
+            fill: #F9FAFB; 
         }
          .skill-label.root-label {
             font-size: 16px; 
@@ -242,7 +252,6 @@
             stroke-opacity: 0.4;
         }
 
-        /* Buttons */
         .btn-primary {
             font-family: var(--font-mono);
             background-color: var(--color-primary);
@@ -288,7 +297,6 @@
             border-color: var(--color-primary);
         }
 
-        /* Timeline */
         .timeline-item {
             position: relative;
             padding-bottom: 2rem;
@@ -320,7 +328,6 @@
             height: calc(100% - 1rem);
         }
 
-        /* Modal */
         #modal-backdrop {
             position: fixed;
             top: 0;
@@ -364,12 +371,10 @@
             font-size: 0.875rem;
         }
         
-        /* Project Grid */
         .project-card.hidden {
             display: none;
         }
         
-        /* Animation */
         .fade-in-up {
             opacity: 0;
             transform: translateY(30px);
@@ -380,7 +385,6 @@
             transform: translateY(0);
         }
         
-        /* Form */
         .glowing-border {
             border: 1px solid var(--color-border);
             background-color: var(--color-surface);
@@ -393,7 +397,6 @@
             outline: none;
         }
         
-        /* Typing Effect Container */
         .typing-container {
             position: relative;
             height: 3.5rem; 
@@ -420,7 +423,6 @@
             51%, 100% { opacity: 0; }
         }
 
-        /* Floating Contact Button (FAB) */
         #contact-widget {
             position: fixed;
             bottom: 1.5rem;
@@ -1107,12 +1109,11 @@
                 });
             });
 
-            // --- NEW: Typing Effect v2 (Static + Dynamic) ---
+            // --- FIXED: Typing Effect v3 (Bug Sppeecciiaalliisstt fixed) ---
             const dynamicEl = document.getElementById('typing-dynamic');
             const staticEl = document.getElementById('typing-static');
             const cursorEl = document.getElementById('typing-cursor');
             
-            // NEW: Updated text
             const dynamicParts = ["Artificial Intelligence", "Cyber Security"];
             const staticPart = " Specialist";
             let partIndex = 0;
@@ -1125,8 +1126,10 @@
                 if (!dynamicEl || !staticEl || !cursorEl) return;
                 
                 if (!staticDone) {
+                    // 1. Type " Specialist" once
                     if (charIndex < staticPart.length) {
-                        staticEl.textContent += staticPart.charAt(charIndex);
+                        // FIXED: Use substring to prevent duplication bug
+                        staticEl.textContent = staticPart.substring(0, charIndex + 1);
                         charIndex++;
                         setTimeout(typeWriter, 120);
                     } else {
@@ -1138,6 +1141,7 @@
                     return;
                 }
             
+                // 2. Cycle "Artificial Intelligence" and "Cyber Security"
                 const currentPart = dynamicParts[partIndex];
                 let speed = firstLoad ? 120 : 100; 
             
