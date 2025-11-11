@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Updated Title -->
     <title>Sigit Adi Irianto - Artificial Intelligence & Cyber Security Specialist</title>
     
     <link rel="icon" href="data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M41.666 87.5C33.842 87.5 27.5 81.158 27.5 73.333V50C27.5 42.175 33.842 35.833 41.666 35.833H72.5' stroke='%233B82F6' stroke-width='12' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M58.334 12.5C66.158 12.5 72.5 18.842 72.5 26.667V50C72.5 57.825 66.158 64.167 58.334 64.167H27.5' stroke='%233B82F6' stroke-width='12' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
@@ -102,7 +101,6 @@
             text-shadow: 0 0 5px var(--color-primary);
         }
 
-        /* NEW: Stat Card Hover Effect */
         .stat-card {
             background-color: var(--color-surface);
             border-radius: 12px;
@@ -176,7 +174,7 @@
             z-index: 1;
         }
         
-        /* --- 3D Card Flip --- */
+        /* 3D Card Flip */
         .project-card {
             perspective: 1000px;
             z-index: 10;
@@ -189,7 +187,6 @@
             transform-style: preserve-3d;
             min-height: 380px; 
         }
-        /* NEW: Mobile Touch Support */
         .project-card.is-flipped .project-card-inner {
             transform: rotateY(180deg);
         }
@@ -457,6 +454,8 @@
             bottom: 1.5rem;
             right: 1.5rem;
             z-index: 50;
+            /* NEW: Add transition for bottom */
+            transition: bottom 0.3s ease-out;
         }
         #contact-fab {
             width: 4rem;
@@ -538,42 +537,6 @@
             transform: scale(1) translateY(0);
             pointer-events: auto;
         }
-
-        /* NEW: AI Orb */
-        #ai-orb-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            perspective: 1000px;
-        }
-        #ai-orb {
-            width: 100%;
-            max-width: 250px;
-            aspect-ratio: 1 / 1;
-            border-radius: 50%;
-            position: relative;
-            background: radial-gradient(circle at 30% 30%, var(--color-surface), var(--color-bg) 90%);
-            border: 1px solid var(--color-border);
-            box-shadow: 0 0 30px -10px var(--color-primary);
-            transform-style: preserve-3d;
-        }
-        #ai-orb::before {
-            content: '';
-            position: absolute;
-            inset: -10px;
-            border-radius: 50%;
-            background: conic-gradient(var(--color-primary), var(--color-accent1), var(--color-accent2), var(--color-primary));
-            filter: blur(20px);
-            opacity: 0.5;
-            animation: pulse-glow 6s infinite ease-in-out;
-            z-index: -1;
-        }
-        
-        @keyframes pulse-glow {
-            0%, 100% { transform: scale(0.9); opacity: 0.4; }
-            50% { transform: scale(1.05); opacity: 0.7; }
-        }
-
     </style>
 </head>
 <body class="dark"> <!-- Default is DARK -->
@@ -665,19 +628,16 @@
             <canvas id="particle-canvas"></canvas>
         </section>
 
+        <!-- NEW: Alternating section color (Surface) -->
         <section id="about" class="py-20 sm:py-28 bg-[var(--color-surface)] relative z-10">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 
                 <div class="grid grid-cols-1 lg:grid-cols-5 gap-12 items-start">
                     
-                    <div class="lg:col-span-2 flex justify-center lg:justify-start">
-                        <!-- NEW: AI ORB -->
-                        <div id="ai-orb-container" class="w-64 h-64 lg:w-full lg:max-w-sm lg:h-auto lg:aspect-square">
-                            <div id="ai-orb"></div>
-                        </div>
-                    </div>
+                    <!-- PERBAIKAN: AI Orb container dihapus karena kosong dan tidak ada scriptnya -->
                     
-                    <div class="lg:col-span-3">
+                    <!-- PERBAIKAN: col-span diubah dari 3 menjadi 5 agar memenuhi lebar -->
+                    <div class="lg:col-span-5">
                         <h2 class="text-3xl sm:text-4xl font-bold text-[var(--color-text-primary)] mb-6 section-heading animate-heading">
                             About Me
                         </h2>
@@ -689,7 +649,8 @@
                                 <div class="label">Years Experience</div>
                             </div>
                             <div class="stat-card">
-                                <div class="value value-long">Artificial Intelligence + Cyber Security</div>
+                                <!-- FIXED: Updated Text, 1 line on desktop -->
+                                <div class="value value-long">AI + Cyber Security</div>
                                 <div class="label">Dual Expertise</div>
                             </div>
                         </div>
@@ -725,12 +686,14 @@
             </div>
         </section>
 
+        <!-- NEW: Alternating section color (back to default bg) -->
         <section id="projects" class="py-20 sm:py-28 bg-[var(--color-bg)] relative z-10">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-16 fade-in-up">
                     <h2 class="text-3xl sm:text-4xl font-bold text-[var(--color-text-primary)] mb-4 section-heading animate-heading">
                         Projects & Articles
                     </h2>
+                    <!-- FIXED: 2-line break -->
                     <p class="text-lg text-[var(--color-text-secondary)] max-w-3xl mx-auto">
                         Evidence of work, from concept to implementation and insight.
                         <br class="hidden md:block">
@@ -868,6 +831,7 @@
             </div>
         </section>
 
+        <!-- NEW: Alternating section color -->
         <section id="skills" class="py-20 sm:py-28 bg-[var(--color-surface)] relative z-10">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-16 fade-in-up">
@@ -885,6 +849,7 @@
             </div>
         </section>
 
+        <!-- NEW: Alternating section color -->
         <section id="experience" class="py-20 sm:py-28 bg-[var(--color-bg)] relative z-10">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-16 fade-in-up">
@@ -1063,7 +1028,7 @@
                         <span class="modal-tech-pill">JavaScript</span>
                         <span class="modal-tech-pill">HTML5 & CSS</span>
                     </div>
-                    <a href="https://sisigitadi.github.io/keuangan_apii_jabo/" target="_blank" rel="noopener noreferrer" class="btn-primary">
+                    <a href="https.sisigitadi.github.io/keuangan_apii_jabo/" target="_blank" rel="noopener noreferrer" class="btn-primary">
                         View Live App &rarr;
                     </a>
                 </div>
@@ -1229,18 +1194,34 @@
             const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
             let statObserver;
 
+            // PERBAIKAN: Callback untuk statObserver (angka 10+) dipisah
+            const statObserverCallback = (entries, observer) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        if (entry.target.id === 'stat-value-10') {
+                            animateCountUp(entry.target, 10, 1500);
+                            observer.unobserve(entry.target); 
+                        }
+                    }
+                });
+            };
+
+            // Callback utama untuk scrollObserver (fade-in, headings, dan skill chart)
             const observerCallback = (entries, observer) => {
                 entries.forEach((entry) => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('visible');
                         
-                        if (entry.target.id === 'stat-value-10') {
-                            animateCountUp(entry.target, 10, 1500);
-                            statObserver.unobserve(entry.target); 
-                        } else if (entry.target.classList.contains('animate-heading')) {
+                        if (entry.target.classList.contains('animate-heading')) {
                              scrambleText(entry.target);
                              observer.unobserve(entry.target);
-                        } else {
+                        } else if (entry.target.id === 'skill-chart-container') { 
+                            // PERBAIKAN: Hanya jalankan D3 saat chart terlihat
+                            initSkillChart(); 
+                            observer.unobserve(entry.target);
+                        } else if (entry.target.id !== 'stat-value-10') { 
+                            // Unobserve elemen fade-in-up lainnya
                             observer.unobserve(entry.target);
                         }
                     }
@@ -1258,7 +1239,8 @@
             
             const stat10 = document.getElementById('stat-value-10');
             if(stat10) {
-                 statObserver = new IntersectionObserver(observerCallback, { threshold: 0.8 });
+                 // PERBAIKAN: Gunakan callback yang terpisah untuk statObserver
+                 statObserver = new IntersectionObserver(statObserverCallback, { threshold: 0.8 });
                  statObserver.observe(stat10);
             }
 
@@ -1356,6 +1338,48 @@
                         formStatus.className = "mb-4 text-sm text-red-400";
                     }
                 });
+            }
+
+            // --- PERBAIKAN: Dynamic FAB Position on Footer Overlap (with Error Handling) ---
+            try {
+                const footer = document.querySelector('footer');
+                if (contactWidget && footer) {
+                    const baseMarginRem = 1.5;
+                    // Fungsi untuk mendapatkan margin dasar dalam pixel (1.5rem * 16px)
+                    const getBaseMarginPx = () => parseFloat(getComputedStyle(document.documentElement).fontSize) * baseMarginRem;
+
+                    const handleFabPosition = () => {
+                        try {
+                            const baseMarginPx = getBaseMarginPx();
+                            // Mendapatkan posisi atas footer relatif terhadap viewport
+                            const footerTop = footer.getBoundingClientRect().top;
+                            const windowHeight = window.innerHeight;
+                            
+                            // Hitung berapa banyak footer yang terlihat di bagian bawah viewport
+                            const footerOverlap = windowHeight - footerTop;
+                            
+                            if (footerOverlap > 0) {
+                                // Jika footer terlihat (overlap > 0), pindahkan widget ke atas
+                                // (sebesar overlap + margin dasar)
+                                contactWidget.style.bottom = (footerOverlap + baseMarginPx) + 'px';
+                            } else {
+                                // Jika tidak, kembalikan ke posisi semula
+                                contactWidget.style.bottom = baseMarginRem + 'rem';
+                            }
+                        } catch (e) {
+                            console.error('Error in handleFabPosition:', e);
+                        }
+                    };
+
+                    // Dijalankan saat scroll dan resize (untuk jika ukuran font/window berubah)
+                    window.addEventListener('scroll', handleFabPosition);
+                    window.addEventListener('resize', handleFabPosition);
+                    
+                    // Dijalankan sekali saat halaman dimuat untuk set posisi awal
+                    handleFabPosition();
+                }
+            } catch (e) {
+                console.error('Error setting up FAB listener:', e);
             }
 
             // --- Project Filtering ---
@@ -1590,171 +1614,198 @@
             }
 
             // --- D3.js Skill Map Logic (FIXED) ---
-            const skillChartContainer = document.getElementById('skill-chart-container');
-            if (skillChartContainer) {
-                const skillData = {
-                    nodes: [
-                        { id: "Sigit Adi", group: "root", r: 45 },
-                        { id: "AI Specialist", group: "group-ai", r: 65 },
-                        { id: "Security Specialist", group: "group-sec", r: 65 },
+            // PERBAIKAN: Dibungkus dalam fungsi agar bisa dipanggil oleh Observer
+            function initSkillChart() {
+                const skillChartContainer = document.getElementById('skill-chart-container');
+                if (!skillChartContainer) return; // Keluar jika container tidak ada
+
+                try {
+                    const skillData = {
+                        nodes: [
+                            { id: "Sigit Adi", group: "root", r: 45 },
+                            { id: "AI Specialist", group: "group-ai", r: 65 },
+                            { id: "Security Specialist", group: "group-sec", r: 65 },
+                            
+                            { id: "Prompt Engineering", group: "ai", r: 40 },
+                            { id: "RLHF", group: "ai", r: 35 },
+                            { id: "Data Annotation", group: "ai", r: 38 },
+                            { id: "LLM Evaluation", group: "ai", r: 38 },
+                            { id: "Azure AI", group: "ai", r: 35 },
+                            { id: "Python (AI/ML)", group: "ai", r: 38 },
+                            { id: "Generative AI", group: "ai", r: 38 },
+                            
+                            { id: "SIEM (Wazuh)", group: "sec", r: 40 },
+                            { id: "Incident Handling", group: "sec", r: 38 },
+                            { id: "Threat Intelligence", group: "sec", r: 38 },
+                            { id: "Penetration Testing", group: "sec", r: 38 },
+                            { id: "ISO 27001 & NIST", group: "sec", r: 40 },
+                            { id: "DevSecOps", group: "sec", r: 35 },
+                            { id: "Log Analysis", group: "sec", r: 35 }
+                        ],
+                        links: [
+                            { source: "Sigit Adi", target: "AI Specialist", strength: 0.1 },
+                            { source: "Sigit Adi", target: "Security Specialist", strength: 0.1 },
+                            
+                            { source: "AI Specialist", target: "Prompt Engineering", strength: 0.1 },
+                            { source: "AI Specialist", target: "RLHF", strength: 0.1 },
+                            { source: "AI Specialist", target: "Data Annotation", strength: 0.1 },
+                            { source: "AI Specialist", target: "LLM Evaluation", strength: 0.1 },
+                            { source: "AI Specialist", target: "Azure AI", strength: 0.1 },
+                            { source: "AI Specialist", target: "Python (AI/ML)", strength: 0.1 },
+                            { source: "AI Specialist", target: "Generative AI", strength: 0.1 },
+                            
+                            { source: "Security Specialist", target: "SIEM (Wazuh)", strength: 0.1 },
+                            { source: "Security Specialist", target: "Incident Handling", strength: 0.1 },
+                            { source: "Security Specialist", target: "Threat Intelligence", strength: 0.1 },
+                            { source: "Security Specialist", target: "Penetration Testing", strength: 0.1 },
+                            { source: "Security Specialist", target: "ISO 27001 & NIST", strength: 0.1 },
+                            { source: "Security Specialist", target: "DevSecOps", strength: 0.1 },
+                            { source: "Security Specialist", target: "Log Analysis", strength: 0.1 }
+                        ]
+                    };
+
+                    // PERBAIKAN: Ambil width/height di sini, setelah elemen pasti terlihat
+                    const width = skillChartContainer.clientWidth;
+                    const height = skillChartContainer.clientHeight;
+                    
+                    if (width === 0 || height === 0) {
+                        console.error("Skill chart container has zero dimensions. Cannot init D3 chart.");
+                        return;
+                    }
+
+                    const colorScale = d3.scaleOrdinal()
+                        .domain(["root", "group-ai", "group-sec", "ai", "sec"])
+                        .range([
+                            "var(--color-surface)",
+                            "var(--color-primary)",
+                            "var(--color-accent1)",
+                            "var(--color-primary)",
+                            "var(--color-accent1)"
+                        ]);
+
+                    const svg = d3.select("#skill-chart")
+                        .attr("viewBox", [-width / 2, -height / 2, width, height]);
+
+                    const simulation = d3.forceSimulation(skillData.nodes)
+                        .force("link", d3.forceLink(skillData.links).id(d => d.id).strength(d => d.strength).distance(80)) 
+                        .force("charge", d3.forceManyBody().strength(-600)) 
+                        .force("collide", d3.forceCollide().radius(d => d.r + 6)) 
+                        .force("center", d3.forceCenter());
+
+                    const link = svg.append("g")
+                        .attr("class", "skill-links")
+                        .selectAll("line")
+                        .data(skillData.links)
+                        .join("line")
+                        .attr("class", "skill-link");
+
+                    const node = svg.append("g")
+                        .attr("class", "skill-nodes")
+                        .selectAll("g")
+                        .data(skillData.nodes)
+                        .join("g")
+                        .attr("class", "skill-bubble")
+                        .call(d3.drag()
+                            .on("start", dragstarted)
+                            .on("drag", dragged)
+                            .on("end", dragended));
+
+                    node.append("circle")
+                        .attr("r", d => d.r)
+                        .attr("fill", d => colorScale(d.group))
+                        .attr("stroke", d => d.group === 'root' ? 'var(--color-primary)' : 'var(--color-border)') 
+                        .attr("stroke-width", 2);
+
+                    // FIXED: Text wrapping logic
+                    const text = node.append("text")
+                        .attr("class", d => d.group === "root" ? "skill-label root-label" : (d.group.startsWith("group-") ? "skill-label group-label" : "skill-label"))
+                        .style("fill", d => {
+                            if (d.group === 'root') return 'var(--color-text-primary)'; 
+                            if (d.group.startsWith('group-')) return '#F9FAFB'; 
+                            return 'var(--color-text-primary)'; 
+                        });
+                    
+                    text.each(function(d) {
+                        const node = d3.select(this);
+                        node.text(null); // Clear
                         
-                        { id: "Prompt Engineering", group: "ai", r: 40 },
-                        { id: "RLHF", group: "ai", r: 35 },
-                        { id: "Data Annotation", group: "ai", r: 38 },
-                        { id: "LLM Evaluation", group: "ai", r: 38 },
-                        { id: "Azure AI", group: "ai", r: 35 },
-                        { id: "Python (AI/ML)", group: "ai", r: 38 },
-                        { id: "Generative AI", group: "ai", r: 38 },
+                        let lines = [];
+                        const words = d.id.split(' ');
                         
-                        { id: "SIEM (Wazuh)", group: "sec", r: 40 },
-                        { id: "Incident Handling", group: "sec", r: 38 },
-                        { id: "Threat Intelligence", group: "sec", r: 38 },
-                        { id: "Penetration Testing", group: "sec", r: 38 },
-                        { id: "ISO 27001 & NIST", group: "sec", r: 40 },
-                        { id: "DevSecOps", group: "sec", r: 35 },
-                        { id: "Log Analysis", group: "sec", r: 35 }
-                    ],
-                    links: [
-                        { source: "Sigit Adi", target: "AI Specialist", strength: 0.1 },
-                        { source: "Sigit Adi", target: "Security Specialist", strength: 0.1 },
+                        // FIXED: Manual line breaks for ALL multi-word skills
+                        if (d.id === "Sigit Adi") lines = ["Sigit", "Adi"];
+                        else if (d.id === "AI Specialist") lines = ["AI", "Specialist"];
+                        else if (d.id === "Security Specialist") lines = ["Security", "Specialist"];
+                        else if (d.id === "Prompt Engineering") lines = ["Prompt", "Engineering"];
+                        else if (d.id === "Data Annotation") lines = ["Data", "Annotation"];
+                        else if (d.id === "LLM Evaluation") lines = ["LLM", "Evaluation"];
+                        else if (d.id === "Python (AI/ML)") lines = ["Python", "(AI/ML)"];
+                        else if (d.id === "Generative AI") lines = ["Generative", "AI"];
+                        else if (d.id === "Incident Handling") lines = ["Incident", "Handling"];
+                        else if (d.id === "Threat Intelligence") lines = ["Threat", "Intel"];
+                        else if (d.id === "Penetration Testing") lines = ["Pen", "Testing"];
+                        else if (d.id === "ISO 27001 & NIST") lines = ["ISO 27001", "& NIST"];
+                        else if (d.id === "Log Analysis") lines = ["Log", "Analysis"];
+                        else lines = [d.id]; // Single word
+
+                        const lineHeight = 1.1; // ems
+                        const startY = lines.length > 1 ? -((lines.length - 1) * lineHeight) / 2 + 0.1 : 0.3; // Center vertically
                         
-                        { source: "AI Specialist", target: "Prompt Engineering", strength: 0.1 },
-                        { source: "AI Specialist", target: "RLHF", strength: 0.1 },
-                        { source: "AI Specialist", target: "Data Annotation", strength: 0.1 },
-                        { source: "AI Specialist", target: "LLM Evaluation", strength: 0.1 },
-                        { source: "AI Specialist", target: "Azure AI", strength: 0.1 },
-                        { source: "AI Specialist", target: "Python (AI/ML)", strength: 0.1 },
-                        { source: "AI Specialist", target: "Generative AI", strength: 0.1 },
-                        
-                        { source: "Security Specialist", target: "SIEM (Wazuh)", strength: 0.1 },
-                        { source: "Security Specialist", target: "Incident Handling", strength: 0.1 },
-                        { source: "Security Specialist", target: "Threat Intelligence", strength: 0.1 },
-                        { source: "Security Specialist", target: "Penetration Testing", strength: 0.1 },
-                        { source: "Security Specialist", target: "ISO 27001 & NIST", strength: 0.1 },
-                        { source: "Security Specialist", target: "DevSecOps", strength: 0.1 },
-                        { source: "Security Specialist", target: "Log Analysis", strength: 0.1 }
-                    ]
-                };
-
-                const width = skillChartContainer.clientWidth;
-                const height = skillChartContainer.clientHeight;
-                
-                const colorScale = d3.scaleOrdinal()
-                    .domain(["root", "group-ai", "group-sec", "ai", "sec"])
-                    .range([
-                        "var(--color-surface)",
-                        "var(--color-primary)",
-                        "var(--color-accent1)",
-                        "var(--color-primary)",
-                        "var(--color-accent1)"
-                    ]);
-
-                const svg = d3.select("#skill-chart")
-                    .attr("viewBox", [-width / 2, -height / 2, width, height]);
-
-                const simulation = d3.forceSimulation(skillData.nodes)
-                    .force("link", d3.forceLink(skillData.links).id(d => d.id).strength(d => d.strength).distance(80)) 
-                    .force("charge", d3.forceManyBody().strength(-600)) 
-                    .force("collide", d3.forceCollide().radius(d => d.r + 6)) 
-                    .force("center", d3.forceCenter());
-
-                const link = svg.append("g")
-                    .attr("class", "skill-links")
-                    .selectAll("line")
-                    .data(skillData.links)
-                    .join("line")
-                    .attr("class", "skill-link");
-
-                const node = svg.append("g")
-                    .attr("class", "skill-nodes")
-                    .selectAll("g")
-                    .data(skillData.nodes)
-                    .join("g")
-                    .attr("class", "skill-bubble")
-                    .call(d3.drag()
-                        .on("start", dragstarted)
-                        .on("drag", dragged)
-                        .on("end", dragended));
-
-                node.append("circle")
-                    .attr("r", d => d.r)
-                    .attr("fill", d => colorScale(d.group))
-                    .attr("stroke", d => d.group === 'root' ? 'var(--color-primary)' : 'var(--color-border)') 
-                    .attr("stroke-width", 2);
-
-                // FIXED: Text wrapping logic
-                const text = node.append("text")
-                    .attr("class", d => d.group === "root" ? "skill-label root-label" : (d.group.startsWith("group-") ? "skill-label group-label" : "skill-label"))
-                    .style("fill", d => {
-                        if (d.group === 'root') return 'var(--color-text-primary)'; 
-                        if (d.group.startsWith('group-')) return '#F9FAFB'; 
-                        return 'var(--color-text-primary)'; 
+                        lines.forEach((line, i) => {
+                            node.append("tspan")
+                                .text(line)
+                                .attr("x", 0)
+                                .attr("dy", (i === 0 ? startY : lineHeight) + "em");
+                        });
                     });
-                
-                text.each(function(d) {
-                    const node = d3.select(this);
-                    node.text(null); // Clear
-                    
-                    let lines = [];
-                    const words = d.id.split(' ');
-                    
-                    // FIXED: Manual line breaks for ALL multi-word skills
-                    if (d.id === "Sigit Adi") lines = ["Sigit", "Adi"];
-                    else if (d.id === "AI Specialist") lines = ["AI", "Specialist"];
-                    else if (d.id === "Security Specialist") lines = ["Security", "Specialist"];
-                    else if (d.id === "Prompt Engineering") lines = ["Prompt", "Engineering"];
-                    else if (d.id === "Data Annotation") lines = ["Data", "Annotation"];
-                    else if (d.id === "LLM Evaluation") lines = ["LLM", "Evaluation"];
-                    else if (d.id === "Python (AI/ML)") lines = ["Python", "(AI/ML)"];
-                    else if (d.id === "Generative AI") lines = ["Generative", "AI"];
-                    else if (d.id === "Incident Handling") lines = ["Incident", "Handling"];
-                    else if (d.id === "Threat Intelligence") lines = ["Threat", "Intel"];
-                    else if (d.id === "Penetration Testing") lines = ["Pen", "Testing"];
-                    else if (d.id === "ISO 27001 & NIST") lines = ["ISO 27001", "& NIST"];
-                    else if (d.id === "Log Analysis") lines = ["Log", "Analysis"];
-                    else lines = [d.id]; // Single word
+                        
+                    // PERBAIKAN: Fungsi tick diubah untuk menambahkan batasan kotak (with Error Handling)
+                    simulation.on("tick", () => {
+                        try {
+                            link
+                                .attr("x1", d => d.source.x)
+                                .attr("y1", d => d.source.y)
+                                .attr("x2", d => d.target.x)
+                                .attr("y2", d => d.target.y);
 
-                    const lineHeight = 1.1; // ems
-                    const startY = lines.length > 1 ? -((lines.length - 1) * lineHeight) / 2 + 0.1 : 0.3; // Center vertically
-                    
-                    lines.forEach((line, i) => {
-                        node.append("tspan")
-                            .text(line)
-                            .attr("x", 0)
-                            .attr("dy", (i === 0 ? startY : lineHeight) + "em");
+                            // Menambahkan batasan kotak agar gelembung tetap di dalam
+                            node.attr("transform", d => {
+                                const r = d.r; // Mendapatkan radius gelembung
+                                // Membatasi posisi x
+                                d.x = Math.max(-width / 2 + r, Math.min(width / 2 - r, d.x));
+                                // Membatasi posisi y
+                                d.y = Math.max(-height / 2 + r, Math.min(height / 2 - r, d.y));
+                                return `translate(${d.x},${d.y})`;
+                            });
+                        } catch (e) {
+                            console.error('Error in D3 tick:', e);
+                            simulation.stop(); // Hentikan simulasi jika ada error
+                        }
                     });
-                });
+
+                    function dragstarted(event, d) {
+                        if (!event.active) simulation.alphaTarget(0.3).restart();
+                        d.fx = d.x;
+                        d.fy = d.y;
+                    }
+
+                    function dragged(event, d) {
+                        d.fx = event.x;
+                        d.fy = event.y;
+                    }
+
+                    function dragended(event, d) {
+                        if (!event.active) simulation.alphaTarget(0);
+                        d.fx = null;
+                        d.fy = null;
+                    }
                     
-                simulation.on("tick", () => {
-                    link
-                        .attr("x1", d => d.source.x)
-                        .attr("y1", d => d.source.y)
-                        .attr("x2", d => d.target.x)
-                        .attr("y2", d => d.target.y);
+                    simulation.alpha(0.3).restart();
 
-                    node
-                        .attr("transform", d => `translate(${d.x},${d.y})`);
-                });
-
-                function dragstarted(event, d) {
-                    if (!event.active) simulation.alphaTarget(0.3).restart();
-                    d.fx = d.x;
-                    d.fy = d.y;
+                } catch (e) {
+                    console.error("Failed to initialize D3 Skill Chart:", e);
                 }
-
-                function dragged(event, d) {
-                    d.fx = event.x;
-                    d.fy = event.y;
-                }
-
-                function dragended(event, d) {
-                    if (!event.active) simulation.alphaTarget(0);
-                    d.fx = null;
-                    d.fy = null;
-                }
-                
-                simulation.alpha(0.3).restart();
-            }
+            } // --- Akhir dari initSkillChart() ---
             
         });
     </script>
