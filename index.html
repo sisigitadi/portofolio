@@ -1,0 +1,1724 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- NEW: Updated Title -->
+    <title>Sigit Adi Irianto - Artificial Intelligence & Cyber Security Specialist</title>
+    
+    <link rel="icon" href="data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M41.666 87.5C33.842 87.5 27.5 81.158 27.5 73.333V50C27.5 42.175 33.842 35.833 41.666 35.833H72.5' stroke='%232563EB' stroke-width='12' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M58.334 12.5C66.158 12.5 72.5 18.842 72.5 26.667V50C72.5 57.825 66.158 64.167 58.334 64.167H27.5' stroke='%232563EB' stroke-width='12' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+        
+        /* NEW: Dark mode is default, Light theme REMOVED */
+        :root {
+            --font-sans: 'Inter', sans-serif;
+            --font-mono: 'Space Mono', monospace;
+            
+            /* NEW: Brighter Dark Mode Palette (Tonal) */
+            --color-bg: #111827; /* Gray-900 */
+            --color-surface: #1F2937; /* Gray-800 */
+            --color-primary: #3B82F6; /* Brighter Blue-500 */
+            --color-accent1: #10B981; /* Emerald-500 */
+            --color-accent2: #8B5CF6; /* Violet-500 */
+            --color-text-primary: #F9FAFB; /* Gray-50 */
+            --color-text-secondary: #9CA3AF; /* Gray-400 */
+            --color-border: #374151; /* Gray-700 */
+        }
+
+        /* REMOVED: Light theme variables */
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--color-bg);
+            color: var(--color-text-primary);
+            transition: background-color 0.3s ease, color 0.3s ease;
+            line-height: 1.7;
+        }
+        
+        /* Scanline effect */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1000;
+            background: linear-gradient(rgba(18, 18, 18, 0) 50%, rgba(0, 0, 0, 0.03) 50%);
+            background-size: 100% 4px;
+            animation: scanline 10s linear infinite;
+            opacity: 0.3;
+        }
+        
+        @keyframes scanline {
+            from { background-position: 0 0; }
+            to { background-position: 0 100px; }
+        }
+
+        #mesh-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 1; /* Always on */
+            transition: opacity 1s ease;
+            background-color: var(--color-bg);
+        }
+
+        @keyframes move-gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .calm-gradient-bg {
+            background: linear-gradient(-45deg, var(--color-primary), var(--color-accent1), var(--color-accent2), var(--color-bg));
+            background-size: 400% 400%;
+            animation: move-gradient 30s ease infinite;
+            filter: blur(150px);
+            opacity: 0.15;
+        }
+
+        /* Section Heading Font & Ornament */
+        .section-heading {
+            font-family: var(--font-mono);
+            font-weight: 700;
+            position: relative;
+            display: inline-block;
+        }
+        .section-heading::before {
+            content: '//';
+            color: var(--color-primary);
+            margin-right: 0.5rem;
+            opacity: 0.7;
+            transition: all 0.3s ease;
+        }
+        .section-heading:hover::before {
+            opacity: 1;
+            text-shadow: 0 0 5px var(--color-primary);
+        }
+
+        /* Stat Card */
+        .stat-card {
+            background-color: var(--color-surface);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid var(--color-border);
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px -5px rgba(0,0,0,0.1);
+        }
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--color-primary);
+            box-shadow: 0 10px 20px -5px rgba(37, 99, 235, 0.15);
+        }
+        .stat-card .value {
+            font-family: var(--font-mono);
+            font-size: 2.25rem;
+            line-height: 2.5rem;
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-bottom: 0.5rem;
+        }
+        /* NEW: Responsive font size for long stat text */
+        .stat-card .value-long {
+            font-size: 1.25rem; /* 20px */
+            line-height: 1.75rem;
+            min-height: 3.5rem; /* Match height of other stat values */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column; /* Allow stacking */
+        }
+        .stat-card .label {
+            font-size: 0.875rem;
+            line-height: 1.25rem;
+            color: var(--color-text-secondary);
+        }
+
+        /* Interactive Particle Background */
+        .particle-bg {
+            position: relative;
+            overflow: hidden;
+        }
+        #particle-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+        
+        /* --- 3D Card Flip --- */
+        .project-card {
+            perspective: 1000px;
+            z-index: 10;
+        }
+        .project-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            min-height: 380px; 
+        }
+        .project-card:hover .project-card-inner {
+            transform: rotateY(180deg);
+        }
+        .project-card-front,
+        .project-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            
+            background-color: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 16px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .project-card-front {
+            z-index: 2;
+        }
+        .project-card-back {
+            transform: rotateY(180deg);
+            padding: 1.5rem;
+            justify-content: center;
+            z-index: 1;
+        }
+        .card-image {
+            aspect-ratio: 16 / 9;
+            background-color: var(--color-bg);
+            border-bottom: 1px solid var(--color-border);
+        }
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Skill Bubble Chart */
+        #skill-chart-container {
+            width: 100%;
+            height: 600px; 
+            position: relative;
+            background-color: var(--color-bg); 
+            border: 1px solid var(--color-border);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+        #skill-chart {
+            width: 100%;
+            height: 100%;
+        }
+        .skill-bubble {
+            cursor: grab;
+            transition: filter 0.2s ease;
+        }
+        .skill-bubble:hover {
+            filter: brightness(1.2);
+        }
+        .skill-bubble:active {
+            cursor: grabbing;
+        }
+        /* FIXED: Text wrapping logic is now in JS (tspan) */
+        .skill-label {
+            font-family: var(--font-mono);
+            font-size: 11px; 
+            fill: var(--color-text-primary);
+            text-anchor: middle;
+            pointer-events: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            line-height: 1; 
+        }
+        .skill-label.group-label {
+            font-size: 14px; 
+            font-weight: 700;
+            fill: #F9FAFB; /* Group labels always white for contrast */
+        }
+         .skill-label.root-label {
+            font-size: 16px; 
+            font-weight: 700;
+            fill: var(--color-text-primary); 
+        }
+        .skill-link {
+            stroke: var(--color-border);
+            stroke-opacity: 0.4;
+        }
+
+        /* Buttons */
+        .btn-primary {
+            font-family: var(--font-mono);
+            background-color: var(--color-primary);
+            color: white;
+            font-weight: 700;
+            border-radius: 8px;
+            padding: 0.75rem 1.5rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px 0 rgba(37, 99, 235, 0.2);
+        }
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            background-color: #1D4ED8;
+            box-shadow: 0 6px 20px 0 rgba(37, 99, 235, 0.3);
+        }
+        .btn-secondary {
+            font-family: var(--font-mono);
+            background-color: var(--color-surface);
+            color: var(--color-text-primary);
+            font-weight: 700;
+            border-radius: 8px;
+            padding: 0.75rem 1.5rem;
+            border: 1px solid var(--color-border);
+            transition: all 0.3s ease;
+        }
+        .btn-secondary:hover {
+            background-color: var(--color-border);
+            border-color: var(--color-text-secondary);
+        }
+        .btn-filter {
+            font-family: var(--font-mono);
+            background-color: var(--color-surface);
+            color: var(--color-text-secondary);
+            font-weight: 700;
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--color-border);
+            transition: all 0.2s ease;
+        }
+        .btn-filter:hover, .btn-filter.active {
+            background-color: var(--color-primary);
+            color: white;
+            border-color: var(--color-primary);
+        }
+
+        /* Timeline */
+        .timeline-item {
+            position: relative;
+            padding-bottom: 2rem;
+            padding-left: 2rem;
+        }
+        .timeline-item:before {
+            content: '';
+            position: absolute;
+            left: 0.5rem;
+            top: 0.25rem;
+            width: 2px;
+            height: 100%;
+            background-color: var(--color-border);
+            opacity: 0.5;
+        }
+        .timeline-item:after {
+            content: '';
+            position: absolute;
+            left: 0.125rem;
+            top: 0.25rem;
+            width: 0.75rem;
+            height: 0.75rem;
+            border-radius: 9999px;
+            background-color: var(--color-primary);
+            border: 2px solid var(--color-bg);
+            z-index: 10;
+        }
+        .timeline-item:last-child:before {
+            height: calc(100% - 1rem);
+        }
+
+        /* Modal */
+        #modal-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            z-index: 100;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+        #modal-backdrop.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        #modal-box {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.95);
+            z-index: 101;
+            opacity: 0;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            pointer-events: none;
+        }
+        #modal-backdrop.visible #modal-box {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+            pointer-events: auto;
+        }
+        .modal-tech-pill {
+            display: inline-block;
+            font-family: var(--font-mono);
+            background-color: var(--color-bg);
+            border: 1px solid var(--color-border);
+            color: var(--color-text-secondary);
+            padding: 0.25rem 0.75rem;
+            border-radius: 8px;
+            font-size: 0.875rem;
+        }
+        
+        /* Project Grid */
+        .project-card.hidden {
+            display: none;
+        }
+        
+        /* Animation */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Form */
+        .glowing-border {
+            border: 1px solid var(--color-border);
+            background-color: var(--color-surface);
+            transition: all 0.3s ease;
+        }
+        .glowing-border:focus, .glowing-border:focus-within {
+            border-color: var(--color-primary);
+            background-color: var(--color-bg);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.3);
+            outline: none;
+        }
+        
+        /* Typing Effect Container */
+        .typing-container {
+            position: relative;
+            height: 3.5rem; 
+        }
+        @media (min-width: 768px) {
+            .typing-container {
+                height: 2.5rem;
+            }
+        }
+        
+        .typing-cursor {
+            display: inline-block;
+            width: 3px;
+            height: 1.1em;
+            background-color: var(--color-primary);
+            animation: blink 0.7s infinite;
+            margin-left: 8px;
+            position: relative;
+            bottom: -5px;
+            transition: left 0.1s ease-out;
+        }
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        /* Floating Contact Button (FAB) */
+        #contact-widget {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            z-index: 50;
+        }
+        #contact-fab {
+            width: 4rem;
+            height: 4rem;
+            border-radius: 9999px;
+            background-color: var(--color-primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 25px -3px rgba(37, 99, 235, 0.4);
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+        }
+        #contact-fab:hover {
+            transform: scale(1.1) translateY(-5px);
+            background-color: #1D4ED8;
+            box-shadow: 0 15px 30px -5px rgba(37, 99, 235, 0.5);
+        }
+        #contact-fab svg {
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            position: absolute;
+        }
+        #fab-icon-close {
+            opacity: 0;
+            transform: rotate(-180deg) scale(0.5);
+        }
+        #contact-widget.open #fab-icon-open {
+            opacity: 0;
+            transform: rotate(180deg) scale(0.5);
+        }
+        #contact-widget.open #fab-icon-close {
+            opacity: 1;
+            transform: rotate(0deg) scale(1);
+        }
+        
+        #fab-text {
+            position: absolute;
+            bottom: 1.5rem; 
+            right: 5rem; 
+            background-color: var(--color-surface);
+            color: var(--color-text-primary);
+            font-size: 0.875rem;
+            font-family: var(--font-mono);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border: 1px solid var(--color-border);
+            transition: all 0.3s ease-out;
+            transform-origin: right center;
+            white-space: nowrap;
+        }
+        #contact-widget.open #fab-text {
+            opacity: 0;
+            transform: scale(0.8);
+            pointer-events: none;
+        }
+
+        #contact-form-container {
+            position: absolute;
+            bottom: 5.5rem; 
+            right: 0;
+            width: 24rem;
+            max-width: 90vw;
+            background-color: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 16px;
+            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.2);
+            z-index: 40;
+            transform-origin: bottom right;
+            transition: all 0.3s ease-out;
+            
+            opacity: 0;
+            transform: scale(0.9) translateY(20px);
+            pointer-events: none;
+        }
+        #contact-widget.open #contact-form-container {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+            pointer-events: auto;
+        }
+    </style>
+</head>
+<body class="dark"> <!-- NEW: Default is DARK -->
+    
+    <!-- Animated Background -->
+    <div id="mesh-background">
+        <div class="calm-gradient-bg absolute inset-0"></div>
+    </div>
+    
+    <!-- REMOVED: Light/Dark script from here -->
+
+    <header class="sticky top-0 z-50 w-full bg-[var(--color-bg)]/80 dark:bg-[var(--color-bg)]/80 backdrop-blur-sm border-b border-[var(--color-border)]">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex-shrink-0">
+                    <a href="#hero" class="text-2xl font-bold font-mono text-[var(--color-primary)]" aria-label="Homepage">
+                        <!-- SVG Logo -->
+                        <svg width="32" height="32" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" class="text-[var(--color-primary)] transition-transform duration-300 hover:scale-110">
+                          <path d="M41.666 87.5C33.842 87.5 27.5 81.158 27.5 73.333V50C27.5 42.175 33.842 35.833 41.666 35.833H72.5" stroke="currentColor" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+                          <path d="M58.334 12.5C66.158 12.5 72.5 18.842 72.5 26.667V50C72.5 57.825 66.158 64.167 58.334 64.167H27.5" stroke="currentColor" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4 font-mono text-sm">
+                        <a href="#about" class="nav-link px-3 py-2 rounded-md font-medium text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]">About</a>
+                        <a href="#projects" class="nav-link px-3 py-2 rounded-md font-medium text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]">Projects</a>
+                        <a href="#skills" class="nav-link px-3 py-2 rounded-md font-medium text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]">Skills</a>
+                        <a href="#experience" class="nav-link px-3 py-2 rounded-md font-medium text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]">Journey</a>
+                    </div>
+                </div>
+                <div class="flex items-center">
+                    <!-- REMOVED: Theme Toggle Button -->
+                    <div class="md:hidden ml-2">
+                        <button id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-[var(--color-text-secondary)] hover:bg-[var(--color-surface)]">
+                            <span class="sr-only">Open main menu</span>
+                            <span id="mobile-menu-open-icon" class="block h-6 w-6">
+                                <svg stroke="currentColor" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                            </span>
+                            <span id="mobile-menu-close-icon" class="hidden h-6 w-6">
+                                <svg stroke="currentColor" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <div id="mobile-menu" class="hidden md:hidden">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 font-mono">
+                <a href="#about" class="nav-link block px-3 py-2 rounded-md text-base font-medium text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]">About</a>
+                <a href="#projects" class="nav-link block px-3 py-2 rounded-md text-base font-medium text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]">Projects</a>
+                <a href="#skills" class="nav-link block px-3 py-2 rounded-md text-base font-medium text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]">Skills</a>
+                <a href="#experience" class="nav-link block px-3 py-2 rounded-md text-base font-medium text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]">Journey</a>
+                <a href="#contact-widget" class="nav-link block px-3 py-2 rounded-md text-base font-medium text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]">Contact</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="hero" class="min-h-screen flex items-center particle-bg">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+                <h1 class="text-4xl md:text-6xl font-extrabold text-[var(--color-text-primary)] mb-6">
+                    Hi, I'm Sigit Adi Irianto
+                </h1>
+                
+                <h2 class="typing-container text-xl md:text-3xl font-semibold text-[var(--color-text-primary)] mb-8">
+                    <span id="typing-dynamic" class="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-accent1)]"></span><span id="typing-static"></span><span id="typing-cursor" class="typing-cursor"></span>
+                </h2>
+
+                <p class="text-lg md:text-xl text-[var(--color-text-secondary)] mb-10 max-w-3xl mx-auto">
+                    A Cybersecurity & AI Specialist with 10+ years of experience, passionate about building secure, intelligent systems and collaborating with great teams.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6">
+                    <a href="#projects" class="btn-primary">
+                        View My Work
+                    </a>
+                    <div class="flex items-center text-sm text-[var(--color-accent1)] font-mono">
+                        <span class="relative flex h-3 w-3 mr-2">
+                          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--color-accent1)] opacity-75"></span>
+                          <span class="relative inline-flex rounded-full h-3 w-3 bg-[var(--color-accent1)]"></span>
+                        </span>
+                        Available for Freelance & Remote Work (Global)
+                    </div>
+                </div>
+            </div>
+            
+            <canvas id="particle-canvas"></canvas>
+        </section>
+
+        <!-- NEW: Alternating section color (Surface) -->
+        <section id="about" class="py-20 sm:py-28 bg-[var(--color-surface)] relative z-10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="grid grid-cols-1 lg:grid-cols-5 gap-12 items-start">
+                    
+                    <div class="lg:col-span-2 flex justify-center lg:justify-start">
+                        <div class="w-64 h-64 lg:w-full lg:max-w-sm lg:h-auto lg:aspect-square rounded-2xl overflow-hidden border-4 border-[var(--color-border)] shadow-lg relative">
+                            <img src="https://lh3.googleusercontent.com/d/1GbWdDMjtteRT2pVyRSPfWKI0WkcNKwY1" 
+                                 alt="A professional headshot of Sigit Adi Irianto" 
+                                 class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-gradient-to-t from-[var(--color-primary)]/20 to-transparent"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="lg:col-span-3">
+                        <h2 class="text-3xl sm:text-4xl font-bold text-[var(--color-text-primary)] mb-6 section-heading animate-heading">
+                            About Me
+                        </h2>
+                        
+                        <!-- NEW: 2 Stat Cards -->
+                        <div id="stat-cards-container" class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+                            <div class="stat-card">
+                                <div id="stat-value-10" class="value">0+</div>
+                                <div class="label">Years Experience</div>
+                            </div>
+                            <div class="stat-card">
+                                <!-- NEW: Updated Text -->
+                                <div class="value value-long">Artificial Intelligence + Cyber Security</div>
+                                <div class="label">Dual Expertise</div>
+                            </div>
+                        </div>
+
+                        <div class="text-lg text-[var(--color-text-secondary)] space-y-5 leading-relaxed">
+                            <p>
+                                I'm a results-driven IT & Cybersecurity Professional with a 10+ year track record. My expertise is a unique blend: I've led ISO 27001/NIST compliance and mitigated security incidents, and I've also fully transitioned into the world of AI as a Remote Trainer and Data Contributor.
+                            </p>
+                            <p>
+                                This dual background allows me to not only build and train intelligent systems but to do so with a deep, foundational understanding of security, risk, and robust operations.
+                            </p>
+                        </div>
+                        
+                        <div class="mt-10 bg-[var(--color-bg)] p-6 rounded-2xl border border-[var(--color-border)]">
+                            <h4 class="text-xl font-semibold text-[var(--color-text-primary)] mb-4 font-mono">My Remote Work Philosophy</h4>
+                            <ul class="space-y-4">
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle w-5 h-5 mr-3 text-[var(--color-accent1)] mt-1"></i>
+                                    <span class="text-[var(--color-text-secondary)]"><strong>Proactive Ownership:</strong> I anticipate needs and communicate potential issues before they become problems.</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle w-5 h-5 mr-3 text-[var(--color-accent1)] mt-1"></i>
+                                    <span class="text-[var(--color-text-secondary)]"><strong>Asynchronous First:</strong> I master asynchronous tools and documentation, respecting timezones and deep work.</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle w-5 h-5 mr-3 text-[var(--color-accent1)] mt-1"></i>
+                                    <span class="text-[var(--color-text-secondary)]"><strong>Clarity is Kindness:</strong> My background in security SOPs and AI prompting is built on clear, precise communication.</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- NEW: Alternating section color (back to default bg) -->
+        <section id="projects" class="py-20 sm:py-28 bg-[var(--color-bg)] relative z-10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16 fade-in-up">
+                    <h2 class="text-3xl sm:text-4xl font-bold text-[var(--color-text-primary)] mb-4 section-heading animate-heading">
+                        Projects & Articles
+                    </h2>
+                    <!-- NEW: 2-line break -->
+                    <p class="text-lg text-[var(--color-text-secondary)] max-w-3xl mx-auto">
+                        Evidence of work, from concept to implementation and insight.
+                        <br class="hidden md:block">
+                        Hover over a card to see details.
+                    </p>
+                </div>
+
+                <div id="filter-buttons" class="flex flex-wrap justify-center gap-3 mb-10 fade-in-up">
+                    <button class="btn-filter active" data-filter="all">All</button>
+                    <button class="btn-filter" data-filter="ai">AI & Data</button>
+                    <button class="btn-filter" data-filter="cybersecurity">Cybersecurity</button>
+                    <button class="btn-filter" data-filter="web">Web Apps</button>
+                </div>
+
+                <!-- 3D FLIP CARD GRID -->
+                <div id="project-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    
+                    <div class="project-card fade-in-up" data-category="ai web" data-delay="100">
+                        <div class="project-card-inner">
+                            <div class="project-card-front">
+                                <div class="card-image">
+                                    <img src="https://placehold.co/600x400/1F2937/E5E7EB?text=PromptMatrix+v2" alt="PromptMatrix v2 App Placeholder">
+                                </div>
+                                <div class="p-6">
+                                    <span class="inline-block bg-[var(--color-primary)]/10 text-[var(--color-primary)] text-xs font-medium px-2.5 py-0.5 rounded-full mb-3 font-mono"><i class="fas fa-robot mr-1"></i>AI Tool / Advanced UI</span>
+                                    <h3 class="text-xl font-semibold text-[var(--color-text-primary)]">PromptMatrix App (v2)</h3>
+                                </div>
+                            </div>
+                            <div class="project-card-back">
+                                <p class="text-[var(--color-text-secondary)] mb-6 text-sm">An advanced UI for complex prompt engineering, enabling efficient matrix generation and optimization workflows.</p>
+                                <button data-modal-target="modal-promptmatrix2" class="font-medium text-[var(--color-primary)] hover:underline flex items-center font-mono text-sm"><i class="fas fa-book-open mr-2"></i>View Case Study &rarr;</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="project-card fade-in-up" data-category="ai web" data-delay="200">
+                        <div class="project-card-inner">
+                            <div class="project-card-front">
+                                <div class="card-image">
+                                    <img src="https://placehold.co/600x400/1F2937/E5E7EB?text=Prompt+Gen+v1" alt="Prompt Generator v1 App Placeholder">
+                                </div>
+                                <div class="p-6">
+                                    <span class="inline-block bg-[var(--color-primary)]/10 text-[var(--color-primary)] text-xs font-medium px-2.5 py-0.5 rounded-full mb-3 font-mono"><i class="fas fa-robot mr-1"></i>AI Tool / Foundational</span>
+                                    <h3 class="text-xl font-semibold text-[var(--color-text-primary)]">Prompt Matrix Generator (v1)</h3>
+                                </div>
+                            </div>
+                            <div class="project-card-back">
+                                <p class="text-[var(--color-text-secondary)] mb-6 text-sm">A foundational web tool to systematically generate prompt variations (Persona, Task, Tone) for AI model testing.</p>
+                                <button data-modal-target="modal-promptmatrix1" class="font-medium text-[var(--color-primary)] hover:underline flex items-center font-mono text-sm"><i class="fas fa-book-open mr-2"></i>View Case Study &rarr;</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="project-card fade-in-up" data-category="web" data-delay="300">
+                         <div class="project-card-inner">
+                            <div class="project-card-front">
+                                <div class="card-image">
+                                    <img src="https://placehold.co/600x400/1F2937/E5E7EB?text=Finance+App" alt="Financial App Placeholder">
+                                </div>
+                                <div class="p-6">
+                                    <span class="inline-block bg-[var(--color-accent1)]/10 text-[var(--color-accent1)] text-xs font-medium px-2.5 py-0.5 rounded-full mb-3 font-mono"><i class="fas fa-wallet mr-1"></i>Web App / Automation</span>
+                                    <h3 class="text-xl font-semibold text-[var(--color-text-primary)]">Financial App</h3>
+                                </div>
+                            </div>
+                            <div class="project-card-back">
+                                <p class="text-[var(--color-text-secondary)] mb-6 text-sm">An application for financial management with comprehensive transaction tracking and reporting, built on Google Apps Script.</p>
+                                <button data-modal-target="modal-financial" class="font-medium text-[var(--color-primary)] hover:underline flex items-center font-mono text-sm"><i class="fas fa-book-open mr-2"></i>View Case Study &rarr;</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="project-card fade-in-up" data-category="cybersecurity" data-delay="100">
+                         <div class="project-card-inner">
+                            <div class="project-card-front">
+                                <div class="card-image">
+                                    <img src="https://placehold.co/600x400/1F2937/E5E7EB?text=SOC+Playbook" alt="SOC Analyst Playbook Placeholder">
+                                </div>
+                                <div class="p-6">
+                                    <span class="inline-block bg-[var(--color-accent2)]/10 text-[var(--color-accent2)] text-xs font-medium px-2.5 py-0.5 rounded-full mb-3 font-mono"><i class="fas fa-shield-alt mr-1"></i>Cybersecurity / Docs</span>
+                                    <h3 class="text-xl font-semibold text-[var(--color-text-primary)]">SOC Analyst Playbook</h3>
+                                </div>
+                            </div>
+                            <div class="project-card-back">
+                                <p class="text-[var(--color-text-secondary)] mb-6 text-sm">A comprehensive guide and SOP for incident response, threat hunting, and security monitoring protocols.</p>
+                                <button data-modal-target="modal-soc" class="font-medium text-[var(--color-primary)] hover:underline flex items-center font-mono text-sm"><i class="fas fa-book-open mr-2"></i>View Case Study &rarr;</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="project-card fade-in-up" data-category="ai" data-delay="200">
+                         <div class="project-card-inner">
+                            <div class="project-card-front">
+                                <div class="card-image">
+                                    <!-- FIXED: Typo in placeholder URL -->
+                                    <img src="https://placehold.co/600x400/1F2937/E5E7EB?text=AI+Consulting" alt="AI Workshop & Consultation Placeholder">
+                                </div>
+                                <div class="p-6">
+                                    <span class="inline-block bg-[var(--color-primary)]/10 text-[var(--color-primary)] text-xs font-medium px-2.5 py-0.5 rounded-full mb-3 font-mono"><i class="fas fa-users mr-1"></i>AI Service / Business</span>
+                                    <h3 class="text-xl font-semibold text-[var(--color-text-primary)]">AI Workshop & Consultation</h3>
+                                </div>
+                            </div>
+                            <div class="project-card-back">
+                                <p class="text-[var(--color-text-secondary)] mb-6 text-sm">A professional intake form for AI consultation and training services, automating client registration via Google Forms.</p>
+                                <button data-modal-target="modal-workshop" class="font-medium text-[var(--color-primary)] hover:underline flex items-center font-mono text-sm"><i class="fas fa-book-open mr-2"></i>View Case Study &rarr;</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="project-card fade-in-up" data-category="ai cybersecurity" data-delay="300">
+                         <div class="project-card-inner">
+                            <div class="project-card-front">
+                                <div class="card-image">
+                                     <img src="https://placehold.co/600x400/1F2937/E5E7EB?text=Medium+Feed" alt="Medium Articles Placeholder">
+                                </div>
+                                <div class="p-6">
+                                    <span class="inline-block bg-green-500/10 text-green-400 text-xs font-medium px-2.5 py-0.5 rounded-full mb-3 font-mono"><i class="fas fa-rss mr-1"></i>Live Feed</span>
+                                    <h3 class="text-xl font-semibold text-[var(--color-text-primary)]">Latest Medium Articles</h3>
+                                </div>
+                            </div>
+                            <div class="project-card-back">
+                                <div id="medium-feed-content" class="space-y-3 mb-6">
+                                    <!-- Loading state -->
+                                    <div class="animate-pulse flex space-x-4">
+                                        <div class="flex-1 space-y-2 py-1">
+                                            <div class="h-4 bg-[var(--color-border)] rounded w-3/4"></div>
+                                            <div class="h-4 bg-[var(--color-border)] rounded w-1/2"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a href="https://medium.com/@si.sigitadi" target="_blank" rel="noopener noreferrer" class="font-medium text-[var(--color-primary)] hover:underline flex items-center font-mono text-sm"><i class="fas fa-external-link-alt mr-2"></i>View All Articles &rarr;</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- NEW: Alternating section color -->
+        <section id="skills" class="py-20 sm:py-28 bg-[var(--color-surface)] relative z-10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16 fade-in-up">
+                    <h2 class="text-3xl sm:text-4xl font-bold text-[var(--color-text-primary)] mb-4 section-heading animate-heading">
+                        Interactive Skill Map
+                    </h2>
+                    <p class="text-lg text-[var(--color-text-secondary)] max-w-3xl mx-auto">
+                        My expertise is a blend of two domains. Click and drag the bubbles to explore.
+                    </p>
+                </div>
+                
+                <div id="skill-chart-container" class="fade-in-up">
+                    <svg id="skill-chart"></svg>
+                </div>
+            </div>
+        </section>
+
+        <!-- NEW: Alternating section color -->
+        <section id="experience" class="py-20 sm:py-28 bg-[var(--color-bg)] relative z-10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16 fade-in-up">
+                    <h2 class="text-3xl sm:text-4xl font-bold text-[var(--color-text-primary)] mb-4 section-heading animate-heading">
+                        Career Journey
+                    </h2>
+                    <p class="text-lg text-[var(--color-text-secondary)] max-w-3xl mx-auto">
+                        From securing critical infrastructure to training next-generation AI models.
+                    </p>
+                </div>
+                
+                <div class="max-w-3xl mx-auto fade-in-up">
+                    <div class="timeline-item">
+                        <h3 class="text-xl font-semibold text-[var(--color-text-primary)]">Remote AI Trainer Specialist</h3>
+                        <p class="text-sm font-medium text-[var(--color-primary)] font-mono">SoftAge Info. Tech. & Postwork (Sep 2025 - Present)</p>
+                        <p class="mt-2 text-[var(--color-text-secondary)]">Provide precise feedback and corrections on AI-generated content to improve coherence and alignment with guidelines.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h3 class="text-xl font-semibold text-[var(--color-text-primary)]">Remote AI Data Contributor</h3>
+                        <p class="text-sm font-medium text-[var(--color-primary)] font-mono">Freelance (Apr 2025 - Present)</p>
+                        <p class="mt-2 text-[var(--color-text-secondary)]">Contributed to AI/NLP projects by annotating data, transcribing, and evaluating large language model prompts.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h3 class="text-xl font-semibold text-[var(--color-text-primary)]">SOC Analyst</h3>
+                        <p class="text-sm font-medium text-[var(--color-primary)] font-mono">PT. Prospera Consulting Engineers (Jan 2025 - May 2025)</p>
+                        <p class="mt-2 text-[var(--color-text-secondary)]">Finalized SOPs and the final project report for the "Establishment of a Cyber Incident Handling Center at the Ministry of Home Affairs".</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h3 class="text-xl font-semibold text-[var(--color-text-primary)]">Incident Handling Operational Coordinator</h3>
+                        <p class="text-sm font-medium text-[var(--color-primary)] font-mono">Indonesian Ministry of Home Affairs (Oct 2024 - Dec 2024)</p>
+                        <p class="mt-2 text-[var(--color-text-secondary)]">Supervised 24/7 incident response operations, reducing attack exposure by 50% using Wazuh and Fortiweb.</p>
+                    </div>
+                    <div class="timeline-item" style="padding-bottom: 0;">
+                        <h3 class="text-xl font-semibold text-[var(--color-text-primary)]">IT Manager & Office Manager</h3>
+                        <p class="text-sm font-medium text-[var(--color-primary)] font-mono">Various Companies (Jun 2014 - Aug 2024)</p>
+                        <p class="mt-2 text-[var(--color-text-secondary)]">Managed IT infrastructure, cybersecurity, and operations, enhancing operational efficiency by 30%.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- NEW: Certificates Section -->
+        <section id="certificates" class="py-20 sm:py-28 bg-[var(--color-surface)] relative z-10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16 fade-in-up">
+                    <h2 class="text-3xl sm:text-4xl font-bold text-[var(--color-text-primary)] mb-4 section-heading animate-heading">
+                        Certificates & Bootcamps
+                    </h2>
+                    <p class="text-lg text-[var(--color-text-secondary)] max-w-3xl mx-auto">
+                        A commitment to continuous learning in both AI and Cybersecurity.
+                    </p>
+                </div>
+                
+                <div class="max-w-5xl mx-auto p-8 md:p-12 bg-[var(--color-bg)] rounded-2xl border border-[var(--color-border)] fade-in-up">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6">
+                        <div>
+                            <h3 class="text-xl font-semibold text-[var(--color-primary)] mb-4 font-mono">AI & Data</h3>
+                            <ul class="space-y-3 list-disc list-inside text-[var(--color-text-secondary)]">
+                                <li>Microsoft: Azure AI Fundamentals (AI-900)</li>
+                                <li>Hacktiv8: LLM-Based Tools & Gemini API</li>
+                                <li>Hacktiv8: AI Productivity & API Integration</li>
+                                <li>AI Ignition Training - Kumpul X AVPN</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold text-[var(--color-accent1)] mb-4 font-mono">Cybersecurity & SOC</h3>
+                            <ul class="space-y-3 list-disc list-inside text-[var(--color-text-secondary)]">
+                                <li>Linkedin: Certified Ethical Hacker (CEH)</li>
+                                <li>BSSN: Indonesia Cross-Sectoral Cyber Exercise</li>
+                                <li>Digicode.id: Blue Team Cyber Security</li>
+                                <li>UHAMKA: Become SOC Analyst</li>
+                                <li>Cyber Academy: Security Operation Center (SOC) Analyst</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Floating Contact Widget -->
+    <div id="contact-widget">
+        <div id="fab-text">
+            Contact Me
+        </div>
+        <div id="contact-form-container">
+            <div class="p-6">
+                <h3 class="text-xl font-semibold text-[var(--color-text-primary)] mb-4 font-mono">Let's Talk</h3>
+                <p id="form-status" class="mb-4 text-sm text-[var(--color-text-secondary)]">Ready to collaborate? Send me a message.</p>
+                <form id="contact-form" action="https://formspree.io/f/mkgknrqk" method="POST" class="space-y-4">
+                    <div>
+                        <label for="name-fab" class="hidden">Full Name</label>
+                        <input type="text" name="name" id="name-fab" required placeholder="Your Name" class="glowing-border block w-full px-4 py-3 border rounded-md shadow-sm focus:ring-0 focus:outline-none text-[var(--color-text-primary)] text-sm">
+                    </div>
+                    <div>
+                        <label for="email-fab" class="hidden">Email</label>
+                        <input type="email" name="email" id="email-fab" required placeholder="Your Email" class="glowing-border block w-full px-4 py-3 border rounded-md shadow-sm focus:ring-0 focus:outline-none text-[var(--color-text-primary)] text-sm">
+                    </div>
+                    <div>
+                        <label for="message-fab" class="hidden">Message</label>
+                        <textarea id="message-fab" name="message" rows="4" required placeholder="Your Message..." class="glowing-border block w-full px-4 py-3 border rounded-md shadow-sm focus:ring-0 focus:outline-none text-[var(--color-text-primary)] text-sm"></textarea>
+                    </div>
+                    <div>
+                        <button type="submit" class="w-full btn-primary" style="padding: 0.5rem 1rem; font-size: 0.875rem;">
+                            Send Message
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <button id="contact-fab" aria-label="Toggle contact form">
+            <svg id="fab-icon-open" class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+             <svg id="fab-icon-close" class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+        </button>
+    </div>
+
+    <!-- Modal Structure -->
+    <div id="modal-backdrop" class="fixed inset-0">
+        <div id="modal-box" class="bg-[var(--color-surface)] rounded-lg shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto relative border border-[var(--color-border)]">
+            
+            <button id="modal-close" class="absolute top-4 right-4 text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] text-2xl z-10">&times;</button>
+            
+            <div class="p-6 sm:p-8">
+                
+                <div id="modal-promptmatrix1" class="modal-content hidden">
+                    <h3 class="text-2xl font-bold text-[var(--color-text-primary)] mb-4 section-heading">Case Study: Prompt Matrix Generator (v1)</h3>
+                    <h4 class="text-lg font-semibold text-[var(--color-primary)] mt-4 mb-2 font-mono">The Challenge</h4>
+                    <p class="text-[var(--color-text-secondary)] mb-4">Testing AI prompts efficiently is difficult. Manually combining key variables (like Persona, Task, Tone, and Format) is slow, repetitive, and error-prone, making it hard to find the optimal prompt structure.</p>
+                    <h4 class="text-lg font-semibold text-[var(--color-primary)] mt-4 mb-2 font-mono">My Solution</h4>
+                    <p class="text-[var(--color-text-secondary)] mb-4">I built this foundational, lightweight, single-page web application to solve that exact problem. It provides simple input fields for each prompt variable. With one click, it generates a complete matrix (table) of all possible combinations, which can be easily copied for systematic testing.</p>
+                    <h4 class="text-lg font-semibold text-[var(--color-primary)] mt-4 mb-2 font-mono">Tech Stack</h4>
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <span class="modal-tech-pill">JavaScript (Vanilla)</span>
+                        <span class="modal-tech-pill">HTML5</span>
+                        <span class="modal-tech-pill">Bootstrap CSS</span>
+                        <span class="modal-tech-pill">UI/UX Design</span>
+                    </div>
+                    <a href="https://sisigitadi.github.io/promptmatrix/" target="_blank" rel="noopener noreferrer" class="btn-primary">
+                        View Live App &rarr;
+                    </a>
+                </div>
+
+                <div id="modal-promptmatrix2" class="modal-content hidden">
+                    <h3 class="text-2xl font-bold text-[var(--color-text-primary)] mb-4 section-heading">Case Study: PromptMatrix App (v2)</h3>
+                    <h4 class="text-lg font-semibold text-[var(--color-primary)] mt-4 mb-2 font-mono">The Challenge</h4>
+                    <p class="text-[var(--color-text-secondary)] mb-4">The foundational 'Generator' (v1) was great for simple combinations, but I needed a more robust and user-friendly UI for complex, multi-variable prompt engineering and team collaboration.</p>
+                    <h4 class="text-lg font-semibold text-[var(--color-primary)] mt-4 mb-2 font-mono">My Solution</h4>
+                    <p class="text-[var(--color-text-secondary)] mb-4">I developed the PromptMatrix App (v2), a more advanced tool with a modern UI. It allows for dynamic adding/removing of variables, provides a clean card-based layout for generated prompts, and includes features like 'copy to clipboard' and 'clear all' to streamline the AI training workflow.</p>
+                    <h4 class="text-lg font-semibold text-[var(--color-primary)] mt-4 mb-2 font-mono">Tech Stack</h4>
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <span class="modal-tech-pill">JavaScript (Vanilla)</span>
+                        <span class="modal-tech-pill">HTML5</span>
+                        <span class="modal-tech-pill">CSS3 (Custom)</span>
+                        <span class="modal-tech-pill">UI/UX Design</span>
+                    </div>
+                    <a href="https://sisigitadi.github.io/promptmatrix2/" target="_blank" rel="noopener noreferrer" class="btn-primary">
+                        View Live App &rarr;
+                    </a>
+                </div>
+
+                <div id="modal-financial" class="modal-content hidden">
+                    <h3 class="text-2xl font-bold text-[var(--color-text-primary)] mb-4 section-heading">Case Study: Financial App</h3>
+                    <h4 class="text-lg font-semibold text-[var(--color-primary)] mt-4 mb-2 font-mono">The Challenge</h4>
+                    <p class="text-[var(--color-text-secondary)] mb-4">Manual financial tracking in spreadsheets is tedious and prone to human error. I needed a simple, accessible, and automated way to log transactions and view reports without expensive software.</p>
+                    <h4 class="text-lg font-semibold text-[var(--color-primary)] mt-4 mb-2 font-mono">My Solution</h4>
+                    <p class="text-[var(--color-text-secondary)] mb-4">I built a web application using Google Apps Script as a backend. It features a clean HTML/CSS form that writes data directly to a Google Sheet. This provides a user-friendly interface for data entry while leveraging the power of Google Sheets for storage, calculation, and reporting.</p>
+                    <h4 class="text-lg font-semibold text-[var(--color-primary)] mt-4 mb-2 font-mono">Tech Stack</h4>
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <span class="modal-tech-pill">Google Apps Script</span>
+                        <span class="modal-tech-pill">Google Sheets API</span>
+                        <span class="modal-tech-pill">JavaScript</span>
+                        <span class="modal-tech-pill">HTML5 & CSS</span>
+                    </div>
+                    <a href="https://sisigitadi.github.io/keuangan_apii_jabo/" target="_blank" rel="noopener noreferrer" class="btn-primary">
+                        View Live App &rarr;
+                    </a>
+                </div>
+
+                <div id="modal-soc" class="modal-content hidden">
+                    <h3 class="text-2xl font-bold text-[var(--color-text-primary)] mb-4 section-heading">Case Study: SOC Analyst Playbook</h3>
+                    <h4 class="text-lg font-semibold text-[var(--color-primary)] mt-4 mb-2 font-mono">The Challenge</h4>
+                    <p class="text-[var(--color-text-secondary)] mb-4">During high-pressure security incidents, response consistency is critical. Teams need clear, repeatable, and accessible Standard Operating Procedures (SOPs) to ensure no steps are missed, from detection to resolution and reporting.</p>
+                    <h4 class="text-lg font-semibold text-[var(--color-primary)] mt-4 mb-2 font-mono">My Solution</h4>
+                    <p class="text-[var(--color-text-secondary)] mb-4">As part of my role with the Ministry of Home Affairs, I was a key contributor to finalizing the official "Establishment of a Cyber Incident Handling Center" report. I developed and refined comprehensive SOPs and playbooks for incident handling, log analysis, and threat mitigation, aligning with best practices like the Cyber Kill Chain and NIST frameworks.</p>
+                    <h4 class="text-lg font-semibold text-[var(--color-primary)] mt-4 mb-2 font-mono">Frameworks & Tools</h4>
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <span class="modal-tech-pill">NIST Framework</span>
+                        <span class="modal-tech-pill">ISO 27001</span>
+                        <span class="modal-tech-pill">Cyber Kill Chain</span>
+                        <span class="modal-tech-pill">Incident Response (IR)</span>
+                        <span class="modal-tech-pill">Wazuh & Fortiweb</span>
+                    </div>
+                    <p class="text-[var(--color-text-secondary)] text-sm italic">This is an internal documentation project and does not have a public link.</p>
+                </div>
+                
+                <div id="modal-workshop" class="modal-content hidden">
+                    <h3 class="text-2xl font-bold text-[var(--color-text-primary)] mb-4 section-heading">Case Study: AI Workshop & Consultation Service</h3>
+                    <h4 class="text-lg font-semibold text-[var(--color-primary)] mt-4 mb-2 font-mono">The Challenge</h4>
+                    <p class="text-[var(--color-text-secondary)] mb-4">Many businesses and individuals want to leverage AI but lack the specific expertise. They need a clear, low-friction channel to request specialized services like workshops, prompt engineering, or strategic consulting.</p>
+                    <h4 class="text-lg font-semibold text-[var(--color-primary)] mt-4 mb-2 font-mono">My Solution</h4>
+                    <p class="text-[var(--color-text-secondary)] mb-4">I created a productized service offering. This Google Form acts as a smart, automated intake portal. It standardizes client requests, captures essential project details upfront (like 'Service Type' and 'Needs'), and qualifies leads, allowing me to focus on delivering value instead of back-and-forth emails.</p>
+                    <h4 class="text-lg font-semibold text-[var(--color-primary)] mt-4 mb-2 font-mono">Tech Stack</h4>
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <span class="modal-tech-pill">Google Forms</span>
+                        <span class="modal-tech-pill">Google Sheets (Backend)</span>
+                        <span class="modal-tech-pill">Business Process Automation</span>
+                        <span class="modal-tech-pill">Client Management</span>
+                    </div>
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSflo4hWdMH0BuxOKzopfANncpsfuAooSL_6b1jTeh4dBgh08w/viewform" target="_blank" rel="noopener noreferrer" class="btn-primary">
+                        View Registration Form &rarr;
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- End Modal -->
+
+    <!-- NEW: Transparent Footer -->
+    <footer class="relative z-10 py-12"> 
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col items-center space-y-4">
+                <!-- Socials -->
+                <div class="flex space-x-6">
+                    <a href="https://www.linkedin.com/in/sigitadi/" target="_blank" rel="noopener noreferrer" class="text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] transition-colors" aria-label="LinkedIn">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                           <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14zM8.06 18.25h2.41V11.2H8.06v7.05zM9.27 10.03a1.22 1.22 0 1 0 0-2.44 1.22 1.22 0 0 0 0 2.44zM18.25 18.25h-2.41v-3.8c0-.9-.02-2.07-1.26-2.07-1.26 0-1.46.99-1.46 2v3.87H10.7V11.2h2.3v1.06h.03c.32-.6 1.1-1.23 2.27-1.23 2.43 0 2.88 1.6 2.88 3.68v3.54z"/>
+                        </svg>
+                    </a>
+                    <a href="https://medium.com/@si.sigitadi" target="_blank" rel="noopener noreferrer" class="text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] transition-colors" aria-label="Medium">
+                         <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M7.05 17.1c.3.1.5.1.8.1.5 0 .9-.2 1.2-.5.3-.3.4-.7.4-1.1V6.3h2.3v9.2c0 .7-.2 1.4-.6 1.9-.4.6-1 .9-1.7.9-.5 0-1-.1-1.4-.4-.5-.3-.8-.7-1-1.2l-.1-1.8zM17.15 6.3h2.5v10.8h-2.5V6.3zM3.5 6.3h2.6v10.3c0 .5-.1.9-.2 1.1-.1.2-.4.4-.7.5-.3.1-.6.2-.9.2-.3 0-.6 0-.8-.1l-.1 1.8c.3.1.7.1 1.1.1.8 0 1.4-.2 1.9-.5.5-.3.9-.8 1.1-1.4.2-.6.3-1.4.3-2.3V6.3z"/>
+                        </svg>
+                    </a>
+                    <a href="mailto:si.sigitadi@gmail.com" class="text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] transition-colors" aria-label="Email">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6zm-2 0l-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"/>
+                        </svg>
+                    </a>
+                </div>
+                <!-- Copyright -->
+                <p class="text-sm font-mono text-[var(--color-text-secondary)]">
+                    &copy; 2025 Sigit Adi Irianto
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // --- REMOVED: Theme Toggle Logic ---
+
+            // --- Mobile Menu ---
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const openIcon = document.getElementById('mobile-menu-open-icon');
+            const closeIcon = document.getElementById('mobile-menu-close-icon');
+
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+                openIcon.classList.toggle('hidden');
+                closeIcon.classList.toggle('hidden');
+            });
+            
+            document.querySelectorAll('#mobile-menu a, .nav-link').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    if (link.closest('#mobile-menu')) {
+                         mobileMenu.classList.add('hidden');
+                         openIcon.classList.remove('hidden');
+                         closeIcon.classList.add('hidden');
+                    }
+                });
+            });
+
+            // --- NEW: Typing Effect v2 (Static + Dynamic) ---
+            const dynamicEl = document.getElementById('typing-dynamic');
+            const staticEl = document.getElementById('typing-static');
+            const cursorEl = document.getElementById('typing-cursor');
+            
+            // NEW: Updated text
+            const dynamicParts = ["Artificial Intelligence", "Cyber Security"];
+            const staticPart = " Specialist";
+            let partIndex = 0;
+            let charIndex = 0;
+            let isDeleting = false;
+            let staticDone = false;
+            let firstLoad = true;
+
+            function typeWriter() {
+                if (!dynamicEl || !staticEl || !cursorEl) return;
+                
+                if (!staticDone) {
+                    if (charIndex < staticPart.length) {
+                        staticEl.textContent += staticPart.charAt(charIndex);
+                        charIndex++;
+                        setTimeout(typeWriter, 120);
+                    } else {
+                        staticDone = true;
+                        charIndex = 0; 
+                        cursorEl.style.left = '0px'; 
+                        setTimeout(typeWriter, 500); 
+                    }
+                    return;
+                }
+            
+                const currentPart = dynamicParts[partIndex];
+                let speed = firstLoad ? 120 : 100; 
+            
+                if (isDeleting) {
+                    speed = 70;
+                    dynamicEl.textContent = currentPart.substring(0, charIndex - 1);
+                    charIndex--;
+                } else {
+                    dynamicEl.textContent = currentPart.substring(0, charIndex + 1);
+                    charIndex++;
+                }
+            
+                if (!isDeleting && charIndex === currentPart.length) {
+                    isDeleting = true;
+                    speed = 2000; 
+                    firstLoad = false;
+                } else if (isDeleting && charIndex === 0) {
+                    isDeleting = false;
+                    partIndex = (partIndex + 1) % dynamicParts.length;
+                    speed = 500; 
+                }
+            
+                setTimeout(typeWriter, speed);
+            }
+            
+            typeWriter(); 
+
+            // --- Scroll Animations ---
+            const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
+            let statObserver;
+
+            const observerCallback = (entries, observer) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        
+                        if (entry.target.id === 'stat-value-10') {
+                            animateCountUp(entry.target, 10, 1500);
+                            statObserver.unobserve(entry.target); 
+                        } else if (entry.target.classList.contains('animate-heading')) {
+                             scrambleText(entry.target);
+                             observer.unobserve(entry.target);
+                        } else {
+                            observer.unobserve(entry.target);
+                        }
+                    }
+                });
+            };
+            const scrollObserver = new IntersectionObserver(observerCallback, observerOptions);
+            
+            document.querySelectorAll('.fade-in-up').forEach(el => {
+                scrollObserver.observe(el);
+            });
+            
+            document.querySelectorAll('.animate-heading').forEach(el => {
+                scrollObserver.observe(el);
+            });
+            
+            const stat10 = document.getElementById('stat-value-10');
+            if(stat10) {
+                 statObserver = new IntersectionObserver(observerCallback, { threshold: 0.8 });
+                 statObserver.observe(stat10);
+            }
+
+            // --- Stat Counter Animation Function ---
+            function animateCountUp(el, target, duration) {
+                let start = 0;
+                let end = target;
+                let startTime = null;
+
+                function animation(currentTime) {
+                    if (startTime === null) startTime = currentTime;
+                    let timeElapsed = currentTime - startTime;
+                    let progress = Math.min(timeElapsed / duration, 1);
+                    progress = 1 - Math.pow(1 - progress, 3); 
+                    
+                    let current = Math.floor(progress * (end - start) + start);
+                    el.textContent = current + "+";
+                    if (timeElapsed < duration) {
+                        requestAnimationFrame(animation);
+                    } else {
+                        el.textContent = end + "+";
+                    }
+                }
+                requestAnimationFrame(animation);
+            }
+            
+            // --- NEW: Scramble Text Function (Slower) ---
+            const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890//<>*&%$#@!";
+            function scrambleText(element) {
+                const originalText = element.textContent;
+                let iterations = 0;
+                
+                const interval = setInterval(() => {
+                    element.textContent = originalText.split("")
+                        .map((letter, index) => {
+                            if (index < iterations) {
+                                return originalText[index];
+                            }
+                            if (letter === ' ') return ' ';
+                            return letters[Math.floor(Math.random() * letters.length)];
+                        })
+                        .join("");
+
+                    if (iterations >= originalText.length) {
+                        clearInterval(interval);
+                        element.textContent = originalText; 
+                    }
+                    
+                    iterations += originalText.length / 20; // Slower reveal
+                }, 50); // Slower interval
+            }
+
+            // --- Floating Contact Widget Logic ---
+            const contactWidget = document.getElementById('contact-widget');
+            const contactFab = document.getElementById('contact-fab');
+            const fabText = document.getElementById('fab-text');
+            const fabIconOpen = document.getElementById('fab-icon-open');
+            const fabIconClose = document.getElementById('fab-icon-close');
+            const contactForm = document.getElementById('contact-form');
+            const formStatus = document.getElementById('form-status');
+            
+            if (contactFab) {
+                contactFab.addEventListener('click', () => {
+                    contactWidget.classList.toggle('open');
+                });
+            }
+
+            // --- Formspree Contact Form (for FAB) ---
+            if (contactForm) {
+                contactForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const data = new FormData(e.target);
+                    try {
+                        const response = await fetch(e.target.action, {
+                            method: 'POST',
+                            body: data,
+                            headers: { 'Accept': 'application/json' }
+                        });
+                        if (response.ok) {
+                            formStatus.textContent = "Thanks! Your message has been sent.";
+                            formStatus.className = "mb-4 text-sm text-green-400";
+                            contactForm.reset();
+                            setTimeout(() => {
+                                contactWidget.classList.remove('open');
+                                formStatus.textContent = "Ready to collaborate? Send me a message.";
+                                formStatus.className = "mb-4 text-sm text-[var(--color-text-secondary)]";
+                            }, 3000);
+                        } else {
+                            const responseData = await response.json();
+                            formStatus.textContent = responseData.errors ? responseData.errors.map(err => err.message).join(', ') : "Oops! There was a problem.";
+                            formStatus.className = "mb-4 text-sm text-red-400";
+                        }
+                    } catch (error) {
+                        formStatus.textContent = "Oops! There was a network error.";
+                        formStatus.className = "mb-4 text-sm text-red-400";
+                    }
+                });
+            }
+
+            // --- Project Filtering ---
+            const filterButtons = document.querySelectorAll('#filter-buttons .btn-filter');
+            const projectCards = document.querySelectorAll('#project-grid .project-card');
+
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const filter = button.dataset.filter;
+                    
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+
+                    projectCards.forEach(card => {
+                        const categories = card.dataset.category.split(' ');
+                        if (filter === 'all' || categories.includes(filter)) {
+                            card.classList.remove('hidden');
+                        } else {
+                            card.classList.add('hidden');
+                        }
+                    });
+                });
+            });
+
+            // --- Modal Logic ---
+            const modalBackdrop = document.getElementById('modal-backdrop');
+            const modalBox = document.getElementById('modal-box');
+            const modalCloseBtn = document.getElementById('modal-close');
+            const openModalBtns = document.querySelectorAll('[data-modal-target]');
+            const allModalContents = document.querySelectorAll('.modal-content');
+
+            function openModal(modalId) {
+                allModalContents.forEach(content => content.classList.add('hidden'));
+                const targetModal = document.getElementById(modalId);
+                if (targetModal) {
+                    targetModal.classList.remove('hidden');
+                    modalBackdrop.classList.add('visible');
+                    modalBox.scrollTop = 0; 
+                    document.body.style.overflow = 'hidden'; 
+                }
+            }
+
+            function closeModal() {
+                modalBackdrop.classList.remove('visible');
+                document.body.style.overflow = 'auto'; 
+            }
+
+            openModalBtns.forEach(button => {
+                button.addEventListener('click', () => {
+                    openModal(button.dataset.modalTarget);
+                });
+            });
+
+            modalCloseBtn.addEventListener('click', closeModal);
+            modalBackdrop.addEventListener('click', (e) => {
+                if (e.target === modalBackdrop) {
+                    closeModal();
+                }
+            });
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && modalBackdrop.classList.contains('visible')) {
+                    closeModal();
+                }
+            });
+
+            // --- Dynamic Medium Feed ---
+            const mediumFeedContainer = document.getElementById('medium-feed-content');
+            const mediumUsername = '@si.sigitadi';
+            const rss2jsonApi = `https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/${mediumUsername}`;
+
+            async function fetchMediumPosts() {
+                if (!mediumFeedContainer) return;
+                try {
+                    const res = await fetch(rss2jsonApi);
+                    if (!res.ok) throw new Error(`Network response was not ok: ${res.statusText}`);
+                    const data = await res.json();
+                    
+                    if (data.status === 'ok' && data.items) {
+                        mediumFeedContainer.innerHTML = '';
+                        const items = data.items.filter(item => item.categories.length > 0).slice(0, 2); 
+                        
+                        items.forEach(item => {
+                            const title = item.title;
+                            const link = item.link;
+                            const pubDate = new Date(item.pubDate).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' });
+                            
+                            const articleEl = document.createElement('a');
+                            articleEl.href = link;
+                            articleEl.target = '_blank';
+                            articleEl.rel = 'noopener noreferrer';
+                            articleEl.className = 'block p-3 rounded-lg hover:bg-[var(--color-bg)] transition-colors duration-200';
+                            
+                            articleEl.innerHTML = `
+                                <h4 class="font-semibold text-[var(--color-text-primary)] hover:text-[var(--color-primary)] transition-colors">${title}</h4>
+                                <p class="text-xs text-[var(--color-text-secondary)] font-mono">${pubDate}</p>
+                            `;
+                            mediumFeedContainer.appendChild(articleEl);
+                        });
+                    } else {
+                        throw new Error('Failed to fetch or parse Medium feed.');
+                    }
+                } catch (error) {
+                    console.error('Error fetching Medium posts:', error);
+                    mediumFeedContainer.innerHTML = `<p class="text-sm text-[var(--color-text-secondary)]">Could not load latest articles. <a href="https://medium.com/${mediumUsername}" target="_blank" rel="noopener noreferrer" class="underline hover:text-[var(--color-primary)]">View on Medium</a>.</p>`;
+                }
+            }
+            
+            fetchMediumPosts();
+            
+            // --- Interactive Particle Background ---
+            const canvas = document.getElementById('particle-canvas');
+            if (canvas) {
+                const ctx = canvas.getContext('2d');
+                let width, height, particles, mouse;
+
+                mouse = { x: null, y: null, radius: 150 }; 
+
+                function initCanvas() {
+                    width = canvas.parentElement.offsetWidth;
+                    height = canvas.parentElement.offsetHeight;
+                    canvas.width = width;
+                    canvas.height = height;
+                    
+                    particles = [];
+                    let numParticles = (width * height) / 20000;
+                    if (numParticles > 150) numParticles = 150;
+                    for (let i = 0; i < numParticles; i++) {
+                        particles.push(new Particle());
+                    }
+                }
+
+                class Particle {
+                    constructor() {
+                        this.x = Math.random() * width;
+                        this.y = Math.random() * height;
+                        this.size = Math.random() * 1.5 + 0.5; 
+                        this.baseX = this.x;
+                        this.baseY = this.y;
+                        this.density = (Math.random() * 30) + 1;
+                        this.vx = Math.random() * 0.4 - 0.2; 
+                        this.vy = Math.random() * 0.4 - 0.2;
+                    }
+                    
+                    draw() {
+                        let color = 'rgba(59, 130, 246, 0.5)'; // Use primary color
+                        ctx.fillStyle = color;
+                        ctx.beginPath();
+                        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                        ctx.closePath();
+                        ctx.fill();
+                    }
+
+                    update() {
+                        let dx = mouse.x - this.x;
+                        let dy = mouse.y - this.y;
+                        let distance = Math.sqrt(dx * dx + dy * dy);
+                        let forceDirectionX = dx / distance;
+                        let forceDirectionY = dy / distance;
+                        let maxDistance = mouse.radius;
+                        let force = (maxDistance - distance) / maxDistance;
+                        
+                        if (distance < mouse.radius) {
+                            this.x -= forceDirectionX * force * this.density * 0.1;
+                            this.y -= forceDirectionY * force * this.density * 0.1;
+                        } else {
+                            if (this.x !== this.baseX) {
+                                let dx = this.x - this.baseX;
+                                this.x -= dx / 20;
+                            }
+                            if (this.y !== this.baseY) {
+                                let dy = this.y - this.baseY;
+                                this.y -= dy / 20;
+                            }
+                            this.x += this.vx;
+                            this.y += this.vy;
+
+                            if (this.x < 0 || this.x > width) this.vx *= -1;
+                            if (this.y < 0 || this.y > height) this.vy *= -1;
+                        }
+                        this.draw();
+                    }
+                }
+
+                function connect() {
+                    let opacityValue = 1;
+                    let lineColor = 'rgba(59, 130, 246, 0.1)';
+                    for (let a = 0; a < particles.length; a++) {
+                        for (let b = a; b < particles.length; b++) {
+                            let distance = ((particles[a].x - particles[b].x) * (particles[a].x - particles[b].x))
+                                         + ((particles[a].y - particles[b].y) * (particles[a].y - particles[b].y));
+                            
+                            let maxConnectDistance = (width / 7) * (height / 7);
+                            if (maxConnectDistance > 20000) maxConnectDistance = 20000;
+
+                            if (distance < maxConnectDistance) {
+                                opacityValue = 1 - (distance / maxConnectDistance);
+                                ctx.strokeStyle = lineColor.replace('0.1', opacityValue < 0.1 ? opacityValue : 0.1);
+                                ctx.lineWidth = 0.5;
+                                ctx.beginPath();
+                                ctx.moveTo(particles[a].x, particles[a].y);
+                                ctx.lineTo(particles[b].x, particles[b].y);
+                                ctx.stroke();
+                            }
+                        }
+                    }
+                }
+
+                function animate() {
+                    ctx.clearRect(0, 0, width, height);
+                    particles.forEach(p => p.update());
+                    connect();
+                    requestAnimationFrame(animate);
+                }
+                
+                initCanvas();
+                animate();
+                
+                let resizeTimer;
+                window.addEventListener('resize', () => {
+                    clearTimeout(resizeTimer);
+                    resizeTimer = setTimeout(initCanvas, 100);
+                });
+
+                window.addEventListener('mousemove', (e) => {
+                    mouse.x = e.clientX;
+                    mouse.y = e.clientY;
+                });
+                window.addEventListener('mouseout', () => {
+                    mouse.x = null;
+                    mouse.y = null;
+                });
+            }
+
+            // --- D3.js Skill Map Logic (FIXED) ---
+            const skillChartContainer = document.getElementById('skill-chart-container');
+            if (skillChartContainer) {
+                const skillData = {
+                    nodes: [
+                        { id: "Sigit Adi", group: "root", r: 45 },
+                        { id: "AI Specialist", group: "group-ai", r: 65 },
+                        { id: "Security Specialist", group: "group-sec", r: 65 },
+                        
+                        { id: "Prompt Engineering", group: "ai", r: 40 },
+                        { id: "RLHF", group: "ai", r: 35 },
+                        { id: "Data Annotation", group: "ai", r: 38 },
+                        { id: "LLM Evaluation", group: "ai", r: 38 },
+                        { id: "Azure AI", group: "ai", r: 35 },
+                        { id: "Python (AI/ML)", group: "ai", r: 38 },
+                        { id: "Generative AI", group: "ai", r: 38 },
+                        
+                        { id: "SIEM (Wazuh)", group: "sec", r: 40 },
+                        { id: "Incident Handling", group: "sec", r: 38 },
+                        { id: "Threat Intelligence", group: "sec", r: 38 },
+                        { id: "Penetration Testing", group: "sec", r: 38 },
+                        { id: "ISO 27001 & NIST", group: "sec", r: 40 },
+                        { id: "DevSecOps", group: "sec", r: 35 },
+                        { id: "Log Analysis", group: "sec", r: 35 }
+                    ],
+                    links: [
+                        { source: "Sigit Adi", target: "AI Specialist", strength: 0.1 },
+                        { source: "Sigit Adi", target: "Security Specialist", strength: 0.1 },
+                        
+                        { source: "AI Specialist", target: "Prompt Engineering", strength: 0.1 },
+                        { source: "AI Specialist", target: "RLHF", strength: 0.1 },
+                        { source: "AI Specialist", target: "Data Annotation", strength: 0.1 },
+                        { source: "AI Specialist", target: "LLM Evaluation", strength: 0.1 },
+                        { source: "AI Specialist", target: "Azure AI", strength: 0.1 },
+                        { source: "AI Specialist", target: "Python (AI/ML)", strength: 0.1 },
+                        { source: "AI Specialist", target: "Generative AI", strength: 0.1 },
+                        
+                        { source: "Security Specialist", target: "SIEM (Wazuh)", strength: 0.1 },
+                        { source: "Security Specialist", target: "Incident Handling", strength: 0.1 },
+                        { source: "Security Specialist", target: "Threat Intelligence", strength: 0.1 },
+                        { source: "Security Specialist", target: "Penetration Testing", strength: 0.1 },
+                        { source: "Security Specialist", target: "ISO 27001 & NIST", strength: 0.1 },
+                        { source: "Security Specialist", target: "DevSecOps", strength: 0.1 },
+                        { source: "Security Specialist", target: "Log Analysis", strength: 0.1 }
+                    ]
+                };
+
+                const width = skillChartContainer.clientWidth;
+                const height = skillChartContainer.clientHeight;
+                
+                const colorScale = d3.scaleOrdinal()
+                    .domain(["root", "group-ai", "group-sec", "ai", "sec"])
+                    .range([
+                        "var(--color-surface)",
+                        "var(--color-primary)",
+                        "var(--color-accent1)",
+                        "var(--color-primary)",
+                        "var(--color-accent1)"
+                    ]);
+
+                const svg = d3.select("#skill-chart")
+                    .attr("viewBox", [-width / 2, -height / 2, width, height]);
+
+                const simulation = d3.forceSimulation(skillData.nodes)
+                    .force("link", d3.forceLink(skillData.links).id(d => d.id).strength(d => d.strength).distance(80)) 
+                    .force("charge", d3.forceManyBody().strength(-600)) 
+                    .force("collide", d3.forceCollide().radius(d => d.r + 6)) 
+                    .force("center", d3.forceCenter());
+
+                const link = svg.append("g")
+                    .attr("class", "skill-links")
+                    .selectAll("line")
+                    .data(skillData.links)
+                    .join("line")
+                    .attr("class", "skill-link");
+
+                const node = svg.append("g")
+                    .attr("class", "skill-nodes")
+                    .selectAll("g")
+                    .data(skillData.nodes)
+                    .join("g")
+                    .attr("class", "skill-bubble")
+                    .call(d3.drag()
+                        .on("start", dragstarted)
+                        .on("drag", dragged)
+                        .on("end", dragended));
+
+                node.append("circle")
+                    .attr("r", d => d.r)
+                    .attr("fill", d => colorScale(d.group))
+                    .attr("stroke", d => d.group === 'root' ? 'var(--color-primary)' : 'var(--color-border)') 
+                    .attr("stroke-width", 2);
+
+                // FIXED: Text wrapping logic
+                const text = node.append("text")
+                    .attr("class", d => d.group === "root" ? "skill-label root-label" : (d.group.startsWith("group-") ? "skill-label group-label" : "skill-label"))
+                    .style("fill", d => {
+                        if (d.group === 'root') return 'var(--color-text-primary)'; 
+                        if (d.group.startsWith('group-')) return '#F9FAFB'; 
+                        return 'var(--color-text-primary)'; 
+                    });
+                
+                text.each(function(d) {
+                    const node = d3.select(this);
+                    node.text(null); // Clear
+                    
+                    let lines = [];
+                    const words = d.id.split(' ');
+                    
+                    // FIXED: Manual line breaks for ALL multi-word skills
+                    if (d.id === "Sigit Adi") lines = ["Sigit", "Adi"];
+                    else if (d.id === "AI Specialist") lines = ["AI", "Specialist"];
+                    else if (d.id === "Security Specialist") lines = ["Security", "Specialist"];
+                    else if (d.id === "Prompt Engineering") lines = ["Prompt", "Engineering"];
+                    else if (d.id === "Data Annotation") lines = ["Data", "Annotation"];
+                    else if (d.id === "LLM Evaluation") lines = ["LLM", "Evaluation"];
+                    else if (d.id === "Python (AI/ML)") lines = ["Python", "(AI/ML)"];
+                    else if (d.id === "Generative AI") lines = ["Generative", "AI"];
+                    else if (d.id === "Incident Handling") lines = ["Incident", "Handling"];
+                    else if (d.id === "Threat Intelligence") lines = ["Threat", "Intel"];
+                    else if (d.id === "Penetration Testing") lines = ["Pen", "Testing"];
+                    else if (d.id === "ISO 27001 & NIST") lines = ["ISO 27001", "& NIST"];
+                    else if (d.id === "Log Analysis") lines = ["Log", "Analysis"];
+                    else lines = [d.id]; // Single word
+
+                    const lineHeight = 1.1; // ems
+                    const startY = lines.length > 1 ? -((lines.length - 1) * lineHeight) / 2 + 0.1 : 0.3; // Center vertically
+                    
+                    lines.forEach((line, i) => {
+                        node.append("tspan")
+                            .text(line)
+                            .attr("x", 0)
+                            .attr("dy", (i === 0 ? startY : lineHeight) + "em");
+                    });
+                });
+                    
+                simulation.on("tick", () => {
+                    link
+                        .attr("x1", d => d.source.x)
+                        .attr("y1", d => d.source.y)
+                        .attr("x2", d => d.target.x)
+                        .attr("y2", d => d.target.y);
+
+                    node
+                        .attr("transform", d => `translate(${d.x},${d.y})`);
+                });
+
+                function dragstarted(event, d) {
+                    if (!event.active) simulation.alphaTarget(0.3).restart();
+                    d.fx = d.x;
+                    d.fy = d.y;
+                }
+
+                function dragged(event, d) {
+                    d.fx = event.x;
+                    d.fy = event.y;
+                }
+
+                function dragended(event, d) {
+                    if (!event.active) simulation.alphaTarget(0);
+                    d.fx = null;
+                    d.fy = null;
+                }
+                
+                simulation.alpha(0.3).restart();
+            }
+            
+        });
+    </script>
+</body>
+</html>
