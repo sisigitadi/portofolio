@@ -187,10 +187,29 @@
             transform-style: preserve-3d;
             min-height: 380px; 
         }
+        /* Highlight glow effect */
+        .project-card.highlight {
+            animation: pulse-glow 1.5s ease-out;
+        }
+        @keyframes pulse-glow {
+            0% { 
+                box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7); 
+                transform: scale(1);
+            }
+            50% { 
+                box-shadow: 0 0 20px 10px rgba(59, 130, 246, 0.3); 
+                transform: scale(1.03);
+            }
+            100% { 
+                box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); 
+                transform: scale(1);
+            }
+        }
+        
         .project-card.is-flipped .project-card-inner {
             transform: rotateY(180deg);
         }
-        .project-card:hover .project-card-inner {
+        .project-card:hover .project-card-inner:not(.no-flip) { /* Stop flip on Medium card */
             transform: rotateY(180deg);
         }
         .project-card-front,
@@ -245,6 +264,9 @@
             cursor: grab;
             transition: filter 0.2s ease;
         }
+        .skill-bubble.clickable { /* Add clickable cursor */
+             cursor: pointer;
+        }
         .skill-bubble:hover {
             filter: brightness(1.2);
         }
@@ -277,41 +299,6 @@
             stroke: var(--color-border);
             stroke-opacity: 0.4;
         }
-
-        /* CSS untuk skill bubble yang bisa diklik */
-        .skill-bubble[data-clickable="true"] {
-            cursor: pointer;
-        }
-        .skill-bubble[data-clickable="true"]:hover {
-            filter: brightness(1.4); /* Sedikit lebih terang saat di-hover */
-        }
-
-        /* Animasi highlight untuk project card */
-        @keyframes pulse-glow {
-            0% { 
-                box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7); 
-                border-color: var(--color-primary);
-            }
-            50% { 
-                box-shadow: 0 0 20px 10px rgba(59, 130, 246, 0); 
-                border-color: var(--color-primary);
-            }
-            100% { 
-                box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); 
-                border-color: var(--color-border);
-            }
-        }
-        .project-card.highlight-project {
-            animation: pulse-glow 1.5s ease-out;
-            /* Pastikan kartu yang di-highlight ada di atas */
-            z-index: 20; 
-            transform: scale(1.02); /* Sedikit membesar */
-            transition: transform 0.3s ease;
-        }
-        .project-card:not(.highlight-project) {
-            transition: transform 0.3s ease;
-        }
-
 
         .btn-primary {
             font-family: var(--font-mono);
@@ -361,7 +348,7 @@
         .timeline-item {
             position: relative;
             padding-bottom: 2rem;
-            padding-left: 2rem;
+            padding-left: 2.5rem; /* Increased padding */
         }
         .timeline-item:before {
             content: '';
@@ -373,17 +360,26 @@
             background-color: var(--color-border);
             opacity: 0.5;
         }
-        .timeline-item:after {
+        .timeline-item:after { /* Replaced with icon background */
             content: '';
             position: absolute;
-            left: 0.125rem;
-            top: 0.25rem;
-            width: 0.75rem;
-            height: 0.75rem;
+            left: -0.125rem; /* Adjusted position */
+            top: 0.125rem; /* Adjusted position */
+            width: 1.5rem; /* Icon size */
+            height: 1.5rem; /* Icon size */
             border-radius: 9999px;
-            background-color: var(--color-primary);
-            border: 2px solid var(--color-bg);
+            background-color: var(--color-surface); /* Icon background */
+            border: 2px solid var(--color-border);
             z-index: 10;
+        }
+        .timeline-icon { /* New class for the icon itself */
+            position: absolute;
+            left: 0.125rem;
+            top: 0.375rem;
+            width: 1rem;
+            height: 1rem;
+            z-index: 11;
+            text-align: center;
         }
         .timeline-item:last-child:before {
             height: calc(100% - 1rem);
@@ -415,12 +411,65 @@
             opacity: 0;
             transition: opacity 0.3s ease, transform 0.3s ease;
             pointer-events: none;
+            
+            background-color: var(--color-surface);
+            border-radius: 12px; /* Rounded large */
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            width: 90%;
+            max-width: 48rem; /* Increased max-width (w-full max-w-3xl) */
+            max-height: 90vh;
+            overflow: hidden; /* Changed to hidden for layout */
+            display: flex; /* Added flex */
+            flex-direction: column; /* Added flex */
+            border: 1px solid var(--color-border);
         }
         #modal-backdrop.visible #modal-box {
             opacity: 1;
             transform: translate(-50%, -50%) scale(1);
             pointer-events: auto;
         }
+        #modal-image-container { /* New container for image */
+            width: 100%;
+            max-height: 300px; /* Limit image height */
+            overflow: hidden;
+            border-bottom: 1px solid var(--color-border);
+        }
+        #modal-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Cover for better image fit */
+            object-position: top; /* Show top of image */
+        }
+        #modal-content-container { /* New container for text content */
+            overflow-y: auto; /* Scroll only on text content */
+            padding: 1.5rem 2rem; /* p-6 sm:p-8 */
+        }
+        @media (min-width: 640px) {
+            #modal-content-container {
+                padding: 2rem;
+            }
+        }
+        #modal-close {
+            position: absolute;
+            top: 0.75rem; /* top-3 */
+            right: 0.75rem; /* right-3 */
+            text-align: center;
+            width: 2.5rem; /* h-10 w-10 */
+            height: 2.5rem;
+            line-height: 2.5rem;
+            border-radius: 9999px;
+            background-color: rgba(31, 41, 55, 0.7); /* bg-gray-800/70 */
+            color: var(--color-text-secondary);
+            font-size: 1.5rem; /* text-2xl */
+            transition: all 0.2s ease;
+            z-index: 10;
+        }
+        #modal-close:hover {
+            background-color: rgba(55, 65, 81, 0.9); /* bg-gray-700/90 */
+            color: var(--color-text-primary);
+            transform: scale(1.1);
+        }
+        
         .modal-tech-pill {
             display: inline-block;
             font-family: var(--font-mono);
@@ -571,83 +620,111 @@
             transform: scale(1) translateY(0);
             pointer-events: auto;
         }
-
-        /* Styling untuk AI Chat Widget */
-        #ai-chat-widget {
-            background-color: var(--color-bg);
+        
+        /* AI Simulation Widget */
+        #ai-sim-widget {
+            background-color: var(--color-surface);
             border: 1px solid var(--color-border);
             border-radius: 16px;
             padding: 1.5rem;
             height: 100%;
+            min-height: 400px;
             display: flex;
             flex-direction: column;
-            justify-content: flex-end;
-            min-height: 400px;
-            opacity: 0;
-            transition: opacity 1s ease 0.5s;
+            box-shadow: 0 10px 20px -5px rgba(0,0,0,0.1);
         }
-        .ai-chat-bubble {
-            background-color: var(--color-surface);
-            padding: 0.75rem 1.25rem;
-            border-radius: 12px;
-            max-width: 90%;
-            margin-bottom: 0.75rem;
-            line-height: 1.6;
-            color: var(--color-text-secondary);
-        }
-        .ai-chat-bubble.bot {
-            border-bottom-left-radius: 4px;
-            align-self: flex-start;
-        }
-        #ai-chat-avatar {
+        #ai-sim-header {
             display: flex;
             align-items: center;
-            gap: 0.75rem;
-            margin-top: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--color-border);
         }
-        #ai-chat-avatar-icon {
+        #ai-sim-avatar {
             width: 2.5rem;
             height: 2.5rem;
             border-radius: 9999px;
             background-color: var(--color-primary);
-            color: white;
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 2px solid var(--color-border);
+            margin-right: 0.75rem;
+            flex-shrink: 0;
         }
-        #ai-chat-avatar-name {
-            font-family: var(--font-mono);
-            font-weight: 700;
+        #ai-sim-avatar i {
+            color: white;
+            font-size: 1.25rem;
+        }
+        #ai-sim-status .status-text {
+            font-weight: 600;
             color: var(--color-text-primary);
         }
-        #ai-typing-indicator {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            margin-bottom: 0.75rem;
-            padding: 0.75rem 1.25rem;
+        #ai-sim-status .status-indicator {
+            font-size: 0.875rem;
+            color: var(--color-text-secondary);
         }
-        #ai-typing-indicator .dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
+        #ai-sim-body {
+            flex-grow: 1;
+            padding-top: 1rem;
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        .ai-sim-message {
+            margin-bottom: 1rem;
+            color: var(--color-text-secondary);
+        }
+        .ai-sim-message strong {
+            color: var(--color-text-primary);
+            font-weight: 600;
+        }
+        .typing-indicator span {
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            border-radius: 9999px;
             background-color: var(--color-text-secondary);
-            opacity: 0.6;
-            animation: typing-blink 1.4s infinite both;
+            margin-right: 3px;
+            animation: sim-blink 1.4s infinite both;
         }
-        #ai-typing-indicator .dot:nth-child(2) {
+        .typing-indicator span:nth-child(2) {
             animation-delay: 0.2s;
         }
-        #ai-typing-indicator .dot:nth-child(3) {
+        .typing-indicator span:nth-child(3) {
             animation-delay: 0.4s;
         }
-        @keyframes typing-blink {
+        @keyframes sim-blink {
             0% { opacity: 0.2; }
             20% { opacity: 1; }
             100% { opacity: 0.2; }
         }
-
+        
+        /* Medium Card Feed */
+        #medium-feed-content {
+            padding: 1.5rem;
+            flex-grow: 1; /* Allow content to grow */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; /* Push link to bottom */
+            height: 100%; /* Ensure it fills the card */
+        }
+        #medium-feed-articles {
+            max-height: 250px; /* Limit height of articles */
+            overflow-y: auto; /* Allow scroll if many articles */
+            margin-bottom: 1.5rem;
+        }
+        .medium-article-link {
+            display: block;
+            padding: 0.75rem;
+            border-radius: 8px;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+        .medium-article-link:hover {
+            background-color: var(--color-bg);
+        }
+        .medium-article-link:hover h4 {
+            color: var(--color-primary);
+        }
+        
     </style>
 </head>
 <body class="dark"> <!-- Default is DARK -->
@@ -656,7 +733,7 @@
     <div id="mesh-background">
         <div class="calm-gradient-bg absolute inset-0"></div>
     </div>
-
+    
     <header class="sticky top-0 z-50 w-full bg-[var(--color-bg)]/80 backdrop-blur-sm border-b border-[var(--color-border)]">
         <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
@@ -686,6 +763,7 @@
                             </span>
                             <span id="mobile-menu-close-icon" class="hidden h-6 w-6">
                                 <svg stroke="currentColor" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+
                             </span>
                         </button>
                     </div>
@@ -736,36 +814,32 @@
             <canvas id="particle-canvas"></canvas>
         </section>
 
+        <!-- Alternating section color (Surface) -->
         <section id="about" class="py-20 sm:py-28 bg-[var(--color-surface)] relative z-10">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 
-                <!-- Layout 2 kolom untuk AI Chat Widget -->
+                <!-- Responsive 1-col on mobile, 5-col grid on desktop -->
                 <div class="grid grid-cols-1 lg:grid-cols-5 gap-12 items-start">
                     
-                    <!-- Kolom Kiri untuk AI Chat Widget -->
-                    <div class="lg:col-span-2 flex justify-center lg:justify-start">
-                        <div id="ai-chat-widget-container" class="w-full max-w-sm">
-                            <div id="ai-chat-widget">
-                                <!-- Konten chat akan di-generate oleh JS -->
-                                <div id="ai-chat-messages" class="flex flex-col"></div>
-                                
-                                <div id="ai-typing-indicator" class="hidden">
-                                    <span class="dot"></span>
-                                    <span class="dot"></span>
-                                    <span class="dot"></span>
+                    <!-- Col 1 & 2: AI Simulation Widget -->
+                    <div class="lg:col-span-2">
+                        <div id="ai-sim-widget" class="fade-in-up">
+                            <div id="ai-sim-header">
+                                <div id="ai-sim-avatar">
+                                    <i class="fas fa-brain"></i>
                                 </div>
-
-                                <div id="ai-chat-avatar">
-                                    <div id="ai-chat-avatar-icon">
-                                        <i class="fas fa-brain fa-sm"></i>
-                                    </div>
-                                    <span id="ai-chat-avatar-name">AI Assistant</span>
+                                <div id="ai-sim-status">
+                                    <div class="status-text">AI Assistant</div>
+                                    <div class="status-indicator">Online</div>
                                 </div>
+                            </div>
+                            <div id="ai-sim-body">
+                                <!-- Messages will be typed here -->
                             </div>
                         </div>
                     </div>
                     
-                    <!-- Kolom Kanan untuk Teks "About Me" -->
+                    <!-- Col 3, 4, 5: About Me Text -->
                     <div class="lg:col-span-3">
                         <h2 class="text-3xl sm:text-4xl font-bold text-[var(--color-text-primary)] mb-6 section-heading animate-heading">
                             About Me
@@ -813,6 +887,7 @@
             </div>
         </section>
 
+        <!-- Alternating section color (back to default bg) -->
         <section id="projects" class="py-20 sm:py-28 bg-[var(--color-bg)] relative z-10">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-16 fade-in-up">
@@ -833,6 +908,7 @@
                     <button class="btn-filter" data-filter="web">Web Apps</button>
                 </div>
 
+                <!-- 3D FLIP CARD GRID -->
                 <div id="project-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     
                     <div class="project-card fade-in-up" data-category="ai web" data-delay="100" data-project-id="promptmatrix2">
@@ -893,7 +969,7 @@
                          <div class="project-card-inner">
                             <div class="project-card-front">
                                 <div class="card-image">
-                                    <img src="https://i.postimg.cc/j5zqQhb4/SOC_Playbook.png" alt="SOC Analyst Playbook Screenshot" onerror="this.onerror=null;this.src='https://placehold.co/600x400/1F2937/E5E7EB?text=SOC+Playbook';">
+                                    <img src="https://i.postimg.cc/j5zqQhb4/SOC_Playbook.png" alt="SOC Analyst Playbook Document Screenshot" onerror="this.onerror=null;this.src='https://placehold.co/600x400/1F2937/E5E7EB?text=SOC+Playbook';">
                                 </div>
                                 <div class="p-6">
                                     <span class="inline-block bg-[var(--color-accent2)]/10 text-[var(--color-accent2)] text-xs font-medium px-2.5 py-0.5 rounded-full mb-3 font-mono"><i class="fas fa-shield-alt mr-1"></i>Cybersecurity / Docs</span>
@@ -911,7 +987,7 @@
                          <div class="project-card-inner">
                             <div class="project-card-front">
                                 <div class="card-image">
-                                    <img src="https://i.postimg.cc/G20hy5Z3/daftarapiijabo.png" alt="AI Workshop & Consultation Form Screenshot" onerror="this.onerror=null;this.src='https://placehold.co/600x400/1F2937/E5E7EB?text=AI+Consulting';">
+                                    <img src="https.i.postimg.cc/G20hy5Z3/daftarapiijabo.png" alt="AI Workshop & Consultation Form Screenshot" onerror="this.onerror=null;this.src='https://placehold.co/600x400/1F2937/E5E7EB?text=AI+Consulting';">
                                 </div>
                                 <div class="p-6">
                                     <span class="inline-block bg-[var(--color-primary)]/10 text-[var(--color-primary)] text-xs font-medium px-2.5 py-0.5 rounded-full mb-3 font-mono"><i class="fas fa-users mr-1"></i>AI Service / Business</span>
@@ -925,29 +1001,32 @@
                         </div>
                     </div>
 
+                    <!-- REVISED: Medium Card - No Flip -->
                     <div class="project-card fade-in-up" data-category="ai cybersecurity" data-delay="300" data-project-id="medium">
-                         <div class="project-card-inner">
-                            <div class="project-card-front">
-                                <div class="card-image">
-                                     <img src="https://i.postimg.cc/0Qg2wBLk/medium.png" alt="Medium Articles Screenshot" onerror="this.onerror=null;this.src='https://placehold.co/600x400/1F2937/E5E7EB?text=Medium+Feed';">
-                                </div>
-                                <div class="p-6">
-                                    <span class="inline-block bg-green-500/10 text-green-400 text-xs font-medium px-2.5 py-0.5 rounded-full mb-3 font-mono"><i class="fas fa-rss mr-1"></i>Live Feed</span>
-                                    <h3 class="text-xl font-semibold text-[var(--color-text-primary)]">Latest Medium Articles</h3>
-                                </div>
-                            </div>
-                            <div class="project-card-back">
-                                <div id="medium-feed-content" class="space-y-3 mb-6">
-                                    <!-- Loading state -->
-                                    <div class="animate-pulse flex space-x-4">
-                                        <div class="flex-1 space-y-2 py-1">
-                                            <div class="h-4 bg-[var(--color-border)] rounded w-3/4"></div>
-                                            <div class="h-4 bg-[var(--color-border)] rounded w-1/2"></div>
+                         <div class="project-card-inner no-flip"> <!-- no-flip class added -->
+                            <div class="project-card-front"> <!-- Only a front, no back -->
+                                <div id="medium-feed-content">
+                                    <div class="mb-4"> <!-- Header -->
+                                        <span class="inline-block bg-green-500/10 text-green-400 text-xs font-medium px-2.5 py-0.5 rounded-full mb-3 font-mono"><i class="fab fa-medium mr-1"></i>Live Feed</span>
+                                        <h3 class="text-xl font-semibold text-[var(--color-text-primary)]">Latest Medium Articles</h3>
+                                    </div>
+                                    
+                                    <!-- Articles container -->
+                                    <div id="medium-feed-articles">
+                                        <!-- Loading state -->
+                                        <div class="animate-pulse flex space-x-4">
+                                            <div class="flex-1 space-y-2 py-1">
+                                                <div class="h-4 bg-[var(--color-border)] rounded w-3/4"></div>
+                                                <div class="h-4 bg-[var(--color-border)] rounded w-1/2"></div>
+                                            </div>
                                         </div>
                                     </div>
+                                    
+                                    <!-- Footer link -->
+                                    <a href="https://medium.com/@si.sigitadi" target="_blank" rel="noopener noreferrer" class="font-medium text-[var(--color-primary)] hover:underline flex items-center font-mono text-sm mt-auto"><i class="fas fa-external-link-alt mr-2"></i>View All Articles &rarr;</a>
                                 </div>
-                                <a href="https://medium.com/@si.sigitadi" target="_blank" rel="noopener noreferrer" class="font-medium text-[var(--color-primary)] hover:underline flex items-center font-mono text-sm"><i class="fas fa-external-link-alt mr-2"></i>View All Articles &rarr;</a>
                             </div>
+                            <!-- No back card -->
                         </div>
                     </div>
 
@@ -955,6 +1034,7 @@
             </div>
         </section>
 
+        <!-- Alternating section color -->
         <section id="skills" class="py-20 sm:py-28 bg-[var(--color-surface)] relative z-10">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-16 fade-in-up">
@@ -962,7 +1042,7 @@
                         Interactive Skill Map
                     </h2>
                     <p class="text-lg text-[var(--color-text-secondary)] max-w-3xl mx-auto">
-                        My expertise is a blend of two domains. Click and drag the bubbles to explore.
+                        My expertise is a blend of two domains. Click a skill to see related projects.
                     </p>
                 </div>
                 
@@ -972,6 +1052,7 @@
             </div>
         </section>
 
+        <!-- Alternating section color -->
         <section id="experience" class="py-20 sm:py-28 bg-[var(--color-bg)] relative z-10">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-16 fade-in-up">
@@ -985,42 +1066,32 @@
                 
                 <div class="max-w-3xl mx-auto fade-in-up">
                     <div class="timeline-item">
-                        <h3 class="text-xl font-semibold text-[var(--color-text-primary)] flex items-center gap-3">
-                            <i class="fas fa-robot w-6 text-center text-[var(--color-primary)] opacity-80" aria-hidden="true"></i>
-                            <span>Remote AI Trainer Specialist</span>
-                        </h3>
+                        <span class="timeline-icon"><i class="fas fa-brain text-[var(--color-primary)]"></i></span>
+                        <h3 class="text-xl font-semibold text-[var(--color-text-primary)]">Remote AI Trainer Specialist</h3>
                         <p class="text-sm font-medium text-[var(--color-primary)] font-mono">SoftAge Info. Tech. & Postwork (Sep 2025 - Present)</p>
                         <p class="mt-2 text-[var(--color-text-secondary)]">Provide precise feedback and corrections on AI-generated content to improve coherence and alignment with guidelines.</p>
                     </div>
                     <div class="timeline-item">
-                        <h3 class="text-xl font-semibold text-[var(--color-text-primary)] flex items-center gap-3">
-                            <i class="fas fa-brain w-6 text-center text-[var(--color-primary)] opacity-80" aria-hidden="true"></i>
-                            <span>Remote AI Data Contributor</span>
-                        </h3>
+                        <span class="timeline-icon"><i class="fas fa-robot text-[var(--color-primary)]"></i></span>
+                        <h3 class="text-xl font-semibold text-[var(--color-text-primary)]">Remote AI Data Contributor</h3>
                         <p class="text-sm font-medium text-[var(--color-primary)] font-mono">Freelance (Apr 2025 - Present)</p>
                         <p class="mt-2 text-[var(--color-text-secondary)]">Contributed to AI/NLP projects by annotating data, transcribing, and evaluating large language model prompts.</p>
                     </div>
                     <div class="timeline-item">
-                        <h3 class="text-xl font-semibold text-[var(--color-text-primary)] flex items-center gap-3">
-                            <i class="fas fa-shield-halved w-6 text-center text-[var(--color-accent1)] opacity-80" aria-hidden="true"></i>
-                            <span>SOC Analyst</span>
-                        </h3>
+                        <span class="timeline-icon"><i class="fas fa-shield-alt text-[var(--color-accent1)]"></i></span>
+                        <h3 class="text-xl font-semibold text-[var(--color-text-primary)]">SOC Analyst</h3>
                         <p class="text-sm font-medium text-[var(--color-primary)] font-mono">PT. Prospera Consulting Engineers (Jan 2025 - May 2025)</p>
                         <p class="mt-2 text-[var(--color-text-secondary)]">Finalized SOPs and the final project report for the "Establishment of a Cyber Incident Handling Center at the Ministry of Home Affairs".</p>
                     </div>
                     <div class="timeline-item">
-                        <h3 class="text-xl font-semibold text-[var(--color-text-primary)] flex items-center gap-3">
-                            <i class="fas fa-triangle-exclamation w-6 text-center text-[var(--color-accent1)] opacity-80" aria-hidden="true"></i>
-                            <span>Incident Handling Operational Coordinator</span>
-                        </h3>
+                        <span class="timeline-icon"><i class="fas fa-user-secret text-[var(--color-accent1)]"></i></span>
+                        <h3 class="text-xl font-semibold text-[var(--color-text-primary)]">Incident Handling Operational Coordinator</h3>
                         <p class="text-sm font-medium text-[var(--color-primary)] font-mono">Indonesian Ministry of Home Affairs (Oct 2024 - Dec 2024)</p>
                         <p class="mt-2 text-[var(--color-text-secondary)]">Supervised 24/7 incident response operations, reducing attack exposure by 50% using Wazuh and Fortiweb.</p>
                     </div>
                     <div class="timeline-item" style="padding-bottom: 0;">
-                        <h3 class="text-xl font-semibold text-[var(--color-text-primary)] flex items-center gap-3">
-                            <i class="fas fa-briefcase w-6 text-center text-[var(--color-text-secondary)] opacity-80" aria-hidden="true"></i>
-                            <span>IT Manager & Office Manager</span>
-                        </h3>
+                        <span class="timeline-icon"><i class="fas fa-laptop-code text-[var(--color-text-secondary)]"></i></span>
+                        <h3 class="text-xl font-semibold text-[var(--color-text-primary)]">IT Manager & Office Manager</h3>
                         <p class="text-sm font-medium text-[var(--color-primary)] font-mono">Various Companies (Jun 2014 - Aug 2024)</p>
                         <p class="mt-2 text-[var(--color-text-secondary)]">Managed IT infrastructure, cybersecurity, and operations, enhancing operational efficiency by 30%.</p>
                     </div>
@@ -1040,53 +1111,26 @@
                 </div>
                 
                 <div class="max-w-5xl mx-auto p-8 md:p-12 bg-[var(--color-bg)] rounded-2xl border border-[var(--color-border)] fade-in-up">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8">
                         <div>
                             <h3 class="text-xl font-semibold text-[var(--color-primary)] mb-4 font-mono">AI & Data</h3>
-                            <ul class="space-y-3 list-none text-[var(--color-text-secondary)]">
-                                <!-- Teks dan link sertifikat yang sudah diperbarui -->
-                                <li class="flex items-center">
-                                    <i class="fas fa-check-circle w-5 h-5 mr-3 text-[var(--color-primary)]"></i>
-                                    <a href="https://app.kajabi.com/certificates/a253d7d1" target="_blank" rel="noopener noreferrer" class="hover:text-[var(--color-text-primary)] hover:underline">Microsoft: Azure AI Fundamentals (AI-900) <i class="fas fa-external-link-alt fa-xs ml-1 opacity-60"></i></a>
-                                </li>
-                                <li class="flex items-center">
-                                    <i class="fas fa-check-circle w-5 h-5 mr-3 text-[var(--color-primary)]"></i>
-                                    <a href="https://ruangai.codepolitan.com/certificate/9075711312" target="_blank" rel="noopener noreferrer" class="hover:text-[var(--color-text-primary)] hover:underline">Belajar Generative Ai <i class="fas fa-external-link-alt fa-xs ml-1 opacity-60"></i></a>
-                                </li>
-                                <li class="flex items-center">
-                                    <i class="fas fa-check-circle w-5 h-5 mr-3 text-[var(--color-primary)]"></i>
-                                    <a href="https://media.licdn.com/dms/image/v2/D562DAQGEx6_9gVmxSA/profile-treasury-document-cover-images_800/B56Zl1ugfUIsBA-/0/1758616751615?e=1763499600&v=beta&t=2_SaB3R-h_9CaV8eQzhds7OhRiWZQG8aAFJ_xmcGme0" target="_blank" rel="noopener noreferrer" class="hover:text-[var(--color-text-primary)] hover:underline">AI for Government of Indonesia Training <i class="fas fa-external-link-alt fa-xs ml-1 opacity-60"></i></a>
-                                </li>
-                                <li class="flex items-center">
-                                    <i class="fas fa-check-circle w-5 h-5 mr-3 text-[var(--color-primary)]"></i>
-                                    <a href="https://media.licdn.com/dms/image/v2/D562DAQF80cI68W9ouQ/profile-treasury-document-cover-images_800/B56Zl1vioZJwA8-/0/1758617025204?e=1763499600&v=beta&t=KXPij2VCTtjvBTqX10tCxO3zweBIYM_GiVyyo0KEz8k" target="_blank" rel="noopener noreferrer" class="hover:text-[var(--color-text-primary)] hover:underline">Otomatisasi Bisnis dengan n8n <i class="fas fa-external-link-alt fa-xs ml-1 opacity-60"></i></a>
-                                </li>
+                            <ul class="space-y-4 text-[var(--color-text-secondary)]">
+                                <!-- UPDATED LIST -->
+                                <li><a href="https://app.kajabi.com/certificates/a253d7d1" target="_blank" rel="noopener noreferrer" class="inline-flex items-center hover:text-[var(--color-primary)] transition-colors">Microsoft: Azure AI Fundamentals (AI-900) <i class="fas fa-external-link-alt text-xs ml-2 opacity-60"></i></a></li>
+                                <li><a href="https://ruangai.codepolitan.com/certificate/9075711312" target="_blank" rel="noopener noreferrer" class="inline-flex items-center hover:text-[var(--color-primary)] transition-colors">Belajar Generative AI <i class="fas fa-external-link-alt text-xs ml-2 opacity-60"></i></a></li>
+                                <li><a href="https://media.licdn.com/dms/image/v2/D562DAQGEx6_9gVmxSA/profile-treasury-document-cover-images_800/B56Zl1ugfUIsBA-/0/1758616751615?e=1763499600&v=beta&t=2_SaB3R-h_9CaV8eQzhds7OhRiWZQG8aAFJ_xmcGme0" target="_blank" rel="noopener noreferrer" class="inline-flex items-center hover:text-[var(--color-primary)] transition-colors">AI for Government of Indonesia Training <i class="fas fa-external-link-alt text-xs ml-2 opacity-60"></i></a></li>
+                                <li><a href="https://media.licdn.com/dms/image/v2/D562DAQF80cI68W9ouQ/profile-treasury-document-cover-images_800/B56Zl1vioZJwA8-/0/1758617025204?e=1763499600&v=beta&t=KXPij2VCTtjvBTqX10tCxO3zweBIYM_GiVyyo0KEz8k" target="_blank" rel="noopener noreferrer" class="inline-flex items-center hover:text-[var(--color-primary)] transition-colors">Otomatisasi Bisnis dengan n8n <i class="fas fa-external-link-alt text-xs ml-2 opacity-60"></i></a></li>
                             </ul>
                         </div>
                         <div>
-                            <h3 class="text-xl font-semibold text-[var(--color-accent1)] mb-4 font-mono">Cybersecurity & SOC</h3>
-                            <ul class="space-y-3 list-none text-[var(--color-text-secondary)]">
-                                <!-- Teks dan link sertifikat yang sudah diperbarui -->
-                                <li class="flex items-center">
-                                    <i class="fas fa-check-circle w-5 h-5 mr-3 text-[var(--color-accent1)]"></i>
-                                    <a href="https://www.linkedin.com/learning/certificates/b4e781afc86c4f5f36e2a89dc59a2f9d9a891c54149e6bd3ef05bf6b1f2bdaf6?trk=share_certificate" target="_blank" rel="noopener noreferrer" class="hover:text-[var(--color-text-primary)] hover:underline">Linkedin: Certified Ethical Hacker (CEH) <i class="fas fa-external-link-alt fa-xs ml-1 opacity-60"></i></a>
-                                </li>
-                                <li class="flex items-center">
-                                    <i class="fas fa-check-circle w-5 h-5 mr-3 text-[var(--color-accent1)]"></i>
-                                    <a href="https://www.linkedin.com/learning/certificates/bc8e5c617996ded9fccb46a7d4aa68f18a8e8500ac2f446d67e9052fc19bf4ae" target="_blank" rel="noopener noreferrer" class="hover:text-[var(--color-text-primary)] hover:underline">Microsoft Security Essentials Professional <i class="fas fa-external-link-alt fa-xs ml-1 opacity-60"></i></a>
-                                </li>
-                                <li class="flex items-center">
-                                    <i class="fas fa-check-circle w-5 h-5 mr-3 text-[var(--color-accent1)]"></i>
-                                    <a href="https://www.linkedin.com/learning/certificates/4643d1c013527cd5a5c83e56e2d99ec51b7fa3ada511c7f6ea1e02334dd42c00?trk=share_certificate" target="_blank" rel="noopener noreferrer" class="hover:text-[var(--color-text-primary)] hover:underline">Offensive Penetration Testing <i class="fas fa-external-link-alt fa-xs ml-1 opacity-60"></i></a>
-                                </li>
-                                <li class="flex items-center">
-                                    <i class="fas fa-check-circle w-5 h-5 mr-3 text-[var(--color-accent1)]"></i>
-                                    <a href="https://www.linkedin.com/learning/certificates/80c541206a1d1ad728fe37874531a5b6b50c84436b48b1fbbe3f19f16b70194f" target="_blank" rel="noopener noreferrer" class="hover:text-[var(--color-text-primary)] hover:underline">Penetration Testing Professional <i class="fas fa-external-link-alt fa-xs ml-1 opacity-60"></i></a>
-                                </li>
-                                <li class="flex items-center">
-                                    <i class="fas fa-check-circle w-5 h-5 mr-3 text-[var(--color-accent1)]"></i>
-                                    <a href="https://www.linkedin.com/learning/certificates/d7176ff8dea5b115130b95434e283a311c6cca37251cecf5f7d49fc46e7b7cb1?trk=share_certificate&lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3BLDnhss6qQLyFpkVjow84HQ%3D%3D" target="_blank" rel="noopener noreferrer" class="hover:text-[var(--color-text-primary)] hover:underline">Ubuntu Linux Professional <i class="fas fa-external-link-alt fa-xs ml-1 opacity-60"></i></a>
-                                </li>
+                            <h3 class="text-xl font-semibold text-[var(--color-accent1)] mb-4 font-mono">Cybersecurity & Tech</h3>
+                            <ul class="space-y-4 text-[var(--color-text-secondary)]">
+                                <!-- UPDATED LIST -->
+                                <li><a href="https://www.linkedin.com/learning/certificates/b4e781afc86c4f5f36e2a89dc59a2f9d9a891c54149e6bd3ef05bf6b1f2bdaf6?trk=share_certificate" target="_blank" rel="noopener noreferrer" class="inline-flex items-center hover:text-[var(--color-primary)] transition-colors">Certified Ethical Hacker (CEH) <i class="fas fa-external-link-alt text-xs ml-2 opacity-60"></i></a></li>
+                                <li><a href="https://www.linkedin.com/learning/certificates/bc8e5c617996ded9fccb46a7d4aa68f18a8e8500ac2f446d67e9052fc19bf4ae" target="_blank" rel="noopener noreferrer" class="inline-flex items-center hover:text-[var(--color-primary)] transition-colors">Microsoft Security Essentials Pro <i class="fas fa-external-link-alt text-xs ml-2 opacity-60"></i></a></li>
+                                <li><a href="https://www.linkedin.com/learning/certificates/4643d1c013527cd5a5c83e56e2d99ec51b7fa3ada511c7f6ea1e02334dd42c00?trk=share_certificate" target="_blank" rel="noopener noreferrer" class="inline-flex items-center hover:text-[var(--color-primary)] transition-colors">Offensive Penetration Testing <i class="fas fa-external-link-alt text-xs ml-2 opacity-60"></i></a></li>
+                                <li><a href="https://www.linkedin.com/learning/certificates/80c541206a1d1ad728fe37874531a5b6b50c84436b48b1fbbe3f19f16b70194f" target="_blank" rel="noopener noreferrer" class="inline-flex items-center hover:text-[var(--color-primary)] transition-colors">Penetration Testing Professional <i class="fas fa-external-link-alt text-xs ml-2 opacity-60"></i></a></li>
+                                <li><a href="https://www.linkedin.com/learning/certificates/d7176ff8dea5b115130b95434e283a311c6cca37251cecf5f7d49fc46e7b7cb1?trk=share_certificate" target="_blank" rel="noopener noreferrer" class="inline-flex items-center hover:text-[var(--color-primary)] transition-colors">Ubuntu Linux Professional <i class="fas fa-external-link-alt text-xs ml-2 opacity-60"></i></a></li>
                             </ul>
                         </div>
                     </div>
@@ -1098,12 +1142,12 @@
     <!-- Floating Contact Widget -->
     <div id="contact-widget">
         <div id="fab-text">
-            Contact Me
+            Start Your Project
         </div>
         <div id="contact-form-container">
             <div class="p-6">
-                <h3 class="text-xl font-semibold text-[var(--color-text-primary)] mb-4 font-mono">Start Your Project</h3>
-                <p id="form-status" class="mb-4 text-sm text-[var(--color-text-secondary)]">Have an AI project idea or need a security audit? Send me a message.</p>
+                <h3 class="text-xl font-semibold text-[var(--color-text-primary)] mb-4 font-mono">Secure Your AI Project</h3>
+                <p id="form-status" class="mb-4 text-sm text-[var(--color-text-secondary)]">Ready to collaborate? Send me a message.</p>
                 <form id="contact-form" action="https://formspree.io/f/mkgknrqk" method="POST" class="space-y-4">
                     <div>
                         <label for="name-fab" class="hidden">Full Name</label>
@@ -1138,11 +1182,17 @@
 
     <!-- Modal Structure -->
     <div id="modal-backdrop" class="fixed inset-0">
-        <div id="modal-box" class="bg-[var(--color-surface)] rounded-lg shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto relative border border-[var(--color-border)]">
+        <!-- MODIFIED: Modal Box Structure -->
+        <div id="modal-box">
+            <button id="modal-close" aria-label="Close modal">&times;</button>
             
-            <button id="modal-close" class="absolute top-4 right-4 text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] text-2xl z-10">&times;</button>
+            <!-- Image container -->
+            <div id="modal-image-container">
+                <!-- Image will be injected here by JS -->
+            </div>
             
-            <div class="p-6 sm:p-8">
+            <!-- Scrollable content container -->
+            <div id="modal-content-container">
                 
                 <div id="modal-promptmatrix1" class="modal-content hidden">
                     <h3 class="text-2xl font-bold text-[var(--color-text-primary)] mb-4 section-heading">Case Study: Prompt Matrix Generator (v1)</h3>
@@ -1232,25 +1282,44 @@
                         View Registration Form &rarr;
                     </a>
                 </div>
+                
+                <div id="modal-medium" class="modal-content hidden">
+                    <h3 class="text-2xl font-bold text-[var(--color-text-primary)] mb-4 section-heading">Case Study: Medium Articles</h3>
+                    <h4 class="text-lg font-semibold text-[var(--color-primary)] mt-4 mb-2 font-mono">The Challenge</h4>
+                    <p class="text-[var(--color-text-secondary)] mb-4">Demonstrating expertise isn't just about listing projects; it's about sharing insights and contributing to the community. I needed a platform to document my learnings in AI and Cybersecurity.</p>
+                    <h4 class="text-lg font-semibold text-[var(--color-primary)] mt-4 mb-2 font-mono">My Solution</h4>
+                    <p class="text-[var(--color-text-secondary)] mb-4">I actively write and publish articles on Medium, covering topics from Generative AI and prompt engineering to cybersecurity best practices. This portfolio card integrates directly with my Medium RSS feed to display my latest articles automatically, keeping my content fresh and demonstrating my ongoing engagement in the field.</p>
+                    <h4 class="text-lg font-semibold text-[var(--color-primary)] mt-4 mb-2 font-mono">Topics</h4>
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <span class="modal-tech-pill">Generative AI</span>
+                        <span class="modal-tech-pill">Prompt Engineering</span>
+                        <span class="modal-tech-pill">Cybersecurity Trends</span>
+                        <span class="modal-tech-pill">Tech Tutorials</span>
+                        <span class="modal-tech-pill">RSS Integration</span>
+                    </div>
+                    <a href="https://medium.com/@si.sigitadi" target="_blank" rel="noopener noreferrer" class="btn-primary">
+                        View All Articles &rarr;
+                    </a>
+                </div>
 
             </div>
         </div>
     </div>
     <!-- End Modal -->
 
-    <footer class="relative z-10 py-12" id="footer">
+    <footer id="footer" class="relative z-10 py-12"> 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col items-center space-y-4">
                 <!-- Socials -->
                 <div class="flex space-x-6">
                     <a href="https://www.linkedin.com/in/sigitadi/" target="_blank" rel="noopener noreferrer" class="text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] transition-colors" aria-label="LinkedIn">
-                        <i class="fab fa-linkedin fa-fw text-2xl"></i>
+                        <i class="fab fa-linkedin w-6 h-6 text-2xl"></i>
                     </a>
                     <a href="https://medium.com/@si.sigitadi" target="_blank" rel="noopener noreferrer" class="text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] transition-colors" aria-label="Medium">
-                         <i class="fab fa-medium fa-fw text-2xl"></i>
+                         <i class="fab fa-medium w-6 h-6 text-2xl"></i>
                     </a>
                     <a href="mailto:si.sigitadi@gmail.com" class="text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] transition-colors" aria-label="Email">
-                        <i class="fas fa-envelope fa-fw text-2xl"></i>
+                        <i class="fas fa-envelope w-6 h-6 text-2xl"></i>
                     </a>
                 </div>
                 <!-- Copyright -->
@@ -1283,17 +1352,6 @@
                          openIcon.classList.remove('hidden');
                          closeIcon.classList.add('hidden');
                     }
-                    // Tutup menu jika link #contact-widget diklik
-                    if (link.getAttribute('href') === '#contact-widget') {
-                        mobileMenu.classList.add('hidden');
-                        openIcon.classList.remove('hidden');
-                        closeIcon.classList.add('hidden');
-                        // Buka widget kontak
-                        const contactWidget = document.getElementById('contact-widget');
-                        if (contactWidget && !contactWidget.classList.contains('open')) {
-                            contactWidget.classList.add('open');
-                        }
-                    }
                 });
             });
 
@@ -1314,6 +1372,7 @@
                 if (!dynamicEl || !staticEl || !cursorEl) return;
                 
                 if (!staticDone) {
+                    // 1. Type " Specialist" once
                     if (charIndex < staticPart.length) {
                         staticEl.textContent = staticPart.substring(0, charIndex + 1);
                         charIndex++;
@@ -1327,6 +1386,7 @@
                     return;
                 }
             
+                // 2. Cycle "Artificial Intelligence" and "Cyber Security"
                 const currentPart = dynamicParts[partIndex];
                 let speed = firstLoad ? 120 : 100; 
             
@@ -1356,82 +1416,69 @@
 
             // --- Scroll Animations ---
             const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
-            let statObserver;
-            let aiChatObserver; 
-            let d3Observer; // Observer untuk D3
+            
+            // Map for observers to track state
+            const observerState = {
+                'stat-value-10': false,
+                'ai-sim-widget': false,
+                'skill-chart-container': false
+            };
 
             const observerCallback = (entries, observer) => {
                 entries.forEach((entry) => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('visible');
                         
-                        if (entry.target.classList.contains('animate-heading')) {
-                             scrambleText(entry.target);
+                        // Handle Stat Counter
+                        if (entry.target.id === 'stat-value-10' && !observerState[entry.target.id]) {
+                            observerState[entry.target.id] = true; // Mark as run
+                            animateCountUp(entry.target, 10, 1500);
+                            observer.unobserve(entry.target);
                         }
-                        
-                        observer.unobserve(entry.target);
+                        // Handle AI Simulation
+                        else if (entry.target.id === 'ai-sim-widget' && !observerState[entry.target.id]) {
+                            observerState[entry.target.id] = true; // Mark as run
+                            startAiSimulation();
+                            observer.unobserve(entry.target);
+                        }
+                        // Handle Scramble Text
+                        else if (entry.target.classList.contains('animate-heading')) {
+                             scrambleText(entry.target);
+                             observer.unobserve(entry.target);
+                        }
+                        // Handle D3 Skill Map
+                        else if (entry.target.id === 'skill-chart-container' && !observerState[entry.target.id]) {
+                            observerState[entry.target.id] = true; // Mark as run
+                            console.log('Skill chart container is visible, initializing D3.');
+                            initializeD3SkillMap(); // Run D3 logic
+                            observer.unobserve(entry.target);
+                        }
+                        // Handle other fade-in-ups
+                        else {
+                            observer.unobserve(entry.target);
+                        }
                     }
                 });
             };
             
-            const statCallback = (entries, observer) => {
-                 entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        animateCountUp(entry.target, 10, 1500);
-                        observer.unobserve(entry.target); 
-                    }
-                });
-            };
-
-            const aiChatCallback = (entries, observer) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        startAiSimulation();
-                        observer.unobserve(entry.target); // Hanya jalankan sekali
-                    }
-                });
-            };
-
-            // Callback terpisah untuk D3
-            const d3Callback = (entries, observer) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        initD3SkillMap(); // Panggil fungsi D3
-                        observer.unobserve(entry.target); // Hanya jalankan sekali
-                    }
-                });
-            };
-
-
             const scrollObserver = new IntersectionObserver(observerCallback, observerOptions);
             
             document.querySelectorAll('.fade-in-up').forEach(el => {
                 scrollObserver.observe(el);
             });
-            
             document.querySelectorAll('.animate-heading').forEach(el => {
                 scrollObserver.observe(el);
             });
             
+            // Observe specific elements by ID
             const stat10 = document.getElementById('stat-value-10');
-            if(stat10) {
-                 statObserver = new IntersectionObserver(statCallback, { threshold: 0.8 });
-                 statObserver.observe(stat10);
-            }
-
-            // Setup observer untuk AI Chat Widget
-            const aiChatWidgetContainer = document.getElementById('ai-chat-widget-container');
-            if (aiChatWidgetContainer) {
-                aiChatObserver = new IntersectionObserver(aiChatCallback, { threshold: 0.5 });
-                aiChatObserver.observe(aiChatWidgetContainer);
-            }
-
-            // Setup observer untuk D3 Skill Map
+            if(stat10) scrollObserver.observe(stat10);
+            
+            const aiSimWidget = document.getElementById('ai-sim-widget');
+            if(aiSimWidget) scrollObserver.observe(aiSimWidget);
+            
             const skillChartContainer = document.getElementById('skill-chart-container');
-            if (skillChartContainer) {
-                d3Observer = new IntersectionObserver(d3Callback, { threshold: 0.1 }); // Trigger saat 10% terlihat
-                d3Observer.observe(skillChartContainer);
-            }
+            if(skillChartContainer) scrollObserver.observe(skillChartContainer);
 
 
             // --- Stat Counter Animation Function ---
@@ -1482,11 +1529,79 @@
                     iterations += originalText.length / 20; // Slower reveal
                 }, 50); // Slower interval
             }
+            
+            // --- AI Simulation Logic ---
+            const simulationSteps = [
+                { type: 'typing', duration: 1000 },
+                { type: 'message', text: "<strong>[BOT]:</strong> Hello! I am Sigit's AI assistant." },
+                { type: 'typing', duration: 1200 },
+                { type: 'message', text: "<strong>[BOT]:</strong> Analyzing visitor profile... Done." },
+                { type: 'typing', duration: 1500 },
+                { type: 'message', text: "<strong>[BOT]:</strong> You seem to be looking for a rare specialist: an AI expert who also deeply understands Cyber Security." },
+                { type: 'typing', duration: 1000 },
+                { type: 'message', text: "<strong>[BOT]:</strong> Sigit has 10+ years of dual expertise. Please explore his projects below." }
+            ];
+
+            function startAiSimulation() {
+                const body = document.getElementById('ai-sim-body');
+                if (!body) return;
+
+                let currentStep = 0;
+
+                function runNextStep() {
+                    if (currentStep >= simulationSteps.length) {
+                        body.querySelector('.typing-indicator')?.remove(); // Remove typing at the end
+                        return;
+                    }
+
+                    const step = simulationSteps[currentStep];
+                    
+                    try {
+                        if (step.type === 'typing') {
+                            body.querySelector('.typing-indicator')?.remove(); // Remove previous
+                            const indicator = document.createElement('div');
+                            indicator.className = 'typing-indicator';
+                            indicator.innerHTML = '<span></span><span></span><span></span>';
+                            body.appendChild(indicator);
+                            
+                            setTimeout(() => {
+                                currentStep++;
+                                // Use setTimeout 0 to break recursion
+                                setTimeout(runNextStep, 0);
+                            }, step.duration);
+                        } 
+                        else if (step.type === 'message') {
+                            body.querySelector('.typing-indicator')?.remove(); // Remove indicator
+                            const messageEl = document.createElement('div');
+                            messageEl.className = 'ai-sim-message';
+                            messageEl.innerHTML = step.text;
+                            body.appendChild(messageEl);
+                            
+                            currentStep++;
+                            // Use setTimeout 0 to break recursion
+                            setTimeout(runNextStep, 0);
+                        }
+                    } catch (e) {
+                        console.error("Error in AI simulation step: ", e);
+                        if (e instanceof RangeError) {
+                            console.error("Likely recursion error. Halting simulation.");
+                        } else {
+                            // Try to recover
+                            currentStep++;
+                            setTimeout(runNextStep, 0);
+                        }
+                    }
+                }
+                
+                runNextStep();
+            }
 
             // --- Floating Contact Widget Logic ---
             const contactWidget = document.getElementById('contact-widget');
             const contactFab = document.getElementById('contact-fab');
             const fabText = document.getElementById('fab-text');
+            const fabIconOpen = document.getElementById('fab-icon-open');
+            const fabIconClose = document.getElementById('fab-icon-close');
             const contactForm = document.getElementById('contact-form');
             const formStatus = document.getElementById('form-status');
             const footer = document.getElementById('footer');
@@ -1497,28 +1612,29 @@
                 });
             }
 
-            // --- Logic untuk widget kontak menghindari footer ---
+            // Contact FAB float over footer logic
             function checkFooterCollision() {
                 if (!contactWidget || !footer) return;
+                
                 try {
-                    const widgetRect = contactWidget.getBoundingClientRect();
                     const footerRect = footer.getBoundingClientRect();
-                    const viewportHeight = window.innerHeight;
-                    const defaultBottom = 24; // 1.5rem (default bottom)
-
-                    if (footerRect.top < viewportHeight) {
-                        const overlap = viewportHeight - footerRect.top;
-                        contactWidget.style.bottom = `${defaultBottom + overlap}px`;
+                    const windowHeight = window.innerHeight;
+                    
+                    if (footerRect.top < windowHeight) {
+                        const overlap = windowHeight - footerRect.top;
+                        contactWidget.style.bottom = `${overlap + 24}px`; // 24px = 1.5rem
                     } else {
-                        contactWidget.style.bottom = `${defaultBottom}px`;
+                        contactWidget.style.bottom = '1.5rem';
                     }
                 } catch (e) {
-                    console.error("Error in checkFooterCollision:", e);
+                    console.error("Error checking footer collision:", e);
+                    contactWidget.style.bottom = '1.5rem'; // Fail-safe
                 }
             }
+            
             window.addEventListener('scroll', checkFooterCollision);
             window.addEventListener('resize', checkFooterCollision);
-            checkFooterCollision(); // Jalankan saat load
+            checkFooterCollision(); // Initial check
 
             // --- Formspree Contact Form (for FAB) ---
             if (contactForm) {
@@ -1537,7 +1653,7 @@
                             contactForm.reset();
                             setTimeout(() => {
                                 contactWidget.classList.remove('open');
-                                formStatus.textContent = "Have an AI project idea or need a security audit? Send me a message.";
+                                formStatus.textContent = "Ready to collaborate? Send me a message.";
                                 formStatus.className = "mb-4 text-sm text-[var(--color-text-secondary)]";
                             }, 3000);
                         } else {
@@ -1580,14 +1696,38 @@
             const modalCloseBtn = document.getElementById('modal-close');
             const openModalBtns = document.querySelectorAll('[data-modal-target]');
             const allModalContents = document.querySelectorAll('.modal-content');
+            const modalImageContainer = document.getElementById('modal-image-container'); // Get image container
+
+            // Image map for modals
+            const modalImageMap = {
+                'modal-promptmatrix1': 'https://i.postimg.cc/tgn47jms/promptmatrixv1.png',
+                'modal-promptmatrix2': 'https://i.postimg.cc/G20hy5Zh/promptmatrixv02.png',
+                'modal-financial': 'https://i.postimg.cc/cJtL6S5W/aplikasikeuangan.png',
+                'modal-soc': 'https://i.postimg.cc/j5zqQhb4/SOC_Playbook.png',
+                'modal-workshop': 'https.i.postimg.cc/G20hy5Z3/daftarapiijabo.png',
+                'modal-medium': 'https://i.postimg.cc/0Qg2wBLk/medium.png'
+            };
 
             function openModal(modalId) {
+                // 1. Inject Image
+                const imgSrc = modalImageMap[modalId];
+                if (imgSrc) {
+                    modalImageContainer.innerHTML = `<img src="${imgSrc}" alt="Project Image" onerror="this.onerror=null;this.parentElement.style.display='none';">`;
+                    modalImageContainer.style.display = 'block';
+                } else {
+                    modalImageContainer.innerHTML = '';
+                    modalImageContainer.style.display = 'none';
+                }
+                
+                // 2. Show correct content
                 allModalContents.forEach(content => content.classList.add('hidden'));
                 const targetModal = document.getElementById(modalId);
+                
                 if (targetModal) {
                     targetModal.classList.remove('hidden');
                     modalBackdrop.classList.add('visible');
-                    modalBox.scrollTop = 0; 
+                    // Scroll the content container, not the box
+                    document.getElementById('modal-content-container').scrollTop = 0; 
                     document.body.style.overflow = 'hidden'; 
                 }
             }
@@ -1598,10 +1738,30 @@
             }
 
             openModalBtns.forEach(button => {
-                button.addEventListener('click', () => {
-                    openModal(button.dataset.modalTarget);
+                button.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    // Special case for Medium card
+                    const card = button.closest('.project-card');
+                    if (card && card.dataset.projectId === 'medium') {
+                        openModal('modal-medium');
+                    } else {
+                        openModal(button.dataset.modalTarget);
+                    }
                 });
             });
+            
+            // Add click listener for the Medium card itself
+            const mediumCard = document.querySelector('[data-project-id="medium"]');
+            if(mediumCard) {
+                mediumCard.addEventListener('click', (e) => {
+                    // Don't open modal if they clicked the "View All" link
+                    if (!e.target.closest('a')) {
+                        openModal('modal-medium');
+                    }
+                });
+                mediumCard.style.cursor = 'pointer';
+            }
+
 
             modalCloseBtn.addEventListener('click', closeModal);
             modalBackdrop.addEventListener('click', (e) => {
@@ -1616,7 +1776,7 @@
             });
 
             // --- Dynamic Medium Feed ---
-            const mediumFeedContainer = document.getElementById('medium-feed-content');
+            const mediumFeedContainer = document.getElementById('medium-feed-articles');
             const mediumUsername = '@si.sigitadi';
             const rss2jsonApi = `https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/${mediumUsername}`;
 
@@ -1628,22 +1788,22 @@
                     const data = await res.json();
                     
                     if (data.status === 'ok' && data.items) {
-                        mediumFeedContainer.innerHTML = '';
-                        const items = data.items.filter(item => item.categories.length > 0).slice(0, 2); 
+                        mediumFeedContainer.innerHTML = ''; // Clear loading state
+                        const items = data.items.filter(item => item.categories.length > 0).slice(0, 3); // Get 3
                         
                         items.forEach(item => {
                             const title = item.title;
                             const link = item.link;
-                            const pubDate = new Date(item.pubDate).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' });
+                            const pubDate = new Date(item.pubDate).toLocaleDateString('en-US', { day: 'numeric', month: 'short' });
                             
                             const articleEl = document.createElement('a');
                             articleEl.href = link;
                             articleEl.target = '_blank';
                             articleEl.rel = 'noopener noreferrer';
-                            articleEl.className = 'block p-3 rounded-lg hover:bg-[var(--color-bg)] transition-colors duration-200';
+                            articleEl.className = 'medium-article-link';
                             
                             articleEl.innerHTML = `
-                                <h4 class="font-semibold text-[var(--color-text-primary)] hover:text-[var(--color-primary)] transition-colors">${title}</h4>
+                                <h4 class="font-semibold text-[var(--color-text-primary)] transition-colors text-sm mb-1">${title}</h4>
                                 <p class="text-xs text-[var(--color-text-secondary)] font-mono">${pubDate}</p>
                             `;
                             mediumFeedContainer.appendChild(articleEl);
@@ -1653,7 +1813,7 @@
                     }
                 } catch (error) {
                     console.error('Error fetching Medium posts:', error);
-                    mediumFeedContainer.innerHTML = `<p class="text-sm text-[var(--color-text-secondary)]">Could not load latest articles. <a href="https://medium.com/${mediumUsername}" target="_blank" rel="noopener noreferrer" class="underline hover:text-[var(--color-primary)]">View on Medium</a>.</p>`;
+                    mediumFeedContainer.innerHTML = `<p class="text-sm text-[var(--color-text-secondary)] p-3">Could not load latest articles. <a href="https://medium.com/${mediumUsername}" target="_blank" rel="noopener noreferrer" class="underline hover:text-[var(--color-primary)]">View on Medium</a>.</p>`;
                 }
             }
             
@@ -1783,275 +1943,215 @@
                 });
             }
 
-            // --- D3.js Skill Map Logic (dibungkus dalam fungsi) ---
-            function initD3SkillMap() {
-                const chartContainer = document.getElementById('skill-chart-container');
-                if (!chartContainer) {
-                    console.error("D3 init failed: chartContainer not found.");
+            // --- D3.js Skill Map Logic (FIXED & MODIFIED) ---
+            
+            // Map skills to project IDs
+            const skillToProjectMap = {
+                "Prompt Engineering": "promptmatrix2",
+                "LLM Evaluation": "promptmatrix2",
+                "Generative AI": "promptmatrix1",
+                "Python (AI/ML)": "promptmatrix1",
+                "SIEM (Wazuh)": "soc",
+                "Incident Handling": "soc",
+                "Log Analysis": "soc",
+                "ISO 27001 & NIST": "soc"
+            };
+            
+            // This function is now called by the scroll observer
+            function initializeD3SkillMap() {
+                const container = document.getElementById('skill-chart-container');
+                if (!container) return;
+                
+                const width = container.clientWidth;
+                const height = container.clientHeight;
+                
+                if (width === 0 || height === 0) {
+                    console.error("Skill chart container has zero dimensions. D3 simulation stopped.");
                     return;
                 }
 
-                try {
-                    const skillData = {
-                        nodes: [
-                            { id: "Sigit Adi", group: "root", r: 45 },
-                            { id: "AI Specialist", group: "group-ai", r: 65 },
-                            { id: "Security Specialist", group: "group-sec", r: 65 },
-                            
-                            { id: "Prompt Engineering", group: "ai", r: 40, targetProject: "promptmatrix2" },
-                            { id: "RLHF", group: "ai", r: 35, targetProject: "workshop" },
-                            { id: "Data Annotation", group: "ai", r: 38, targetProject: "workshop" },
-                            { id: "LLM Evaluation", group: "ai", r: 38, targetProject: "promptmatrix2" },
-                            { id: "Azure AI", group: "ai", r: 35, targetProject: "medium" }, // Asumsi ada artikel ttg ini
-                            { id: "Python (AI/ML)", group: "ai", r: 38, targetProject: "promptmatrix1" },
-                            { id: "Generative AI", group: "ai", r: 38, targetProject: "promptmatrix2" },
-                            
-                            { id: "SIEM (Wazuh)", group: "sec", r: 40, targetProject: "soc" },
-                            { id: "Incident Handling", group: "sec", r: 38, targetProject: "soc" },
-                            { id: "Threat Intelligence", group: "sec", r: 38, targetProject: "soc" },
-                            { id: "Penetration Testing", group: "sec", r: 38, targetProject: "medium" }, // Asumsi ada artikel ttg ini
-                            { id: "ISO 27001 & NIST", group: "sec", r: 40, targetProject: "soc" },
-                            { id: "DevSecOps", group: "sec", r: 35, targetProject: "medium" },
-                            { id: "Log Analysis", group: "sec", r: 35, targetProject: "soc" }
-                        ],
-                        links: [
-                            { source: "Sigit Adi", target: "AI Specialist", strength: 0.1 },
-                            { source: "Sigit Adi", target: "Security Specialist", strength: 0.1 },
-                            
-                            { source: "AI Specialist", target: "Prompt Engineering", strength: 0.1 },
-                            { source: "AI Specialist", target: "RLHF", strength: 0.1 },
-                            { source: "AI Specialist", target: "Data Annotation", strength: 0.1 },
-                            { source: "AI Specialist", target: "LLM Evaluation", strength: 0.1 },
-                            { source: "AI Specialist", target: "Azure AI", strength: 0.1 },
-                            { source: "AI Specialist", target: "Python (AI/ML)", strength: 0.1 },
-                            { source: "AI Specialist", target: "Generative AI", strength: 0.1 },
-                            
-                            { source: "Security Specialist", target: "SIEM (Wazuh)", strength: 0.1 },
-                            { source: "Security Specialist", target: "Incident Handling", strength: 0.1 },
-                            { source: "Security Specialist", target: "Threat Intelligence", strength: 0.1 },
-                            { source: "Security Specialist", target: "Penetration Testing", strength: 0.1 },
-                            { source: "Security Specialist", target: "ISO 27001 & NIST", strength: 0.1 },
-                            { source: "Security Specialist", target: "DevSecOps", strength: 0.1 },
-                            { source: "Security Specialist", target: "Log Analysis", strength: 0.1 }
-                        ]
-                    };
-
-                    const width = chartContainer.clientWidth;
-                    const height = chartContainer.clientHeight;
-                    
-                    if (width === 0 || height === 0) {
-                        console.error("D3 init failed: container has zero dimensions even after observing.");
-                        return;
-                    }
-
-                    const colorScale = d3.scaleOrdinal()
-                        .domain(["root", "group-ai", "group-sec", "ai", "sec"])
-                        .range([
-                            "var(--color-surface)",
-                            "var(--color-primary)",
-                            "var(--color-accent1)",
-                            "var(--color-primary)",
-                            "var(--color-accent1)"
-                        ]);
-
-                    const svg = d3.select("#skill-chart")
-                        .attr("viewBox", [-width / 2, -height / 2, width, height]);
-
-                    const simulation = d3.forceSimulation(skillData.nodes)
-                        .force("link", d3.forceLink(skillData.links).id(d => d.id).strength(d => d.strength).distance(80)) 
-                        .force("charge", d3.forceManyBody().strength(-600)) 
-                        .force("collide", d3.forceCollide().radius(d => d.r + 6)) 
-                        .force("center", d3.forceCenter());
-
-                    const link = svg.append("g")
-                        .attr("class", "skill-links")
-                        .selectAll("line")
-                        .data(skillData.links)
-                        .join("line")
-                        .attr("class", "skill-link");
-
-                    const node = svg.append("g")
-                        .attr("class", "skill-nodes")
-                        .selectAll("g")
-                        .data(skillData.nodes)
-                        .join("g")
-                        .attr("class", "skill-bubble")
-                        .attr("data-clickable", d => d.targetProject ? "true" : "false")
-                        .on("click", (event, d) => {
-                            if (!d.targetProject) return; 
-
-                            const targetCard = document.querySelector(`[data-project-id='${d.targetProject}']`);
-                            if (targetCard) {
-                                targetCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                                
-                                document.querySelectorAll('.project-card.highlight-project').forEach(card => {
-                                    card.classList.remove('highlight-project');
-                                });
-                                targetCard.classList.add('highlight-project');
-                                setTimeout(() => {
-                                    targetCard.classList.remove('highlight-project');
-                                }, 2000);
-                            }
-                        })
-                        .call(d3.drag()
-                            .on("start", dragstarted)
-                            .on("drag", dragged)
-                            .on("end", dragended));
-
-                    node.append("circle")
-                        .attr("r", d => d.r)
-                        .attr("fill", d => colorScale(d.group))
-                        .attr("stroke", d => d.group === 'root' ? 'var(--color-primary)' : 'var(--color-border)') 
-                        .attr("stroke-width", 2);
-
-                    const text = node.append("text")
-                        .attr("class", d => d.group === "root" ? "skill-label root-label" : (d.group.startsWith("group-") ? "skill-label group-label" : "skill-label"))
-                        .style("fill", d => {
-                            if (d.group === 'root') return 'var(--color-text-primary)'; 
-                            if (d.group.startsWith('group-')) return '#F9FAFB'; 
-                            return 'var(--color-text-primary)'; 
-                        });
-                    
-                    text.each(function(d) {
-                        const node = d3.select(this);
-                        node.text(null);
+                const skillData = {
+                    nodes: [
+                        { id: "Sigit Adi", group: "root", r: 45 },
+                        { id: "AI Specialist", group: "group-ai", r: 65 },
+                        { id: "Security Specialist", group: "group-sec", r: 65 },
                         
-                        let lines = [];
-                        const words = d.id.split(' ');
+                        { id: "Prompt Engineering", group: "ai", r: 40, projectId: "promptmatrix2" },
+                        { id: "RLHF", group: "ai", r: 35 },
+                        { id: "Data Annotation", group: "ai", r: 38 },
+                        { id: "LLM Evaluation", group: "ai", r: 38, projectId: "promptmatrix2" },
+                        { id: "Azure AI", group: "ai", r: 35 },
+                        { id: "Python (AI/ML)", group: "ai", r: 38, projectId: "promptmatrix1" },
+                        { id: "Generative AI", group: "ai", r: 38, projectId: "promptmatrix1" },
                         
-                        if (d.id === "Sigit Adi") lines = ["Sigit", "Adi"];
-                        else if (d.id === "AI Specialist") lines = ["AI", "Specialist"];
-                        else if (d.id === "Security Specialist") lines = ["Security", "Specialist"];
-                        else if (d.id === "Prompt Engineering") lines = ["Prompt", "Engineering"];
-                        else if (d.id === "Data Annotation") lines = ["Data", "Annotation"];
-                        else if (d.id === "LLM Evaluation") lines = ["LLM", "Evaluation"];
-                        else if (d.id === "Python (AI/ML)") lines = ["Python", "(AI/ML)"];
-                        else if (d.id === "Generative AI") lines = ["Generative", "AI"];
-                        else if (d.id === "Incident Handling") lines = ["Incident", "Handling"];
-                        else if (d.id === "Threat Intelligence") lines = ["Threat", "Intel"];
-                        else if (d.id === "Penetration Testing") lines = ["Pen", "Testing"];
-                        else if (d.id === "ISO 27001 & NIST") lines = ["ISO 27001", "& NIST"];
-                        else if (d.id === "Log Analysis") lines = ["Log", "Analysis"];
-                        else lines = [d.id]; 
+                        { id: "SIEM (Wazuh)", group: "sec", r: 40, projectId: "soc" },
+                        { id: "Incident Handling", group: "sec", r: 38, projectId: "soc" },
+                        { id: "Threat Intelligence", group: "sec", r: 38 },
+                        { id: "Penetration Testing", group: "sec", r: 38 },
+                        { id: "ISO 27001 & NIST", group: "sec", r: 40, projectId: "soc" },
+                        { id: "DevSecOps", group: "sec", r: 35 },
+                        { id: "Log Analysis", group: "sec", r: 35, projectId: "soc" }
+                    ],
+                    links: [
+                        { source: "Sigit Adi", target: "AI Specialist", strength: 0.1 },
+                        { source: "Sigit Adi", target: "Security Specialist", strength: 0.1 },
+                        
+                        { source: "AI Specialist", target: "Prompt Engineering", strength: 0.1 },
+                        { source: "AI Specialist", target: "RLHF", strength: 0.1 },
+                        { source: "AI Specialist", target: "Data Annotation", strength: 0.1 },
+                        { source: "AI Specialist", target: "LLM Evaluation", strength: 0.1 },
+                        { source: "AI Specialist", target: "Azure AI", strength: 0.1 },
+                        { source: "AI Specialist", target: "Python (AI/ML)", strength: 0.1 },
+                        { source: "AI Specialist", target: "Generative AI", strength: 0.1 },
+                        
+                        { source: "Security Specialist", target: "SIEM (Wazuh)", strength: 0.1 },
+                        { source: "Security Specialist", target: "Incident Handling", strength: 0.1 },
+                        { source: "Security Specialist", target: "Threat Intelligence", strength: 0.1 },
+                        { source: "Security Specialist", target: "Penetration Testing", strength: 0.1 },
+                        { source: "Security Specialist", target: "ISO 27001 & NIST", strength: 0.1 },
+                        { source: "Security Specialist", target: "DevSecOps", strength: 0.1 },
+                        { source: "Security Specialist", target: "Log Analysis", strength: 0.1 }
+                    ]
+                };
+                
+                const colorScale = d3.scaleOrdinal()
+                    .domain(["root", "group-ai", "group-sec", "ai", "sec"])
+                    .range([
+                        "var(--color-surface)",
+                        "var(--color-primary)",
+                        "var(--color-accent1)",
+                        "var(--color-primary)",
+                        "var(--color-accent1)"
+                    ]);
 
-                        const lineHeight = 1.1; 
-                        const startY = lines.length > 1 ? -((lines.length - 1) * lineHeight) / 2 + 0.1 : 0.3;
-                        
-                        lines.forEach((line, i) => {
-                            node.append("tspan")
-                                .text(line)
-                                .attr("x", 0)
-                                .attr("dy", (i === 0 ? startY : lineHeight) + "em");
-                        });
+                const svg = d3.select("#skill-chart")
+                    .attr("viewBox", [-width / 2, -height / 2, width, height]);
+                
+                // Clear previous simulation if any
+                svg.selectAll("*").remove();
+
+                const simulation = d3.forceSimulation(skillData.nodes)
+                    .force("link", d3.forceLink(skillData.links).id(d => d.id).strength(d => d.strength).distance(80)) 
+                    .force("charge", d3.forceManyBody().strength(-600)) 
+                    .force("collide", d3.forceCollide().radius(d => d.r + 6)) 
+                    .force("center", d3.forceCenter());
+
+                const link = svg.append("g")
+                    .attr("class", "skill-links")
+                    .selectAll("line")
+                    .data(skillData.links)
+                    .join("line")
+                    .attr("class", "skill-link");
+
+                const node = svg.append("g")
+                    .attr("class", "skill-nodes")
+                    .selectAll("g")
+                    .data(skillData.nodes)
+                    .join("g")
+                    .attr("class", d => `skill-bubble ${d.projectId ? 'clickable' : ''}`) // Add clickable class
+                    .call(d3.drag()
+                        .on("start", dragstarted)
+                        .on("drag", dragged)
+                        .on("end", dragended))
+                    .on("click", nodeClicked); // Add click listener
+
+                node.append("circle")
+                    .attr("r", d => d.r)
+                    .attr("fill", d => colorScale(d.group))
+                    .attr("stroke", d => d.group === 'root' ? 'var(--color-primary)' : 'var(--color-border)') 
+                    .attr("stroke-width", 2);
+
+                const text = node.append("text")
+                    .attr("class", d => d.group === "root" ? "skill-label root-label" : (d.group.startsWith("group-") ? "skill-label group-label" : "skill-label"))
+                    .style("fill", d => {
+                        if (d.group === 'root') return 'var(--color-text-primary)'; 
+                        if (d.group.startsWith('group-')) return '#F9FAFB'; 
+                        return 'var(--color-text-primary)'; 
                     });
-                        
-                    simulation.on("tick", () => {
-                        try {
-                            // Batasan agar node tidak keluar dari viewBox
-                            const radius = (d) => d.r + 5; // Radius + padding
-                            const halfWidth = width / 2;
-                            const halfHeight = height / 2;
-                            
-                            node
-                                .attr("cx", d => d.x = Math.max(-halfWidth + radius(d), Math.min(halfWidth - radius(d), d.x)))
-                                .attr("cy", d => d.y = Math.max(-halfHeight + radius(d), Math.min(halfHeight - radius(d), d.y)))
-                                .attr("transform", d => `translate(${d.x},${d.y})`);
+                
+                text.each(function(d) {
+                    const node = d3.select(this);
+                    node.text(null); // Clear
+                    
+                    let lines = [];
+                    const words = d.id.split(' ');
+                    
+                    if (d.id === "Sigit Adi") lines = ["Sigit", "Adi"];
+                    else if (d.id === "AI Specialist") lines = ["AI", "Specialist"];
+                    else if (d.id === "Security Specialist") lines = ["Security", "Specialist"];
+                    else if (d.id === "Prompt Engineering") lines = ["Prompt", "Engineering"];
+                    else if (d.id === "Data Annotation") lines = ["Data", "Annotation"];
+                    else if (d.id === "LLM Evaluation") lines = ["LLM", "Evaluation"];
+                    else if (d.id === "Python (AI/ML)") lines = ["Python", "(AI/ML)"];
+                    else if (d.id === "Generative AI") lines = ["Generative", "AI"];
+                    else if (d.id === "Incident Handling") lines = ["Incident", "Handling"];
+                    else if (d.id === "Threat Intelligence") lines = ["Threat", "Intel"];
+                    else if (d.id === "Penetration Testing") lines = ["Pen", "Testing"];
+                    else if (d.id === "ISO 27001 & NIST") lines = ["ISO 27001", "& NIST"];
+                    else if (d.id === "Log Analysis") lines = ["Log", "Analysis"];
+                    else lines = [d.id]; // Single word
 
-                            link
-                                .attr("x1", d => d.source.x)
-                                .attr("y1", d => d.source.y)
-                                .attr("x2", d => d.target.x)
-                                .attr("y2", d => d.target.y);
-                        } catch(e) {
-                            //
+                    const lineHeight = 1.1; // ems
+                    const startY = lines.length > 1 ? -((lines.length - 1) * lineHeight) / 2 + 0.1 : 0.3; // Center vertically
+                    
+                    lines.forEach((line, i) => {
+                        node.append("tspan")
+                            .text(line)
+                            .attr("x", 0)
+                            .attr("dy", (i === 0 ? startY : lineHeight) + "em");
+                    });
+                });
+                    
+                simulation.on("tick", () => {
+                    // Add collision detection with boundaries
+                    node.attr("cx", d => d.x = Math.max(d.r - width/2, Math.min(width/2 - d.r, d.x)))
+                        .attr("cy", d => d.y = Math.max(d.r - height/2, Math.min(height/2 - d.r, d.y)));
+
+                    link
+                        .attr("x1", d => d.source.x)
+                        .attr("y1", d => d.source.y)
+                        .attr("x2", d => d.target.x)
+                        .attr("y2", d => d.target.y);
+
+                    node
+                        .attr("transform", d => `translate(${d.x},${d.y})`);
+                });
+
+                function dragstarted(event, d) {
+                    if (!event.active) simulation.alphaTarget(0.3).restart();
+                    d.fx = d.x;
+                    d.fy = d.y;
+                }
+
+                function dragged(event, d) {
+                    d.fx = event.x;
+                    d.fy = event.y;
+                }
+
+                function dragended(event, d) {
+                    if (!event.active) simulation.alphaTarget(0);
+                    d.fx = null;
+                    d.fy = null;
+                }
+                
+                function nodeClicked(event, d) {
+                    if (d.projectId) {
+                        const targetProjectCard = document.querySelector(`.project-card[data-project-id="${d.projectId}"]`);
+                        if (targetProjectCard) {
+                            // Scroll to the card
+                            targetProjectCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            
+                            // Add highlight effect
+                            targetProjectCard.classList.add('highlight');
+                            setTimeout(() => {
+                                targetProjectCard.classList.remove('highlight');
+                            }, 1600); // Remove after animation
                         }
-                    });
-
-                    function dragstarted(event, d) {
-                        if (!event.active) simulation.alphaTarget(0.3).restart();
-                        d.fx = d.x;
-                        d.fy = d.y;
                     }
-
-                    function dragged(event, d) {
-                        d.fx = event.x;
-                        d.fy = event.y;
-                    }
-
-                    function dragended(event, d) {
-                        if (!event.active) simulation.alphaTarget(0);
-                        d.fx = null;
-                        d.fy = null;
-                    }
-                    
-                    simulation.alpha(0.3).restart();
-                
-                } catch (e) {
-                    console.error("Error initializing D3 Skill Map:", e);
-                }
-            }
-
-            // --- Logika AI Chat Simulation ---
-            let aiSimHasRun = false;
-            function startAiSimulation() {
-                if (aiSimHasRun) return; // Hanya jalankan sekali
-                aiSimHasRun = true;
-
-                const widget = document.getElementById('ai-chat-widget');
-                const messagesContainer = document.getElementById('ai-chat-messages');
-                const typingIndicator = document.getElementById('ai-typing-indicator');
-                if (!widget || !messagesContainer || !typingIndicator) return;
-
-                widget.style.opacity = '1';
-
-                const simulationSteps = [
-                    { type: 'delay', duration: 500 },
-                    { type: 'typing' },
-                    { type: 'delay', duration: 1500 },
-                    { type: 'message', text: "Hello! I am Sigit's AI assistant." },
-                    { type: 'delay', duration: 500 },
-                    { type: 'typing' },
-                    { type: 'delay', duration: 2000 },
-                    { type: 'message', text: "Analyzing profile... You're looking for a rare specialist: an AI expert who also understands Cyber Security." },
-                    { type: 'delay', duration: 500 },
-                    { type: 'typing' },
-                    { type: 'delay', duration: 2500 },
-                    { type: 'message', text: "Sigit has 10+ years of experience in both. Please see the projects and certificates below for proof." }
-                ];
-
-                let stepIndex = 0;
-
-                function runNextStep() {
-                    if (stepIndex >= simulationSteps.length) {
-                        typingIndicator.classList.add('hidden');
-                        return;
-                    }
-                    
-                    const step = simulationSteps[stepIndex];
-
-                    if (step.type === 'delay') {
-                        setTimeout(runNextStep, step.duration);
-                    } 
-                    else if (step.type === 'typing') {
-                        typingIndicator.classList.remove('hidden');
-                        // PERBAIKAN: Menggunakan setTimeout untuk mencegah stack overflow
-                        setTimeout(runNextStep, 0);
-                    }
-                    else if (step.type === 'message') {
-                        typingIndicator.classList.add('hidden');
-                        const bubble = document.createElement('div');
-                        bubble.className = 'ai-chat-bubble bot';
-                        bubble.textContent = step.text;
-                        messagesContainer.appendChild(bubble);
-                        // Auto scroll chat
-                        messagesContainer.scrollTop = messagesContainer.scrollHeight;
-                        // PERBAIKAN: Menggunakan setTimeout untuk mencegah stack overflow
-                        setTimeout(runNextStep, 0);
-                    }
-                    stepIndex++;
                 }
                 
-                runNextStep();
+                // Restart simulation with low alpha
+                simulation.alpha(0.3).restart();
             }
             
         });
