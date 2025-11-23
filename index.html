@@ -78,7 +78,6 @@
         .calm-gradient-bg {
             background: linear-gradient(-45deg, var(--color-primary), var(--color-accent1), var(--color-accent2), var(--color-bg));
             background-size: 400% 400%;
-            animation: move-gradient 30s ease infinite;
             filter: blur(150px);
             opacity: 0.15;
         }
@@ -983,20 +982,22 @@
                         </div>
                     </div>
                     
-                    <div class="project-card fade-in-up" data-category="ai" data-delay="200" data-project-id="workshop">
+                    <!-- MODIFIED CARD: Arya SOC -->
+                    <div class="project-card fade-in-up" data-category="cybersecurity ai" data-delay="200" data-project-id="arya-soc">
                          <div class="project-card-inner">
                             <div class="project-card-front">
                                 <div class="card-image">
-                                    <img src="https.i.postimg.cc/G20hy5Z3/daftarapiijabo.png" alt="AI Workshop & Consultation Form Screenshot" onerror="this.onerror=null;this.src='https://placehold.co/600x400/1F2937/E5E7EB?text=AI+Consulting';">
+                                    <!-- Using placeholder since I cannot fetch the image from Streamlit URL -->
+                                    <img src="https://placehold.co/600x400/1F2937/E5E7EB?text=Arya+SOC+Demo" alt="Arya SOC Streamlit App Screenshot" onerror="this.onerror=null;this.src='https://placehold.co/600x400/1F2937/E5E7EB?text=Arya+SOC+Demo';">
                                 </div>
                                 <div class="p-6">
-                                    <span class="inline-block bg-[var(--color-primary)]/10 text-[var(--color-primary)] text-xs font-medium px-2.5 py-0.5 rounded-full mb-3 font-mono"><i class="fas fa-users mr-1"></i>AI Service / Business</span>
-                                    <h3 class="text-xl font-semibold text-[var(--color-text-primary)]">AI Workshop & Consultation</h3>
+                                    <span class="inline-block bg-[var(--color-accent1)]/10 text-[var(--color-accent1)] text-xs font-medium px-2.5 py-0.5 rounded-full mb-3 font-mono"><i class="fas fa-cubes mr-1"></i>Cyber Demo / AI Platform</span>
+                                    <h3 class="text-xl font-semibold text-[var(--color-text-primary)]">Arya SOC Simulation</h3>
                                 </div>
                             </div>
                             <div class="project-card-back">
-                                <p class="text-[var(--color-text-secondary)] mb-6 text-sm">A professional intake form for AI consultation and training services, automating client registration via Google Forms.</p>
-                                <button data-modal-target="modal-workshop" class="font-medium text-[var(--color-primary)] hover:underline flex items-center font-mono text-sm"><i class="fas fa-book-open mr-2"></i>View Case Study &rarr;</button>
+                                <p class="text-[var(--color-text-secondary)] mb-6 text-sm">A Streamlit application demonstrating key Security Operations Center (SOC) functions: risk analysis and incident mitigation.</p>
+                                <button data-modal-target="modal-arya-soc" class="font-medium text-[var(--color-primary)] hover:underline flex items-center font-mono text-sm"><i class="fas fa-book-open mr-2"></i>View Case Study &rarr;</button>
                             </div>
                         </div>
                     </div>
@@ -1118,7 +1119,7 @@
                                 <!-- UPDATED LIST -->
                                 <li><a href="https://app.kajabi.com/certificates/a253d7d1" target="_blank" rel="noopener noreferrer" class="inline-flex items-center hover:text-[var(--color-primary)] transition-colors">Microsoft: Azure AI Fundamentals (AI-900) <i class="fas fa-external-link-alt text-xs ml-2 opacity-60"></i></a></li>
                                 <li><a href="https://ruangai.codepolitan.com/certificate/9075711312" target="_blank" rel="noopener noreferrer" class="inline-flex items-center hover:text-[var(--color-primary)] transition-colors">Belajar Generative AI <i class="fas fa-external-link-alt text-xs ml-2 opacity-60"></i></a></li>
-                                <li><a href="https://media.licdn.com/dms/image/v2/D562DAQGEx6_9gVmxSA/profile-treasury-document-cover-images_800/B56Zl1ugfUIsBA-/0/1758616751615?e=1763499600&v=beta&t=2_SaB3R-h_9CaV8eQzhds7OhRiWZQG8aAFJ_xmcGme0" target="_blank" rel="noopener noreferrer" class="inline-flex items-center hover:text-[var(--color-primary)] transition-colors">AI for Government of Indonesia Training <i class="fas fa-external-link-alt text-xs ml-2 opacity-60"></i></a></li>
+                                <li><a href="https://media.licdn.com/dms/image/v2/D562DAQGEx6_9gVmxSA/profile-treasury-document-cover-images_800/B56Zl1ugfUIsBA-/0/1758616751615?e=1763499600&v=beta&t=2_SaB3R-h_9CaVv8eQzhds7OhRiWZQG8aAFJ_xmcGme0" target="_blank" rel="noopener noreferrer" class="inline-flex items-center hover:text-[var(--color-primary)] transition-colors">AI for Government of Indonesia Training <i class="fas fa-external-link-alt text-xs ml-2 opacity-60"></i></a></li>
                                 <li><a href="https://media.licdn.com/dms/image/v2/D562DAQF80cI68W9ouQ/profile-treasury-document-cover-images_800/B56Zl1vioZJwA8-/0/1758617025204?e=1763499600&v=beta&t=KXPij2VCTtjvBTqX10tCxO3zweBIYM_GiVyyo0KEz8k" target="_blank" rel="noopener noreferrer" class="inline-flex items-center hover:text-[var(--color-primary)] transition-colors">Otomatisasi Bisnis dengan n8n <i class="fas fa-external-link-alt text-xs ml-2 opacity-60"></i></a></li>
                             </ul>
                         </div>
@@ -1265,21 +1266,28 @@
                     <p class="text-[var(--color-text-secondary)] text-sm italic">This is an internal documentation project and does not have a public link.</p>
                 </div>
                 
-                <div id="modal-workshop" class="modal-content hidden">
-                    <h3 class="text-2xl font-bold text-[var(--color-text-primary)] mb-4 section-heading">Case Study: AI Workshop & Consultation Service</h3>
+                <!-- MODIFIED MODAL CONTENT: Arya SOC Simulation -->
+                <div id="modal-arya-soc" class="modal-content hidden">
+                    <h3 class="text-2xl font-bold text-[var(--color-text-primary)] mb-4 section-heading">Case Study: Arya SOC Simulation</h3>
                     <h4 class="text-lg font-semibold text-[var(--color-primary)] mt-4 mb-2 font-mono">The Challenge</h4>
-                    <p class="text-[var(--color-text-secondary)] mb-4">Many businesses and individuals want to leverage AI but lack the specific expertise. They need a clear, low-friction channel to request specialized services like workshops, prompt engineering, or strategic consulting.</p>
+                    <p class="text-[var(--color-text-secondary)] mb-4">How to effectively demonstrate real-world Security Operations Center (SOC) functions, like identifying high-risk events, classifying threats, and prioritizing mitigation strategies, in a low-friction, accessible environment.</p>
                     <h4 class="text-lg font-semibold text-[var(--color-primary)] mt-4 mb-2 font-mono">My Solution</h4>
-                    <p class="text-[var(--color-text-secondary)] mb-4">I created a productized service offering. This Google Form acts as a smart, automated intake portal. It standardizes client requests, captures essential project details upfront (like 'Service Type' and 'Needs'), and qualifies leads, allowing me to focus on delivering value instead of back-and-forth emails.</p>
+                    <p class="text-[var(--color-text-secondary)] mb-4">I developed a proof-of-concept application using Streamlit and Python. Arya SOC simulates a real-time security dashboard, allowing users to interact with simulated data on:
+                        <ul class="list-disc pl-5 mt-2 space-y-1">
+                            <li>Risk Analysis and Threat Classification (High, Medium, Low).</li>
+                            <li>Visualization of common attack vectors and affected assets.</li>
+                            <li>Scenario-based incident response prioritization.</li>
+                        </ul>
+                        This tool validates my understanding of SOC metrics and front-end data presentation.</p>
                     <h4 class="text-lg font-semibold text-[var(--color-primary)] mt-4 mb-2 font-mono">Tech Stack</h4>
                     <div class="flex flex-wrap gap-2 mb-6">
-                        <span class="modal-tech-pill">Google Forms</span>
-                        <span class="modal-tech-pill">Google Sheets (Backend)</span>
-                        <span class="modal-tech-pill">Business Process Automation</span>
-                        <span class="modal-tech-pill">Client Management</span>
+                        <span class="modal-tech-pill">Streamlit (Python)</span>
+                        <span class="modal-tech-pill">Data Visualization</span>
+                        <span class="modal-tech-pill">SOC Operations</span>
+                        <span class="modal-tech-pill">Threat Modeling</span>
                     </div>
-                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSflo4hWdMH0BuxOKzopfANncpsfuAooSL_6b1jTeh4dBgh08w/viewform" target="_blank" rel="noopener noreferrer" class="btn-primary">
-                        View Registration Form &rarr;
+                    <a href="https://arya-soc.streamlit.app/" target="_blank" rel="noopener noreferrer" class="btn-primary">
+                        View Live Simulation &rarr;
                     </a>
                 </div>
                 
@@ -1330,6 +1338,48 @@
         </div>
     </footer>
 
+    <!-- Floating Contact Button -->
+    <div id="contact-widget">
+        <div id="fab-text">
+            Start Your Project
+        </div>
+        <div id="contact-form-container">
+            <div class="p-6">
+                <h3 class="text-xl font-semibold text-[var(--color-text-primary)] mb-4 font-mono">Secure Your AI Project</h3>
+                <p id="form-status" class="mb-4 text-sm text-[var(--color-text-secondary)]">Ready to collaborate? Send me a message.</p>
+                <form id="contact-form" action="https://formspree.io/f/mkgknrqk" method="POST" class="space-y-4">
+                    <div>
+                        <label for="name-fab" class="hidden">Full Name</label>
+                        <input type="text" name="name" id="name-fab" required placeholder="Your Name" class="glowing-border block w-full px-4 py-3 border rounded-md shadow-sm focus:ring-0 focus:outline-none text-[var(--color-text-primary)] text-sm">
+                    </div>
+                    <div>
+                        <label for="email-fab" class="hidden">Email</label>
+                        <input type="email" name="email" id="email-fab" required placeholder="Your Email" class="glowing-border block w-full px-4 py-3 border rounded-md shadow-sm focus:ring-0 focus:outline-none text-[var(--color-text-primary)] text-sm">
+                    </div>
+                    <div>
+                        <label for="message-fab" class="hidden">Message</label>
+                        <textarea id="message-fab" name="message" rows="4" required placeholder="Your Message..." class="glowing-border block w-full px-4 py-3 border rounded-md shadow-sm focus:ring-0 focus:outline-none text-[var(--color-text-primary)] text-sm"></textarea>
+                    </div>
+                    <div>
+                        <button type="submit" class="w-full btn-primary" style="padding: 0.5rem 1rem; font-size: 0.875rem;">
+                            Send Message
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <button id="contact-fab" aria-label="Toggle contact form">
+            <svg id="fab-icon-open" class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+             <svg id="fab-icon-close" class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+        </button>
+    </div>
+
+    <!-- SCRIPTS -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             
@@ -1401,7 +1451,7 @@
             
                 if (!isDeleting && charIndex === currentPart.length) {
                     isDeleting = true;
-                    speed = 2000; 
+                    speed = 2000; // Pause at end
                     firstLoad = false;
                 } else if (isDeleting && charIndex === 0) {
                     isDeleting = false;
@@ -1704,7 +1754,7 @@
                 'modal-promptmatrix2': 'https://i.postimg.cc/G20hy5Zh/promptmatrixv02.png',
                 'modal-financial': 'https://i.postimg.cc/cJtL6S5W/aplikasikeuangan.png',
                 'modal-soc': 'https://i.postimg.cc/j5zqQhb4/SOC_Playbook.png',
-                'modal-workshop': 'https.i.postimg.cc/G20hy5Z3/daftarapiijabo.png',
+                'modal-arya-soc': 'https://placehold.co/600x400/1F2937/E5E7EB?text=Arya+SOC+Demo',
                 'modal-medium': 'https://i.postimg.cc/0Qg2wBLk/medium.png'
             };
 
