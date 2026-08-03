@@ -236,6 +236,32 @@
             .btn-primary, .btn-secondary { padding: 0.6rem 1rem !important; font-size: 0.8rem !important; }
         }
 
+        
+        /* Strict Smartphone Screen Display Compatibility (<480px) */
+        @media (max-width: 480px) {
+            #hero { padding-left: 0.75rem !important; padding-right: 0.75rem !important; }
+            #hero h1 { font-size: 1.85rem !important; line-height: 1.25 !important; }
+            #hero h2 { font-size: 1.05rem !important; }
+            #hero p { font-size: 0.875rem !important; line-height: 1.5 !important; }
+            .badge { font-size: 0.65rem !important; padding: 0.2rem 0.5rem !important; }
+            #typing-dynamic { font-size: 0.95rem !important; }
+        }
+
+        
+        /* Mobile Device Responsiveness for Contact Form Container */
+        @media (max-width: 640px) {
+            #contact-form-container {
+                width: calc(100vw - 2rem) !important;
+                max-width: 360px !important;
+            }
+            #contact-widget {
+                right: 1rem !important;
+            }
+        }
+
+        
+        /* Floating Contact Widget Footer Avoidance — handled dynamically via JS scroll listener */
+
         /* Scroll Animations */
         .fade-in-up {
             opacity: 1;
@@ -610,7 +636,7 @@
             display: flex;
             align-items: flex-end;
             flex-direction: column;
-            transition: bottom 0.3s ease;
+            transition: bottom 0.2s ease;
         }
         #contact-fab {
             width: 3.5rem;
@@ -644,10 +670,12 @@
             white-space: nowrap;
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
             pointer-events: none;
-            opacity: 1;
+            opacity: 0;
             transition: opacity 0.3s ease;
         }
-        #contact-widget.open #fab-text { opacity: 0; }
+        #contact-fab:hover ~ #fab-text,
+        #contact-fab:focus ~ #fab-text { opacity: 1; }
+        #contact-widget.open #fab-text { opacity: 0; display: none; }
         #contact-form-container {
             width: 340px;
             background-color: var(--color-surface);
@@ -889,11 +917,11 @@
         <!-- Hero Section -->
         <section id="hero" class="min-h-screen flex items-center particle-bg">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 py-16">
-                <div onclick="openTerminalPalette()" title="Click or press Ctrl+K to open Terminal Console" class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-[var(--color-surface)] border border-[var(--color-border)] font-mono text-xs text-[var(--color-primary)] mb-6 shadow-sm cursor-pointer hover:border-[var(--color-primary)] transition-all">
-                    <span class="text-[var(--color-accent1)] font-bold">$</span> sys.init --profile="sigit_adi" --role="AI_ENGINEER" --status="ONLINE"
+                <div onclick="openTerminalPalette()" title="Click or press Ctrl+K to open Terminal Console" class="inline-flex items-center max-w-full gap-2 px-3 py-1.5 rounded-lg bg-[var(--color-surface)] border border-[var(--color-border)] font-mono text-[11px] sm:text-xs text-[var(--color-primary)] mb-6 shadow-sm cursor-pointer hover:border-[var(--color-primary)] transition-all overflow-hidden text-ellipsis whitespace-nowrap">
+                    <span class="text-[var(--color-accent1)] font-bold flex-shrink-0">$</span> <span class="truncate">sys.init --profile="sigit_adi" --role="AI_ENGINEER"</span>
                 </div>
                 
-                <h1 class="text-4xl md:text-6xl font-extrabold text-[var(--color-text-primary)] mb-2">
+                <h1 class="text-3xl sm:text-5xl md:text-6xl font-extrabold text-[var(--color-text-primary)] mb-2 tracking-tight leading-tight max-w-full overflow-hidden text-ellipsis">
                     Sigit Adi Irianto
                 </h1>
 
@@ -901,18 +929,18 @@
                     AI Engineer
                 </div>
                 
-                <h2 class="text-xl md:text-3xl font-bold text-[var(--color-text-primary)] mb-6 flex items-center justify-center gap-x-2">
+                <h2 class="text-lg sm:text-2xl md:text-3xl font-bold text-[var(--color-text-primary)] mb-6 flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-x-2 max-w-full">
                     <span class="text-[var(--color-text-secondary)] select-none flex-shrink-0">Specializing in:</span>
-                    <span class="inline-flex items-center min-w-[280px] md:min-w-[440px] text-left"><span id="typing-dynamic" class="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-primary)] via-indigo-400 to-[var(--color-accent1)] font-mono"></span><span id="typing-cursor" class="typing-cursor"></span></span>
+                    <span class="inline-flex items-center justify-center sm:justify-start min-w-[180px] sm:min-w-[280px] md:min-w-[440px] max-w-full text-center sm:text-left"><span id="typing-dynamic" class="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-primary)] via-indigo-400 to-[var(--color-accent1)] font-mono break-all sm:break-normal"></span><span id="typing-cursor" class="typing-cursor"></span></span>
                 </h2>
 
-                <p class="text-base md:text-lg text-[var(--color-text-secondary)] mb-8 max-w-3xl mx-auto leading-relaxed">
+                <p class="text-sm sm:text-base md:text-lg text-[var(--color-text-secondary)] mb-8 max-w-3xl mx-auto leading-relaxed px-2 sm:px-0">
                     Combining 10+ years of IT management, government project operations, and cybersecurity expertise, now focused on building enterprise AI systems.
                 </p>
                 
 
                 
-                <div class="mt-8 flex flex-wrap justify-center items-center gap-3 text-xs font-mono">
+                <div class="mt-8 flex flex-wrap justify-center items-center gap-2 sm:gap-3 text-[10px] sm:text-xs font-mono max-w-full px-2 sm:px-0">
                     <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[var(--color-surface)] border border-[var(--color-border)] text-[var(--color-accent1)] shadow-sm">
                         <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
                         CORE: ONLINE
@@ -1800,9 +1828,6 @@
 
     <!-- Floating Contact & Request CV Widget -->
     <div id="contact-widget">
-        <div id="fab-text">
-            Contact & Request CV
-        </div>
         <div id="contact-form-container">
             <div class="p-6">
                     <button type="button" onclick="window.toggleContactWidget()" class="text-gray-400 hover:text-white text-lg font-bold float-right">&times;</button>
@@ -1851,6 +1876,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
             </svg>
         </button>
+        <div id="fab-text">Contact & Request CV</div>
     </div>
 
         <!-- SCRIPTS -->
@@ -1891,6 +1917,67 @@
             }
         }
         window.copyProfileLink = copyProfileLink;
+
+        // --- FLOATING CONTACT WIDGET FOOTER AVOIDANCE (REAL-TIME SCROLL) ---
+        function initFooterAvoidance() {
+            var widget = document.getElementById('contact-widget');
+            var footer = document.getElementById('footer');
+            if (!widget || !footer) return;
+
+            var defaultBottom = 24; // 1.5rem in px
+            var buffer = 20; // extra breathing room in px
+
+            function adjustWidgetPosition() {
+                var footerRect = footer.getBoundingClientRect();
+                var viewportHeight = window.innerHeight;
+
+                // How much of the footer is visible from the bottom of the viewport
+                var footerVisibleHeight = viewportHeight - footerRect.top;
+
+                if (footerVisibleHeight > 0) {
+                    // Footer is in view — push widget up above it
+                    var newBottom = footerVisibleHeight + buffer;
+                    widget.style.setProperty('bottom', newBottom + 'px', 'important');
+                } else {
+                    // Footer not in view — reset to default
+                    widget.style.setProperty('bottom', defaultBottom + 'px', 'important');
+                }
+            }
+
+            window.addEventListener('scroll', adjustWidgetPosition, { passive: true });
+            window.addEventListener('resize', adjustWidgetPosition, { passive: true });
+            adjustWidgetPosition(); // run once on init
+        }
+        window.initFooterAvoidance = initFooterAvoidance;
+
+
+
+        // --- MOBILE MENU RESPONSIVE TOGGLE ---
+        function toggleMobileMenu() {
+            var menu = document.getElementById('mobile-menu');
+            var openIcon = document.getElementById('mobile-menu-open-icon');
+            var closeIcon = document.getElementById('mobile-menu-close-icon');
+            if (menu) {
+                menu.classList.toggle('hidden');
+                var isHidden = menu.classList.contains('hidden');
+                if (openIcon) openIcon.style.display = isHidden ? 'block' : 'none';
+                if (closeIcon) closeIcon.style.display = isHidden ? 'none' : 'block';
+            }
+        }
+        window.toggleMobileMenu = toggleMobileMenu;
+
+        function closeMobileMenu() {
+            var menu = document.getElementById('mobile-menu');
+            var openIcon = document.getElementById('mobile-menu-open-icon');
+            var closeIcon = document.getElementById('mobile-menu-close-icon');
+            if (menu && !menu.classList.contains('hidden')) {
+                menu.classList.add('hidden');
+                if (openIcon) openIcon.style.display = 'block';
+                if (closeIcon) closeIcon.style.display = 'none';
+            }
+        }
+        window.closeMobileMenu = closeMobileMenu;
+
 
         // --- 100% BULLETPROOF PROJECT CARD FILTERING ---
         function filterProjects(filterCategory, btnEl) {
