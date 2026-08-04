@@ -1,101 +1,64 @@
-# Sigit Adi Irianto — AI Engineer & SecOps Specialist Portfolio
+# 🛡️ Sigit Adi Irianto — Enterprise IT & SecOps Portfolio
 
-![License](https://img.shields.io/badge/License-MIT-blue.svg)
-![Build](https://img.shields.io/badge/Status-100%25%20Single--Page%20Application-emerald.svg)
-![SEO](https://img.shields.io/badge/SEO-Schema.org%20JSON--LD-purple.svg)
-![Security](https://img.shields.io/badge/Security-CSP%20%2B%20Anti--XSS-red.svg)
+[![Architecture: 100% Client-Side](https://img.shields.io/badge/Architecture-100%25%20Client--Side-blue.svg)](https://sisigitadi.github.io/portofolio/)
+[![Security: BYOK API](https://img.shields.io/badge/Security-Bring--Your--Own--Key%20(BYOK)-emerald.svg)](#security--privacy-architecture)
+[![Privacy: UU PDP Compliant](https://img.shields.io/badge/Privacy-UU%20PDP%20Compliant-purple.svg)](#security--privacy-architecture)
+[![Accessibility: WCAG Standard](https://img.shields.io/badge/Accessibility-WCAG%20Compliant-green.svg)](#accessibility--a11y)
 
-> **Live Portfolio Demo**: [https://sisigitadi.github.io/portofolio/](https://sisigitadi.github.io/portofolio/)
+> **Official Web Portfolio of Sigit Adi Irianto**  
+> *IT & SecOps Specialist | Applied AI Practitioner*
 
----
-
-## 📌 Executive Overview
-
-This repository contains the official source code for **Sigit Adi Irianto's** professional portfolio website. Built as a high-performance, privacy-first **Single-Page Application (SPA)**, the website showcases 10+ years of IT management, government project operations, and cybersecurity expertise, combined with modern AI Engineering.
-
-The entire web application is self-contained within a single, highly-optimized `index.html` file, requiring zero build steps or heavy node frameworks while delivering a state-of-the-art **Retro Cybersecurity + Futuristic AI** user interface.
+This repository contains the single-page application (SPA) portfolio showcasing 10+ years of operational experience across IT infrastructure management, Security Operations Center (SOC) threat triage, DevSecOps automation pipelines, and practical applied AI engineering.
 
 ---
 
-## ⭐ Key Technical Features & Highlights
+## 🏛️ Key Architectural Pillars
 
-### 1. 🎯 Dynamic Hero Section & Typing Skills
-* **Headline Layout**: Split title (`Sigit Adi Irianto`), prominent role subtitle (`AI Engineer`), and a static `"SPECIALIZING IN:"` heading.
-* **Same-Line Typing Engine**: Dynamic skill typewriter animation (`Machine Learning`, `NLP & Text Classification`, `LLM Evaluation & RLHF`, `Wazuh SIEM Threat Intelligence`, `Prompt Engineering`, `Docker & SecOps Automation`) on the same line with zero layout shift.
-* **Live SecOps Telemetry Status Bar**: Displays real-time status badges:
-  `[ 🟢 CORE: ONLINE ] [ ⚡ LATENCY: 0ms ] [ 🛡️ PRIVACY: UU PDP ] [ 🤖 STACK: GEMINI // WAZUH ]`
+### 1. 100% Client-Side Architecture
+- **Zero Server Overhead**: Built as a standalone, zero-dependency SPA running entirely in the visitor's browser.
+- **Client-Side ML & Heuristics**: Features local Naive Bayes NLP text classification, extractive summarization algorithms, rule-based security input sanitization, and mathematical password entropy calculators without external API reliance.
 
-### 2. 🧪 Interactive Client-Side ML & Security Demos (`#ml-sandbox`)
-Includes 6 live interactive web applications running 100% locally in the browser:
-1. **Live Machine Learning Sandbox**: Real-time Naive Bayes text classifier for expense & category prediction.
-2. **ML Security Input Tester**: Adversarial prompt injection & XSS payload testing sandbox.
-3. **Spam & Phishing Detector**: Rule-based & heuristic email/SMS threat classifier.
-4. **Smart Text Summarizer**: Local NLP text summarization engine with length controls.
-5. **AI Job Skill Matcher**: Real-time skill parser with **automatic target position detection** (*AI Engineer*, *Cybersecurity Analyst*, *Data Scientist*).
-6. **Password Health Analyzer**: Entropy calculation and dictionary check engine.
+### 2. Applied AI & SecOps Engineering
+- **Pragmatic AI Focus**: Bridges enterprise infrastructure with applied AI integration. Emphasizes prompt pipeline stability, RLHF evaluation, and local model deployment (Ollama/Naive Bayes) rather than unanchored foundation model claims.
+- **SOC & Threat Triage**: Showcases hands-on experience managing Wazuh SIEM threat hunting, FortiWeb WAF telemetries, and automated incident triage workflows.
 
-### 3. 🕹️ Retro Terminal Command Palette (`Ctrl + K`)
-* **Interactive CLI Overlay**: Built-in hacker/SecOps phosphor terminal console accessible via **`Ctrl + K`** or the top navigation bar **`[ 💻 CLI Console ]`** button.
-* **Commands Supported**:
-  * `help`: Lists available terminal commands.
-  * `projects`: Smooth scrolls to Projects section.
-  * `demos`: Smooth scrolls to Interactive ML Demos.
-  * `career`: Smooth scrolls to Career Journey timeline.
-  * `certs`: Smooth scrolls to Education & Certifications.
-  * `cv`: Opens the official CV request form widget.
-  * `contact`: Opens the contact form.
-  * `clear`: Clears terminal history.
+### 3. Bring-Your-Own-Key (BYOK) Security Protocol
+- **Zero Token Leakage**: Applications like *PromptMatrix 1.0* and *PromptMatrix 2.0* operate under a strict **Bring-Your-Own-Key (BYOK)** pattern. API keys (OpenAI / Gemini) are stored transiently in local browser memory and are never transmitted to or logged on third-party servers.
 
-### 4. 🎛️ Illuminated LED Project Filtering (`#projects`)
-* **Hardware Rack Filter Switches**: Illuminated LED category switches (`ALL_PROJECTS`, `AI_ML_CORE`, `SECOPS_TRIAGE`, `WEB_APPS`) with active neon glow effects.
-* **Instant Filtering**: Space-separated keyword parser supporting instant card sorting without page reloads.
-
-### 5. 🤖 AI Profiler Chat Simulator (`#about`)
-* **Balanced 2-Column Grid**: Side-by-side layout featuring **About Me Narrative & Core Principles** on the left and **AI Assistant Chat Simulator** on the right.
-* **Quick-Action Chips**: Clickable prompt tags (`💬 Why Sigit?`, `⚙️ Tech Stack`, `🛡️ SecOps Exp`) for immediate dialogue responses.
-
-### 6. 🏆 Cyberpunk Holographic Credentials (`#certificates`)
-* **Holographic Sheen (`.holo-card`)**: Cyberpunk metallic gradient shimmer effect on hover over certification credentials.
+### 4. UU PDP Compliance (Privacy-First Data Protection)
+- **Local Data Processing**: Strictly complies with Indonesian Personal Data Protection laws (UU PDP No. 27/2022). All sandbox calculations (expense categorization, password strength, prompt sanitization) run offline locally to ensure zero data exfiltration.
 
 ---
 
-## 🛡️ 5-Pillar Web Engineering Audit Standards
+## ⚡ Interactive Modules & Demos
 
-The application adheres to 5 rigorous web audit standards:
-
-1. **SEO (Search Engine Optimization)**:
-   * Google Rich Snippets via Schema.org `Person` JSON-LD structured data.
-   * `robots` meta tag with `max-image-preview:large`.
-   * Regional Geo tags (`ID-BT` / `Tangerang`).
-   * Canonical URL declaration.
-2. **Sosmed (Social Media OpenGraph & Twitter Cards)**:
-   * Crisp 1200x630px social cards (`og:image`, `twitter:card="summary_large_image"`).
-   * Rich preview generation across LinkedIn, WhatsApp, Telegram, and Twitter/X.
-3. **Security (CSP & Web Hardening)**:
-   * Meta Content Security Policy (CSP) restricting resource origin.
-   * Anti-XSS `escapeHTML()` sanitization across all interactive inputs.
-   * `rel="noopener noreferrer"` on all external links.
-4. **Compatibility (Display All Devices)**:
-   * Cross-device mobile/tablet/desktop/ultrawide responsive breakpoints.
-   * Mobile touch optimization and overflow protection (`overflow-x: hidden !important`).
-5. **Speed & Performance Optimization**:
-   * Resource `preconnect` and `dns-prefetch` for Google Fonts & FontAwesome.
-   * `display=swap` parameter for zero FOUT text rendering.
-   * Native lazy loading (`loading="lazy"`) and asynchronous decoding (`decoding="async"`) on all images.
+1. **Live ML Sandbox (Naive Bayes)**: Client-side Naive Bayes text classification combined with Regular Expression (Regex) currency parsing.
+2. **ML Security & Input Tester**: L1 static rule-based input sanitization, XSS escaping, and prompt injection detection.
+3. **Spam & Phishing Detector**: Pattern-matching keyword frequency NLP classifier for detecting phishing urgency.
+4. **Extractive Text Summarizer**: Word-frequency extractive summarization algorithm computing instant key takeaways.
+5. **Heuristic Skill Matcher**: Array-matching heuristic calculator computing technical qualification match scores.
+6. **Password Health & Entropy Analyzer**: Mathematical entropy calculator estimating offline brute-force crack time.
 
 ---
 
-## 📂 Project Structure
+## 🔒 Security & Privacy Controls
 
-```
-portofolio-main/
-├── index.html        # Primary Single-Page Application (HTML, CSS, JS)
-├── README.md         # Comprehensive Project Documentation
-└── Changelog.md      # Detailed Version Release History
-```
+- **CSP Hardening**: Enforces strict Content Security Policy meta tags restricting script origins and object loading.
+- **XSS Prevention**: Implements HTML entity escaping for user-supplied inputs before rendering.
+- **Serverless Form Processing**: Contact and CV request forms communicate securely via HTTPS POST directly to Formspree serverless endpoints (`https://formspree.io/f/mkgknrqk`).
 
 ---
 
-## 📄 License
+## ♿ Accessibility (a11y) & WCAG Compliance
 
-&copy; 2026 Sigit Adi Irianto. All Rights Reserved. Released under the MIT License.
+- **Screen Reader Isolation**: All cosmetic ornaments (terminal brackets, prompt prefixes like `[SIMULATION]`, decorative status indicators) are isolated using `aria-hidden="true"`.
+- **Live Regions**: Interactive widgets use `aria-live="polite"` to ensure assistive technologies announce dynamic updates cleanly.
+
+---
+
+## 📄 License & Contact
+
+- **Author**: Sigit Adi Irianto
+- **LinkedIn**: [linkedin.com/in/sigitadi](https://www.linkedin.com/in/sigitadi/)
+- **Medium**: [medium.com/@si.sigitadi](https://medium.com/@si.sigitadi)
+- **Email**: [si.sigitadi@gmail.com](mailto:si.sigitadi@gmail.com)
