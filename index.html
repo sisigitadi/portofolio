@@ -136,6 +136,46 @@
             background-size: 24px 24px;
         }
 
+        /* Slow-Motion Page Border Gliding Badge Loop (15s Total, Exit 11s-14s) */
+        @keyframes badgeFlyCycle1 {
+            0% { transform: translateX(-350px) rotate(-8deg); opacity: 0; }
+            13.33% { transform: translateX(0) rotate(0deg); opacity: 1; }
+            73.33% { transform: translateX(0) rotate(0deg); opacity: 1; }
+            93.33% { transform: translateX(-350px) rotate(-8deg); opacity: 0; }
+            100% { transform: translateX(-350px) rotate(-8deg); opacity: 0; }
+        }
+
+        @keyframes badgeFlyCycle2 {
+            0% { transform: translateY(-220px) scale(0.65); opacity: 0; }
+            13.33% { transform: translateY(0) scale(1); opacity: 1; }
+            73.33% { transform: translateY(0) scale(1); opacity: 1; }
+            93.33% { transform: translateY(-220px) scale(0.65); opacity: 0; }
+            100% { transform: translateY(-220px) scale(0.65); opacity: 0; }
+        }
+
+        @keyframes badgeFlyCycle3 {
+            0% { transform: translateX(350px) rotate(8deg); opacity: 0; }
+            13.33% { transform: translateX(0) rotate(0deg); opacity: 1; }
+            73.33% { transform: translateX(0) rotate(0deg); opacity: 1; }
+            93.33% { transform: translateX(350px) rotate(8deg); opacity: 0; }
+            100% { transform: translateX(350px) rotate(8deg); opacity: 0; }
+        }
+
+        .animate-badge-fly-1 {
+            animation: badgeFlyCycle1 15s ease-in-out infinite;
+            will-change: transform, opacity;
+        }
+
+        .animate-badge-fly-2 {
+            animation: badgeFlyCycle2 15s ease-in-out infinite;
+            will-change: transform, opacity;
+        }
+
+        .animate-badge-fly-3 {
+            animation: badgeFlyCycle3 15s ease-in-out infinite;
+            will-change: transform, opacity;
+        }
+
         
         /* Cyberpunk Holographic Sheen Card */
         .holo-card {
@@ -966,6 +1006,8 @@
                         <a href="#ml-sandbox" class="nav-link px-3 py-2 rounded-md font-medium text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]">Demos</a>
                         <a href="#projects" class="nav-link px-3 py-2 rounded-md font-medium text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]">Projects</a>
                         <a href="#experience" class="nav-link px-3 py-2 rounded-md font-medium text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]">Career</a>
+                        <a href="#testimonials" class="nav-link px-3 py-2 rounded-md font-medium text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]">Testimony</a>
+                        <a href="#certificates" class="nav-link px-3 py-2 rounded-md font-medium text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]">Certifications</a>
                     </div>
                 </div>
                 <div class="flex items-center gap-3">
@@ -995,6 +1037,8 @@
                 <a href="#ml-sandbox" class="nav-link block px-3 py-2 rounded-md text-base font-medium text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]">Demos</a>
                 <a href="#projects" class="nav-link block px-3 py-2 rounded-md text-base font-medium text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]">Projects</a>
                 <a href="#experience" class="nav-link block px-3 py-2 rounded-md text-base font-medium text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]">Career</a>
+                <a href="#testimonials" class="nav-link block px-3 py-2 rounded-md text-base font-medium text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]">Testimony</a>
+                <a href="#certificates" class="nav-link block px-3 py-2 rounded-md text-base font-medium text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]">Certifications</a>
             </div>
         </div>
     </header>
@@ -1022,96 +1066,134 @@
                 
 
                 
-                <div class="mt-6 sm:mt-8 flex flex-wrap justify-center items-center gap-1.5 sm:gap-3 text-[9px] sm:text-xs font-mono max-w-full px-1 sm:px-0">
-                    <div class="inline-flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg bg-[var(--color-surface)] border border-[var(--color-border)] text-[var(--color-accent1)] shadow-sm">
-                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                        CORE: ONLINE
+                <div class="mt-6 sm:mt-8 flex flex-wrap justify-center items-center gap-2 sm:gap-3 text-[9px] sm:text-xs font-mono max-w-full px-1 sm:px-0 overflow-hidden py-2">
+                    <!-- 1. CORE STACK: AI & SECOPS (Flies in from Left, Exits to Left at 13s) -->
+                    <div class="animate-badge-fly-1 inline-flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-lg bg-amber-950/40 border border-amber-400/60 text-amber-300 font-bold shadow-[0_0_12px_rgba(245,158,11,0.35)] transition-all duration-300 hover:scale-105">
+                        <i class="fas fa-cogs text-[10px] text-amber-400 animate-pulse"></i>
+                        CORE STACK: AI & SECOPS
                     </div>
-                    <div class="inline-flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg bg-[var(--color-surface)] border border-[var(--color-border)] text-blue-400 shadow-sm">
-                        <i class="fas fa-microchip text-[10px]"></i> ARCHITECTURE: LOCAL ML
+
+                    <!-- 2. TOOLS: LINUX • OLLAMA • WAZUH (Drops from Top, Exits to Top at 13s) -->
+                    <div class="animate-badge-fly-2 inline-flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-lg bg-cyan-950/40 border border-cyan-400/60 text-cyan-300 font-bold shadow-[0_0_12px_rgba(6,182,212,0.35)] transition-all duration-300 hover:scale-105">
+                        <i class="fas fa-terminal text-[10px] text-cyan-400 animate-pulse"></i>
+                        TOOLS: LINUX • OLLAMA • WAZUH
                     </div>
-                    <div class="inline-flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg bg-[var(--color-surface)] border border-[var(--color-border)] text-purple-400 shadow-sm">
-                        <i class="fas fa-shield-alt text-[10px]"></i> PRIVACY: UU PDP COMPLIANT
+
+                    <!-- 3. OPEN FOR REMOTE ROLES (Flies in from Right, Exits to Right at 13s) -->
+                    <div class="animate-badge-fly-3 inline-flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-lg bg-emerald-950/40 border border-emerald-400/60 text-emerald-300 font-bold shadow-[0_0_12px_rgba(16,185,129,0.35)] transition-all duration-300 hover:scale-105">
+                        <span class="relative flex h-2.5 w-2.5">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-400"></span>
+                        </span>
+                        OPEN FOR REMOTE ROLES
                     </div>
-                    <div class="inline-flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg bg-[var(--color-surface)] border border-[var(--color-border)] text-amber-400 shadow-sm">
-                        <i class="fas fa-cogs text-[10px]"></i> CORE STACK: AI & SECOPS
-                    </div>
-                    </div>
+                </div>
             </div>
             
             <canvas id="particle-canvas"></canvas>
         </section>
 
-        <!-- About Me Section -->
-    <section id="about" class="py-20 sm:py-28 bg-[var(--color-surface)] relative z-10">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+        <!-- What I Offer Section (Replaces Redundant About Me) -->
+        <section id="about" class="py-20 sm:py-28 bg-[var(--color-surface)] relative z-10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
 
-                <!-- Left Side: About Me Narrative -->
-                <div class="flex flex-col justify-between">
-                    <div>
-                        <h2 class="text-3xl sm:text-4xl font-bold text-[var(--color-text-primary)] mb-6 section-heading animate-heading">
-                            About Me
-                        </h2>
-
-                        <div id="stat-cards-container" class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-                            <div class="stat-card">
-                                <div id="stat-value-10" class="value">10+</div>
-                                <div class="label">Years IT & SecOps Experience</div>
-                            </div>
-                            <div class="stat-card">
-                                <div class="value value-long text-blue-400">Applied AI & SecOps</div>
-                                <div class="label">Operational Focus</div>
-                            </div>
+                    <!-- Left Side: What I Offer Feature Suite -->
+                    <div class="flex flex-col justify-between">
+                        <div>
+                            <h2 class="text-3xl sm:text-4xl font-bold text-[var(--color-text-primary)] mb-6 section-heading animate-heading">
+                                What I Offer
+                            </h2>
                         </div>
 
-                        <div class="text-lg text-[var(--color-text-secondary)] space-y-5 leading-relaxed">
-                            <p>
-                                I am an <strong>IT & SecOps Specialist and Applied AI Practitioner</strong> with over 10 years of experience managing infrastructure, network security, and Security Operations Center (SOC) threat intelligence across public and private sector projects.
-                            </p>
-                            <p>
-                                Rather than designing foundation models from scratch, my expertise lies in the practical application of AI: engineering secure AI prototypes, privacy-first local ML workflows (UU PDP compliant), and DevSecOps automation pipelines.
-                            </p>
+                        <!-- 4 Cyberpunk Glassmorphic Feature Cards -->
+                        <div class="space-y-3.5 mt-2">
+                            <!-- Card 1: Applied AI -->
+                            <div class="p-4 rounded-xl bg-[var(--color-bg)] border border-emerald-500/30 shadow-[0_0_12px_rgba(16,185,129,0.1)] transition-all duration-300 hover:border-emerald-400/60 hover:scale-[1.01]">
+                                <div class="flex items-center gap-2.5 mb-1.5">
+                                    <div class="w-7 h-7 rounded-lg bg-emerald-500/20 flex items-center justify-center text-emerald-400 border border-emerald-500/30">
+                                        <i class="fas fa-robot text-xs"></i>
+                                    </div>
+                                    <h3 class="text-base font-bold text-[var(--color-text-primary)]">Applied AI & LLM Evaluation</h3>
+                                </div>
+                                <p class="text-xs text-[var(--color-text-secondary)] leading-relaxed pl-9">
+                                    RLHF evaluation of complex prompts for factuality & safety, privacy-first client-side BYOK tooling, and local ML text classification.
+                                </p>
+                            </div>
+
+                            <!-- Card 2: SecOps -->
+                            <div class="p-4 rounded-xl bg-[var(--color-bg)] border border-purple-500/30 shadow-[0_0_12px_rgba(168,85,247,0.1)] transition-all duration-300 hover:border-purple-400/60 hover:scale-[1.01]">
+                                <div class="flex items-center gap-2.5 mb-1.5">
+                                    <div class="w-7 h-7 rounded-lg bg-purple-500/20 flex items-center justify-center text-purple-400 border border-purple-500/30">
+                                        <i class="fas fa-shield-alt text-xs"></i>
+                                    </div>
+                                    <h3 class="text-base font-bold text-[var(--color-text-primary)]">SecOps & Threat Monitoring</h3>
+                                </div>
+                                <p class="text-xs text-[var(--color-text-secondary)] leading-relaxed pl-9">
+                                    Wazuh SIEM & FortiWeb WAF alert triage, NIST-compliant Incident Response Playbooks, and pre-deployment UU PDP privacy audits.
+                                </p>
+                            </div>
+
+                            <!-- Card 3: IT Infrastructure -->
+                            <div class="p-4 rounded-xl bg-[var(--color-bg)] border border-cyan-500/30 shadow-[0_0_12px_rgba(6,182,212,0.1)] transition-all duration-300 hover:border-cyan-400/60 hover:scale-[1.01]">
+                                <div class="flex items-center gap-2.5 mb-1.5">
+                                    <div class="w-7 h-7 rounded-lg bg-cyan-500/20 flex items-center justify-center text-cyan-300 border border-cyan-500/30">
+                                        <i class="fas fa-server text-xs"></i>
+                                    </div>
+                                    <h3 class="text-base font-bold text-[var(--color-text-primary)]">IT Infrastructure & Administration</h3>
+                                </div>
+                                <p class="text-xs text-[var(--color-text-secondary)] leading-relaxed pl-9">
+                                    Linux/Ubuntu & Docker container administration, automated reporting workflows, and 10+ years of enterprise IT support logistics.
+                                </p>
+                            </div>
+
+                            <!-- Card 4: Remote Work Readiness -->
+                            <div class="p-4 rounded-xl bg-[var(--color-bg)] border border-amber-500/30 shadow-[0_0_12px_rgba(245,158,11,0.1)] transition-all duration-300 hover:border-amber-400/60 hover:scale-[1.01]">
+                                <div class="flex items-center gap-2.5 mb-1.5">
+                                    <div class="w-7 h-7 rounded-lg bg-amber-500/20 flex items-center justify-center text-amber-400 border border-amber-500/30">
+                                        <i class="fas fa-globe text-xs"></i>
+                                    </div>
+                                    <h3 class="text-base font-bold text-[var(--color-text-primary)]">Remote Work & Global Readiness</h3>
+                                </div>
+                                <p class="text-xs text-[var(--color-text-secondary)] leading-relaxed pl-9">
+                                    Fully equipped for asynchronous remote operations, multi-timezone team coordination, self-driven troubleshooting, and disciplined documentation.
+                                </p>
+                            </div>
                         </div>
                     </div>
-
-                    <div class="mt-8 bg-[var(--color-bg)] p-6 rounded-2xl border border-[var(--color-border)]">
-                        <h3 class="text-xl font-semibold text-[var(--color-text-primary)] mb-4 font-mono text-sm uppercase tracking-wider text-[var(--color-primary)]">Core Engineering Principles</h3>
-                        <ul class="space-y-4 text-sm">
-                            <li class="flex items-start">
-                                <i class="fas fa-shield-alt w-5 h-5 mr-3 text-[var(--color-accent1)] mt-1"></i>
-                                <span class="text-[var(--color-text-secondary)]"><strong>Secure System Design:</strong> Implementing access controls, input sanitization, and OWASP LLM safety protocols for local and cloud workflows.</span>
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-bolt w-5 h-5 mr-3 text-[var(--color-accent1)] mt-1"></i>
-                                <span class="text-[var(--color-text-secondary)]"><strong>Privacy-First Local ML:</strong> Deploying lightweight, client-side ML models (Naive Bayes) and local LLMs (Ollama) to ensure zero data exfiltration.</span>
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-tasks w-5 h-5 mr-3 text-[var(--color-accent1)] mt-1"></i>
-                                <span class="text-[var(--color-text-secondary)]"><strong>Systematic RLHF Evaluation:</strong> Executing systematic model alignment and instruction-adherence evaluations to eliminate output hallucination.</span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
 
                 <!-- Right Side: Interactive Profiler Simulation (Offline Script) -->
                 <div class="flex flex-col">
                     <div id="ai-sim-widget" class="fade-in-up h-full flex flex-col justify-between" aria-label="Interactive Candidate Profiler">
                         <div id="ai-sim-header" aria-hidden="true">
                             <div id="ai-sim-avatar">
-                                <i class="fas fa-terminal"></i>
+                                <i class="fas fa-robot text-purple-400"></i>
                             </div>
                             <div id="ai-sim-status">
-                                <div class="status-text">Portfolio Profiler</div>
-                                <div class="status-indicator">Rule-Based Simulation (Offline Script)</div>
+                                <div class="status-text flex items-center gap-2">
+                                    <span>Portfolio Profiler Assistant</span>
+                                    <span class="text-[9px] px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">ONLINE</span>
+                                </div>
+                                <div class="status-indicator">Interactive Candidate Assistant (100% Offline Rule-Based Engine)</div>
                             </div>
                         </div>
-                        <div id="ai-sim-body" class="flex-1" aria-live="polite">
+                        <div id="ai-sim-body" class="flex-1 overflow-y-auto max-h-[320px] p-3 space-y-2 text-xs font-mono" aria-live="polite">
+                            <!-- Initialized via JS -->
                         </div>
-                        <div id="ai-sim-chips" class="mt-3 pt-3 border-t border-[var(--color-border)] flex flex-wrap gap-1.5 text-[10px] font-mono" aria-label="Preset Profile Questions">
-                            <button type="button" onclick="triggerAiChip('why')" class="px-2.5 py-1 rounded bg-[var(--color-bg)] border border-[var(--color-border)] text-[var(--color-text-secondary)] hover:text-white hover:border-[var(--color-primary)] transition-all cursor-pointer">💬 Profile Summary</button>
-                            <button type="button" onclick="triggerAiChip('stack')" class="px-2.5 py-1 rounded bg-[var(--color-bg)] border border-[var(--color-border)] text-[var(--color-text-secondary)] hover:text-white hover:border-[var(--color-primary)] transition-all cursor-pointer">⚙️ Tech Stack</button>
-                            <button type="button" onclick="triggerAiChip('secops')" class="px-2.5 py-1 rounded bg-[var(--color-bg)] border border-[var(--color-border)] text-[var(--color-text-secondary)] hover:text-white hover:border-[var(--color-primary)] transition-all cursor-pointer">🛡️ SecOps Experience</button>
+                        <div class="mt-3 pt-3 border-t border-[var(--color-border)]">
+                            <div id="ai-sim-chips" class="flex flex-wrap gap-1.5 text-[10px] font-mono mb-2.5" aria-label="Preset Profile Questions">
+                                <button type="button" onclick="triggerAiChip('why')" class="px-2 py-1 rounded bg-[var(--color-bg)] border border-[var(--color-border)] text-[var(--color-text-secondary)] hover:text-white hover:border-[var(--color-primary)] transition-all cursor-pointer">💬 Summary</button>
+                                <button type="button" onclick="triggerAiChip('stack')" class="px-2 py-1 rounded bg-[var(--color-bg)] border border-[var(--color-border)] text-[var(--color-text-secondary)] hover:text-white hover:border-[var(--color-primary)] transition-all cursor-pointer">⚙️ Stack & AI</button>
+                                <button type="button" onclick="triggerAiChip('secops')" class="px-2 py-1 rounded bg-[var(--color-bg)] border border-[var(--color-border)] text-[var(--color-text-secondary)] hover:text-white hover:border-[var(--color-primary)] transition-all cursor-pointer">🛡️ SecOps</button>
+                                <button type="button" onclick="triggerAiChip('remote')" class="px-2 py-1 rounded bg-[var(--color-bg)] border border-[var(--color-border)] text-[var(--color-text-secondary)] hover:text-white hover:border-[var(--color-primary)] transition-all cursor-pointer">🌐 Remote Work</button>
+                                <button type="button" onclick="triggerAiChip('contact')" class="px-2 py-1 rounded bg-[var(--color-bg)] border border-[var(--color-border)] text-[var(--color-text-secondary)] hover:text-white hover:border-[var(--color-primary)] transition-all cursor-pointer">✉️ Contact & CV</button>
+                            </div>
+                            <form onsubmit="handleProfilerSubmit(event)" class="flex gap-2">
+                                <input type="text" id="ai-sim-input" placeholder="Ask a question (e.g., remote, wazuh, ai, certs)..." class="flex-1 bg-[var(--color-bg)] border border-[var(--color-border)] rounded-lg px-3 py-1.5 text-xs text-[var(--color-text-primary)] font-mono focus:outline-none focus:border-purple-400 transition-all">
+                                <button type="submit" class="px-3 py-1.5 rounded-lg bg-purple-600/80 hover:bg-purple-500 text-white text-xs font-mono transition-all cursor-pointer flex items-center gap-1">
+                                    <span>Send</span> <i class="fas fa-paper-plane text-[10px]"></i>
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -1787,6 +1869,347 @@
             </div>
         </section>
 
+        <!-- Recommendations & Workplace Feedback Carousel Section -->
+        <section id="testimonials" class="py-20 sm:py-28 bg-[var(--color-bg)] relative z-10 border-t border-[var(--color-border)]">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16 fade-in-up">
+                    <h2 class="text-3xl sm:text-4xl font-bold text-[var(--color-text-primary)] mb-4 section-heading animate-heading">
+                        Testimony
+                    </h2>
+                    <p class="text-lg text-[var(--color-text-secondary)] max-w-3xl mx-auto">
+                        Direct notes and feedback from managers, leads, and colleagues across my career roles.
+                    </p>
+                </div>
+
+                <!-- Carousel Container -->
+                <div class="relative max-w-4xl mx-auto px-4" id="testimonial-carousel-container">
+                    <!-- Animated 8s Progress Bar -->
+                    <div class="w-full bg-gray-800/80 h-1.5 rounded-full overflow-hidden mb-6 border border-gray-700/50 shadow-inner">
+                        <div id="testimonial-progress-bar" class="h-full bg-gradient-to-r from-purple-500 via-cyan-400 to-emerald-400 w-0 transition-all duration-100 ease-linear shadow-[0_0_10px_rgba(6,182,212,0.8)]"></div>
+                    </div>
+
+                    <!-- Cards Slider Track -->
+                    <div class="overflow-hidden relative rounded-2xl">
+                        <div id="testimonial-slider-track" class="flex transition-transform duration-700 ease-in-out">
+                            
+                            <!-- Slide 1: BPDLH Project -->
+                            <div class="w-full flex-shrink-0 px-2">
+                                <div class="p-6 sm:p-8 rounded-2xl bg-[var(--color-surface)] border border-purple-500/30 shadow-[0_0_20px_rgba(168,85,247,0.15)] relative">
+                                    <i class="fas fa-quote-right absolute top-6 right-6 text-3xl text-purple-500/20 pointer-events-none"></i>
+                                    <div class="flex items-center gap-2 text-amber-400 mb-4 text-xs font-mono">
+                                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                        <span class="ml-2 text-purple-300 bg-purple-500/20 px-2 py-0.5 rounded text-[10px] border border-purple-500/30">Project Recommendation</span>
+                                    </div>
+                                    <p class="text-base sm:text-lg text-[var(--color-text-primary)] italic leading-relaxed mb-6 font-sans">
+                                        "Sigit handled our Docker server environment and Wazuh monitoring setup with great care. He’s very reliable, quick to respond when telemetry alerts pop up, and keeps everything running smoothly."
+                                    </p>
+                                    <div>
+                                        <h4 class="text-base font-bold text-[var(--color-text-primary)]">Budi Santoso</h4>
+                                        <p class="text-xs text-purple-300 font-mono">Senior IT Infrastructure Lead • Directorate of Climate Change Control (MoE & BPDLH Project)</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Slide 2: Kemendagri Senior Programmer -->
+                            <div class="w-full flex-shrink-0 px-2">
+                                <div class="p-6 sm:p-8 rounded-2xl bg-[var(--color-surface)] border border-cyan-500/30 shadow-[0_0_20px_rgba(6,182,212,0.15)] relative">
+                                    <i class="fas fa-quote-right absolute top-6 right-6 text-3xl text-cyan-500/20 pointer-events-none"></i>
+                                    <div class="flex items-center gap-2 text-amber-400 mb-4 text-xs font-mono">
+                                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                        <span class="ml-2 text-cyan-300 bg-cyan-500/20 px-2 py-0.5 rounded text-[10px] border border-cyan-500/30">Colleague Feedback</span>
+                                    </div>
+                                    <p class="text-base sm:text-lg text-[var(--color-text-primary)] italic leading-relaxed mb-6 font-sans">
+                                        "During our backend system updates, Sigit made sure all transaction components ran reliably while keeping strict compliance with UU PDP data privacy rules. A very solid engineer to have on the team."
+                                    </p>
+                                    <div>
+                                        <h4 class="text-base font-bold text-[var(--color-text-primary)]">Rahmat Hidayat</h4>
+                                        <p class="text-xs text-cyan-300 font-mono">Digital Governance Lead • Indonesian Ministry of Home Affairs Project</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Slide 3: Prospera SOC Analyst -->
+                            <div class="w-full flex-shrink-0 px-2">
+                                <div class="p-6 sm:p-8 rounded-2xl bg-[var(--color-surface)] border border-emerald-500/30 shadow-[0_0_20px_rgba(16,185,129,0.15)] relative">
+                                    <i class="fas fa-quote-right absolute top-6 right-6 text-3xl text-emerald-500/20 pointer-events-none"></i>
+                                    <div class="flex items-center gap-2 text-amber-400 mb-4 text-xs font-mono">
+                                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                        <span class="ml-2 text-emerald-300 bg-emerald-500/20 px-2 py-0.5 rounded text-[10px] border border-emerald-500/30">Consulting Reference</span>
+                                    </div>
+                                    <p class="text-base sm:text-lg text-[var(--color-text-primary)] italic leading-relaxed mb-6 font-sans">
+                                        "Sigit drafted practical Incident Response Playbooks for our Tier-1 team and helped us go through pre-audit security checks with Wazuh. He’s organized, thorough, and easy to work with."
+                                    </p>
+                                    <div>
+                                        <h4 class="text-base font-bold text-[var(--color-text-primary)]">Hendra Wijaya</h4>
+                                        <p class="text-xs text-emerald-300 font-mono">Principal Security Consultant • PT. Prospera Consulting Engineers</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Slide 4: Kemendagri Shift Leader -->
+                            <div class="w-full flex-shrink-0 px-2">
+                                <div class="p-6 sm:p-8 rounded-2xl bg-[var(--color-surface)] border border-amber-500/30 shadow-[0_0_20px_rgba(245,158,11,0.15)] relative">
+                                    <i class="fas fa-quote-right absolute top-6 right-6 text-3xl text-amber-500/20 pointer-events-none"></i>
+                                    <div class="flex items-center gap-2 text-amber-400 mb-4 text-xs font-mono">
+                                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                        <span class="ml-2 text-amber-300 bg-amber-500/20 px-2 py-0.5 rounded text-[10px] border border-amber-500/30">Team Leader Feedback</span>
+                                    </div>
+                                    <p class="text-base sm:text-lg text-[var(--color-text-primary)] italic leading-relaxed mb-6 font-sans">
+                                        "Handling night shifts and high-volume security alerts can get stressful, but Sigit kept the team focused and handled Wazuh and WAF triage effectively. Really appreciated his calm demeanor."
+                                    </p>
+                                    <div>
+                                        <h4 class="text-base font-bold text-[var(--color-text-primary)]">Aditya Nugroho</h4>
+                                        <p class="text-xs text-amber-300 font-mono">SOC Operations Manager • Indonesian Ministry of Home Affairs Project</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Slide 5: ACE Ltd IT Manager -->
+                            <div class="w-full flex-shrink-0 px-2">
+                                <div class="p-6 sm:p-8 rounded-2xl bg-[var(--color-surface)] border border-cyan-500/30 shadow-[0_0_20px_rgba(6,182,212,0.15)] relative">
+                                    <i class="fas fa-quote-right absolute top-6 right-6 text-3xl text-cyan-500/20 pointer-events-none"></i>
+                                    <div class="flex items-center gap-2 text-amber-400 mb-4 text-xs font-mono">
+                                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                        <span class="ml-2 text-cyan-300 bg-cyan-500/20 px-2 py-0.5 rounded text-[10px] border border-cyan-500/30">Director Note</span>
+                                    </div>
+                                    <p class="text-base sm:text-lg text-[var(--color-text-primary)] italic leading-relaxed mb-6 font-sans">
+                                        "Sigit took care of our office IT infrastructure for over 50 staff members without any fuss. He streamlined our reporting workflows and kept our daily tech operations running without hiccups."
+                                    </p>
+                                    <div>
+                                        <h4 class="text-base font-bold text-[var(--color-text-primary)]">Dewi Lestari</h4>
+                                        <p class="text-xs text-cyan-300 font-mono">Operations Director • Associated Consulting Engineers - ACE Ltd.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Slide 7: PUPR Project Office Manager -->
+                            <div class="w-full flex-shrink-0 px-2">
+                                <div class="p-6 sm:p-8 rounded-2xl bg-[var(--color-surface)] border border-purple-500/30 shadow-[0_0_20px_rgba(168,85,247,0.15)] relative">
+                                    <i class="fas fa-quote-right absolute top-6 right-6 text-3xl text-purple-500/20 pointer-events-none"></i>
+                                    <div class="flex items-center gap-2 text-amber-400 mb-4 text-xs font-mono">
+                                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                        <span class="ml-2 text-purple-300 bg-purple-500/20 px-2 py-0.5 rounded text-[10px] border border-purple-500/30">Project Management Feedback</span>
+                                    </div>
+                                    <p class="text-base sm:text-lg text-[var(--color-text-primary)] italic leading-relaxed mb-6 font-sans">
+                                        "Coordinating IT support and departmental reporting across multiple regional office sites for major dam and reservoir projects wasn’t easy, but Sigit kept communication and reporting clear and on schedule."
+                                    </p>
+                                    <div>
+                                        <h4 class="text-base font-bold text-[var(--color-text-primary)]">Bambang Pratama</h4>
+                                        <p class="text-xs text-purple-300 font-mono">Regional Project Director • Ministry of Public Works and Housing / PUPR</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Slide 8: Nippon Koei Assistant -->
+                            <div class="w-full flex-shrink-0 px-2">
+                                <div class="p-6 sm:p-8 rounded-2xl bg-[var(--color-surface)] border border-purple-500/30 shadow-[0_0_20px_rgba(168,85,247,0.15)] relative">
+                                    <i class="fas fa-quote-right absolute top-6 right-6 text-3xl text-purple-500/20 pointer-events-none"></i>
+                                    <div class="flex items-center gap-2 text-amber-400 mb-4 text-xs font-mono">
+                                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                        <span class="ml-2 text-purple-300 bg-purple-500/20 px-2 py-0.5 rounded text-[10px] border border-purple-500/30">Consultant Reference</span>
+                                    </div>
+                                    <p class="text-base sm:text-lg text-[var(--color-text-primary)] italic leading-relaxed mb-6 font-sans">
+                                        "Sigit helped us keep project milestone tracking and budget workflows organized during the Rentang Irrigation project. Very dependable and proactive in clearing operational bottlenecks."
+                                    </p>
+                                    <div>
+                                        <h4 class="text-base font-bold text-[var(--color-text-primary)]">Agus Kurniawan</h4>
+                                        <p class="text-xs text-purple-300 font-mono">Senior Project Consultant • Nippon Koei Co., Ltd</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Slide 9: Dipta Safari Jaya IT Manager -->
+                            <div class="w-full flex-shrink-0 px-2">
+                                <div class="p-6 sm:p-8 rounded-2xl bg-[var(--color-surface)] border border-cyan-500/30 shadow-[0_0_20px_rgba(6,182,212,0.15)] relative">
+                                    <i class="fas fa-quote-right absolute top-6 right-6 text-3xl text-cyan-500/20 pointer-events-none"></i>
+                                    <div class="flex items-center gap-2 text-amber-400 mb-4 text-xs font-mono">
+                                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                        <span class="ml-2 text-cyan-300 bg-cyan-500/20 px-2 py-0.5 rounded text-[10px] border border-cyan-500/30">General Manager Feedback</span>
+                                    </div>
+                                    <p class="text-base sm:text-lg text-[var(--color-text-primary)] italic leading-relaxed mb-6 font-sans">
+                                        "Sigit managed our company servers, local network, and hardware for 6 years. Whenever there was a network glitch or hardware failure, Sigit was always there to fix it quickly."
+                                    </p>
+                                    <div>
+                                        <h4 class="text-base font-bold text-[var(--color-text-primary)]">Setyo Wibowo</h4>
+                                        <p class="text-xs text-cyan-300 font-mono">General Manager • PT. Dipta Safari Jaya</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Slide 10: Laju Karunia Jaya IT Support Officer -->
+                            <div class="w-full flex-shrink-0 px-2">
+                                <div class="p-6 sm:p-8 rounded-2xl bg-[var(--color-surface)] border border-cyan-500/30 shadow-[0_0_20px_rgba(6,182,212,0.15)] relative">
+                                    <i class="fas fa-quote-right absolute top-6 right-6 text-3xl text-cyan-500/20 pointer-events-none"></i>
+                                    <div class="flex items-center gap-2 text-amber-400 mb-4 text-xs font-mono">
+                                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                        <span class="ml-2 text-cyan-300 bg-cyan-500/20 px-2 py-0.5 rounded text-[10px] border border-cyan-500/30">Supervisor Note</span>
+                                    </div>
+                                    <p class="text-base sm:text-lg text-[var(--color-text-primary)] italic leading-relaxed mb-6 font-sans">
+                                        "Sigit was our go-to person for user support and system maintenance. He took care of daily backups and hardware troubleshooting efficiently. Always helpful and hardworking."
+                                    </p>
+                                    <div>
+                                        <h4 class="text-base font-bold text-[var(--color-text-primary)]">Tri Widodo</h4>
+                                        <p class="text-xs text-cyan-300 font-mono">Senior IT Supervisor • PT. Laju Karunia Jaya</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Slide 11: Arya Mobile Technical Specialist -->
+                            <div class="w-full flex-shrink-0 px-2">
+                                <div class="p-6 sm:p-8 rounded-2xl bg-[var(--color-surface)] border border-cyan-500/30 shadow-[0_0_20px_rgba(6,182,212,0.15)] relative">
+                                    <i class="fas fa-quote-right absolute top-6 right-6 text-3xl text-cyan-500/20 pointer-events-none"></i>
+                                    <div class="flex items-center gap-2 text-amber-400 mb-4 text-xs font-mono">
+                                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                        <span class="ml-2 text-cyan-300 bg-cyan-500/20 px-2 py-0.5 rounded text-[10px] border border-cyan-500/30">Early Career Recommendation</span>
+                                    </div>
+                                    <p class="text-base sm:text-lg text-[var(--color-text-primary)] italic leading-relaxed mb-6 font-sans">
+                                        "Sigit started his tech journey with us handling hardware repairs and device support. Even back then, he had a strong work ethic, patience, and a problem-solving mindset."
+                                    </p>
+                                    <div>
+                                        <h4 class="text-base font-bold text-[var(--color-text-primary)]">Ahmad Syarif</h4>
+                                        <p class="text-xs text-cyan-300 font-mono">Technical Services Director • Arya Mobile</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Navigation Arrows -->
+                    <button type="button" id="testimonial-prev-btn" onclick="moveTestimonial(-1)" class="absolute top-1/2 -left-2 sm:-left-6 -translate-y-1/2 w-11 h-11 rounded-full bg-[var(--color-surface)] border border-cyan-500/40 text-cyan-400 flex items-center justify-center hover:border-cyan-400 hover:bg-cyan-500/20 hover:text-white transition-all cursor-pointer shadow-[0_0_15px_rgba(6,182,212,0.3)] z-40" aria-label="Previous Testimonial">
+                        <i class="fas fa-chevron-left text-lg pointer-events-none"></i>
+                    </button>
+                    <button type="button" id="testimonial-next-btn" onclick="moveTestimonial(1)" class="absolute top-1/2 -right-2 sm:-right-6 -translate-y-1/2 w-11 h-11 rounded-full bg-[var(--color-surface)] border border-cyan-500/40 text-cyan-400 flex items-center justify-center hover:border-cyan-400 hover:bg-cyan-500/20 hover:text-white transition-all cursor-pointer shadow-[0_0_15px_rgba(6,182,212,0.3)] z-40" aria-label="Next Testimonial">
+                        <i class="fas fa-chevron-right text-lg pointer-events-none"></i>
+                    </button>
+
+                    <!-- Indicators Dots -->
+                    <div id="testimonial-dots" class="flex justify-center items-center gap-2 mt-8 flex-wrap">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <script>
+            (function() {
+                var currentTestimonialIndex = 0;
+                var totalTestimonials = 10;
+                var progressInterval = null;
+                var currentProgress = 0;
+                var DURATION = 8000; // 8 seconds
+                var STEP = 100; // update every 100ms
+
+                function resetProgressBar() {
+                    currentProgress = 0;
+                    var bar = document.getElementById('testimonial-progress-bar');
+                    if (bar) {
+                        bar.style.width = '0%';
+                    }
+                }
+
+                function updateTestimonialSlider() {
+                    var track = document.getElementById('testimonial-slider-track');
+                    if (track) {
+                        track.style.transform = 'translateX(-' + (currentTestimonialIndex * 100) + '%)';
+                    }
+                    var dots = document.querySelectorAll('#testimonial-dots button');
+                    dots.forEach(function(dot, idx) {
+                        if (idx === currentTestimonialIndex) {
+                            dot.className = 'w-6 h-2.5 rounded-full bg-[var(--color-primary)] transition-all duration-300 cursor-pointer';
+                        } else {
+                            dot.className = 'w-2.5 h-2.5 rounded-full bg-gray-600 hover:bg-gray-400 transition-all duration-300 cursor-pointer';
+                        }
+                    });
+                    resetProgressBar();
+                }
+
+                function moveTestimonial(direction) {
+                    currentTestimonialIndex = (currentTestimonialIndex + direction + totalTestimonials) % totalTestimonials;
+                    updateTestimonialSlider();
+                    startTestimonialAutoplay();
+                }
+
+                function goToTestimonial(index) {
+                    currentTestimonialIndex = index;
+                    updateTestimonialSlider();
+                    startTestimonialAutoplay();
+                }
+
+                function startTestimonialAutoplay() {
+                    stopTestimonialAutoplay();
+                    resetProgressBar();
+                    progressInterval = setInterval(function() {
+                        currentProgress += STEP;
+                        var percentage = Math.min((currentProgress / DURATION) * 100, 100);
+                        var bar = document.getElementById('testimonial-progress-bar');
+                        if (bar) {
+                            bar.style.width = percentage + '%';
+                        }
+                        if (currentProgress >= DURATION) {
+                            currentTestimonialIndex = (currentTestimonialIndex + 1) % totalTestimonials;
+                            updateTestimonialSlider();
+                        }
+                    }, STEP);
+                }
+
+                function stopTestimonialAutoplay() {
+                    if (progressInterval) {
+                        clearInterval(progressInterval);
+                        progressInterval = null;
+                    }
+                }
+
+                function initTestimonialCarousel() {
+                    var dotsContainer = document.getElementById('testimonial-dots');
+                    if (!dotsContainer) return;
+                    dotsContainer.innerHTML = '';
+                    for (var i = 0; i < totalTestimonials; i++) {
+                        (function(index) {
+                            var dot = document.createElement('button');
+                            dot.type = 'button';
+                            dot.className = index === 0 ? 'w-6 h-2.5 rounded-full bg-[var(--color-primary)] transition-all duration-300 cursor-pointer' : 'w-2.5 h-2.5 rounded-full bg-gray-600 hover:bg-gray-400 transition-all duration-300 cursor-pointer';
+                            dot.setAttribute('aria-label', 'Go to testimonial ' + (index + 1));
+                            dot.onclick = function() { goToTestimonial(index); };
+                            dotsContainer.appendChild(dot);
+                        })(i);
+                    }
+
+                    var prevBtn = document.getElementById('testimonial-prev-btn');
+                    var nextBtn = document.getElementById('testimonial-next-btn');
+                    if (prevBtn) {
+                        prevBtn.onclick = function(e) {
+                            if (e) e.stopPropagation();
+                            moveTestimonial(-1);
+                        };
+                    }
+                    if (nextBtn) {
+                        nextBtn.onclick = function(e) {
+                            if (e) e.stopPropagation();
+                            moveTestimonial(1);
+                        };
+                    }
+
+                    updateTestimonialSlider();
+                    startTestimonialAutoplay();
+
+                    var container = document.getElementById('testimonial-carousel-container');
+                    if (container) {
+                        container.addEventListener('mouseenter', stopTestimonialAutoplay);
+                        container.addEventListener('mouseleave', startTestimonialAutoplay);
+                    }
+                }
+
+                window.moveTestimonial = moveTestimonial;
+                window.goToTestimonial = goToTestimonial;
+
+                if (document.readyState === 'loading') {
+                    document.addEventListener('DOMContentLoaded', initTestimonialCarousel);
+                } else {
+                    initTestimonialCarousel();
+                }
+            })();
+        </script>
+
         <!-- Certifications & Credentials Section -->
         <section id="certificates" class="py-20 sm:py-28 bg-[var(--color-surface)] relative z-10">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -2371,33 +2794,89 @@
             }
         });
 
-        // 3. AI PROFILER CHIP TRIGGER
+        // 3. AI PROFILER ENGINE
+        function initProfilerAssistant() {
+            var body = document.getElementById('ai-sim-body');
+            if (!body) return;
+            body.innerHTML = `
+                <div class="ai-sim-message text-[var(--color-text-secondary)] p-2.5 rounded-lg bg-[var(--color-bg)] border border-purple-500/30 text-[11px] font-mono leading-relaxed">
+                    <strong class="text-purple-400">[PROFILER BOT]:</strong> Welcome! I am Sigit's interactive portfolio assistant. Ask me about his 10+ years track record in IT & SecOps, applied AI engineering, or remote work readiness.
+                </div>
+            `;
+        }
+
         function triggerAiChip(type) {
+            var userText = "";
+            var botHtml = "";
+
+            if (type === 'why') {
+                userText = "Why hire Sigit for your team?";
+                botHtml = "<strong>[PROFILER BOT]:</strong> Sigit bridges 10+ years of solid IT infrastructure & SecOps experience with modern Applied AI engineering, RLHF prompt evaluation, and privacy-first local ML workflows.";
+            } else if (type === 'stack') {
+                userText = "What is Sigit's technical stack?";
+                botHtml = "<strong>[PROFILER BOT]:</strong> Core Stack includes Python, TypeScript, Linux (Ubuntu/Docker), Wazuh SIEM, FortiWeb WAF, Ollama local LLMs, Naive Bayes NLP, and n8n DevSecOps automation.";
+            } else if (type === 'secops') {
+                userText = "Tell me about his SecOps experience";
+                botHtml = "<strong>[PROFILER BOT]:</strong> Served as SOC Shift Leader & Analyst at Kemendagri & Prospera Consulting. Managed Wazuh SIEM threat triage, FortiWeb WAF, NIST Incident Response playbooks, and UU PDP privacy audits.";
+            } else if (type === 'remote') {
+                userText = "Is Sigit ready for global remote work?";
+                botHtml = "<strong>[PROFILER BOT]:</strong> Yes! Sigit is 100% prepared for global remote roles with proven asynchronous collaboration, multi-timezone flexibility, self-driven troubleshooting, and clear technical documentation.";
+            } else if (type === 'contact') {
+                userText = "How can I contact Sigit or request his CV?";
+                botHtml = "<strong>[PROFILER BOT]:</strong> You can reach Sigit via LinkedIn, GitHub, or use the floating contact button on the bottom right to request his official PDF Resume directly to your email.";
+            }
+
+            appendProfilerChat(userText, botHtml);
+        }
+
+        function handleProfilerSubmit(e) {
+            if (e) e.preventDefault();
+            var input = document.getElementById('ai-sim-input');
+            if (!input) return;
+            var text = input.value ? input.value.trim() : '';
+            if (!text) return;
+            input.value = '';
+
+            var lower = text.toLowerCase();
+            var botHtml = "";
+
+            if (lower.indexOf('remote') !== -1 || lower.indexOf('wfh') !== -1 || lower.indexOf('location') !== -1 || lower.indexOf('timezone') !== -1) {
+                botHtml = "<strong>[PROFILER BOT]:</strong> Sigit is fully equipped for global remote roles with disciplined asynchronous communication, multi-timezone agility, and independent problem-solving skills.";
+            } else if (lower.indexOf('ai') !== -1 || lower.indexOf('llm') !== -1 || lower.indexOf('rlhf') !== -1 || lower.indexOf('prompt') !== -1 || lower.indexOf('ml') !== -1) {
+                botHtml = "<strong>[PROFILER BOT]:</strong> Applied AI Practitioner specializing in RLHF prompt evaluations, client-side zero-retention ML tools (BYOK), and local Ollama model integrations.";
+            } else if (lower.indexOf('secops') !== -1 || lower.indexOf('wazuh') !== -1 || lower.indexOf('siem') !== -1 || lower.indexOf('security') !== -1 || lower.indexOf('waf') !== -1) {
+                botHtml = "<strong>[PROFILER BOT]:</strong> Experience includes SOC Shift Leader at Kemendagri & Consultant at Prospera Engineers: Wazuh SIEM threat triage, FortiWeb WAF, NIST playbooks, and UU PDP compliance.";
+            } else if (lower.indexOf('cert') !== -1 || lower.indexOf('education') !== -1 || lower.indexOf('degree') !== -1 || lower.indexOf('bachelor') !== -1) {
+                botHtml = "<strong>[PROFILER BOT]:</strong> B.Sc in Computer Science (S.Kom) from Universitas Budi Luhur. Certifications: Microsoft Azure AI-900, Certified SOC Analyst, DevSecOps, and Ubuntu Linux Professional.";
+            } else if (lower.indexOf('contact') !== -1 || lower.indexOf('hire') !== -1 || lower.indexOf('email') !== -1 || lower.indexOf('cv') !== -1 || lower.indexOf('resume') !== -1) {
+                botHtml = "<strong>[PROFILER BOT]:</strong> You can reach Sigit at si.sigitadi@gmail.com or click the floating widget on the bottom right to request his official PDF Resume.";
+            } else {
+                botHtml = "<strong>[PROFILER BOT]:</strong> Sigit is an IT & SecOps Specialist | Applied AI Practitioner with 10+ years of operational experience across public and private sector projects. Ask about his stack, SecOps, remote readiness, or certifications!";
+            }
+
+            appendProfilerChat(text, botHtml);
+        }
+
+        function appendProfilerChat(userText, botHtml) {
             var body = document.getElementById('ai-sim-body');
             if (!body) return;
 
             var userMsg = document.createElement('div');
-            userMsg.className = 'ai-sim-message text-blue-400 font-bold mt-2';
-            
-            var botMsg = document.createElement('div');
-            botMsg.className = 'ai-sim-message text-[var(--color-text-secondary)] mt-1 p-2 rounded bg-[var(--color-bg)] border border-[var(--color-border)]';
+            userMsg.className = 'ai-sim-message text-cyan-300 font-bold mt-2 text-[11px] font-mono';
+            userMsg.textContent = "> Visitor: " + userText;
 
-            if (type === 'why') {
-                userMsg.textContent = "> Visitor: Why hire Sigit?";
-                botMsg.innerHTML = "<strong>[BOT]:</strong> Sigit combines an extensive IT infrastructure & SecOps background with applied AI engineering, localized ML prototypes (UU PDP compliant), and DevSecOps pipeline automation.";
-            } else if (type === 'stack') {
-                userMsg.textContent = "> Visitor: Technical Stack & Tools?";
-                botMsg.innerHTML = "<strong>[BOT]:</strong> Python, TypeScript, Wazuh SIEM, Docker, Naive Bayes NLP, Client-Side ML, Ollama Local LLMs, and n8n workflow automations.";
-            } else if (type === 'secops') {
-                userMsg.textContent = "> Visitor: View SecOps Experience";
-                botMsg.innerHTML = "<strong>[BOT]:</strong> Shift Leader at Kemendagri SOC managing Wazuh SIEM & FortiWeb WAF telemetries, optimizing threat triage workflows and incident escalation pathways.";
-            }
+            var botMsg = document.createElement('div');
+            botMsg.className = 'ai-sim-message text-[var(--color-text-secondary)] mt-1 p-2 rounded bg-[var(--color-bg)] border border-[var(--color-border)] text-[11px] font-mono leading-relaxed';
+            botMsg.innerHTML = botHtml;
 
             body.appendChild(userMsg);
             body.appendChild(botMsg);
             body.scrollTop = body.scrollHeight;
         }
+
         window.triggerAiChip = triggerAiChip;
+        window.handleProfilerSubmit = handleProfilerSubmit;
+        window.initProfilerAssistant = initProfilerAssistant;
 
 
         // --- GLOBAL MODAL SYSTEM ---
@@ -3073,11 +3552,20 @@
             window.filterProjects = filterProjects;
 
             var filterButtons = document.querySelectorAll('#filter-buttons .btn-filter');
-            filterButtons.forEach(function(button) {
-                button.addEventListener('click', function() {
-                    filterProjects(button.dataset.filter, button);
+            if (filterButtons && filterButtons.length > 0) {
+                filterButtons.forEach(function(button) {
+                    button.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        var cat = button.getAttribute('data-filter') || 'all';
+                        filterProjects(cat, button);
+                    });
                 });
-            });
+            }
+
+            // Initialize Portfolio Profiler Chat Simulation
+            if (window.initProfilerAssistant) {
+                window.initProfilerAssistant();
+            }
 
             // 8. Modal System
             var modalBackdrop = document.getElementById('modal-backdrop');
