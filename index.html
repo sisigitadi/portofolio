@@ -1061,7 +1061,7 @@
                 </h2>
 
                 <p class="text-sm sm:text-base md:text-lg text-[var(--color-text-secondary)] mb-8 max-w-3xl mx-auto leading-relaxed px-2 sm:px-0">
-                    IT & SecOps professional with 10+ years of experience bridging enterprise infrastructure, SOC threat triage, and applied AI tooling. Builds and ships working software to solve real-world operational security challenges.
+                    IT professional with 20+ years of enterprise experience in infrastructure and systems administration, with the last 2 years focused on Security Operations and applied AI.
                 </p>
                 
 
@@ -1143,7 +1143,7 @@
                                     <h3 class="text-base font-bold text-[var(--color-text-primary)]">IT Infrastructure & Administration</h3>
                                 </div>
                                 <p class="text-xs text-[var(--color-text-secondary)] leading-relaxed pl-9">
-                                    Linux/Ubuntu & Docker container administration, automated SQL reporting pipelines, and 10+ years supporting teams of 50+ staff.
+                                    Linux/Ubuntu & Docker container administration, automated SQL reporting pipelines, and 20+ years supporting teams of 50+ staff.
                                 </p>
                             </div>
 
@@ -2791,7 +2791,7 @@
             if (!body) return;
             body.innerHTML = `
                 <div class="ai-sim-message text-[var(--color-text-secondary)] p-2.5 rounded-lg bg-[var(--color-bg)] border border-purple-500/30 text-[11px] font-mono leading-relaxed">
-                    <strong class="text-purple-400">[PROFILER BOT]:</strong> Welcome! I am Sigit's interactive portfolio assistant. Ask me about his 10+ years track record in IT & SecOps, applied AI engineering, or remote work readiness.
+                    <strong class="text-purple-400">[PROFILER BOT]:</strong> Welcome! I am Sigit's interactive portfolio assistant. Ask me about his 20+ years track record in IT & SecOps, applied AI engineering, or remote work readiness.
                 </div>
             `;
         }
@@ -2803,7 +2803,7 @@
 
             if (key === 'why' || key === 'summary') {
                 userText = "Why hire Sigit for your team?";
-                botHtml = "<strong>[PROFILER BOT]:</strong> IT & SecOps professional with 10+ years of experience bridging enterprise infrastructure, SOC threat triage, and applied AI. Builds and ships working software to solve real-world operational security challenges.";
+                botHtml = "<strong>[PROFILER BOT]:</strong> IT professional with 20+ years of enterprise experience in infrastructure and systems administration, with the last 2 years focused on Security Operations and applied AI.";
             } else if (key === 'stack' || key === 'ai') {
                 userText = "What is Sigit's technical stack?";
                 botHtml = "<strong>[PROFILER BOT]:</strong> Core Stack includes Python, TypeScript, Linux (Ubuntu/Docker), Wazuh SIEM, FortiWeb WAF, Ollama local LLMs, Naive Bayes NLP, and n8n DevSecOps automation.";
@@ -2852,7 +2852,7 @@
             } else if (lower.indexOf('contact') !== -1 || lower.indexOf('hire') !== -1 || lower.indexOf('email') !== -1 || lower.indexOf('cv') !== -1 || lower.indexOf('resume') !== -1) {
                 botHtml = "<strong>[PROFILER BOT]:</strong> You can reach Sigit at si.sigitadi@gmail.com or click the floating widget on the bottom right to request his official PDF Resume.";
             } else {
-                botHtml = "<strong>[PROFILER BOT]:</strong> Sigit is an Applied AI Engineer | Security Operations Specialist with 10+ years of operational experience across public and private sector projects. Ask about his stack, SecOps, remote readiness, or certifications!";
+                botHtml = "<strong>[PROFILER BOT]:</strong> Sigit is an Applied AI Engineer | Security Operations Specialist with 20+ years of operational experience across public and private sector projects. Ask about his stack, SecOps, remote readiness, or certifications!";
             }
 
             appendProfilerChat(text, botHtml);
@@ -3361,7 +3361,7 @@
 
             var msg = '';
             if (chipKey === 'why') {
-                msg = "<strong>[SIMULATION]:</strong> <strong>Profile Summary:</strong> 10+ years of IT & SecOps experience. Focuses on practical applied AI, local privacy-first ML, and automated threat triage rather than raw model design.";
+                msg = "<strong>[SIMULATION]:</strong> <strong>Profile Summary:</strong> 20+ years of IT & SecOps experience. Focuses on practical applied AI, local privacy-first ML, and automated threat triage rather than raw model design.";
             } else if (chipKey === 'stack') {
                 msg = "<strong>[SIMULATION]:</strong> <strong>Core Tech Stack:</strong> Python, JavaScript ES6, Docker, Wazuh SIEM, FortiWeb WAF, Ubuntu Linux/WSL, Naive Bayes NLP, & n8n automations.";
             } else if (chipKey === 'secops') {
