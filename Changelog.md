@@ -6,6 +6,55 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
+## [1.5.0] - 2026-08-06 — Professional Summary CV Synchronization
+
+### 🚀 Added
+- **Exact Professional Summary Alignment**: Synchronized the Hero section narrative paragraph and Portfolio Profiler Bot `summary` response character-for-character with the official `PROFESSIONAL SUMMARY` section from `Sigit_Adi_Irianto_CV_Revised.docx`:
+  - 10+ years hands-on experience spanning enterprise IT administration, SOC threat triage, and applied AI tooling since 2024.
+  - Quantified track record: -45% incident MTTR via automated SOC triage, 1,000+ AI prompt-response pairs evaluated for factuality & safety compliance, and IT ops management for 50+ staff teams.
+  - Engineering philosophy: *"Builds and ships working software (not just uses it): self-directed portfolio of deployed client-side ML and SecOps automation tools."*
+
+---
+
+## [1.4.1] - 2026-08-06 — Profiler Bot Chip Event Fix
+
+### 🛠️ Fixed
+- **Preset Chip Button Handlers**: Upgraded `triggerAiChip(type)` in Portfolio Profiler Assistant with fuzzy string matching, string normalization (`remote`, `wfh`, `contact`, `cv`), and explicit `return false;` event cancellation to ensure 100% reliable click response across all desktop and mobile browsers.
+
+---
+
+## [1.4.0] - 2026-08-06 — Project Replacement (A.R.Y.A. SOC Analytics Streamlit App)
+
+### 🚀 Added
+- **Featured Project Card Replacement**: Replaced legacy `PromptMatrix 1.0` card with **`A.R.Y.A. SOC Analytics & Threat Hunting Platform`**.
+- **Live Streamlit App Integration**: Direct button link to live cloud app at `https://arya-soc.streamlit.app` featuring Wazuh SIEM log telemetry processing, automated incident severity scoring, and interactive threat hunting.
+- **Dedicated Case Study Modal**: Integrated new `modal-arya-soc-streamlit` popup detailing challenge, solution, and Python/Streamlit stack architecture.
+
+---
+
+## [1.3.0] - 2026-08-06 — CV Alignment (Hero Subtitle & Early Career Consolidation)
+
+### 🚀 Added
+- **Exact Hero Subtitle**: Standardized Hero subtitle to `Applied AI Engineer | Security Operations Specialist` matching exact CV wording.
+- **Early Career Consolidation**: Consolidated foundational roles (PT. Laju Karunia Jaya & Arya Mobile) into a single streamlined card `Early Career Experience (Feb 2002 – May 2014)`.
+- **Role Title Realignment**: Updated Role 5 title to `Incident Handling Operational` per official CV document.
+
+---
+
+## [1.2.0] - 2026-08-06 — CV Alignment & Quantified Metrics Release
+
+### 🚀 Added
+- **Quantified Metric Alignment**: Synchronized high-impact metrics across Hero summary, *What I Offer* cards, *Projects*, and *Career Journey* timeline:
+  - `-45% Incident MTTR` reduction via Wazuh SIEM SOC triage automation.
+  - `1,000+ AI Prompt-Response Pairs` evaluated for factuality and safety compliance.
+  - `50+ Staff Engineering Team` IT infrastructure ownership.
+- **Project Specificity**: Updated PUPR timeline entry with exact project titles (*RWS, Transmission Dadi Muria, Jragung, and Bener Reservoir*) and fixed-term contract completion note.
+- **Nippon Koei Context**: Explicitly named *Rentang Irrigation Modernization Project* for cross-departmental budget tracking.
+- **Certifications & Issuers Alignment**: Synchronized exact 9 credentials with issue dates (2024, 2025) and official issuers (Microsoft, Hacktiv8, Kodeka Labs, BSSN, Cyber Academy Indonesia, Kelas.work, Canonical, Cybrary, LinkedIn Learning).
+- **Interactive Bot Metric Parsing**: Extended *Portfolio Profiler Assistant* Q&A parser to handle queries about `MTTR`, `1000 prompts`, `50 staff`, and `certifications`.
+
+---
+
 ## [1.1.0] - 2026-08-06 — Testimonials & UX Realignment Release
 
 ### 🚀 Added
@@ -35,18 +84,3 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - **Synchronized Medium Articles**: Synchronized live portfolio feed links with original published technical articles (*Integrasi Wazuh SIEM Dengan Bot Telegram Untuk Alert Real-Time*, *Data Exfiltration Detection*, and *Brute Force Attack: Cara SIEM Menangkal Serangan Berulang*).
 - **Accessibility Isolation (WCAG Compliance)**: Added `aria-hidden="true"` attributes to cosmetic terminal prompts (`[SYS_INIT]`, `[SYS_CMD_PROMPT]`, `[SIMULATION]`) and decorative badge icons to prevent screen reader distraction.
 - **Interactive CLI Console Navigation**: Full validation of client-side CLI terminal commands (`help`, `about`, `projects`, `demos`, `career`, `certs`, `cv`, `clear`) with smooth scrolling.
-
-### 🔧 Changed
-- **Empirical Title Realignment**: Standardized professional title to `IT & SecOps Specialist | Applied AI Practitioner` across HTML head metadata, OpenGraph, Schema.org JSON-LD, Hero header, and bio narratives.
-- **Pragmatic Architectural Descriptions**: Overhauled feature text for interactive demos to reflect true underlying algorithms:
-  - Demo 1: Naive Bayes NLP + Regex currency parsing.
-  - Demo 4: Word-frequency Extractive Text Summarizer.
-  - Demo 5: Array-matching Heuristic Skill Matcher.
-  - Demo 6: Mathematical Password Entropy Calculator.
-- **Career Timeline Normalization**: Added explicit `Short-Term Contract` and `Project-Based` badges to short-tenure roles (*Senior Programmer*, *Shift Leader*) and highlighted *AI Trainer & LLM Evaluator* as a sustained technical anchor bridging contract gaps.
-- **Sticky Top Header**: Converted main navigation header to a fixed sticky bar (`fixed top-0 z-50`) with backdrop blur styling for persistent screen visibility.
-- **DOM Selector Bug Fix**: Fixed Project grid category filter query selector (`#projects-grid`) to ensure seamless dynamic card filtering across **ALL_PROJECTS**, **AI_ML_CORE**, **SECOPS_TRIAGE**, and **WEB_APPS**.
-
-### 🛡️ Security & Quality Fixes
-- Added `target="_blank" rel="noopener noreferrer"` security attributes to all external anchor links (LinkedIn, Medium, Live Apps).
-- Applied explicit `type="button"` and `return false;` event handlers across all interactive preset buttons to prevent touch event interference on mobile devices.
