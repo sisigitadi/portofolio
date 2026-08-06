@@ -2,7 +2,23 @@
 
 All notable changes to the **Sigit Adi Irianto Portfolio SPA** project will be documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+The format is based on [Keep a Changelog](https://keepachamber.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+---
+
+## [1.6.1] - 2026-08-07 — KantinKu ERP Live App Link
+
+### 🚀 Added
+- **Live App Integration**: Integrated direct deployment link (`https://script.google.com/macros/s/AKfycbw95MoSZQfv55KeSvorKS5jJWEHMThfOBiMafNHKl4/dev`) onto both the Card 4 grid action button (`Live App`) and the `modal-kantinku-erp` case study modal primary CTA button.
+
+---
+
+## [1.6.0] - 2026-08-07 — Card 4 Replacement (KantinKu ERP)
+
+### 🚀 Added
+- **Featured Project Card Replacement**: Replaced Card 4 (`ARYA SOC Triage Agent`) with **`KantinKu ERP | Cloud POS & Smart Canteen Engine`**.
+- **Real-World Project Demonstration**: Showcases serverless Google Apps Script infrastructure with WAC (Weighted Average Cost) inventory valuation, automated BOM (Bill of Materials) recipe stock deduction, PIN-based anti-bruteforce authentication, customer kasbon tracking with WhatsApp notification dispatches, and thermal receipt printing.
+- **Dedicated Case Study Modal**: Integrated `modal-kantinku-erp` popup detailing business challenge, solution, and full-stack architecture.
 
 ---
 

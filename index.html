@@ -1644,26 +1644,26 @@
                     </div>
                 </div>
 
-                <!-- Card 4: ARYA SOC Triage Agent -->
-                <div class="project-card fade-in-up" data-category="cybersecurity ai" data-delay="100" data-project-id="arya-soc">
+                <!-- Card 4: KantinKu ERP -->
+                <div class="project-card fade-in-up" data-category="web automation database" data-delay="100" data-project-id="kantinku-erp">
                     <div class="bg-[var(--color-surface)] border border-[var(--color-border)] rounded-2xl overflow-hidden hover:border-[var(--color-primary)] transition-all flex flex-col justify-between h-full p-5 shadow-lg">
                         <div>
                             <div class="flex justify-between items-center mb-3">
-                                <span class="badge badge-accent">AI Cybersecurity</span>
+                                <span class="badge badge-primary">Cloud ERP & POS</span>
                             </div>
-                            <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=600&q=80" alt="ARYA SOC Triage Agent" class="w-full h-36 object-cover rounded-lg mb-4">
-                            <h3 class="text-lg font-bold text-[var(--color-text-primary)] mb-2">ARYA SOC Triage Agent</h3>
-                            <p class="text-xs text-[var(--color-text-secondary)] line-clamp-2 mb-4">AI-driven Security Operations triage agent automating log analysis, incident severity scoring, and response recommendations.</p>
+                            <img loading="lazy" decoding="async" src="https://images.unsplash.com/photo-1556740758-90de374c12ad?auto=format&fit=crop&w=600&q=80" alt="KantinKu ERP" class="w-full h-36 object-cover rounded-lg mb-4">
+                            <h3 class="text-lg font-bold text-[var(--color-text-primary)] mb-2">KantinKu ERP</h3>
+                            <p class="text-xs text-[var(--color-text-secondary)] line-clamp-2 mb-4">Serverless Cloud POS & Canteen ERP with WAC inventory valuation, automated BOM recipe stock deduction, anti-bruteforce auth, and WhatsApp debt tracking.</p>
                         </div>
                         <div>
                             <div class="flex flex-wrap gap-1.5 mb-4">
-                                <span class="bg-[var(--color-bg)] border border-[var(--color-border)] text-[10px] text-[var(--color-text-secondary)] px-2 py-0.5 rounded font-mono">Wazuh SIEM</span>
-                                <span class="bg-[var(--color-bg)] border border-[var(--color-border)] text-[10px] text-[var(--color-text-secondary)] px-2 py-0.5 rounded font-mono">AI Triage</span>
-                                <span class="bg-[var(--color-bg)] border border-[var(--color-border)] text-[10px] text-[var(--color-text-secondary)] px-2 py-0.5 rounded font-mono">Python</span>
+                                <span class="bg-[var(--color-bg)] border border-[var(--color-border)] text-[10px] text-[var(--color-text-secondary)] px-2 py-0.5 rounded font-mono">Apps Script</span>
+                                <span class="bg-[var(--color-bg)] border border-[var(--color-border)] text-[10px] text-[var(--color-text-secondary)] px-2 py-0.5 rounded font-mono">WAC Accounting</span>
+                                <span class="bg-[var(--color-bg)] border border-[var(--color-border)] text-[10px] text-[var(--color-text-secondary)] px-2 py-0.5 rounded font-mono">WhatsApp API</span>
                             </div>
                             <div class="flex gap-2">
-                                <button onclick="openModal('modal-arya-soc')" data-modal-target="modal-arya-soc" class="btn-primary flex-1 text-center text-xs py-2"><i class="fas fa-book-open mr-1"></i> Details</button>
-                                <a href="https://github.com/sisigitadi/arya-soc" target="_blank" rel="noopener noreferrer" class="btn-secondary flex-1 text-center text-xs py-2"><i class="fas fa-external-link-alt mr-1"></i> Live App</a>
+                                <button onclick="openModal('modal-kantinku-erp')" data-modal-target="modal-kantinku-erp" class="btn-primary flex-1 text-center text-xs py-2"><i class="fas fa-book-open mr-1"></i> Details</button>
+                                <a href="https://script.google.com/macros/s/AKfycbw95MoSZQfv55KeSvorKS5jJWEHMThfOBiMafNHKl4/dev" target="_blank" rel="noopener noreferrer" class="btn-secondary flex-1 text-center text-xs py-2"><i class="fas fa-external-link-alt mr-1"></i> Live App</a>
                             </div>
                         </div>
                     </div>
@@ -2339,21 +2339,25 @@
                     </a>
                 </div>
 
-                <!-- Modal: Arya SOC -->
-                <div id="modal-arya-soc" class="modal-content hidden">
-                    <h3 class="text-2xl font-bold text-[var(--color-text-primary)] mb-4 section-heading">Case Study: Arya SOC Simulation</h3>
+                <!-- Modal: KantinKu ERP -->
+                <div id="modal-kantinku-erp" class="modal-content hidden">
+                    <h3 class="text-2xl font-bold text-[var(--color-text-primary)] mb-4 section-heading">Case Study: KantinKu ERP — Cloud POS & Smart Canteen Engine</h3>
                     <h4 class="text-lg font-semibold text-[var(--color-primary)] mt-4 mb-2 font-mono">The Challenge</h4>
-                    <p class="text-[var(--color-text-secondary)] mb-4">Demonstrating real-world SOC threat triage and event risk modeling in an accessible web dashboard.</p>
+                    <p class="text-[var(--color-text-secondary)] mb-4">Managing food & beverage canteen operations manually causes inaccurate COGS (HPP) calculations, untracked ingredient wastage, manual cashier shift reconciliation errors, and uncollected customer debt (kasbon). Commercial cloud ERP software incurs prohibitive monthly subscription costs for small-to-medium operators.</p>
                     <h4 class="text-lg font-semibold text-[var(--color-primary)] mt-4 mb-2 font-mono">My Solution</h4>
-                    <p class="text-[var(--color-text-secondary)] mb-4">Developed a Streamlit proof-of-concept application simulating a real-time security dashboard for risk classification and incident triage prioritization.</p>
-                    <h4 class="text-lg font-semibold text-[var(--color-primary)] mt-4 mb-2 font-mono">Tech Stack</h4>
+                    <p class="text-[var(--color-text-secondary)] mb-4">I engineered <strong>KantinKu ERP</strong>, a 100% serverless Cloud POS & Canteen ERP platform built on Google Apps Script and Google Sheets Database Engine. It automates Weighted Average Costing (WAC) ingredient valuation, BOM (Bill of Materials) recipe stock deduction upon sales, multi-role PIN authentication with brute-force protection, ScriptLock concurrency control to eliminate duplicate charges, customer kasbon tracking with WhatsApp notification dispatch, and thermal receipt printing.</p>
+                    <h4 class="text-lg font-semibold text-[var(--color-primary)] mt-4 mb-2 font-mono">Tech Stack & Architecture</h4>
                     <div class="flex flex-wrap gap-2 mb-6">
-                        <span class="modal-tech-pill">Python</span>
-                        <span class="modal-tech-pill">Streamlit</span>
-                        <span class="modal-tech-pill">SOC Threat Triage</span>
+                        <span class="modal-tech-pill">Google Apps Script (GAS)</span>
+                        <span class="modal-tech-pill">JavaScript ES6</span>
+                        <span class="modal-tech-pill">WAC Inventory Valuation</span>
+                        <span class="modal-tech-pill">BOM Recipe Stock Deduction</span>
+                        <span class="modal-tech-pill">CacheService & ScriptLock</span>
+                        <span class="modal-tech-pill">WhatsApp API</span>
+                        <span class="modal-tech-pill">Google Sheets DB Engine</span>
                     </div>
-                    <a href="https://arya-soc.streamlit.app/" target="_blank" rel="noopener noreferrer" class="btn-primary">
-                        View Live Simulation &rarr;
+                    <a href="https://script.google.com/macros/s/AKfycbw95MoSZQfv55KeSvorKS5jJWEHMThfOBiMafNHKl4/dev" target="_blank" rel="noopener noreferrer" class="btn-primary">
+                        Open KantinKu ERP Live App &rarr;
                     </a>
                 </div>
                 
