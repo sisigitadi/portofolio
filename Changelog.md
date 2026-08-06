@@ -6,6 +6,21 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
+## [1.5.2] - 2026-08-06 — Ultra-Concise Non-Redundant Elevator Pitch
+
+### ⚡ Optimization
+- **Zero-Redundancy Hero Elevator Pitch**: Replaced long metric listings in Hero summary with a tight 2-sentence elevator pitch (`"IT & SecOps professional with 10+ years of experience bridging enterprise infrastructure, SOC threat triage, and applied AI tooling. Builds and ships working software to solve real-world operational security challenges."`).
+- **Eliminated Section Duplication**: Removed repetitive lists of metrics (-45% MTTR, 1,000+ AI prompts, 50+ staff) from the Hero text, deferring detailed metric breakdowns to the dedicated *What I Offer* capability cards directly below.
+
+---
+
+## [1.5.1] - 2026-08-06 — Concise Summary Optimization
+
+### ⚡ Optimization
+- **High-Impact Hero Summary**: Condensed the summary narrative by ~40% for faster scannability while preserving 100% of core metrics and context (-45% MTTR, 1,000+ AI prompts, 50+ staff IT ops, and "Builds & ships working software" philosophy).
+
+---
+
 ## [1.5.0] - 2026-08-06 — Professional Summary CV Synchronization
 
 ### 🚀 Added
