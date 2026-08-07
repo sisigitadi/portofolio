@@ -6,6 +6,150 @@ The format is based on [Keep a Changelog](https://keepachamber.com/en/1.0.0/), a
 
 ---
 
+## [2.0.2] - 2026-08-07 — Soft-Technical Wording & Non-Overclaiming Alignment
+
+### ⚡ Copywriting & Alignment Refinement
+- **Grounded & Accessible Technical Copy**: Replaced buzzword-heavy headers and overclaiming metrics in `#architecture` with clear, grounded, soft-technical terminology:
+  - Header Subtitle: `SYSTEM ARCHITECTURE & INTERACTIVE DATA FLOWS`
+  - Badge: `VERIFIED SYSTEM DESIGN SPECS`
+  - Radar Scanner Status: `PIPELINE SCANNER IDLE • STANDBY` / `⚡ PIPELINE SIMULATION ACTIVE • DATA FLOWING`
+  - Telemetry Speed: `TELEMETRY ACTIVE`
+- **Streamlined Telemetry Log Statements**: Softened all 16 simulation step log statements across *ARYA SIEM*, *KantinKu ERP*, *SmartExpense ML*, and *SCOPS SecOps* to focus cleanly on real-world engineering mechanisms without hype or overclaiming.
+
+---
+
+## [2.0.1] - 2026-08-07 — Enhanced Bottom Telemetry Laser Track Animation
+
+### 🎨 Visual & Animation Overhaul
+- **Futuristic Multi-Layer Laser Scanner Track**: Upgraded `#arch-bottom-anim-bar` with a multi-layered cyberpunk laser beam (`archBottomLaser` keyframes) featuring a glowing cyan/purple gradient pulse, background grid ticks pattern, and dynamic bandwidth indicator.
+- **Dynamic Speed & Color Switching**:
+  - **Idle State**: Soft cyan/purple laser sweep (2.2s ease-in-out sweep) with pulsing ping indicator.
+  - **Simulation Running**: High-speed emerald laser beam (0.75s linear sweep) with intense neon glow (`box-shadow: 0 0 20px #10b981`).
+
+---
+
+## [2.0.0] - 2026-08-07 — Major Release: Option A Holographic HUD Architecture Visualizer & Complete AI Bot Cleanup
+
+### 🚀 Added & Elevated (Option A Holographic Architecture HUD)
+- **Holographic 2D Cyber Radar HUD Circle**: Integrated a 360° animated Cyber Radar circle HUD (`#arch-radar-needle`) in the top-right header of the `#architecture` visualizer card:
+  - **Idle Sweep**: Smooth 360° rotation (4s sweep) with oscilloscope pulse indicator.
+  - **Simulation Mode**: High-speed emerald 360° rotation (1.2s sweep) synchronized with live pipeline stage execution.
+- **Visual Data Packet Pulse Flow**: Added animated glowing neon data packet pulses (`.arch-packet-pulse`, `---●--->`) connecting Stage Nodes 01 ➔ 02 ➔ 03 ➔ 04 to visually illustrate telemetry signal flow across all 4 blueprints.
+- **Sharper Technical Node Cards**: Refined Stage Cards into crisp, high-contrast metric blocks displaying Node Title, Protocol/Port, Status Badges (`HEALTHY` / `STREAMING`), and `🔍 Inspect Code & Specs` trigger buttons.
+
+### 🗑️ Cleaned & Streamlined (Profiler Bot AI Removal)
+- **Complete Profiler Bot AI Cleanup**: Removed the AI Profiler Assistant tab and code from the floating concierge widget (`#contact-widget`), streamlining it into a dedicated **Contact & PDF Resume Request Hub**.
+
+---
+
+## [1.9.3] - 2026-08-07 — Character-by-Character Typewriter Streaming & Guided Chips
+
+### 🚀 Added & Enhanced
+- **Real Character-by-Character Typewriter Streaming (`typeWriterBotMessage`)**: Replaced instant message dumping with a smooth, character-by-character typing animation (~16ms per character / 60 chars/sec) featuring a glowing blinking terminal cursor (`|`) that auto-scrolls down `#ai-sim-body` as text streams in real-time.
+- **Guided Topic Chips Overhaul**: Replaced redundant preset buttons with 4 clean, high-value guided prompts (`💡 Track Record`, `🛡️ SecOps Triage`, `💻 Tech Stack`, `📄 Request CV`).
+- **Comprehensive Q&A Output**: Standardized response outputs to be concise, structured, and easy to read (`text-[10.5px] sm:text-[11px]`, `leading-relaxed`, `font-sans`).
+
+---
+
+## [1.9.2] - 2026-08-07 — Profiler Bot Cyberpunk Typography & Typing Indicator Animation
+
+### 🎨 UI/UX & Animation Overhaul
+- **High-Readability Modern Typography**: Replaced blocky monospace body fonts inside `#ai-sim-body` with clean, modern proportional sans-serif typography (`font-sans`, `text-[11px] sm:text-xs`, `leading-relaxed`, `text-gray-200`) for maximum reading comfort and scannability.
+- **Cyberpunk Badge & Glowing Accent Border**: Replaced rigid raw text headers (`[PROFILER BOT]:`) with a neon cyber badge (`[PROFILER BOT]` + pinging neon dot indicator) and a glowing left purple border gradient (`border-l-2 border-l-purple-400 bg-gradient-to-r from-purple-950/40`).
+- **Dynamic AI Typing Indicator**: Added a 350ms animated typing indicator (`PROFILER BOT ANALYZING...` + pulsing dots) before rendering responses.
+- **Smooth Fade-Slide Entrance Animation**: Added `.ai-msg-entrance` CSS animation keyframes for smooth fade-in and slide-up text entrance effects.
+
+---
+
+## [1.9.1] - 2026-08-07 — Un-truncated Status Log Terminal & Animated Radar Scanner Track
+
+### 🛠️ Fixed & Enhanced
+- **Multi-Line Telemetry Log Bar**: Converted the architecture simulation status display into a dedicated multi-line terminal prompt box (`break-words`, `min-h-[32px]`), completely eliminating status text truncation across desktop and mobile screens.
+- **Bottom Animated Radar & Data Packet Scanner Track**: Integrated a glowing animated telemetry radar track (`#arch-bottom-anim-bar`) at the bottom of the `#architecture` visualizer card:
+  - **Before Run (Idle State)**: Displays a smooth scanning cyan laser line (`arch-laser-scanning`) and status label `RADAR SCANNER IDLE • STANDBY MODE`.
+  - **During Run (Active State)**: Transitions dynamically to high-speed emerald laser pulses (`arch-laser-active`), a glowing ping indicator, and status label `⚡ SIMULATION ACTIVE • LIVE DATA STREAMING`.
+  - **After Reset**: Smoothly resets back to the idle standby radar scanner state.
+
+---
+
+## [1.9.0] - 2026-08-07 — Interactive Pipeline Simulator & Technical Node Inspector (Option 1)
+
+### 🚀 Added & Elevated
+- **▶ Live Simulation Engine**: Integrated a **`▶ Run Simulation`** button inside `#architecture` that animates data flow execution step-by-step across pipeline stages with glowing node pulses and real-time terminal status logs (`INGESTING LOGS`, `SCORING RISK`, `MATCHING PLAYBOOK`, `DISPATCHING`).
+- **🔍 Click-to-Inspect Technical Node Inspector**: Every stage node (Stage 01–04 across *ARYA SOC*, *KantinKu ERP*, *SmartExpenseML*, and *SCOPS SecOps*) is now clickable, opening a dedicated **Technical Node Inspector Drawer** (`modal-arch-node-inspector`) displaying:
+  - ⚙️ **Performance & Security Matrix**: Latency (ms), Protocol, Concurrency Locks (ScriptLock / BufferQueue), and Compliance (ISO 27001 / NIST / UU PDP 100%).
+  - 💻 **Production Code Snippet**: Actual Python (Wazuh/Streamlit), Google Apps Script (WAC/BOM), or JS ES6 (Naive Bayes) code snippets.
+  - 📦 **JSON Data Payload Schema**: Real sample request/response JSON payload schemas.
+
+---
+
+## [1.8.4] - 2026-08-07 — MouseEvent Disambiguation & Compact Profiler Typography
+
+### 🛠️ Fixed & Optimized
+- **MouseEvent Disambiguation in `triggerAiChip`**: Resolved critical parameter coercion bug where DOM `MouseEvent` objects passed into `triggerAiChip(e)` evaluated to string `"[object MouseEvent]"`, causing key matching to fall back or fail. `triggerAiChip` now inspects string arguments, event targets (`closest('button')`), and fallback properties seamlessly.
+- **Compact Bot Typography & Height Expansion**: Reduced Profiler Bot message font size to `text-[10px]` with `leading-normal` and `p-2` padding, while expanding the chat viewport height to `h-52` for maximum scannability and clean layout fit.
+
+---
+
+## [1.8.3] - 2026-08-07 — Global Script Registration & Event Listener Binding
+
+### 🛠️ Fixed
+- **Clean Script Registration**: Moved `appendProfilerChat`, `triggerAiChip`, and `handleProfilerSubmit` to the very top of the primary `<script>` block and removed legacy duplicate function definitions.
+- **Double-Layered Event Binding**: Attached automatic `DOMContentLoaded` event listeners to all buttons in `#ai-chip-container` (`data-chip`), guaranteeing 100% click execution across mobile and desktop browsers regardless of inline event scoping.
+
+---
+
+## [1.8.2] - 2026-08-07 — Profiler Bot Chip Event & Tab Sync Fix
+
+### 🛠️ Fixed
+- **Summary & Remote Preset Chips Fix**: Fixed click event handlers for `⚡ Summary` and `🌐 Remote` chips in the Floating AI Concierge Hub. Added explicit `switchContactTab('profiler')` tab activation, inline `return false;` event cancellation, auto-scroll to bottom of chat window (`#ai-sim-body`), and expanded string matching (`summary`, `why`, `overview`, `ringkasan`, `remote`, `wfh`, `telecommute`) across both chip handlers and custom text form submissions.
+
+---
+
+## [1.8.1] - 2026-08-07 — Layout Streamlining & Architecture Visualizer Relocation
+
+### 🚀 Added & Refactored
+- **Full Profiler Bot Relocation**: Completely removed the legacy `Portfolio Profiler Assistant` box from the page body layout, consolidating 100% of bot interactions, preset chips, and Q&A parsing inside the **Dual-Tab Floating Concierge Hub** (`#contact-widget`).
+- **Architecture Visualizer Integration into What I Offer Grid**: Relocated the **`System Architecture Visualizer`** (`#architecture`) directly into the right-hand column of the *What I Offer* section (where the Profiler Bot used to sit), eliminating redundant sections and providing an interactive 4-stage pipeline viewer (*ARYA SOC*, *KantinKu ERP*, *SmartExpenseML*, and *SCOPS DevSecOps*).
+
+---
+
+## [1.8.0] - 2026-08-07 — Dual-Tab AI Concierge & Interactive Architecture Blueprints
+
+### 🚀 Added
+- **Floating AI Concierge & Contact Hub**: Upgraded the floating widget in the bottom right viewport to a Dual-Tab Interface (`🤖 Profiler Bot` & `✉️ Request CV & Message`). Makes the AI Profiler Assistant 100% accessible from anywhere on the portfolio without scrolling.
+- **Interactive System Architecture Visualizer**: Replaced the former Profiler Bot location in the main layout with a high-impact **`System Architecture & Data Flows`** blueprint card (`#architecture`). Features 4 interactive data flow diagrams:
+  1. `A.R.Y.A. Threat Hunting Telemetry Pipeline` (Wazuh SIEM + Streamlit Cloud)
+  2. `KantinKu Serverless WAC & BOM Engine` (Google Apps Script + Sheets DB)
+  3. `SmartExpenseML Zero-Retention Sandbox` (Client-Side Naive Bayes ML)
+  4. `SCOPS Tactical SecOps Command Pipeline` (Docker + n8n + Wazuh)
+
+---
+
+## [1.7.2] - 2026-08-07 — Flexible Recent Years Phrasing
+
+### ⚡ Optimization
+- **Generalized SecOps & AI Timeline**: Updated Hero summary narrative and Portfolio Profiler Bot response to remove specific year count numbers for SecOps and AI, phrasing it flexibly as: *"IT professional with 20+ years of experience in infrastructure and systems administration, focused on Security Operations and applied AI in recent years."*
+
+---
+
+## [1.7.1] - 2026-08-07 — Hero Summary Text Restoration
+
+### ⚡ Optimization
+- **Restored Exact Hero Text**: Restored concise, grounded, and non-overclaiming hero summary statement per user preference: *"IT professional with 20+ years of experience in infrastructure and systems administration, with the last 2 years focused on Security Operations and applied AI."* Removed the word "enterprise" and long metric lists from Hero paragraph to keep it tight, authentic, and direct.
+
+---
+
+## [1.7.0] - 2026-08-07 — Portfolio Elevation (UVP, Value-First Headlines & SEO Alignment)
+
+### 🚀 Added
+- **Unique Value Proposition (UVP) Hero Overhaul**: Integrated prominent visual CTA buttons (`Request Official Resume (PDF)` & `Explore Case Studies`) in the Hero section.
+- **Value-First Project Titles & Headlines**: Restructured headlines for Cards 1 to 6 to focus on measurable business impact (e.g. `PromptMatrix 2.0 — LLM Safety Evaluation`, `SmartExpenseML — Zero-Retention NLP`, `SCOPS Command — Reduced MTTR by 45%`, `KantinKu ERP — Zero-Cost Cloud POS`, `A.R.Y.A. SOC Analytics — Threat Hunting`).
+- **Structured Case Study Modals**: Rebuilt popup case study modals with 4 distinct storytelling sections (`🚨 The Business Challenge`, `🧠 Engineering Approach & Solution`, `📊 Verified Impact & Results`, and `Tech Stack`).
+- **Canonical & OpenGraph Custom Domain Alignment**: Updated canonical URL, OpenGraph, Twitter Cards, and Schema.org JSON-LD structured data to point to official custom domain `https://sigitadi.my.id/`.
+
+---
+
 ## [1.6.1] - 2026-08-07 — KantinKu ERP Live App Link
 
 ### 🚀 Added
