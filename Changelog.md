@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachamber.com/en/1.0.0/), a
 
 ---
 
+## [2.0.3] - 2026-08-07 — Role Badge Alignment for Nippon Koei Co., Ltd
+
+### 🛠️ Timeline & CV Alignment
+- **Assistant to Office Manager Badge Realignment**: Updated badge label for **Assistant to Office Manager** at **Nippon Koei Co., Ltd (Jun 2020 – Nov 2020)** in the *Career Journey* timeline from `Contract / Project` to **`Short-Term Contract`** (`bg-amber-500/30 text-amber-200 border-amber-300/60`) for 100% exact alignment with official CV contract designations.
+
+---
+
 ## [2.0.2] - 2026-08-07 — Soft-Technical Wording & Non-Overclaiming Alignment
 
 ### ⚡ Copywriting & Alignment Refinement
