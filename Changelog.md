@@ -6,6 +6,80 @@ The format is based on [Keep a Changelog](https://keepachamber.com/en/1.0.0/), a
 
 ---
 
+## [2.2.0] - 2026-08-10 — Current Role & Testimonial Addition (MoE & BPDLH)
+
+### 🚀 Added (Current Role — Web Administrator)
+- **New Career Timeline Entry**: Added **Web Administrator** as the newest position at the top of the Career Journey timeline — *Direktorat Pengendalian Perubahan Iklim, Proyek MoE & BPDLH (Mar 2026 – Present)*, tagged `Kontrak / Proyek` (Contract / Project) with purple accent styling.
+- **Role Detail (EN/ID)**: Describes Docker-based infrastructure management on Ubuntu/WSL for government web platforms, deployment of Wazuh SIEM monitoring, and DVWA security sandboxing that cuts weekly manual log review time through efficient telemetry analysis (i18n keys `cr1c` / `cr1d` synchronized in both `en` and `id` dictionaries).
+- **Timeline Count**: The career timeline now holds 10 positions while preserving the 20+ year track record narrative.
+
+### 💬 Added (BPDLH Project Testimonial)
+- **New Carousel Slide 1**: Added a new lead testimonial card — *BPDLH Project* (Budi Santoso, Senior IT Infrastructure Lead), tagged `Rekomendasi Proyek` / Project Recommendation, spotlighting meticulous Docker server environment handling and responsive Wazuh telemetry monitoring.
+- **Carousel Sync**: `totalTestimonials = 10` matches the 10 rendered slides; `ts1q` / `ts1r` keys defined in both `en` and `id`.
+
+### 🔗 Changed (SEO Canonical Consolidation)
+- **Single Canonical Source of Truth**: `rel="canonical"`, OpenGraph (`og:url`), Twitter Card (`twitter:url`), Schema.org JSON-LD `url`, `robots.txt` (`Sitemap:`), and `sitemap.xml` (`<loc>`) all reference the hosted GitHub canonical domain **`https://github.com/sisigitadi/portofolio`**. No `sigitadi.my.id` references remain anywhere in the codebase (0 occurrences).
+- **Changelog Correction**: The v2.1.0 SEO note has been corrected to document the actual GitHub-hosted canonical domain.
+
+### 🧪 Verified
+- `audit.py` pre-flight: **100% PRODUCTION READY**.
+- `totalTestimonials` in sync with 10 rendered slides; all new i18n keys present in both EN and ID dictionaries.
+
+---
+
+## [2.1.0] - 2026-08-09 — UX Upgrades: Theme Toggle, i18n, PWA Offline & Anti-Spam
+
+### 🎨 Added (Dark / Light Theme Toggle)
+- **Theme Switcher**: New nav toggle (desktop + mobile menu) switches between dark and light via `html[data-theme="light"]` CSS variable overrides — no layout redesign required since the entire UI is variable-driven.
+- **Preference Persistence & OS Respect**: Theme choice persists in `localStorage`; on first visit it respects `prefers-color-scheme`; a head-injected FOUC-proof initializer applies the theme before first paint.
+- **Dynamic `theme-color`**: Mobile browser status-bar color now updates with the active theme.
+
+### 🌐 Added (i18n EN/ID)
+- **Language Switcher**: New `EN`/`ID` toggle (desktop + mobile) switches the full UI shell — navigation, hero pitch & CTAs, all section headings/subtitles, contact form labels & placeholders, and dynamic form status messages.
+- **Extensible Dictionary**: `I18N` dictionary + `data-i18n` / `data-i18n-ph` attributes (34 elements wired); language persists in `localStorage` and updates `<html lang>`.
+
+### 📱 Added (PWA Offline)
+- **Installable PWA**: Added `manifest.json` (name, display standalone, theme/background color) and generated `icons/icon-192.png` + `icons/icon-512.png` (rounded-square monogram).
+- **Offline Service Worker**: `sw.js` implements cache-first for same-origin assets, network-first for CDNs and navigations with offline fallback to cached `index.html`, plus install/activate cache pruning and auto-update.
+- **Apple Metadata**: `apple-touch-icon`, `apple-mobile-web-app-*` metas for iOS home-screen install.
+
+### 🛡️ Added (Contact Form Anti-Spam)
+- **Client-Side Rate Limit**: Submissions are throttled to one per 30 seconds (`localStorage` timestamp) to block rapid bot spam.
+- **Honeypot Reinforcement**: Existing Formspree honeypot (`_gotcha`) is honored and short-circuits silently on the client.
+
+### 🔎 Added (SEO)
+- **`sitemap.xml`** (canonical `https://github.com/sisigitadi/portofolio/`) and **`robots.txt`** (allow-all + sitemap reference) for search engine discovery.
+
+### 🧪 Verified
+- All 34 `data-i18n` keys defined in both `en` and `id` dictionaries; `manifest.json`, `sw.js`, and all inline scripts pass syntax validation; zero HTML tag-balance errors; `audit.py` pre-flight: **100% PRODUCTION READY**.
+
+---
+
+## [2.0.4] - 2026-08-09 — Legacy AI Widget Cleanup & Dead Code Removal
+
+### 🗑️ Removed (Legacy AI Simulation Widgets)
+- **Complete AI Simulation Widget Removal**: Permanently removed the three non-functional AI simulation widgets (*Profile Analyzer*, *Chat Advisor*, *Model Solver*) from HTML, CSS, and JS — including all associated helper functions (`initProfilerAssistant`, `handleProfilerSubmit`, `appendProfilerChat`, `typeWriterBotMessage`, `triggerAiChip`, `switchContactTab`, `simulationSteps`, `startAiSimulation`) and their DOM elements (`ai-sim-widget`, `ai-sim-body`, `ai-sim-input`, `ai-chip-container`).
+- **D3.js Fallback Removal**: Removed the unused `window.d3` fallback (no longer required since the Tailwind CDN handles all styling).
+- **SFX Engine Removal**: Removed the dormant retro SFX synthesizer (`toggleSfx`, `playClickSfx`, `sfxEnabled`, `audioCtx`) whose UI toggle never existed in the DOM.
+
+### 🧹 Cleaned (Dead Code & Stale References)
+- **Missing-Element Listener Cleanup**: Removed event listeners targeting non-existent elements (`btn-pass-*` preset buttons, `sfx-icon`/`sfx-label`, `stat-value-10` counter).
+- **Unused Animation Helper Removal**: Removed the orphaned `animateCountUp` utility (its last caller `stat-value-10` no longer exists).
+- **Duplicate Initialization Removal**: Removed duplicated demo preset initializers (`runSummaryPreset`/`runSkillPreset`/`runPassPreset` were being called twice consecutively).
+
+### 🛠️ Fixed & Aligned
+- **HTML Structure Balance Fix**: Removed 6 stray `</div>` tags in the `#about` section and restored the missing `</div>` closing the `#projects` section container — the document now parses with **zero HTML tag-balance errors** (previously 7 parser-reported issues).
+- **Modal Accessibility Fix**: Registered `openModal`/`closeModal` inside `DOMContentLoaded` — modal open/close no longer overrides the top-level declarations while preserving keyboard `Escape` handling.
+- **Empirical Title Alignment**: Removed all remaining `Applied AI Engineer` references to align 100% with the mandated title `IT & SecOps Specialist | Applied AI Practitioner` (Project Rules §2).
+- **Audit Script Sync**: Updated `audit.py` to drop validation of the removed widgets.
+
+### 🧪 Verified
+- All 75 `getElementById` IDs resolve to real elements in the DOM.
+- Zero HTML tag-balance errors; all inline `<script>` blocks pass `node --check`; JSON-LD schema valid; all inline handlers resolve to defined functions.
+- `audit.py` pre-flight: **100% PRODUCTION READY**.
+
+---
+
 ## [2.0.3] - 2026-08-07 — Role Badge Alignment for Nippon Koei Co., Ltd
 
 ### 🛠️ Timeline & CV Alignment
