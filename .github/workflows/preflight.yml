@@ -1,0 +1,35 @@
+# ---------------------------------------------------------------------------
+# Pre-Flight Audit — CI Gate (GitHub Actions)
+#
+# Menjalankan audit.py lengkap (12 pemeriksaan) di setiap push ke main dan
+# setiap pull request. Jika audit menemukan isu (exit != 0), workflow gagal
+# dan push/PR diblokir sampai diperbaiki.
+#
+# Jalur lokal yang setara:
+#     python audit.py           # audit penuh (wajib 12/12 PASS)
+#     python audit.py --quick   # tanpa node --check (untuk pre-commit)
+# ---------------------------------------------------------------------------
+name: preflight-audit
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+  workflow_dispatch: # izin trigger manual dari tab Actions
+
+jobs:
+  audit:
+    name: Pre-Flight Audit (12 checks)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run Pre-Flight Audit
+        run: python audit.py

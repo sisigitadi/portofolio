@@ -1,0 +1,12 @@
+# Local tool state (Freebuff workspace DB)
+.freebuff/
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# OS junk
+Thumbs.db
+desktop.ini
+.DS_Store

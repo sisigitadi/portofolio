@@ -6,6 +6,298 @@ The format is based on [Keep a Changelog](https://keepachamber.com/en/1.0.0/), a
 
 ---
 
+## [2.4.2] - 2026-08-10 — Full-Bleed Project Cards & Single "What I Offer" Heading
+
+### 🧭 About — satu judul saja: "What I Offer"
+- Heading "About Me" (h2) dan "What I Offer" (h3) **digabung menjadi satu h2 "What I Offer"** — bio tetap di bawahnya sebagai intro, lalu 4 kartu keahlian (2 kolom desktop).
+- i18n keys `aboutTitle` dihapus dari EN & ID (parity tetap seimbang, 228 keys).
+
+### 🖼️ Project cards — full-bleed (gambar menutupi seluruh kartu)
+- Kartu 1–5: gambar screenshot kini **menutupi seluruh kartu** (custom CSS `.pcb-card` 26rem → 30rem di ≥640px, bukan lagi thumbnail `h-52 sm:h-64`), teks/metrik/tag/tombol diletakkan di atas **gradient gelap** di bagian bawah kartu, hover zoom via `.pcb-card:hover img`.
+- Kartu 6 (Medium): gaya konsisten full-bleed dengan **gradient cyberpunk tanpa gambar** (`.pcb-gradient` + `.pcb-between`); feed artikel tetap diisi JS dengan fallback.
+- **Judul screenshot tampil**: `object-position: left top` (sisi kiri-atas gambar — tempat judul aplikasi — tidak lagi ter-crop, sebelumnya `top` yang memotong kiri/kanan), dan badge kategori dipindah ke **kanan-atas** (`top-3 right-3`) agar tidak menutupi judul.
+- **Koreksi akurasi PromptMatrix 2.0**: digambarkan ulang sebagai **aplikasi prompt engineering** (bukan "LLM Safety Evaluation") — badge/judul/tag → "Rekayasa Prompt" / "Prompt Engineering Platform", highlight → "Pengujian & optimasi prompt multi-variabel" (klaim 1.000+ dihapus sesuai keputusan user), alt text disesuaikan, modal case study (pm1t/b1/b2/b3 EN+ID) ditulis ulang ke framing prompt engineering; Readme "AI evaluation apps" → "AI prompt-engineering apps".
+- **Deduplikasi klaim 45% MTTR di kartu SCOPS**: tag chip redundan `-45% MTTR` dihapus dan highlight diganti fitur komplementer yang faktual dari modal — "Klasifikasi risiko real-time (Tinggi/Sedang/Rendah)" / "Real-time risk classification (High/Medium/Low)" — klaim 45% MTTR kini hanya muncul sekali (di judul).
+- **Klaim RLHF "1.000+ pasangan" diselaraskan dengan fakta (semua lokasi)**: kartu About → "Applied AI & Prompt Engineering" / "AI Terapan & Rekayasa Prompt" (deskripsi: pengujian & optimasi prompt multi-variabel, BYOK sisi-klien, Ollama lokal); Career cr2d EN/ID ditulis ulang ke framing prompt engineering; hero typewriter → "Prompt Engineering & LLM"; Readme "RLHF evaluation" → "prompt engineering". Total 0 kemunculan RLHF/1.000+ tersisa.
+
+### 📄 Konsistensi dokumentasi (P0) + pelunakan klaim (P1)
+- **Readme disinkronkan dengan kode**: 6 referensi usang diperbaiki — (1) gambar proyek "hot-linked dari Unsplash" → "local `assets/`"; (2) klaim "word-frequency summarization + password entropy" dihapus; (3) "All six demo widgets" → "All three"; (4) daftar demo #4–6 (Summarizer/Skill Matcher/Password) dihapus; (5) referensi "summarizer output" di bagian XSS dihapus; (6) daftar third-party flow menghapus Unsplash.
+- **Pelunakan klaim absolut "0ms"**: "100% offline · 0ms API latency" → "no network latency" / "tanpa latensi jaringan" (kartu SmartExpense + modal case study EN/ID) — wording yang sama akurat tapi tidak terdengar seperti klaim pemasaran.
+- **Dipertahankan dengan alasan**: "20+ years" (didukung tanggal karir 2002 → 2026 ≈ 24 tahun), "50+ staff" (klaim karir), MTTR −45% (sudah berlabel "simulated"), testimonial & sertifikasi (hanya pemilik yang dapat memverifikasi — disarankan cek ulang sebelum direkrut).
+
+### 🧹 Review akhir sebelum release
+- **Light theme full-bleed cards diperbaiki**: `.pcb-shade` sebelumnya hardcoded gradient gelap `rgba(2,6,23,…)` → teks kartu gelap (`--color-text-primary` adaptif) jadi tidak terbaca di light theme. Kini ada override `html[data-theme="light"] .pcb-shade` (white fade) — diverifikasi di browser light mode, 0 console error.
+- **Dead code dihapus**: panggilan guard `applyArchDynamicText()` di `applyLanguage()` (visualizer arsitektur sudah lama dihapus, guard permanen false).
+- **Frasa konsisten**: "zero network latency" → "no network latency" / "latensi jaringan nol" (pj2m & sm1b3 seragam).
+- **PWA cache bump**: `sw.js` `portofolio-v1` → `portofolio-v2` agar pengunjung lama menerima index.html + gambar assets baru.
+- **og-preview.jpg digenerasi ulang** (1200×630, 96 KB, turun dari 638 KB): tema cyberpunk gelap konsisten dengan situs — nama, tagline dua warna, sub deskripsi, badge "OPEN FOR REMOTE ROLES", chip CORE STACK/TOOLS, URL, garis aksen gradient; meta `og:image`/`twitter:image` cache-buster dibump `?v=1.0.1` → `?v=2.0.0` agar platform sosial mengambil versi baru.
+- CSS custom ditambahkan karena Tailwind terkompilasi tidak memuat class arbitrary (`h-[26rem]`, `group-hover`, dst.) — pendekatan paling aman untuk SPA satu-file tanpa build system.
+
+### ♿ Alt text deskriptif
+- Kelima gambar proyek diberi alt deskriptif (mis. "PromptMatrix 2.0 — dasbor evaluasi keamanan LLM") — aksesibilitas + SEO.
+
+### 🧪 Validasi
+- `python audit.py` penuh → **12 PASS | 0 FAIL | 0 WARN**, `100% PRODUCTION READY` (tag balance, i18n 228 key seimbang, 53 ID + 4 selector resolve)
+- `python -m pytest test_audit.py` → **20/20 PASS**
+- Browser check: kartu full-bleed + teks terbaca di gradient, About satu judul "What I Offer", modal case study terbuka, **tidak ada overflow horizontal di viewport mobile 390px**, semua 5 gambar termuat (naturalWidth > 0 setelah lazy-load)
+
+---
+
+## [2.4.1] - 2026-08-10 — Remove Architecture Visualizer, Sharper About & Project Cards
+
+### 🗑️ System Architecture Visualization dihapus total
+- **Blok "System Architecture Visualization" dihapus dari Projects** (yang sebelumnya dipindah dari About) — dianggap berulang & tidak memberi nilai, sesuai keputusan user.
+- Ikut dibersihkan: blok HTML (~230 baris), seluruh JS arsitektur (`archNodeData`, `switchArchitectureDiagram`, `runArchSimulation`, `resetArchSimulation`, `inspectArchNode`), modal "Technical Node Inspector", 118 i18n keys `arch*` (EN/ID simetris), CSS animasi (radar/packet/laser). `.holo-card` **dipertahankan** karena masih dipakai di Certifications.
+- Dampak: 66 → **53 ID getElementById** (semua resolve), 6 → 4 ID querySelector, 288 → **229 i18n keys** (parity tetap seimbang). Ukuran index.html: 354 KB → 282 KB.
+
+### ✏️ About Me & What I Offer — tidak lagi berulang dengan hero
+- Bio About Me **ditulis ulang** agar berbeda dari hero pitch: hero = positioning ("IT professional with 20+ years..."), About = cara kerja & nilai ("I pair two decades of IT operations with applied AI... privacy-first, documenting as I go, across timezones").
+- Kartu "What I Offer" kini **2 kolom di desktop** (`md:grid-cols-2`) — lebih padat & profesional.
+
+### 🖼️ Project cards — gambar lebih besar & tampak asli
+- Tinggi gambar dinaikkan `h-44` → `h-52 sm:h-64` dengan `object-top` (menampilkan UI asli, bukan crop tengah acak) + `hover:scale-105` zoom.
+- Screenshot asli user (`assets/*.png`) tetap dipakai — bukan gambar stok/AI.
+
+### 🧪 Validasi
+- `python audit.py` penuh → **12 PASS | 0 FAIL | 0 WARN**, `100% PRODUCTION READY` (tag balance OK pasca penghapusan, i18n 229 key seimbang, 53/53 ID + 4 selector resolve)
+- `python -m pytest test_audit.py` → **20/20 PASS**
+- Browser check: About (bio beda + 4 kartu 2 kolom), Projects tanpa blok simulasi, gambar lebih besar, 3 demo, modal case study terbuka — **semua lolos, 0 console error**
+
+---
+
+## [2.4.0] - 2026-08-10 — Recruiter-Friendly Reflow: P0/P1/P2 Portfolio Optimization
+
+### 🔄 P0 — Funnel & Honesty (recruiter-friendly)
+- **CTA hero "Explore Case Studies" → "View Projects"** (EN/ID) — label lama hanya scroll ke grid tanpa membuka case study; kini jujur dan tidak menduplikasi nav.
+- **Demos (ml-sandbox) dipindah setelah Projects** — alur baru: Hero → About → Projects → Demos → Career. Funnel konversi recruiter tidak lagi disela konten teknis; nav desktop & mobile ikut diurutkan ulang (About, Projects, Demos, Career...).
+- **Biografi singkat ditambahkan di About**: heading "About Me" + bio 20+ tahun (EN/ID), lalu "What I Offer" turun ke h3 dengan 4 kartu keahlian.
+
+### 🎯 P1 — Trust & Clarity
+- **Label resume jujur**: "Request Official Resume (PDF)" → **"Request Official Resume (PDF via Email)"** (EN/ID) — pengunjung tahu ekspektasinya (resume dikirim lewat email, bukan unduhan instan).
+- **Badge hero tidak lagi menghilang**: keyframes fly-in/out 15s yang menyembunyikan stack tools (LINUX • OLLAMA • WAZUH) diganti animasi masuk sekali jalan — info kunci tetap terlihat untuk recruiter yang tidak berinteraksi.
+
+### 🎛️ P2 — Curated, Local, Consolidated
+- **Demo dikurasi 6 → 3** (Expense Classifier, ML Security Validator, Spam & Phishing): HTML kartu 4–6, blok JS (summarizer, skill matcher, password analyzer), i18n keys dm4/dm5/dm6, dan pemanggilnya dihapus — dari 79 → 66 ID getElementById (semua resolve), teks "Explore 6" → "Explore 3".
+- **Gambar Unsplash diganti screenshot asli di `assets/`** (PromptMatrix 2.0.png, SmartExpenseML.png, SCOPS Command.png, KantinKu ERP.png, A.R.Y.A. SOC Analytics.png) — nol dependensi pihak ketiga (Unsplash), `desktop.ini` sisa upload dibersihkan.
+- **Visualizer arsitektur dipindah dari About ke dalam Projects** — About kini murni personal (bio + offer), arsitektur teknis menyatu dengan konteks proyek; `id="architecture"` tetap utuh di DOM.
+
+### 🧪 Validasi
+- `python audit.py` penuh → **12 PASS | 0 FAIL | 0 WARN**, `100% PRODUCTION READY` (tag balance OK pasca pemindahan section, i18n 288 key seimbang, 66/66 ID + 6 selector resolve)
+- `python -m pytest test_audit.py` → **20/20 PASS** · pre-commit & pre-push hook OK
+- Browser check (Chrome DevTools): hero/CTA, About (kartu 2 kolom), Projects+arsitektur, 3 demo, modal case study, widget kontak + label resume baru — **semua lolos, 0 ReferenceError** (sisa panggilan `runSummaryPreset`/`runSkillPreset`/`runPassPreset` di init ditemukan browser & dihapus)
+- Ukuran index.html: 386 KB → 354 KB (−32 KB)
+
+---
+
+## [2.3.2] - 2026-08-10 — Summary & Timing, Configurable Target, Unit Tests (pytest)
+
+### ✨ Added (audit.py)
+- **Ringkasan + timing di akhir audit**: setiap run kini menutup dengan baris `Ringkasan: 12 PASS | 0 FAIL | 0 WARN | 11 pemeriksaan | 3.43s` — hitungan PASS/WARN dihitung di `_pass()`/`_warn()`, durasi memakai `time.monotonic()`.
+- **Target file via argumen posisi**: `python audit.py [file] [--quick]` — `parse_cli_args()` dipisahkan sebagai fungsi murni (testable); default tetap `index.html`; flag tak dikenal diabaikan.
+- **Unit test `test_audit.py` (pytest)**: 20 test — index.html asli lolos penuh; 6 skenario rusak terarah (masing-masing memicu tepat 1 FAIL: ID getElementById mati, selector `#ghost`, tag tak seimbang, i18n tak seimbang, slide count mismatch, endpoint Formspree salah); idempotensi `run()`; mode `--quick` (WARN bukan FAIL); parsing argumen parametrized; integrasi `run_preflight_check` (SystemExit 1 saat file hilang/audit gagal).
+
+### 🔧 Fixed (audit.py)
+- **Ketahanan `node --check`**: OSError saat node gagal diluncurkan (mis. handle stdout yang di-redirect test runner di Windows) kini menjadi **WARN** "tidak dapat diluncurkan" — sebelumnya crash tidak tertangkap; FAIL tetap dipakai hanya untuk script yang benar-benar gagal parse.
+
+### 🧪 Validasi
+- `python -m pytest test_audit.py -v` → **20/20 PASS** (23–43s, subprocess node di dalam pytest di-WARN-kan dengan aman)
+- `python audit.py` penuh di bash → **12 PASS | 0 FAIL | 0 WARN | 3.43s**, `100% PRODUCTION READY`
+- `python audit.py --quick` → 11 PASS + 1 WARN (node dilewati) · `py_compile` bersih
+
+---
+
+## [2.3.1] - 2026-08-10 — Audit Modular, Pre-Commit Hook & CI Gate (GitHub Actions)
+
+### 🧩 Refactored (audit.py — modular class)
+- **`run_preflight_check` dirombak menjadi class `PreflightAudit`**: ke-12 pemeriksaan kini adalah metode terdaftar lewat dekorator **`@check`** (registry level modul `_CHECKS_REGISTRY`) — menambah pemeriksaan #13+ cukup menulis satu metode dengan dekorator, tanpa menyentuh `run()` atau pemanggil.
+- **State bersama dihitung sekali**: `scripts` & `dom_ids` di `__init__`; referensi DOM (79 ID + prefix + variabel + selector) diisi `_check_09` lalu dipakai `_check_09b` & `_check_10`.
+- **Mode `--quick`**: `python audit.py --quick` melewati `node --check` (#6) dengan WARN eksplisit — untuk umpan balik cepat di pre-commit; gerbang penuh (pre-push/CI) tetap 12 pemeriksaan lengkap.
+- **Bug dekorator ditemukan & diperbaiki**: `@classmethod check` tidak bisa dipakai sebagai dekorator (`TypeError: 'classmethod' object is not callable`) — diganti registry modul `def register(fn)` (prefix `_`-less dihindari agar tidak mengotori namespace modul).
+- **Lazy property `_dom_refs()` (perbaikan reviewer)**: referensi DOM dihitung sekali lalu di-cache; check #9/#9b/#10 kini **order-independent** — tiap check aman dijalankan kapan pun tanpa mengandalkan check lain lebih dulu (terverifikasi: #10 standalone tetap PASS).
+- **`run()` idempotent (perbaikan reviewer)**: state di-reset di awal `run()` sehingga pemanggilan berulang pada instance yang sama tidak menggandakan hitungan (terverifikasi: 2× run → 12/12 PASS identik).
+
+### ⚡ Added (.githooks/pre-commit)
+- **Pre-commit hook baru** (audit `--quick`): deteksi dini error struktural sebelum commit. Teruji dua arah: sehat → `Commit diizinkan`; rusak → `Commit DIBATALKAN` (exit 1). File `index.html` di-restore setelah uji.
+- `.gitattributes` diperluas: `.githooks/pre-commit` juga dipaksa LF.
+
+### 🚀 Added (.github/workflows/preflight.yml — CI Gate)
+- **GitHub Actions workflow `preflight-audit`**: menjalankan `python audit.py` (12 pemeriksaan penuh) di setiap push ke `main`/`master` dan setiap pull request, plus `workflow_dispatch` untuk trigger manual. Gagal (exit ≠ 0) → push/PR diblokir sampai diperbaiki.
+- YAML tervalidasi: semua struktur wajib ada (`name`, `on`, `jobs`, `runs-on`, `steps`, `actions/checkout`, `actions/setup-python`, `run: python audit.py`), 0 indentasi tab.
+
+### 🧪 Verified
+- **Paritas perilaku**: audit **12/12 PASS** (79 ID + `diagram-` + `modalId`; 6 ID querySelector/closest/matches dari 27 selector) dan mode `--quick` 11 PASS + 1 WARN — hasil identik dengan versi prosedural.
+- **Uji negatif gabungan** (6 skenario: ID mati, prefix tanpa cocok, literal call, data-modal-target, variabel non-parameter, selector ghost) — semuanya **FAIL** (exit 1); komentar & string literal tak dihitung.
+- **Pre-commit & pre-push hooks**: PASS dan FAIL path teruji; `python -m py_compile` bersih.
+
+---
+
+## [2.3.0] - 2026-08-10 — Follow-up: closest/matches, Pre-Push Hook & Statistik
+
+### 🚀 Added (audit.py pemeriksaan #10 diperluas)
+- **`closest('#id')` & `matches('#id')` kini ikut diverifikasi**: `extract_dom_refs` memperlakukan `closest` dan `matches` seperti `querySelector`/`querySelectorAll` (semua selector DOM-traversal). 0 pemakaian di kodebase saat ini — cek bersifat proaktif agar referensi id baru langsung ter-gate.
+- Pesan PASS/FAIL #10 diperbarui: `querySelector/closest/matches('#...')`.
+
+### 🔒 Added (Git Pre-Push Hook)
+- **`.githooks/pre-push`**: hook git yang menjalankan `python audit.py` sebelum setiap push dan **menolak push jika audit gagal** (exit 1). Menggunakan `python`/`python3` otomatis, berjalan dari root repo, output audit ditampilkan penuh.
+- **Aktivasi (sekali, dari root repo)**: `git config core.hooksPath .githooks` + `chmod +x .githooks/pre-push`. Nonaktif: `git config --unset core.hooksPath`.
+- **Teruji dua arah**: dengan `index.html` sehat → `[pre-push] OK — audit lulus. Push diizinkan.`; dengan file rusak (ID mati) → `[pre-push] GAGAL — Push DIBATALKAN.` (exit 1). File `index.html` di-restore setelah uji.
+- **`.gitattributes` baru**: memaksa LF untuk `*.sh` dan `.githooks/pre-push` (`text eol=lf`) agar hook tidak rusak oleh normalisasi CRLF saat diklone di mesin Windows lain.
+- **Hook lebih robust**: kini mengutamakan `python3` (audit.py memakai sintaks Python 3; `python` di sebagian sistem lama masih Python 2 yang gagal menyesatkan).
+- **Catatan**: direktori kerja saat ini bukan repo git (tidak ada `.git`), jadi hook disediakan + didokumentasikan di Readme untuk diaktifkan di environment yang benar-benar melakukan push (mis. GitHub Actions atau clone lokal).
+
+### 📊 Refactored (statistik)
+- **Area tokenizer**: dua fungsi duplikat (`extract_used_dom_ids` ~117 baris + `extract_query_selector_args` ~109 baris ≈ 226 baris) digabung menjadi `_iter_call_args` (119 baris) + `extract_dom_refs` (48 baris) = **167 baris** — pengurangan ~59 baris di area tersebut; body JS (~135KB) dipindai sekali, bukan dua kali.
+- **Total `audit.py`**: 560 baris (12 pemeriksaan aktif).
+
+### 🧪 Verified
+- Audit **12/12 PASS** — 79 ID + `diagram-` + `modalId`; 6 ID querySelector/closest/matches dari 27 selector; `100% PRODUCTION READY`.
+- Uji negatif `closest('#ghost-closest')` & `matches('#ghost-matches')` → **FAIL** (exit 1); contoh di komentar & string literal tak dihitung.
+- Hook pre-push: 0 CR (LF murni), `python3` terdeteksi, jalur PASS & FAIL teruji.
+- `python -m py_compile` bersih.
+
+---
+
+## [2.2.9] - 2026-08-10 — Refactor: Tokenizer Gabungan _iter_call_args (Deduplikasi #9 & #10)
+
+### 🧹 Refactored (audit.py)
+- **Duplikasi tokenizer dihapus**: dua scanner identik (~160 baris) di `extract_used_dom_ids` (#9) dan `extract_query_selector_args` (#10) digabung menjadi satu generator bersama **`_iter_call_args(js_body)`** yang melewati string literal, regex literal, dan komentar — lalu me-yield `(func_name, arg_value, is_string, end_pos)` untuk setiap panggilan fungsi.
+- **Satu pass gabungan `extract_dom_refs`**: referensi `getElementById` (ID statis/prefix/variabel) dan `querySelector`/`querySelectorAll` dikumpulkan dalam satu iterasi `_iter_call_args` per body script — body JS (~135KB) tidak lagi dipindai dua kali.
+- **Boundary identifier otomatis**: karena nama fungsi dibaca sebagai token identifier utuh (`querySelectorAll` bukan prefix `querySelector`; `myGetElementById` tidak cocok `getElementById`), penjagaan boundary manual dari #9/#10 lama terhapus tanpa kehilangan ketelitian.
+- **Batasan terdokumentasi** (konsisten pra-refactor): komentar antara `(` dan argumen pertama membuat argumen tak di-yield; call bersarang sebagai argumen terklasifikasi sebagai identifier; `end_pos` hanya valid bila `is_string=True`.
+
+### 🐛 Fixed (regresi yang tertangkap saat pengembangan)
+- **Bug `i = j + 1` pada cabang argumen non-string**: posisi lanjut menunjuk karakter kedua dari argumen sehingga regex literal (`replace(/[&<>"']/g, ...)`) tidak terdeteksi — kutip di dalamnya ditangkap sebagai string palsu dan scanner melompat ~49.000 karakter (40 ID getElementById + modalId hilang). Diperbaiki menjadi `i = j` agar karakter pertama argumen diproses ulang oleh loop utama. Terdeteksi lewat uji regresi: 79 ID vs 39 ID.
+
+### 🧪 Verified
+- **Paritas perilaku**: hasil identik dengan pra-refactor — 79 ID statis + 1 prefix dinamis (`diagram-`) + 1 var (`modalId`); 6 ID querySelector dari 27 selector; audit **12/12 PASS**, `100% PRODUCTION READY`.
+- **Uji negatif gabungan** (1 file, 6 skenario): ID mati, prefix tanpa cocok, literal call tak resolve, `data-modal-target` tak resolve, variabel non-parameter, dan `querySelector('#ghost')` — semuanya **FAIL** (exit 1); contoh di komentar & string literal tidak ditangkap.
+- **Uji negatif pasca single-pass** (ID mati, prefix tanpa cocok, literal call tak resolve, `querySelector('#ghost')`) — semua **FAIL** (exit 1).
+- **`python -m py_compile`** bersih tanpa warning.
+
+---
+
+## [2.2.8] - 2026-08-10 — Audit Pemeriksaan #10: Selector querySelector('#id') Resolve ke DOM
+
+### 🛠️ Strengthened (audit.py — pemeriksaan #10 baru)
+- **Pemeriksaan #10 "Selector `#id` → DOM"**: setiap selector `querySelector('#...')` / `querySelectorAll('#...')` kini diverifikasi otomatis bahwa id yang direferensikan benar-benar ada sebagai elemen DOM.
+- **Tokenizer `extract_query_selector_args`** (aman string/regex/komentar, konsisten dengan #9): mengekstrak argumen string literal dari panggilan `querySelector` dan `querySelectorAll`, termasuk selector dengan kutip ganda di dalamnya (mis. `meta[name="theme-color"]`) yang tidak bisa ditangkap regex naif.
+- **Atribut selector dibuang sebelum ekstraksi id**: bagian `[attr=...]` dihapus agar `#id` di dalam `href="#x"` atau contoh atribut tidak ikut terhitung sebagai target id.
+- **0 false positive dari komentar/string**: contoh kode di komentar atau string (mis. `var s = "querySelector('#x')"`) tidak dihitung.
+
+### 🧪 Verified
+- **Uji positif**: audit **12/12 PASS** — 6 ID `#...` unik (filter-buttons, testimonial-dots, projects-grid, mobile-menu, architecture, arch-diagram-display) dari 27 selector, semuanya resolve ke DOM; `100% PRODUCTION READY`.
+- **Uji negatif sintetis**: `querySelector('#ghost')` & `querySelectorAll('#nonexistent')` → **FAIL** (exit 1); contoh di komentar & string literal tidak ditangkap.
+- **Bug ditemukan & diperbaiki selama pengembangan**: kondisi `js_body[j] == 'All'` (perbandingan char vs string) membuat `querySelectorAll` tak pernah diproses — diperbaiki menjadi `startswith('All', j)`; hasilnya selector #... kini terdeteksi penuh.
+- **Boundary check identifier** ditambahkan di kedua tokenizer (#9 & #10): `getElementById`/`querySelector` hanya dikenali bila bukan bagian identifier lebih panjang (mis. `myQuerySelector('#x')` tidak ikut diekstrak) — mencegah false positive dari nama fungsi yang mirip.
+
+---
+
+## [2.2.7] - 2026-08-10 — WARN modalId Menjadi Cek Nyata: Verifikasi Sumber Nilai
+
+### 🛠️ Strengthened (audit.py — pemeriksaan #9b baru)
+- **WARN `getElementById(modalId)` ditingkatkan menjadi cek nyata**: panggilan berargumen variabel kini tidak lagi sekadar dilaporkan, tetapi **diverifikasi** bahwa nilai runtime-nya selalu menunjuk elemen DOM yang ada.
+- **3 syarat verifikasi** (semua harus terpenuhi, selain syarat 79/79 dari #9):
+  1. Variabel argumen (mis. `modalId`) **wajib menjadi parameter** dari fungsi deklarasi (`openModal(modalId)`) — jika bukan (variabel global/lokal tak terlacak) → **FAIL**.
+  2. Semua **literal call** ke fungsi pemilik (`openModal('modal-...')`) wajib resolve ke ID DOM → jika ada nilai tak dikenal → **FAIL**.
+  3. Semua **`data-modal-target`** (sumber nilai `button.dataset.modalTarget` → `openModal(button.dataset.modalTarget)`) wajib resolve ke ID DOM → jika ada target hantu → **FAIL**.
+
+### 🧪 Verified
+- **Uji positif**: `getElementById(modalId)` kini **PASS terverifikasi** — 6 target `data-modal-target` + 7 literal `openModal('...')` semuanya resolve ke DOM; audit **11/11 PASS**, `100% PRODUCTION READY` (tidak ada lagi WARN yang tersisa).
+- **Uji negatif (3 skenario sintetis)**: literal `openModal('modal-tidak-ada')` → FAIL ✓; `data-modal-target="modal-ghost"` tanpa elemen → FAIL ✓; `getElementById(someGlobalVar)` non-parameter → FAIL ✓ (semua exit code 1).
+- **Readme**: tidak memuat klaim WARN apa pun — tidak perlu perubahan.
+
+---
+
+## [2.2.6] - 2026-08-10 — Audit Permanen: Semua ID getElementById Resolve ke DOM
+
+### 🛠️ Strengthened (audit.py — pemeriksaan #9 baru)
+- **Pemeriksaan #9 "ID getElementById → DOM"**: audit.py kini memverifikasi otomatis di setiap pre-flight bahwa **setiap ID yang dirujuk `getElementById` benar-benar ada sebagai elemen DOM** — mengunci klaim zero-dead-code (79/79) secara permanen.
+- **Tokenizer cerdas (aman string/regex/komentar)**: parser membaca blok `<script>` inline sambil melewati string literal, template literal, **regex literal** (mis. `/[&<>"']/g` di `escapeHTML` — yang sebelumnya bisa menipu tokenizer string), serta komentar blok/baris.
+- **3 kategori referensi dibedakan**:
+  1. **ID statis** (`getElementById('foo')`) — wajib ada persis di DOM (0 rujukan mati).
+  2. **Prefix dinamis** (`getElementById('foo' + x)`) — diverifikasi bahwa minimal satu ID DOM diawali prefix tersebut (kasus `'diagram-'` + `currentArchDiagram`).
+  3. **Argumen variabel** (`getElementById(modalId)`) — tak dapat diverifikasi statis; dilaporkan transparan sebagai **WARN** (bukan FAIL) beserta nama variabelnya.
+- **Deteksi duplikat atribut `id`**: ID DOM duplikat (yang membuat `getElementById` ambigu) ikut digagalkan.
+
+### 🧪 Verified
+- **Uji positif**: audit.py 9/9 → 10/10 PASS — **79 ID unik resolve + 1 prefix dinamis terverifikasi**, 1 WARN jujur (`modalId`), status `100% PRODUCTION READY`.
+- **Uji negatif**: file sintetis dengan ID mati (`mati`), prefix tanpa kecocokan (`pref`), dan panggilan variabel (`variabelZ`) → **tertangkap semua** (2 FAIL + 1 WARN, exit code 1).
+- **Readme disinkronkan**: klaim "audited 79/79" kini menyebut verifikasi otomatis oleh audit.py check #9.
+
+---
+
+## [2.2.5] - 2026-08-10 — Readme: Security & Privacy Rewrite (Klaim Presisi & Konsisten dengan Kode)
+
+### 📝 Changed (Dokumentasi)
+- **Bagian "Security & Privacy" Readme dirombak menyeluruh** agar setiap klaim presisi dan terverifikasi terhadap kode:
+  - **CSP**: Dicocokkan token demi token dengan meta tag aktual — `script-src 'self' 'unsafe-inline'` (0 script eksternal, tanpa `eval`), `style-src` Google Fonts + cdnjs, `font-src` Google/cdnjs/`data:`, `img-src 'self' data: https:`, `connect-src` Formspree + rss2json (dengan fallback `https:`) — serta diakui sebagai *defense-in-depth* (inline script diizinkan, bukan CSP penuh).
+  - **BYOK**: Klausul diperjelas bahwa repo ini sendiri **tidak memuat kode handling API key apa pun** (0 baris kode handling key; istilah BYOK/OpenAI/Anthropic hanya muncul sebagai teks deskriptif proyek); pola BYOK berlaku hanya untuk aplikasi eksternal yang ditautkan (PromptMatrix 1.0/2.0).
+  - **UU PDP**: Pemisahan tegas demo 100% lokal vs pengecualian form kontak → Formspree (diungkap di UI); daftar lengkap aliran data keluar (Formspree + rss2json + hotlink gambar Unsplash); klausul no-tracking/no-cookies.
+- **Anchor Badge Diperbaiki**: Badge `Security` & `Privacy` kini menunjuk ke `#security--privacy-controls` dan badge `Accessibility` ke `#accessibility-a11y--wcag-compliance` — cocok dengan heading aktual (sebelumnya link mati di GitHub).
+
+### 🧪 Verified
+- Setiap klaim dicek silang terhadap `index.html` (CSP meta tag, endpoint Formspree `mkgknrqk`, 7 match BYOK/OpenAI/Anthropic semuanya teks deskriptif, 0 kode handling key, `document.cookie` = 0, referrer meta `strict-origin-when-cross-origin` ada, 18 link eksternal semuanya `target="_blank"` + `rel="noopener noreferrer"`).
+- **Angka audit diperbarui**: Klaim `getElementById` di Readme disinkronkan ke **79/79 ID unik** yang semua resolve ke elemen DOM (sebelumnya tertulis 80/80 yang tidak akurat).
+- **audit.py 9/9 PASS** — tidak ada perubahan kode, hanya dokumentasi.
+
+### 📝 Changed (Transparansi Privasi)
+- **Disclaimer Form Kontak**: Ditambahkan catatan di dalam form (key i18n `privacyFormNote`, EN & ID) yang menyatakan bahwa nama, email, dan pesan dikirim ke **Formspree (server pihak ketiga)** semata untuk pengiriman pesan — sedangkan seluruh widget demo (klasifikasi pengeluaran, deteksi spam, password, dsb.) berjalan **100% lokal di browser** tanpa data meninggalkan perangkat.
+- **Readme §4 Diperjelas**: Klausul pengecualian form kontak ditambahkan pada bagian UU PDP Compliance agar klaim kepatuhan presisi (demo lokal vs form pihak ketiga).
+
+### 🧪 Verified
+- **audit.py 9/9 PASS** — parity i18n EN/ID seimbang (318 key); semua 281 key `data-i18n` yang dipakai terdefinisi di kedua kamus; tag-balance & `node --check` tetap bersih.
+
+---
+
+## [2.2.3] - 2026-08-10 — Dead Class Cleanup & JS Hook Migration
+
+### 🧹 Cleaned
+- **Class mati pra-eksisting dihapus** (tidak terdefinisi di CSS mana pun, sebelumnya *silent no-op*): `badge-accent`, `custom-scrollbar`, `node-stage-1..4`, dan `animate-heading`.
+- **4 hook JS dimigrasi ke data-attribute** agar class tak berguna bisa dihapus tanpa merusak fungsionalitas — `arch-node-card` → `data-arch-node`, `arch-panel` → `data-arch-panel`, `arch-tab-btn` → `data-arch-tab`, `nav-link` → `data-nav-link` — dengan selector `querySelectorAll` di script diperbarui menyesuaikan.
+
+### 🧪 Verified
+- **0 kemunculan class mati tersisa** di atribut `class` (hanya tersisa sebagai substring `data-*` yang disengaja).
+- **audit.py 9/9 PASS**; uji browser: perpindahan tab arsitektur, simulasi pipeline, dan inspector node berfungsi penuh dengan selector baru (0 error konsol).
+
+---
+
+## [2.2.2] - 2026-08-10 — Static Tailwind Build (CDN Removal) & Dependency Honesty
+
+### 🚀 Changed (Performance & Dependencies)
+- **Tailwind Play CDN Dihapus**: Compiler runtime `https://cdn.tailwindcss.com` (~300KB JS + kompilasi di browser) diganti **CSS statis v3.4.17** yang dikompilasi sekali dan di-embed sebagai `<style id="tailwind-compiled">` (34KB minified) langsung di `index.html`. Repo tetap tanpa build system — hasil kompilasi disimpan permanen.
+- **CSP Diperketat**: `'unsafe-eval'` dan `https://cdn.tailwindcss.com` dicabut dari `script-src` (tidak ada kode yang memakai `eval`/`new Function` setelah CDN dihapus).
+- **Helper `color-mix` (23 rule)**: Ditambahkan untuk class `bg-/border-[var(--color-x)]/NN` beserta variant `hover:` — kombinasi *opacity-modifier + var()* yang **tidak dikompilasi Tailwind v3** (dan sebelumnya *silent no-op* di Play CDN v3). Kini header ter-render semi-transparan 90% sesuai niat desain, dan border/ikon mendapat tint warna yang selama ini hilang.
+- **Readme Diperjelas**: Klaim "zero-dependency" diganti dengan pernyataan akurat — dependensi runtime tersisa: Google Fonts, Font Awesome (cdnjs), Formspree, rss2json, dan gambar preview Unsplash.
+
+### 🧪 Verified
+- **Coverage class**: 527 token unik dicek — semua utility Tailwind yang dipakai (termasuk arbitrary values, variants, JS-dynamic classes) tertutup oleh CSS statis.
+- **Uji browser**: 0 error konsol (peringatan Tailwind CDN hilang), header semi-transparan, tema light/dark berfungsi, seluruh section render normal.
+- **audit.py**: tetap 9/9 PASS — `100% PRODUCTION READY`.
+- **Catatan**: Ditemukan class mati **pra-eksisting** yang tidak terdefinisi di CSS mana pun (sudah no-op sebelum perubahan ini, tidak memengaruhi rendering): `arch-node-card`, `arch-panel`, `arch-tab-btn`, `nav-link`, `badge-accent`, `custom-scrollbar`, `node-stage-1..4`, `animate-heading`. Pembersihan opsional di versi mendatang.
+
+---
+
+## [2.2.1] - 2026-08-10 — P0/P1 Fixes: SEO Canonical, Markup & Audit Hardening
+
+### 🔗 Changed (SEO Canonical Realignment — GitHub Pages)
+- **Canonical URL Dipindah ke Alamat Asli Situs**: `rel="canonical"`, `og:url`, `twitter:url`, Schema.org JSON-LD `url`, dan script SEO dinamis semuanya kini menunjuk ke **`https://sisigitadi.github.io/portofolio`** — URL GitHub Pages tempat situs sebenarnya dilayani — bukan lagi halaman repo `github.com/sisigitadi/portofolio` (yang memecah sinyal ranking).
+- **`robots.txt` (Sitemap:) & `sitemap.xml` (`<loc>`)** ikut dipindah ke domain GitHub Pages; `lastmod` diperbarui ke 2026-08-10.
+- **Project_rules §5.4 & Readme** disinkronkan: canonical domain resmi kini GitHub Pages; `sigitadi.my.id` dan halaman repo `github.com/...` dilarang sebagai URL canonical.
+
+### 🛠️ Fixed (Markup & Konsistensi Konten)
+- **Bug `#pass-out-bar` (Demo 6)**: Kutip ganda rusak pada `class` membuat atribut `h-full` terurai tak bernilai — progress bar password kini dirender dengan tinggi yang benar.
+- **JSON-LD `worksFor` Usang**: Diperbarui dari `Kemendagri SOC` menjadi **`Direktorat Pengendalian Perubahan Iklim, Proyek MoE & BPDLH`** sesuai peran saat ini (Web Administrator).
+- **Penomoran Komentar Slide Testimonial**: Direnumurkan ulang 1–10 (Slide 6 yang hilang dikembalikan urutannya), sinkron penuh dengan `totalTestimonials = 10`.
+- **`rows="2.5"` → `rows="3"`** pada textarea form kontak (nilai invalid, melanggar validitas HTML).
+- **`theme-color` Inisial**: Script FOUC-proof kini menyinkronkan meta `theme-color` dengan preferensi tema di kunjungan pertama (status bar mobile tidak lagi gelap saat OS light).
+- **Isolasi Gimmick CLI (WCAG)**: `[SYS_CMD_PROMPT v2.2]` dan `[SYS_INIT]` di terminal palette kini memiliki `aria-hidden="true"` pada elemennya.
+
+### 🧪 Strengthened (audit.py)
+- **Pre-Flight Audit Diperkuat 4 → 8 Pemeriksaan**: keseimbangan tag HTML (HTMLParser standar), sintaks inline script (`node --check`), sinkronisasi komentar slide vs `totalTestimonials`, parity & coverage kamus i18n EN/ID, dan cek isolasi `aria-hidden` gimmick **per baris** (bukan sekadar keberadaan string global).
+- **Verified**: `audit.py` lolos **9/9 PASS** — `100% PRODUCTION READY`; 10 slide sinkron; 280 key `data-i18n` terdefinisi; parity i18n EN/ID seimbang.
+
+---
+
 ## [2.2.0] - 2026-08-10 — Current Role & Testimonial Addition (MoE & BPDLH)
 
 ### 🚀 Added (Current Role — Web Administrator)

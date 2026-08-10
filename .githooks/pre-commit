@@ -1,0 +1,36 @@
+#!/bin/sh
+# ---------------------------------------------------------------------------
+# Git pre-commit hook — Audit cepat (--quick) untuk deteksi dini.
+#
+# Menjalankan audit.py dalam mode cepat (tanpa node --check) agar error
+# struktural terdeteksi sebelum commit. Gerbang final tetap pre-push / CI
+# yang menjalankan audit penuh (12 pemeriksaan).
+#
+# Cara aktifkan (sekali saja, dari root repo):
+#     git config core.hooksPath .githooks
+#     chmod +x .githooks/pre-commit
+#
+# Cara nonaktifkan:
+#     git config --unset core.hooksPath
+# ---------------------------------------------------------------------------
+set -e
+
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+cd "$ROOT"
+
+echo "[pre-commit] Menjalankan audit cepat (--quick)..."
+if command -v python3 >/dev/null 2>&1; then
+    PYTHON=python3
+elif command -v python >/dev/null 2>&1; then
+    PYTHON=python
+else
+    echo "[pre-commit] ERROR: Python 3 tidak ditemukan. Commit DIBATALKAN."
+    exit 1
+fi
+
+if "$PYTHON" audit.py --quick; then
+    echo "[pre-commit] OK — audit cepat lulus. Commit diizinkan."
+else
+    echo "[pre-commit] GAGAL — audit cepat menemukan isu. Commit DIBATALKAN."
+    exit 1
+fi

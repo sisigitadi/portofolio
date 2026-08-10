@@ -1,0 +1,38 @@
+#!/bin/sh
+# ---------------------------------------------------------------------------
+# Git pre-push hook — Gerbang Audit Pre-Flight (12/12 PASS wajib).
+#
+# Menolak push jika audit.py menemukan isu (exit code != 0). Dikenakan
+# pada setiap push ke remote mana pun (branch apa pun).
+#
+# Cara aktifkan (sekali saja, dari root repo):
+#     git config core.hooksPath .githooks
+#     chmod +x .githooks/pre-push
+#
+# Cara nonaktifkan:
+#     git config --unset core.hooksPath
+# ---------------------------------------------------------------------------
+set -e
+
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+cd "$ROOT"
+
+echo "[pre-push] Menjalankan audit pre-flight (wajib 12/12 PASS)..."
+# Utamakan python3 (audit.py memakai sintaks Python 3; 'python' di sebagian
+# sistem lama masih menunjuk Python 2 yang akan gagal dengan pesan menyesatkan).
+if command -v python3 >/dev/null 2>&1; then
+    PYTHON=python3
+elif command -v python >/dev/null 2>&1; then
+    PYTHON=python
+else
+    echo "[pre-push] ERROR: Python 3 tidak ditemukan. Push DIBATALKAN."
+    exit 1
+fi
+
+if "$PYTHON" audit.py; then
+    echo "[pre-push] OK — audit lulus. Push diizinkan."
+else
+    echo "[pre-push] GAGAL — audit menemukan isu. Push DIBATALKAN."
+    echo "[pre-push] Perbaiki isu di atas sebelum mencoba push lagi."
+    exit 1
+fi
