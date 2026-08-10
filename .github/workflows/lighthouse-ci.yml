@@ -58,6 +58,5 @@ jobs:
             exit 0
           fi
           kill $SERVER_PID 2>/dev/null || true
-          echo "::error::Lighthouse CI FAILED — diagnostic output:"
-          tail -120 /tmp/lhci.log | sed 's/^/::error::/'
+          echo "::error::LHCI FAILED | log lines: $(wc -l < /tmp/lhci.log) | key errors: $(grep -E 'Assertion|assertion|✖|Error:|error:|failed|FAILED|Fatal|Unable|EPERM' /tmp/lhci.log | tail -6 | tr '\n' ' | ') | tail: $(tail -c 1800 /tmp/lhci.log | tr '\n' ' ')"
           exit 1
