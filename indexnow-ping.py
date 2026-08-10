@@ -96,12 +96,40 @@ def load_key(root: Path, key_file: str | None) -> tuple[str, Path] | None:
 # ---------------------------------------------------------------------------
 # Tunggu sampai konten live == konten lokal (verifikasi deploy selesai)
 # ---------------------------------------------------------------------------
-def _sha256(path: Path) -> str:
-    h = hashlib.sha256()
-    with open(path, "rb") as f:
-        for chunk in iter(lambda: f.read(65536), b""):
-            h.update(chunk)
-    return h.hexdigest()
+def _sha256(data: bytes) -> str:
+    return hashlib.sha256(data).hexdigest()
+
+
+def deployed_content_hash(root: Path, rel_path: str) -> str | None:
+    """Hash konten PERSIS yang akan di-deploy dari repo (git HEAD), bukan file
+    kerja lokal.
+
+    Alasan: checkout Windows menormalkan baris baru menjadi CRLF (core.autocrlf),
+    sehingga sha256 file lokal != sha256 konten di GitHub/Live (LF). Karena yang
+    di-deploy adalah konten commit (LF), hash harus dihitung dari `git show
+    HEAD:file`. Fallback bila git tidak tersedia: baca file lokal lalu normalisasi
+    CRLF -> LF.
+    """
+    try:
+        import subprocess
+
+        out = subprocess.run(
+            ["git", "show", f"HEAD:{rel_path}"],
+            cwd=root,
+            capture_output=True,
+            timeout=15,
+        )
+        if out.returncode == 0:
+            return _sha256(out.stdout)
+    except Exception:
+        pass
+
+    # Fallback: normalisasi CRLF -> LF agar sebanding dengan konten deployed.
+    try:
+        raw = (root / rel_path).read_bytes()
+        return _sha256(raw.replace(b"\r\n", b"\n"))
+    except OSError:
+        return None
 
 
 def _fetch_live_sha(url: str) -> str | None:
@@ -124,14 +152,12 @@ def wait_until_deployed(root: Path, wait_sha: str, timeout: int) -> bool:
     konten sudah live sebelum timeout, False bila timeout (ping tetap dijalankan
     best-effort oleh pemanggil).
     """
-    local_file = Path(wait_sha)
-    if not local_file.is_absolute():
-        local_file = root / local_file
-    if not local_file.exists():
-        print(f"[indexnow] WARN: file untuk --wait-sha tidak ada: {local_file} — dilewati.")
+    rel_path = wait_sha
+    target = deployed_content_hash(root, rel_path)
+    if target is None:
+        print(f"[indexnow] WARN: file untuk --wait-sha tidak bisa dibaca: {rel_path} — dilewati.")
         return True
 
-    target = _sha256(local_file)
     url = LIVE_URL.format(host=DEFAULT_HOST, base_path=DEFAULT_BASE_PATH)
     print(f"[indexnow] Menunggu deploy selesai (target sha256: {target[:12]}...) - max {timeout}s")
     deadline = time.monotonic() + timeout
@@ -141,7 +167,7 @@ def wait_until_deployed(root: Path, wait_sha: str, timeout: int) -> bool:
             print("[indexnow] [OK] Konten live sudah mutakhir (sha256 cocok).")
             return True
         time.sleep(15)
-    print(f"[indexnow] [WARN] Timeout {timeout}s - konten live belum sama dengan lokal. Ping tetap dilanjutkan (best-effort).")
+    print(f"[indexnow] [WARN] Timeout {timeout}s - konten live belum sama dengan repo. Ping tetap dilanjutkan (best-effort).")
     return False
 
 
