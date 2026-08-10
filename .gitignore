@@ -10,6 +10,10 @@ __pycache__/
 lhci-public/
 .lhci/
 
+# Cloudflare Wrangler local cache (account credentials — never commit)
+.wrangler/
+**/.wrangler/
+
 # OS junk
 Thumbs.db
 desktop.ini

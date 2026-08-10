@@ -6,6 +6,56 @@ The format is based on [Keep a Changelog](https://keepachamber.com/en/1.0.0/), a
 
 ---
 
+## [2.5.2] - 2026-08-11 — Dashboard v2: Charts, World Map, Breakdown, CSV Export, Auto-Refresh
+
+### 🚀 Added (worker-visitor/worker.js — dashboard & API)
+- **Dashboard diperkaya, 100% client-side tanpa CDN**: tren kunjungan harian 30 hari (bar chart SVG), distribusi per jam (UTC), Top 8 negara & kota, breakdown device/browser/OS (parse UA), **peta dunia dot** (proyeksi equirectangular dari lat/lon edge Cloudflare, ukuran dot = frekuensi), filter path, pagination 50 baris/halaman.
+- **Ekspor CSV dua jalur**: tombol *"Export CSV (view)"* (baris hasil filter, sisi-klien) + endpoint baru `GET /api/export?key=…&range=…` (server-side, hingga 50.000 baris, header `Content-Disposition`).
+- **Auto-refresh 60 detik** (default ON, bisa dimatikan): polling `/api/stats` memakai key dari URL tanpa reload halaman; fallback `location.reload()` jika key tidak ada di URL; indikator *"Updated HH:MM:SS"*.
+- `GET /api/stats` menerima param `limit` (cap 5000); `DASHBOARD_ROWS` = 2000 baris terbaru di-embed untuk chart/peta.
+- Login page menampilkan hint *"Saved key was rejected"* bila key tersimpan ditolak (skenario key dirotasi).
+
+### 🧪 Validasi
+- `node --input-type=module --check worker.js` OK · `python audit.py` 12 PASS (index.html tidak berubah) · deploy tanpa warning.
+- **Bug template literal tertangkap & diperbaiki**: `\/` di regex UA (`Edg\/`, `Chrome\/`, `OPR\/`, `Safari\/`, `Firefox\/`) ter-decode jadi `/` saat template literal worker dievaluasi → output client menjadi `//i` → `ReferenceError: i is not defined` di `parseUA`. Diperbaiki jadi `\\/` (backslash ganda). Terverifikasi dengan harness eksekusi client JS (syntax + runtime EXEC_OK) sebelum & sesudah deploy.
+- Verifikasi: dashboard memuat container chart/map, `/api/export` mengembalikan CSV valid, `/count` & auth tetap OK.
+
+---
+
+## [2.5.1] - 2026-08-11 — Secret 9-Click Dashboard Shortcut + Remember-Key Auto-Unlock
+
+### 🚀 Added
+- **Shortcut tersembunyi di footer portofolio**: klik teks copyright (`#footer-copyright`) **9×** dengan selang ≤ 2 dtk → redirect ke `/dashboard` privat. Kunci dashboard **tidak pernah** disimpan di HTML situs — hanya membuka halaman login.
+- **Login page auto-unlock**: checkbox *"Remember key in this browser"* menyimpan `DASHBOARD_KEY` di `localStorage` origin `*.workers.dev`; kunjungan berikutnya form auto-submit langsung ke dashboard (auto-submit hanya aktif saat URL tanpa `?key=`, mencegah infinite loop jika key dirotasi). Tautan *"Forget saved key"* di footer dashboard dan *"Clear saved key"* di halaman login menghapusnya.
+- **Catatan desain**: `localStorage` per-origin — kunci tidak bisa dibaca dari origin portofolio (`github.io`), jadi alur ingat-kunci sengaja dipusatkan di origin dashboard.
+
+### 🧪 Validasi
+- `python audit.py` → **12 PASS | 0 FAIL | 0 WARN** (55 ID `getElementById` resolve, termasuk `footer-copyright`).
+- Uji browser end-to-end: 9-klik → halaman login; login + remember → dashboard; 9-klik berikutnya → auto-unlock langsung ke dashboard; forget key → kembali ke login.
+
+---
+
+## [2.5.0] - 2026-08-11 — Visitor Tracker: Hit Counter + Private Dashboard (Cloudflare Worker + D1)
+
+### 🚀 Added (worker-visitor/)
+- **Backend serverless baru di `worker-visitor/`** — hit counter + dashboard privat pengunjung (IP & lokasi) tanpa API pihak ketiga, untuk situs statis GitHub Pages:
+  - `schema.sql` — tabel D1 `visits` (ip_hash SHA-256+salt, city, country_code, lat, lon, timezone, user_agent, referrer, path, is_unique, created_at) + 2 index.
+  - `wrangler.toml` — binding D1 `DB` + KV `VISITS`; **tanpa blok `[vars]`** (pelajaran dari deploy nyata: `[vars]` bernama sama akan menimpa secret saat deploy) — `DASHBOARD_KEY` & `IP_HASH_SALT` murni dari `wrangler secret put` (pakai `printf '%s'` tanpa trailing newline, karena `echo` membuat `safeEqual` menolak key).
+  - `worker.js` — rute `GET /count` (badge publik, cache KV 60s), `POST /hit` (catat kunjungan + geo dari edge Cloudflare `request.cf`, rate-limit 20/menit/IP via D1, dedupe unik harian), `GET /api/stats?key=` (JSON), `GET /dashboard?key=` (halaman HTML privat: login key constant-time + remember-key auto-unlock, kartu statistik, tabel filter 24h/7d/30d/all, flag emoji, hash IP pendek), CORS preflight.
+  - `README.md` — langkah deploy `wrangler` lengkap + uji curl + catatan free tier.
+- **`index.html`** — badge hit counter di footer (`#visitor-badge` `role="status"` `aria-live="polite"`, tersembunyi hingga `WORKER_URL` diisi) + client script (POST `/hit` saat load, poll `/count` tiap 60s) + 1 key i18n `visitorLabel` (EN/ID seimbang). CSP `connect-src https:` sudah mencakup worker — tanpa perubahan CSP.
+
+### 🔒 Privasi (UU PDP)
+- IP mentah **tidak pernah disimpan** — hanya `SHA-256(salt + IP)`; geolokasi kota/negara/timezone dari edge Cloudflare (`request.cf`), tanpa API geolokasi pihak ketiga; dashboard privat hanya pemilik (key + constant-time compare). Tracker nonaktif default (0 request keluar sampai `WORKER_URL` diisi).
+
+### 🧪 Validasi
+- `python audit.py` → **12 PASS | 0 FAIL | 0 WARN** (i18n parity tetap, `visitor-badge`/`visitor-count` resolve ke DOM, tag balance, `node --check`).
+- `python -m pytest test_audit.py` → **20/20 PASS**.
+- `worker.js` valid syntax ES module (`node --input-type=module --check`).
+- Deploy worker + isi `WORKER_URL` = langkah manual pengguna (dokumentasi di `worker-visitor/README.md`).
+
+---
+
 ## [2.4.4] - 2026-08-10 — Lighthouse CI Gate (GitHub Actions)
 
 ### 🚀 Added (.github/workflows/lighthouse-ci.yml + .lighthouserc.json)

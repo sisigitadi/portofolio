@@ -2327,9 +2327,17 @@
                         <i class="fas fa-envelope w-6 h-6 text-2xl"></i>
                     </a>
                 </div>
-                <p class="text-sm font-mono text-[var(--color-text-secondary)] text-center">
+                <p id="footer-copyright" class="text-sm font-mono text-[var(--color-text-secondary)] text-center">
                     &copy; 2026 Sigit Adi Irianto. All Rights Reserved.
                 </p>
+
+                <!-- Visitor hit counter badge (server-backed, no cookies; stays hidden until WORKER_URL is set) -->
+                <div id="visitor-badge" class="hidden items-center gap-2 text-xs font-mono text-[var(--color-text-secondary)]" role="status" aria-live="polite">
+                    <i class="fas fa-eye text-[var(--color-primary)]" aria-hidden="true"></i>
+                    <span data-i18n="visitorLabel">Site Visits</span>
+                    <span aria-hidden="true">:</span>
+                    <span id="visitor-count" class="text-[var(--color-primary)] font-bold">--</span>
+                </div>
             </div>
         </div>
     </footer>
@@ -2505,7 +2513,8 @@
                 ts10q: '"Sigit began his tech journey with us handling hardware repairs and device support. Even then, he had a strong work ethic, patience, and a problem-solving mindset."',
                 certsEdu: 'Education', certsDeg: 'Bachelor of Computer Science (S.Kom)', certsField: 'Computer Science', certsAi: 'AI & Automation', certsSec: 'Cybersecurity, SecOps & Infrastructure',
                 toastCopied: 'Link copied to clipboard!',
-                privacyFormNote: '🔒 Privacy: name, email & message are sent to Formspree (third-party server) for message delivery. All demo widgets (expense, spam, password, etc.) run 100% locally in your browser — no data leaves your device.'
+                privacyFormNote: '🔒 Privacy: name, email & message are sent to Formspree (third-party server) for message delivery. All demo widgets (expense, spam, password, etc.) run 100% locally in your browser — no data leaves your device.',
+                visitorLabel: 'Site Visits'
             },
             id: {
                 about: 'Tentang', demos: 'Demo', projects: 'Proyek', career: 'Karier',
@@ -2599,7 +2608,8 @@
                 ts10q: '"Sigit memulai perjalanan teknologinya bersama kami dengan menangani perbaikan perangkat keras dan dukungan perangkat. Bahkan saat itu, dia memiliki etos kerja yang kuat, kesabaran, dan pola pikir pemecah masalah."',
                 certsEdu: 'Pendidikan', certsDeg: 'Sarjana Ilmu Komputer (S.Kom)', certsField: 'Ilmu Komputer', certsAi: 'AI & Otomatisasi', certsSec: 'Keamanan Siber, SecOps & Infrastruktur',
                 toastCopied: 'Tautan disalin ke papan klip!',
-                privacyFormNote: '🔒 Privasi: nama, email & pesan dikirim ke Formspree (server pihak ketiga) untuk pengiriman pesan. Semua widget demo (pengeluaran, spam, password, dll.) berjalan 100% lokal di browser Anda — tidak ada data yang meninggalkan perangkat Anda.'
+                privacyFormNote: '🔒 Privasi: nama, email & pesan dikirim ke Formspree (server pihak ketiga) untuk pengiriman pesan. Semua widget demo (pengeluaran, spam, password, dll.) berjalan 100% lokal di browser Anda — tidak ada data yang meninggalkan perangkat Anda.',
+                visitorLabel: 'Kunjungan Situs'
             }
         };
 
@@ -3473,6 +3483,70 @@
         </div>
     </div>
 
+
+    <!-- Visitor Tracker Client (hit counter badge — Cloudflare Worker backend, see worker-visitor/) -->
+    <script>
+        (function () {
+            // Set to your deployed Worker URL, e.g. "https://portofolio-visitor-tracker.<account>.workers.dev"
+            var WORKER_URL = 'https://portofolio-visitor-tracker.si-sigitadi.workers.dev';
+            if (!WORKER_URL) return;
+
+            var badge = document.getElementById('visitor-badge');
+            var countEl = document.getElementById('visitor-count');
+            if (!badge || !countEl) return;
+
+            function setCount(n) {
+                if (typeof n !== 'number' || isNaN(n)) { countEl.textContent = '--'; return; }
+                var locale = (typeof CURRENT_LANG !== 'undefined' && CURRENT_LANG === 'id') ? 'id-ID' : 'en-US';
+                countEl.textContent = n.toLocaleString(locale);
+            }
+
+            // Reveal the badge only when the tracker backend is configured.
+            badge.classList.remove('hidden');
+            badge.classList.add('flex');
+
+            // Record this visit (IP + location are hashed/stored server-side by the Worker).
+            var payload = { path: location.pathname, referrer: document.referrer, lang: (typeof CURRENT_LANG !== 'undefined') ? CURRENT_LANG : 'en' };
+            try { payload.w = screen.width; payload.h = screen.height; } catch (e) {}
+            fetch(WORKER_URL + '/hit', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            }).then(function (res) {
+                return res.json().catch(function () { return null; });
+            }).then(function (data) {
+                if (data && typeof data.count === 'number') setCount(data.count);
+            }).catch(function () {});
+
+            // Keep the badge fresh across tabs / sessions.
+            setInterval(function () {
+                fetch(WORKER_URL + '/count').then(function (res) {
+                    return res.json().catch(function () { return null; });
+                }).then(function (data) {
+                    if (data && typeof data.count === 'number') setCount(data.count);
+                }).catch(function () {});
+            }, 60000);
+
+            // --- Secret owner shortcut: click the footer copyright 9x within 2s gaps -> dashboard ---
+            // Opens /dashboard (key-protected). Tick 'remember key' on the login page once, and
+            // the login page auto-unlocks on later visits (key lives only in YOUR browser, same
+            // origin as the dashboard — never embedded in this HTML).
+            var copyrightEl = document.getElementById('footer-copyright');
+            var dashClicks = 0;
+            var dashTimer = null;
+            if (copyrightEl) {
+                copyrightEl.addEventListener('click', function () {
+                    dashClicks++;
+                    clearTimeout(dashTimer);
+                    dashTimer = setTimeout(function () { dashClicks = 0; }, 2000);
+                    if (dashClicks >= 9) {
+                        dashClicks = 0;
+                        window.location.href = WORKER_URL + '/dashboard';
+                    }
+                });
+            }
+        })();
+    </script>
 
     </body>
 </html>
