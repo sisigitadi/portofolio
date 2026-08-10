@@ -6,6 +6,22 @@ The format is based on [Keep a Changelog](https://keepachamber.com/en/1.0.0/), a
 
 ---
 
+## [2.5.10] - 2026-08-11 — Canonical & Structured-Data URLs Normalized to Trailing Slash
+
+### 🔄 Changed (selaras dengan properti GSC terverifikasi)
+- **Semua URL `https://sisigitadi.github.io/portofolio` (tanpa slash) dinormalisasi ke `https://sisigitadi.github.io/portofolio/`** (dengan trailing slash) — menunjuk langsung ke URL final yang benar-benar 200 (versi tanpa slash hanya 301-redirect ke versi ber-slash):
+  - `link rel="canonical"` · `meta og:url` · `meta twitter:url` (3 meta).
+  - JSON-LD `Person.url` & `WebSite.url` (2 blok, 3 kemunculan `url`).
+  - Variabel JS `currentOrigin` di script SEO dinamis (single-quote) — aman karena dipakai sebagai nilai final, bukan concatenation path (tidak ada risiko double slash).
+- **Tidak diubah (sudah benar)**: semua URL gambar `og-preview.jpg?v=2.1.0`, `sitemap.xml` (sudah ber-slash), `robots.txt`, `profileUrl` (sudah ber-slash), dan `path=/portofolio` di pixel tracker Worker (itu parameter path tracking, bukan URL situs).
+- **Latar belakang**: properti Google Search Console kini terverifikasi sebagai `https://sisigitadi.github.io/portofolio/` (ber-slash) — canonical/og:url kini konsisten satu-ke-satu dengan properti GSC, menghilangkan sinyal URL ganda bagi Google.
+
+### 🧪 Validasi
+- 7 lokasi ternormalisasi (6 double-quote + 1 single-quote) · verifikasi grep: 0 sisa `portofolio"`/`portofolio'` di konteks URL situs.
+- `python audit.py` → **12 PASS | 0 FAIL | 0 WARN** · `pytest` **20/20**.
+
+---
+
 ## [2.5.9] - 2026-08-11 — Fix Lighthouse CI: Light-Theme Color Contrast (a11y 100)
 
 ### 🔧 Fixed (akar masalah Lighthouse CI gagal — a11y 0.96)
