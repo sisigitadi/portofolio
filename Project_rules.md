@@ -20,7 +20,7 @@ This document establishes the mandatory engineering standards, security protocol
    - *Extractive Summarization*: Describe as word-frequency statistical extraction.
    - *Skill Matching*: Describe as heuristic array matching.
    - *Password Strength*: Describe as mathematical entropy calculation.
-2. **EMPIRICAL PROFESSIONAL TITLES**: Maintain the empirical title `IT & SecOps Specialist | Applied AI Practitioner` across all metadata, headers, and bio narratives. Do not use unanchored titles like "Applied AI Engineer".
+2. **EMPIRICAL PROFESSIONAL TITLES**: Maintain the empirical title `IT & SecOps Specialist | Applied AI Engineer` across all metadata, headers, and bio narratives. This matches the owner's CV wording exactly ("Applied AI Engineer" was the original hero title; it was briefly renamed to "Applied AI Practitioner" in v2.0.4, then restored in v2.5.5 per owner decision for CV alignment & better SEO). Do not use unanchored titles like "Applied AI Practitioner" or invented variants.
 3. **NON-MILITARY LANGUAGE**: Do not use the word "veteran". Use professional alternatives such as `"experienced IT & SecOps specialist"` or `"seasoned IT infrastructure manager"`.
 
 ---

@@ -6,6 +6,72 @@ The format is based on [Keep a Changelog](https://keepachamber.com/en/1.0.0/), a
 
 ---
 
+## [2.5.6] - 2026-08-11 — "Remote" Keyword Optimization (Remote-Ready Emphasis)
+
+### 🚀 Optimasi penekanan "Remote" (intent recruiter global)
+- **Meta description** ditulis ulang dengan **"Remote" di posisi pertama**: `Remote IT SecOps & Applied AI Engineer in Tangerang, Indonesia. SOC, Wazuh SIEM, DevSecOps & AI. View portfolio.` — **112 char** (dalam batas optimal ≤120, sebelumnya 130), disinkronkan ke `meta description` + `og:description` + `twitter:description` (3× konsisten).
+- **JSON-LD diperkuat**: blok `Person.description` kini menyebut *"remote-ready worldwide"*; blok `WebSite.description` → *"open to remote work worldwide"*.
+- **Konten terlihat** (sudah ada, diverifikasi tetap): badge hero **"OPEN FOR REMOTE ROLES"**, hero pitch *"open to remote roles worldwide"* / *"terbuka untuk peran remote di seluruh dunia"* (EN/ID), kartu What I Offer **"Remote & Global Work Readiness"**.
+
+### 🧪 Validasi
+- `python audit.py` → **12 PASS | 0 FAIL | 0 WARN** · `pytest` **20/20** · 2 blok JSON-LD valid.
+- Browser: badge remote tampil jelas, kartu remote readiness ada, meta description baru terverifikasi di DevTools, **0 console error**.
+
+---
+
+## [2.5.5] - 2026-08-11 — Title Revert: "Applied AI Practitioner" → "Applied AI Engineer" (CV Alignment)
+
+### 🔄 Changed (keputusan owner)
+- **Judul empiris dikembalikan ke `Applied AI Engineer`** di seluruh metadata, header, bio, dan structured data — sesuai kata persis di CV owner ("Applied AI Engineer" memang judul hero asli; diubah ke "Applied AI Practitioner" di v2.0.4, kini dikembalikan untuk alignment CV + lebih umum + SEO-friendly).
+- **Lokasi diperbarui**: `<title>` + `meta title/description` + `itemprop` + `og:title/description/image:alt` + `twitter:title/description` + JSON-LD `Person.jobTitle` & `description` + JSON-LD `WebSite.name` & `description` + hero tagline (`<h2>` `heroTaglineB`) + kamus i18n EN `Applied AI Engineer` / ID `Insinyur AI Terapan` + `manifest.json` name/description + Readme subtitle.
+- **Project_rules.md §2.2 diperbarui**: judul empiris baru `IT & SecOps Specialist | Applied AI Engineer` + catatan riwayat (asli → Practitioner v2.0.4 → revert v2.5.5); larangan "Applied AI Engineer" dicabut.
+- Changelog sengaja **tidak** diubah di entri lama (catatan sejarah) — entri ini mendokumentasikan revert.
+
+### 🧪 Validasi
+- `python audit.py` → **12 PASS | 0 FAIL | 0 WARN** · `pytest` **20/20** · 2 blok JSON-LD valid.
+- 0 sisa "Practitioner" di kode live (hanya di Project_rules sebagai catatan sejarah) · 16× "Applied AI Engineer" di index.html.
+- Browser: hero EN `IT & SecOps Specialist | Applied AI Engineer` ✓, toggle ID `Spesialis IT & SecOps | Insinyur AI Terapan` ✓, `document.title` ✓, **0 console error**.
+
+---
+
+## [2.5.4] - 2026-08-11 — SEO Deep-Optimization: Geo-Keywords, Heading Hierarchy, Enriched Schema
+
+### 🚀 Optimasi SEO On-Page (berbasis riset keyword + best practices 2025–2026)
+- **Geo-keyword di `<title>` & semua meta**: `… | Tangerang, Indonesia` ditambahkan ke `<title>`, `meta name=title`, `itemprop name`, `og:title`, `twitter:title` — keyword lokal kompetisi rendah ber-intent recruiter tinggi (hasil riset: "IT Security Operations Specialist Tangerang" & "Applied AI Practitioner Indonesia" = low-competition). Judul empiris `IT & SecOps Specialist | Applied AI Practitioner` tetap dipertahankan persis (Project Rules §2.2).
+- **Meta description dioptimasi** (≤120 char, keyword + lokasi + CTA): `IT SecOps Specialist & Applied AI Practitioner in Tangerang, Indonesia. SOC, Wazuh SIEM, DevSecOps & AI. View portfolio.` — disinkronkan ke `meta description`, `og:description`, `twitter:description` (duplikat lama dihapus).
+- **`<meta name="keywords">` dihapus** — diabaikan Google sejak lama (riset), membuang ruang & berpotensi sinyal spam tipis.
+- **Heading hierarchy hero diperbaiki**: tagline `IT & SecOps Specialist | Applied AI Practitioner` dipromosikan dari `<div>` → **`<h2>`** (keyword utama kini jadi heading terstruktur, bukan teks dekoratif), dan "Specializing in:" `<h2>` → **`<h3>`** — urutan hero kini `h1 → h2 → h3` (semantik + a11y heading-order lebih baik, visual identik: warna cyan & typing effect tetap).
+- **JSON-LD diperkaya**: blok `Person` ditambah `description`, `knowsLanguage: ["en","id"]`; `image` disinkronkan ke URL GitHub Pages (`og-preview.jpg?v=2.0.0`) konsisten canonical (rule 5.4); **blok `WebSite` baru** (`name`, `url`, `description`, `inLanguage`, `author`).
+- **Geo-keyword di konten terlihat**: hero pitch EN/ID kini menyebut *"Based in Tangerang, Indonesia — open to remote roles worldwide"* / *"Berbasis di Tangerang, Indonesia — terbuka untuk peran remote"* (keyword lokal muncul di teks nyata, bukan hanya meta).
+- `sitemap.xml` `lastmod` → 2026-08-11.
+
+### 🧪 Validasi
+- `python audit.py` → **12 PASS | 0 FAIL | 0 WARN** · `pytest` **20/20** · 2 blok JSON-LD tervalidasi parser (`Person` + `WebSite`).
+- Uji browser: hero tagline tetap cyan + typing effect, heading `h2`/`h3` terpasang benar di DevTools, `document.title` memuat "Tangerang, Indonesia", **0 console error**.
+
+---
+
+## [2.5.3] - 2026-08-11 — Company/ASN/Region Detection (Cloudflare Edge) + Bot Flag + JS-less Pixel
+
+### 🚀 Added (worker-visitor/worker.js — Level 1 enrichment, free tier, no third-party API)
+- **Kolom baru di D1 `visits`** (migrasi `migration-org.sql`, `schema.sql` diperbarui untuk fresh install): `asn`, `as_org` (nama perusahaan/ISP, mis. *"Google LLC"* / *"PT Anugerah Cimanuk Raya"*), `region`, `region_code`, `continent`, `is_bot` — semua dari `request.cf` edge Cloudflare (tersedia di semua plan, tanpa biaya).
+- **Deteksi bot otomatis** (`detectBot`): regex UA crawler (Googlebot, bingbot, DuckDuckBot, YandexBot, Baiduspider, AhrefsBot, GPTBot, CCBot, dsb.) + fallback ASN crawler (Google 15169, Amazon, Microsoft, DuckDuckGo) bila UA bukan browser penuh. Hasil disimpan di `is_bot` → dashboard menampilkan badge **🤖 bot** oranye.
+- **Refactor duplikasi (reviewer)**: `handleHit` & `handlePixel` kini memakai satu helper `recordVisit` (geo → hash → rate-limit → dedupe → INSERT → invalidate cache → echo) — tidak ada lagi dua blok INSERT identik yang bisa melenceng. **Rate limit per-IP dua tingkat**: browser 20/menit, bot terdeteksi 120/menit (crawler sungguhan fetch 50–200 URL/menit — ceiling 20 lama akan memotong sebagian besar hit Googlebot; anti-spam untuk manusia tetap ketat).
+- **Endpoint baru `GET /pixel?path=`** — beacon 1×1 transparent GIF (42 B): mencatat hit persis seperti `/hit` tapi **tanpa JavaScript** (menangkap crawler & pengunjung no-JS), rate-limit & dedupe harian sama.
+- **`index.html`**: `<noscript>` tracking pixel ke `/pixel?path=/portofolio` (hanya dirender saat JS mati → tanpa double-count dengan `/hit`; path `/portofolio` konsisten dengan canonical).
+- **Dashboard tabel**: kolom baru **Network** menampilkan `as_org` + `AS<asn>` + `region (region_code)`; badge bot di kolom IP hash; header export CSV & client CSV ikut menyertakan kolom baru.
+- `/api/stats` & `/hit` echo kini menyertakan `asn`, `asOrganization`, `region`, `continent`, `isBot`.
+
+### 🔒 Privasi (tetap UU PDP)
+- IP mentah **tetap tidak pernah disimpan** — hanya hash; yang ditambah adalah nama perusahaan/ASN/region (data publik geolokasi edge, bukan identitas pribadi). Pilihan Level 1 (tanpa IP asli) sesuai keputusan user.
+
+### 🧪 Validasi
+- Migrasi D1 `migration-org.sql` sukses (6 kolom); `node --check` OK; audit **12 PASS | 0 FAIL | 0 WARN**.
+- Uji live: `/pixel` → GIF 1×1 valid; UA Googlebot → `bot=1` + `PT Anugerah Cimanuk Raya AS141127 West Java`; browser UA → `bot=0`; count naik.
+- Browser end-to-end: kolom Network menampilkan perusahaan+ASN+region, badge 🤖 bot tampil, **0 console error**.
+
+---
+
 ## [2.5.2] - 2026-08-11 — Dashboard v2: Charts, World Map, Breakdown, CSV Export, Auto-Refresh
 
 ### 🚀 Added (worker-visitor/worker.js — dashboard & API)

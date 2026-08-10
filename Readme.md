@@ -6,7 +6,7 @@
 [![Accessibility: WCAG Standard](https://img.shields.io/badge/Accessibility-WCAG%20Compliant-green.svg)](#accessibility-a11y--wcag-compliance)
 
 > **Official Web Portfolio of Sigit Adi Irianto**  
-> *IT & SecOps Specialist | Applied AI Practitioner*
+> *IT & SecOps Specialist | Applied AI Engineer*
 
 This repository contains the single-page application (SPA) portfolio showcasing 20+ years of operational experience across IT infrastructure management, Security Operations Center (SOC) threat triage, DevSecOps automation pipelines, and practical applied AI engineering.
 
