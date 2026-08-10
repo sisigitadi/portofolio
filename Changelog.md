@@ -25,7 +25,8 @@ The format is based on [Keep a Changelog](https://keepachamber.com/en/1.0.0/), a
 - **`favicon.ico` fisik dibuat** (logo double-bracket cyan, 16×16 + 32×32, 569 bytes) + `<link rel="icon" href="favicon.ico">` — menghilangkan 404 `/favicon.ico` yang dicatat Lighthouse sebagai console error.
 
 ### 🧪 Validasi
-- Lighthouse (lokal): **Accessibility 100 · Best Practices 100 · SEO 100** (sebelumnya 91/96/100); CLS 0.113 → **0.022**; 0 item gagal di a11y & best-practices. Skor performance lokal tidak representatif (localhost + throttle sintetis) — diukur ulang di live pasca-push.
+- Lighthouse (lokal): **Accessibility 100 · Best Practices 100 · SEO 100** (sebelumnya 91/96/100); CLS 0.113 → **0.022**; 0 item gagal di a11y & best-practices.
+- Lighthouse (live, GitHub Pages, pasca-push): **Accessibility 100 · Best Practices 100 · SEO 100** — FCP 4.8→4.3s, LCP 4.9→4.3s, CLS 0.016, total transfer 799 KB (turun dari ~1 MB berkat kompresi gambar + hapus rss2json). Perf 65 (skor sintetis mobile-throttle; sisa peluang hanya ~20 KiB CSS tak terpakai di blok Tailwind terkompilasi).
 - `python audit.py` → **12 PASS | 0 FAIL | 0 WARN**, `100% PRODUCTION READY` · `pytest` **20/20** · 0 sisa referensi rss2json di index.html/Readme.
 
 ---
