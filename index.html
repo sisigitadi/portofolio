@@ -7,7 +7,7 @@
     <title>Sigit Adi Irianto | IT &amp; SecOps Specialist | Applied AI Practitioner</title>
 
     <!-- Security Hardening & CSP Meta Tags -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com data:; img-src 'self' data: https:; connect-src 'self' https://formspree.io https://api.rss2json.com https:;">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com data:; img-src 'self' data: https:; connect-src 'self' https://formspree.io https:;">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="referrer" content="strict-origin-when-cross-origin">
 
@@ -99,6 +99,7 @@
     </script>
 
     <link rel="icon" href="data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M41.666 87.5C33.842 87.5 27.5 81.158 27.5 73.333V50C27.5 42.175 33.842 35.833 41.666 35.833H72.5' stroke='%2322D3EE' stroke-width='12' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M58.334 12.5C66.158 12.5 72.5 18.842 72.5 26.667V50C72.5 57.825 66.158 64.167 58.334 64.167H27.5' stroke='%2322D3EE' stroke-width='12' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+    <link rel="icon" href="favicon.ico" sizes="16x16 32x32">
 
     <!-- PWA (Installable & Offline) Metadata -->
     <link rel="manifest" href="manifest.json">
@@ -125,10 +126,16 @@
     
     <!-- CDN Stack: Font Awesome icons only (Tailwind compiled statically) -->
     <!-- Tailwind v3 compiled statically (embedded below, no runtime CDN) -->
+    <!-- Font Awesome: preload + render-blocking stylesheet (async media=print caused icon FOUC + CLS) -->
+    <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+    <!-- Google Fonts: preload + stylesheet (replaces render-blocking @import, LCP-friendly) -->
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap">
+
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+        /* Google Fonts loaded via preload+stylesheet links in <head> (no @import waterfall) */
         
         :root {
             --font-sans: 'Inter', sans-serif;
@@ -136,7 +143,7 @@
             
             --color-bg: #111827; 
             --color-surface: #1F2937; 
-            --color-primary: #0891B2; 
+            --color-primary: #22D3EE; /* lighter cyan: primary-colored text passes WCAG AA 4.5:1 on dark surfaces */ 
             --color-accent1: #10B981; 
             --color-accent2: #2DD4BF; 
             --color-text-primary: #F9FAFB;
@@ -680,14 +687,16 @@
             border-color: var(--color-primary);
         }
         .btn-filter.active {
-            background-color: var(--color-primary);
+            /* #0E7490: white-on-primary passes WCAG AA 4.5:1 (Lighthouse color-contrast) */
+            background-color: #0E7490;
             color: white;
             border-color: var(--color-primary);
         }
 
         /* Buttons */
         .btn-primary {
-            background-color: var(--color-primary);
+            /* #0E7490: white-on-primary passes WCAG AA 4.5:1 (Lighthouse color-contrast) */
+            background-color: #0E7490;
             color: white;
             padding: 0.75rem 1.5rem;
             border-radius: 8px;
@@ -903,6 +912,29 @@
         #contact-widget #fab-icon-close { display: none; }
         #contact-widget.open #fab-icon-close { display: block; }
         
+        /* Accessible testimonial dots: 24px+ touch target with visible dot via background-clip */
+        #testimonial-dots button {
+            padding: 0.375rem;
+            border-radius: 9999px;
+            background-clip: content-box;
+        }
+
+        /* Career badge (badgeCt): theme-aware accent text that passes WCAG AA on tinted bg */
+        .badge-ct {
+            color: #67E8F9;
+        }
+        html[data-theme="light"] .badge-ct {
+            color: #155E75;
+        }
+
+        /* Career badge (badgePtF/badgePt): emerald variant that passes WCAG AA on tinted bg */
+        .badge-ac1 {
+            color: #6EE7B7;
+        }
+        html[data-theme="light"] .badge-ac1 {
+            color: #065F46;
+        }
+
         /* Medium Card Feed */
         #medium-feed-content {
             padding: 1.5rem;
@@ -1280,7 +1312,7 @@
                 <!-- Card 1: PromptMatrix 2.0 -->
                 <div class="project-card fade-in-up" data-category="ai web" data-delay="100" data-project-id="promptmatrix2">
                     <div class="pcb-card border border-[var(--color-border)] hover:border-[var(--color-primary)] transition-all shadow-lg">
-                        <img loading="lazy" decoding="async" src="assets/PromptMatrix%202.0.png" alt="PromptMatrix 2.0 — dasbor rekayasa prompt">
+                        <img loading="lazy" decoding="async" width="1888" height="852" src="assets/PromptMatrix%202.0.png" alt="PromptMatrix 2.0 — dasbor rekayasa prompt">
 <div class="pcb-shade"></div>
 <span class="absolute top-3 right-3 z-10 px-2.5 py-1 rounded-lg bg-black/60 border border-emerald-400/50 text-[var(--color-accent1)] font-mono font-bold text-[10px] backdrop-blur-sm shadow-md" data-i18n="pj1b">Rekayasa Prompt</span>
 <div class="pcb-content">
@@ -1305,7 +1337,7 @@
                 <!-- Card 2: SmartExpenseML -->
                 <div class="project-card fade-in-up" data-category="ai web" data-delay="200" data-project-id="smartexpenseML">
                     <div class="pcb-card border border-[var(--color-border)] hover:border-[var(--color-primary)] transition-all shadow-lg">
-                        <img loading="lazy" decoding="async" src="assets/SmartExpenseML.png" alt="SmartExpenseML — dasbor klasifikasi pengeluaran sisi-klien">
+                        <img loading="lazy" decoding="async" width="1910" height="863" src="assets/SmartExpenseML.png" alt="SmartExpenseML — dasbor klasifikasi pengeluaran sisi-klien">
 <div class="pcb-shade"></div>
 <span class="absolute top-3 right-3 z-10 px-2.5 py-1 rounded-lg bg-black/60 border border-emerald-400/50 text-[var(--color-accent1)] font-mono font-bold text-[10px] backdrop-blur-sm shadow-md" data-i18n="pj2b">ML Sisi-Klien & Privasi</span>
 <div class="pcb-content">
@@ -1330,7 +1362,7 @@
                 <!-- Card 3: SCOPS Pipeline -->
                 <div class="project-card fade-in-up" data-category="cybersecurity web" data-delay="300" data-project-id="scops">
                     <div class="pcb-card border border-[var(--color-border)] hover:border-[var(--color-primary)] transition-all shadow-lg">
-                        <img loading="lazy" decoding="async" src="assets/SCOPS%20Command.png" alt="SCOPS Command — tampilan antarmuka triase insiden SIEM">
+                        <img loading="lazy" decoding="async" width="1901" height="848" src="assets/SCOPS%20Command.png" alt="SCOPS Command — tampilan antarmuka triase insiden SIEM">
 <div class="pcb-shade"></div>
 <span class="absolute top-3 right-3 z-10 px-2.5 py-1 rounded-lg bg-black/60 border border-emerald-400/50 text-[var(--color-accent1)] font-mono font-bold text-[10px] backdrop-blur-sm shadow-md" data-i18n="pj3b">DevSecOps & Otomatisasi MTTR</span>
 <div class="pcb-content">
@@ -1354,7 +1386,7 @@
                 <!-- Card 4: KantinKu ERP -->
                 <div class="project-card fade-in-up" data-category="web automation database" data-delay="100" data-project-id="kantinku-erp">
                     <div class="pcb-card border border-[var(--color-border)] hover:border-[var(--color-primary)] transition-all shadow-lg">
-                        <img loading="lazy" decoding="async" src="assets/KantinKu%20ERP.png" alt="KantinKu ERP — tampilan antarmuka POS dan manajemen kantin">
+                        <img loading="lazy" decoding="async" width="1901" height="866" src="assets/KantinKu%20ERP.png" alt="KantinKu ERP — tampilan antarmuka POS dan manajemen kantin">
 <div class="pcb-shade"></div>
 <span class="absolute top-3 right-3 z-10 px-2.5 py-1 rounded-lg bg-black/60 border border-emerald-400/50 text-[var(--color-accent1)] font-mono font-bold text-[10px] backdrop-blur-sm shadow-md" data-i18n="pj4b">ERP Cloud Serverless & POS</span>
 <div class="pcb-content">
@@ -1379,7 +1411,7 @@
                 <!-- Card 5: A.R.Y.A. SOC Analytics & Threat Hunting Platform -->
                 <div class="project-card fade-in-up" data-category="cybersecurity ai web" data-delay="200" data-project-id="arya-soc-streamlit">
                     <div class="pcb-card border border-[var(--color-border)] hover:border-[var(--color-primary)] transition-all shadow-lg">
-                        <img loading="lazy" decoding="async" src="assets/A.R.Y.A.%20SOC%20Analytics.png" alt="A.R.Y.A. SOC Analytics — dasbor telemetri dan threat hunting">
+                        <img loading="lazy" decoding="async" width="1911" height="861" src="assets/A.R.Y.A.%20SOC%20Analytics.png" alt="A.R.Y.A. SOC Analytics — dasbor telemetri dan threat hunting">
 <div class="pcb-shade"></div>
 <span class="absolute top-3 right-3 z-10 px-2.5 py-1 rounded-lg bg-black/60 border border-emerald-400/50 text-[var(--color-accent1)] font-mono font-bold text-[10px] backdrop-blur-sm shadow-md" data-i18n="pj5b">Telemetri SIEM & Threat Hunting</span>
 <div class="pcb-content">
@@ -1642,7 +1674,7 @@
                         <span class="timeline-icon"><i class="fas fa-server text-[var(--color-primary)]"></i></span>
                         <div class="flex items-center gap-2 flex-wrap mb-1">
                             <h3 class="text-xl font-semibold text-[var(--color-text-primary)]">Web Administrator</h3>
-                            <span class="bg-[var(--color-primary)]/30 text-[var(--color-primary)] border border-[var(--color-primary)]/60 text-[10px] font-mono px-2 py-0.5 rounded font-bold shadow-sm" data-i18n="badgeCt">Kontrak / Proyek</span>
+                            <span class="badge-ct bg-[var(--color-primary)]/30 border border-[var(--color-primary)]/60 text-[10px] font-mono px-2 py-0.5 rounded font-bold shadow-sm" data-i18n="badgeCt">Kontrak / Proyek</span>
                         </div>
                         <p class="text-sm font-medium text-[var(--color-primary)] font-mono" data-i18n="cr1c">Direktorat Pengendalian Perubahan Iklim, Proyek MoE & BPDLH (Mar 2026 - Sekarang)</p>
                         <p class="mt-2 text-[var(--color-text-secondary)] text-sm" data-i18n="cr1d">Mengelola infrastruktur berbasis Docker di Ubuntu/WSL untuk platform web pemerintah; men-deploy pemantauan Wazuh SIEM dan sandboxing keamanan DVWA, memangkas waktu review log manual mingguan melalui analisis telemetri yang efisien.</p>
@@ -1653,7 +1685,7 @@
                         <span class="timeline-icon"><i class="fas fa-robot text-[var(--color-accent1)]"></i></span>
                         <div class="flex items-center gap-2 flex-wrap mb-1">
                             <h3 class="text-xl font-semibold text-[var(--color-text-primary)]">AI Trainer & LLM Evaluator</h3>
-                            <span class="bg-[var(--color-accent1)]/30 text-[var(--color-accent1)] border border-[var(--color-accent1)]/60 text-[10px] font-mono px-2 py-0.5 rounded font-bold shadow-sm" data-i18n="badgePtF">Paruh Waktu / Freelance</span>
+                            <span class="badge-ac1 bg-[var(--color-accent1)]/30 border border-[var(--color-accent1)]/60 text-[10px] font-mono px-2 py-0.5 rounded font-bold shadow-sm" data-i18n="badgePtF">Paruh Waktu / Freelance</span>
                         </div>
                         <p class="text-sm font-medium text-[var(--color-accent1)] font-mono" data-i18n="cr2c">Berbagai Platform Rekayasa Prompt AI (Jun 2024 - Sekarang)</p>
                         <p class="mt-2 text-[var(--color-text-secondary)] text-sm" data-i18n="cr2d">Keterlibatan paruh waktu yang berjalan bersamaan dengan peran kontrak di atas. Menerapkan pengujian dan optimasi prompt multi-variabel pada pipeline LLM — kepatuhan instruksi, kontrol format keluaran, dan evaluasi sadar keamanan — dengan alur kerja BYOK sisi-klien.</p>
@@ -1675,7 +1707,7 @@
                         <span class="timeline-icon"><i class="fas fa-shield-alt text-[var(--color-accent1)]"></i></span>
                         <div class="flex items-center gap-2 flex-wrap mb-1">
                             <h3 class="text-xl font-semibold text-[var(--color-text-primary)]">SOC Analyst</h3>
-                            <span class="bg-[var(--color-accent1)]/30 text-[var(--color-accent1)] border border-[var(--color-accent1)]/60 text-[10px] font-mono px-2 py-0.5 rounded font-bold shadow-sm" data-i18n="badgePt">Paruh Waktu</span>
+                            <span class="badge-ac1 bg-[var(--color-accent1)]/30 border border-[var(--color-accent1)]/60 text-[10px] font-mono px-2 py-0.5 rounded font-bold shadow-sm" data-i18n="badgePt">Paruh Waktu</span>
                         </div>
                         <p class="text-sm font-medium text-[var(--color-accent1)] font-mono">PT. Prospera Consulting Engineers (Jan 2025 – Sep 2025)</p>
                         <p class="mt-2 text-[var(--color-text-secondary)] text-sm" data-i18n="cr4d">Menulis Playbook Incident Response untuk analis Tier-1 berdasarkan kerangka NIST; menjalankan analisis kesenjangan pra-audit berbasis Wazuh untuk kesiapan ISO 27001; menetapkan metrik dasar Mean Time to Acknowledge (MTTA) untuk tim.</p>
@@ -1708,7 +1740,7 @@
                         <span class="timeline-icon"><i class="fas fa-project-diagram text-[var(--color-primary)]"></i></span>
                         <div class="flex items-center gap-2 flex-wrap mb-1">
                             <h3 class="text-xl font-semibold text-[var(--color-text-primary)]">Project Office Manager</h3>
-                            <span class="bg-[var(--color-primary)]/30 text-[var(--color-primary)] border border-[var(--color-primary)]/60 text-[10px] font-mono px-2 py-0.5 rounded font-bold shadow-sm" data-i18n="badgeCt">Kontrak / Proyek</span>
+                            <span class="badge-ct bg-[var(--color-primary)]/30 border border-[var(--color-primary)]/60 text-[10px] font-mono px-2 py-0.5 rounded font-bold shadow-sm" data-i18n="badgeCt">Kontrak / Proyek</span>
                         </div>
                         <p class="text-sm font-medium text-[var(--color-primary)] font-mono" data-i18n="cr7c">Kementerian Pekerjaan Umum dan Perumahan Rakyat / PUPR (Des 2020 - Apr 2023)</p>
                         <p class="mt-2 text-[var(--color-text-secondary)] text-sm" data-i18n="cr7d">Peran proyek infrastruktur publik dengan jangka waktu tetap (kontrak berakhir saat proyek selesai). Menjalankan logistik dukungan TI dan operasional teknis di empat proyek infrastruktur secara bersamaan (RWS, Transmission Dadi Muria, Jragung, dan Waduk Bener), menstandardisasi pelaporan di kantor-kantor regional.</p>
@@ -1785,7 +1817,7 @@
                                         "Sigit menangani lingkungan server Docker dan pengaturan pemantauan Wazuh kami dengan sangat teliti. Dia sangat bisa diandalkan, cepat merespons saat alert telemetri muncul, dan menjaga semuanya berjalan lancar."
                                     </p>
                                     <div>
-                                        <h4 class="text-base font-bold text-[var(--color-text-primary)]">Budi Santoso</h4>
+                                        <h3 class="text-base font-bold text-[var(--color-text-primary)]">Budi Santoso</h3>
                                         <p class="text-xs text-[var(--color-primary)] font-mono" data-i18n="ts1r">Senior IT Infrastructure Lead • Direktorat Pengendalian Perubahan Iklim (Proyek MoE & BPDLH)</p>
                                     </div>
                                 </div>
@@ -1803,7 +1835,7 @@
                                         "Saat pembaruan sistem backend kami, Sigit memastikan semua komponen transaksi berjalan andal sambil menjaga kepatuhan ketat terhadap aturan privasi data UU PDP. Engineer yang sangat solid untuk dimiliki di tim."
                                     </p>
                                     <div>
-                                        <h4 class="text-base font-bold text-[var(--color-text-primary)]">Rahmat Hidayat</h4>
+                                        <h3 class="text-base font-bold text-[var(--color-text-primary)]">Rahmat Hidayat</h3>
                                         <p class="text-xs text-cyan-300 font-mono" data-i18n="ts2r">Digital Governance Lead • Proyek Kementerian Dalam Negeri RI</p>
                                     </div>
                                 </div>
@@ -1821,7 +1853,7 @@
                                         "Sigit menyusun Playbook Incident Response yang praktis untuk tim Tier-1 kami dan membantu kami melalui pemeriksaan keamanan pra-audit dengan Wazuh. Dia terorganisir, teliti, dan mudah diajak bekerja sama."
                                     </p>
                                     <div>
-                                        <h4 class="text-base font-bold text-[var(--color-text-primary)]">Hendra Wijaya</h4>
+                                        <h3 class="text-base font-bold text-[var(--color-text-primary)]">Hendra Wijaya</h3>
                                         <p class="text-xs text-[var(--color-accent1)] font-mono">Principal Security Consultant • PT. Prospera Consulting Engineers</p>
                                     </div>
                                 </div>
@@ -1839,7 +1871,7 @@
                                         "Menangani shift malam dan alert keamanan bervolume tinggi bisa membuat stres, tapi Sigit menjaga tim tetap fokus dan menangani triase Wazuh dan WAF secara efektif. Sangat mengapresiasi sikapnya yang tenang."
                                     </p>
                                     <div>
-                                        <h4 class="text-base font-bold text-[var(--color-text-primary)]">Aditya Nugroho</h4>
+                                        <h3 class="text-base font-bold text-[var(--color-text-primary)]">Aditya Nugroho</h3>
                                         <p class="text-xs text-[var(--color-accent2)] font-mono" data-i18n="ts4r">SOC Operations Manager • Proyek Kementerian Dalam Negeri RI</p>
                                     </div>
                                 </div>
@@ -1857,7 +1889,7 @@
                                         "Sigit mengurus infrastruktur TI kantor kami untuk lebih dari 50 karyawan tanpa masalah. Dia merampingkan alur kerja pelaporan kami dan menjaga operasional teknologi harian kami berjalan tanpa hambatan."
                                     </p>
                                     <div>
-                                        <h4 class="text-base font-bold text-[var(--color-text-primary)]">Dewi Lestari</h4>
+                                        <h3 class="text-base font-bold text-[var(--color-text-primary)]">Dewi Lestari</h3>
                                         <p class="text-xs text-cyan-300 font-mono">Operations Director • Associated Consulting Engineers - ACE Ltd.</p>
                                     </div>
                                 </div>
@@ -1875,7 +1907,7 @@
                                         "Mengoordinasikan dukungan TI dan pelaporan antar departemen di beberapa kantor regional untuk proyek bendungan dan waduk besar tidaklah mudah, tetapi Sigit menjaga komunikasi dan pelaporan tetap jelas dan tepat waktu."
                                     </p>
                                     <div>
-                                        <h4 class="text-base font-bold text-[var(--color-text-primary)]">Bambang Pratama</h4>
+                                        <h3 class="text-base font-bold text-[var(--color-text-primary)]">Bambang Pratama</h3>
                                         <p class="text-xs text-[var(--color-primary)] font-mono" data-i18n="ts6r">Regional Project Director • Kementerian Pekerjaan Umum dan Perumahan Rakyat / PUPR</p>
                                     </div>
                                 </div>
@@ -1893,7 +1925,7 @@
                                         "Sigit membantu kami menjaga pelacakan milestone proyek dan alur kerja anggaran tetap terorganisir selama proyek Irigasi Rentang. Sangat dapat diandalkan dan proaktif dalam mengatasi hambatan operasional."
                                     </p>
                                     <div>
-                                        <h4 class="text-base font-bold text-[var(--color-text-primary)]">Agus Kurniawan</h4>
+                                        <h3 class="text-base font-bold text-[var(--color-text-primary)]">Agus Kurniawan</h3>
                                         <p class="text-xs text-[var(--color-primary)] font-mono">Senior Project Consultant • Nippon Koei Co., Ltd</p>
                                     </div>
                                 </div>
@@ -1911,7 +1943,7 @@
                                         "Sigit mengelola server perusahaan, jaringan lokal, dan perangkat keras kami selama 6 tahun. Setiap kali ada gangguan jaringan atau kerusakan perangkat keras, Sigit selalu ada untuk memperbaikinya dengan cepat."
                                     </p>
                                     <div>
-                                        <h4 class="text-base font-bold text-[var(--color-text-primary)]">Setyo Wibowo</h4>
+                                        <h3 class="text-base font-bold text-[var(--color-text-primary)]">Setyo Wibowo</h3>
                                         <p class="text-xs text-cyan-300 font-mono">General Manager • PT. Dipta Safari Jaya</p>
                                     </div>
                                 </div>
@@ -1929,7 +1961,7 @@
                                         "Sigit adalah orang andalan kami untuk dukungan pengguna dan pemeliharaan sistem. Dia mengurus backup harian dan troubleshooting perangkat keras secara efisien. Selalu membantu dan pekerja keras."
                                     </p>
                                     <div>
-                                        <h4 class="text-base font-bold text-[var(--color-text-primary)]">Tri Widodo</h4>
+                                        <h3 class="text-base font-bold text-[var(--color-text-primary)]">Tri Widodo</h3>
                                         <p class="text-xs text-cyan-300 font-mono">Senior IT Supervisor • PT. Laju Karunia Jaya</p>
                                     </div>
                                 </div>
@@ -1947,7 +1979,7 @@
                                         "Sigit memulai perjalanan teknologinya bersama kami dengan menangani perbaikan perangkat keras dan dukungan perangkat. Bahkan saat itu, dia memiliki etos kerja yang kuat, kesabaran, dan pola pikir pemecah masalah."
                                     </p>
                                     <div>
-                                        <h4 class="text-base font-bold text-[var(--color-text-primary)]">Ahmad Syarif</h4>
+                                        <h3 class="text-base font-bold text-[var(--color-text-primary)]">Ahmad Syarif</h3>
                                         <p class="text-xs text-cyan-300 font-mono">Technical Services Director • Arya Mobile</p>
                                     </div>
                                 </div>
@@ -1996,9 +2028,9 @@
                     var dots = document.querySelectorAll('#testimonial-dots button');
                     dots.forEach(function(dot, idx) {
                         if (idx === currentTestimonialIndex) {
-                            dot.className = 'w-6 h-2.5 rounded-full bg-[var(--color-primary)] transition-all duration-300 cursor-pointer';
+                            dot.className = 'w-12 h-6 rounded-full bg-[var(--color-primary)] transition-all duration-300 cursor-pointer';
                         } else {
-                            dot.className = 'w-2.5 h-2.5 rounded-full bg-gray-600 hover:bg-gray-400 transition-all duration-300 cursor-pointer';
+                            dot.className = 'w-6 h-6 rounded-full bg-gray-600 hover:bg-gray-400 transition-all duration-300 cursor-pointer';
                         }
                     });
                     resetProgressBar();
@@ -2048,7 +2080,7 @@
                         (function(index) {
                             var dot = document.createElement('button');
                             dot.type = 'button';
-                            dot.className = index === 0 ? 'w-6 h-2.5 rounded-full bg-[var(--color-primary)] transition-all duration-300 cursor-pointer' : 'w-2.5 h-2.5 rounded-full bg-gray-600 hover:bg-gray-400 transition-all duration-300 cursor-pointer';
+                            dot.className = index === 0 ? 'w-12 h-6 rounded-full bg-[var(--color-primary)] transition-all duration-300 cursor-pointer' : 'w-6 h-6 rounded-full bg-gray-600 hover:bg-gray-400 transition-all duration-300 cursor-pointer';
                             dot.setAttribute('aria-label', 'Go to testimonial ' + (index + 1));
                             dot.onclick = function() { goToTestimonial(index); };
                             dotsContainer.appendChild(dot);
@@ -2268,7 +2300,7 @@
                     <h4 class="text-lg font-semibold text-[var(--color-primary)] mt-4 mb-2 font-mono" data-i18n="modalCh2">The Challenge</h4>
                     <p class="text-[var(--color-text-secondary)] mb-4" data-i18n="md1b1">Sharing tech insights and technical documentation on Generative AI, LLMs, and Cybersecurity with the global developer community.</p>
                     <h4 class="text-lg font-semibold text-[var(--color-primary)] mt-4 mb-2 font-mono" data-i18n="modalSol2">My Solution</h4>
-                    <p class="text-[var(--color-text-secondary)] mb-4" data-i18n="md1b2">I regularly publish articles on Medium. This portfolio integrates live RSS feed fetching via `rss2json` API with HTML sanitization to render latest posts automatically.</p>
+                    <p class="text-[var(--color-text-secondary)] mb-4" data-i18n="md1b2">I regularly publish articles on Medium. This card links to a curated selection of my recent technical articles (no third-party feed API involved).</p>
                     <a href="https://medium.com/@si.sigitadi" target="_blank" rel="noopener noreferrer" class="btn-primary">
                         <span data-i18n="modalCtaAll">View All Articles</span> &rarr;
                     </a>
@@ -2443,7 +2475,7 @@
                 sc1t: 'Case Study: SCOPS Command — SOC MTTR Automation', sc1b1: 'Security analysts face alert fatigue and fragmented task management across various telemetry sources, increasing containment windows (MTTR).', sc1b2: 'Engineered SCOPS, a tactical command dashboard for SOC operations featuring real-time risk classification (High, Medium, Low), Wazuh SIEM telemetry integration, and automated triage pipelines.', sc1b3: 'Reduced simulated incident Mean Time To Respond (MTTR) by 45%, streamlining SOC shift operations and automating incident severity scoring dispatches.',
                 ar1t: 'Case Study: A.R.Y.A. SOC Analytics — Threat Hunting', ar1b1: 'Processing high-volume Wazuh SIEM telemetry logs, performing interactive threat hunting, and executing real-time alert triage without complex desktop software dependencies.', ar1b2: 'Engineered "A.R.Y.A. SOC Analytics", a cloud-native Streamlit web application that processes SIEM telemetry logs, automates incident severity classification, visualizes attack trends, and presents actionable response playbooks.', ar1b3: 'Delivers automated severity scoring and interactive threat hunting visualizations over raw SIEM log exports, enabling rapid incident triage from any browser.',
                 kk1t: 'Case Study: KantinKu ERP — Zero-Cost Cloud POS', kk1b1: 'Managing food & beverage canteen operations manually causes inaccurate COGS (HPP) calculations, untracked ingredient wastage, manual cashier shift reconciliation errors, and uncollected customer debt (kasbon). Commercial cloud ERP software incurs prohibitive monthly subscription costs for small-to-medium operators.', kk1b2: 'I engineered KantinKu ERP, a 100% serverless Cloud POS & Canteen ERP platform built on Google Apps Script and Google Sheets Database Engine. It automates Weighted Average Costing (WAC) ingredient valuation, BOM (Bill of Materials) recipe stock deduction upon sales, multi-role PIN authentication with brute-force protection, ScriptLock concurrency control to eliminate duplicate charges, customer kasbon tracking with WhatsApp notification dispatch, and thermal receipt printing.', kk1b3: 'Eliminated 100% of recurring monthly database and cloud hosting subscription costs while delivering automated COGS recipe stock deduction and WhatsApp debt notifications.',
-                md1t: 'Case Study: Medium Tech Articles', md1b1: 'Sharing tech insights and technical documentation on Generative AI, LLMs, and Cybersecurity with the global developer community.', md1b2: 'I regularly publish articles on Medium. This portfolio integrates live RSS feed fetching via rss2json API with HTML sanitization to render latest posts automatically.',
+                md1t: 'Case Study: Medium Tech Articles', md1b1: 'Sharing tech insights and technical documentation on Generative AI, LLMs, and Cybersecurity with the global developer community.', md1b2: 'I regularly publish articles on Medium. This card links to a curated selection of my recent technical articles (no third-party feed API involved).',
                 pj6b: 'Publications & Articles', pj6art: 'Medium Article',
                 badgeCt: 'Contract / Project', badgePtF: 'Part-Time / Freelance', badgeSt: 'Short-Term Contract', badgePt: 'Part-Time', badgeFt: 'Full-Time',
                 cr1c: 'Directorate of Climate Change Control, MoE & BPDLH Project (Mar 2026 - Present)', cr1d: 'Manages Docker-based infrastructure on Ubuntu/WSL for government web platforms; deploys Wazuh SIEM monitoring and DVWA security sandboxing, cutting weekly manual log review time through efficient telemetry analysis.',
@@ -2537,7 +2569,7 @@
                 sc1t: 'Studi Kasus: SCOPS Command — Otomatisasi MTTR SOC', sc1b1: 'Analis keamanan menghadapi kelelahan alert dan manajemen tugas yang terfragmentasi di berbagai sumber telemetri, sehingga memperlebar jendela penahanan (MTTR).', sc1b2: 'Membangun SCOPS, dashboard komando taktis untuk operasi SOC dengan klasifikasi risiko real-time (Tinggi, Sedang, Rendah), integrasi telemetri Wazuh SIEM, dan pipeline triase otomatis.', sc1b3: 'Mengurangi rata-rata waktu respons insiden (MTTR) hingga 45%, merampingkan operasi shift SOC dan mengotomatisasi pengiriman penilaian keparahan insiden.',
                 ar1t: 'Studi Kasus: A.R.Y.A. SOC Analytics — Threat Hunting', ar1b1: 'Memproses log telemetri Wazuh SIEM bervolume tinggi, melakukan threat hunting interaktif, dan menjalankan triase alert real-time tanpa ketergantungan perangkat lunak desktop yang rumit.', ar1b2: 'Membangun "A.R.Y.A. SOC Analytics", aplikasi web Streamlit cloud-native yang memproses log telemetri SIEM, mengotomatisasi klasifikasi tingkat keparahan insiden, memvisualisasikan tren serangan, dan menyajikan playbook respons yang dapat dieksekusi.', ar1b3: 'Menghadirkan penilaian keparahan otomatis dan visualisasi threat hunting interaktif atas ekspor log SIEM mentah, memungkinkan triase insiden cepat dari browser mana pun.',
                 kk1t: 'Studi Kasus: KantinKu ERP — Cloud POS Tanpa Biaya', kk1b1: 'Mengelola operasional kantin makanan & minuman secara manual menyebabkan perhitungan HPP tidak akurat, pemborosan bahan yang tidak terlacak, kesalahan rekonsiliasi shift kasir manual, dan utang pelanggan (kasbon) yang tidak tertagih. Software ERP cloud komersial memberatkan operator skala kecil-menengah dengan biaya langganan bulanan yang mahal.', kk1b2: 'Saya membangun KantinKu ERP, platform Cloud POS & ERP Kantin 100% serverless berbasis Google Apps Script dan Google Sheets Database Engine. Sistem ini mengotomatisasi penilaian inventaris Weighted Average Cost (WAC), pengurangan stok resep BOM saat penjualan, autentikasi PIN multi-peran dengan proteksi brute-force, kontrol konkurensi ScriptLock untuk mencegah transaksi ganda, pelacakan kasbon pelanggan dengan notifikasi WhatsApp, dan pencetakan struk termal.', kk1b3: 'Menghilangkan 100% biaya langganan bulanan database dan hosting cloud yang berulang, sekaligus menghadirkan pengurangan stok HPP otomatis dan notifikasi utang via WhatsApp.',
-                md1t: 'Studi Kasus: Artikel Teknis Medium', md1b1: 'Berbagi wawasan teknologi dan dokumentasi teknis tentang Generative AI, LLM, dan Keamanan Siber dengan komunitas pengembang global.', md1b2: 'Saya rutin menerbitkan artikel di Medium. Portofolio ini mengintegrasikan pengambilan feed RSS langsung via API rss2json dengan sanitasi HTML untuk menampilkan artikel terbaru secara otomatis.',
+                md1t: 'Studi Kasus: Artikel Teknis Medium', md1b1: 'Berbagi wawasan teknologi dan dokumentasi teknis tentang Generative AI, LLM, dan Keamanan Siber dengan komunitas pengembang global.', md1b2: 'Saya rutin menerbitkan artikel di Medium. Kartu ini menampilkan pilihan artikel teknis terbaru saya (tanpa API feed pihak ketiga).',
                 pj6b: 'Publikasi & Artikel', pj6art: 'Artikel Medium',
                 badgeCt: 'Kontrak / Proyek', badgePtF: 'Paruh Waktu / Freelance', badgeSt: 'Kontrak Jangka Pendek', badgePt: 'Paruh Waktu', badgeFt: 'Penuh Waktu',
                 cr1c: 'Direktorat Pengendalian Perubahan Iklim, Proyek MoE & BPDLH (Mar 2026 - Sekarang)', cr1d: 'Mengelola infrastruktur berbasis Docker di Ubuntu/WSL untuk platform web pemerintah; men-deploy pemantauan Wazuh SIEM dan sandboxing keamanan DVWA, memangkas waktu review log manual mingguan melalui analisis telemetri yang efisien.',
@@ -3103,37 +3135,10 @@
         window.applyDemoDynamicText = applyDemoDynamicText;
 
 
-        // --- MEDIUM RSS FEED RENDERER (rss2json + sanitization, graceful fallback) ---
-        function renderMediumArticles() {
-            var container = document.getElementById('medium-feed-articles');
-            if (!container) return;
-
-            fetch('https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fmedium.com%2Ffeed%2F%40si.sigitadi&count=3')
-                .then(function(res) { return res.json(); })
-                .then(function(data) {
-                    if (!data || data.status !== 'ok' || !data.items || data.items.length === 0) {
-                        return;
-                    }
-                    var html = '';
-                    data.items.slice(0, 3).forEach(function(item) {
-                        var title = escapeHTML(item.title || 'Untitled Article');
-                        var link = escapeHTML(item.link || 'https://medium.com/@si.sigitadi');
-                        var date = '';
-                        if (item.pubDate) {
-                            try {
-                                date = new Date(item.pubDate).toLocaleDateString('id-ID', { month: 'short', year: 'numeric' });
-                            } catch (e) { date = ''; }
-                        }
-                        html += '<a href="' + link + '" target="_blank" rel="noopener noreferrer" class="medium-article-link block p-2.5 rounded-lg mb-2 bg-[var(--color-bg)] hover:bg-[var(--color-surface)] border border-[var(--color-border)] transition-all">'
-                            + '<h4 class="font-semibold text-[var(--color-text-primary)] text-xs mb-1 hover:text-[var(--color-primary)]">' + title + '</h4>'
-                            + '<p class="text-[10px] text-[var(--color-accent1)] font-mono">' + (date || 'Terbaru') + ' &bull; Artikel Medium</p>'
-                            + '</a>';
-                    });
-                    if (html) container.innerHTML = html;
-                })
-                .catch(function() {});
-        }
-        window.renderMediumArticles = renderMediumArticles;
+        // --- MEDIUM ARTICLES (static curated links — no third-party feed API) ---
+        // The card below ships curated static article links; the previous live rss2json fetch
+        // hit the free API quota (HTTP 422), logged console errors, and failed Lighthouse
+        // best-practices — so the live feed was removed in favour of reliable static links.
 
         // --- MAIN INITIALIZATION ON DOM READY ---
         document.addEventListener('DOMContentLoaded', function() {
@@ -3211,9 +3216,8 @@
             }
             typeWriter();
 
-            // 3. Footer Avoidance + Medium RSS Feed
+            // 3. Footer Avoidance (Medium card uses curated static article links)
             initFooterAvoidance();
-            renderMediumArticles();
 
             // 4. Initialize ML Demos Initial State
             runMlPreset('Beli kopi starbucks 45rb');

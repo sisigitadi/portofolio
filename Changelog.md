@@ -6,6 +6,30 @@ The format is based on [Keep a Changelog](https://keepachamber.com/en/1.0.0/), a
 
 ---
 
+## [2.4.3] - 2026-08-10 — Lighthouse Optimization: Accessibility 100, Best Practices 100
+
+### 🚀 Performance
+- **Google Fonts `@import` → preload + stylesheet link** di `<head>` (menghapus render-blocking waterfall `@import`; `display=swap` tetap) + **Font Awesome** diberi `rel="preload"` — tetap render-blocking karena async `media="print"` terbukti memicu FOUC ikon + CLS (0.113) di pengujian, lalu dikembalikan (CLS kembali 0.022).
+- **Gambar proyek dikompresi**: `PromptMatrix 2.0.png` 431 KB → **124 KB (−71%)**, SmartExpenseML −65%, KantinKu −63%, A.R.Y.A. −65% (kuantisasi 256 warna median-cut + dithering, dimensi asli dipertahankan — screenshot tetap tajam di verifikasi browser). SCOPS dipertahankan (tidak lolos ambang kualitas).
+- **`width`/`height` eksplisit** pada 5 `<img>` kartu proyek (aspek 2:1) — mencegah layout shift saat lazy-load.
+- **Feed Medium rss2json dihapus** → kartu Medium memakai 3 artikel statis terkurasi yang sudah ada: API gratis rss2json sering kehabisan kuota (HTTP 422) → error konsol permanen yang membuat Lighthouse `errors-in-console` gagal; dengan penghapusan, best-practices 96 → **100**. Copy `md1b2` (EN/ID), Readme (third-party flows, CSP, XSS, PWA cache boundary), dan CSP `connect-src` ikut disinkronkan — kini **satu-satunya panggilan keluar adalah Formspree**.
+
+### ♿ Accessibility (91 → 100)
+- **Kontras tombol**: `.btn-primary` & `.btn-filter.active` kini `#0E7490` (hardcode) — teks putih lolos WCAG AA 4.5:1 (sebelumnya putih di `#0891B2` = 3.68:1).
+- **`--color-primary` dark `#0891B2` → `#22D3EE`** (cyan-400, selaras aksen situs): semua teks kecil berwarna primary di permukaan gelap lolos (8.1:1).
+- **Badge karir theme-aware**: `.badge-ct` (Kontrak/Proyek) → `#67E8F9` dark / `#155E75` light; `.badge-ac1` (Paruh Waktu) → `#6EE7B7` / `#065F46` — teks pada latar tinted sekarang lolos AA di kedua tema.
+- **Heading order**: 10 nama testimonial `h4` → `h3` (sebelumnya h4 langsung di bawah h2 section = lompat level).
+- **Target size**: dot carousel testimonial kini 24×24 px hit-area (`w-6 h-6` + padding + `background-clip: content-box` — pill aktif tetap terlihat memanjang, dot non-aktif bulat 12 px) — lolos target-size.
+
+### 🖼️ Best Practices (96 → 100)
+- **`favicon.ico` fisik dibuat** (logo double-bracket cyan, 16×16 + 32×32, 569 bytes) + `<link rel="icon" href="favicon.ico">` — menghilangkan 404 `/favicon.ico` yang dicatat Lighthouse sebagai console error.
+
+### 🧪 Validasi
+- Lighthouse (lokal): **Accessibility 100 · Best Practices 100 · SEO 100** (sebelumnya 91/96/100); CLS 0.113 → **0.022**; 0 item gagal di a11y & best-practices. Skor performance lokal tidak representatif (localhost + throttle sintetis) — diukur ulang di live pasca-push.
+- `python audit.py` → **12 PASS | 0 FAIL | 0 WARN**, `100% PRODUCTION READY` · `pytest` **20/20** · 0 sisa referensi rss2json di index.html/Readme.
+
+---
+
 ## [2.4.2] - 2026-08-10 — Full-Bleed Project Cards & Single "What I Offer" Heading
 
 ### 🧭 About — satu judul saja: "What I Offer"
