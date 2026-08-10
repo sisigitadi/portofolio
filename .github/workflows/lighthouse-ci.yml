@@ -8,6 +8,11 @@
 #   - performance                          : >= 0.5 (warn — non-blocking, skor
 #     sintetis mobile-throttle rentan noise lintas runner)
 #
+# Chrome di-pin ke versi yang kompatibel dengan Lighthouse yang di-bundle
+# @lhci/cli (12.6.1) agar tidak rusak oleh versi Chrome runner yang terlalu
+# baru. Jika run gagal, output Lighthouse penuh di-dump sebagai annotations
+# (::error::) agar diagnosa terlihat langsung di tab Actions / check-runs.
+#
 # Jalur lokal yang setara:
 #     python -m http.server 8899 --bind 127.0.0.1 &
 #     npx --yes @lhci/cli@0.15.1 autorun --config=.lighthouserc.json
@@ -25,6 +30,7 @@ jobs:
   lighthouse:
     name: Lighthouse CI (a11y / BP / SEO = 100)
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -34,12 +40,24 @@ jobs:
         with:
           node-version: "20"
 
+      # Pin Chrome yang kompatibel dengan Lighthouse 12.6.1 (bundle @lhci/cli
+      # 0.15.1). setup-chrome mengekspor CHROME_PATH yang dihormati lhci.
+      - name: Setup Chrome (LH-compatible)
+        uses: browser-actions/setup-chrome@v1
+        with:
+          chrome-version: 134
+
       - name: Serve site & run Lighthouse CI
         run: |
           python3 -m http.server 8899 --bind 127.0.0.1 > /tmp/httpd.log 2>&1 &
           SERVER_PID=$!
           sleep 2
-          npx --yes @lhci/cli@0.15.1 autorun --config=.lighthouserc.json
-          status=$?
+          if npx --yes @lhci/cli@0.15.1 autorun --config=.lighthouserc.json > /tmp/lhci.log 2>&1; then
+            echo "::notice::Lighthouse CI passed — accessibility / best-practices / SEO = 100"
+            kill $SERVER_PID 2>/dev/null || true
+            exit 0
+          fi
           kill $SERVER_PID 2>/dev/null || true
-          exit $status
+          echo "::error::Lighthouse CI FAILED — diagnostic output:"
+          tail -120 /tmp/lhci.log | sed 's/^/::error::/'
+          exit 1
