@@ -6,6 +6,24 @@ The format is based on [Keep a Changelog](https://keepachamber.com/en/1.0.0/), a
 
 ---
 
+## [2.5.9] - 2026-08-11 — Fix Lighthouse CI: Light-Theme Color Contrast (a11y 100)
+
+### 🔧 Fixed (akar masalah Lighthouse CI gagal — a11y 0.96)
+- **Diagnosis**: CI run gagal `categories.accessibility` (found 0.96) pada 3 push terakhir. Reproduksi lokal dengan versi persis CI (Lighthouse 12.6.1 + Chrome 134 via Node 20) membuktikan: skor **100 di tema dark**, **0.96 di tema light** — runner Ubuntu headless default `prefers-color-scheme: light`, sehingga Lighthouse menguji halaman dalam **tema terang**, tempat 33 elemen gagal `color-contrast` (palet neon di atas putih). Bukan regresi kode SEO — masalah ini sudah ada sejak gate CI pertama (c4e4893), hanya tidak pernah terlihat karena pengujian lokal selalu render tema dark.
+- **Perbaikan tema terang (tanpa ubah HTML)**:
+  - Variabel light: `--color-primary` `#0E7490` → **`#155E75`**, `--color-accent1` `#059669` → **`#047857`**, `--color-accent2` `#0D9488` → **`#115E59`** → `#0F4F4B` (badge pill tinted membutuhkan langkah lebih gelap — kontras 4.44 masih < 4.5; #0F4F4B memberi margin ~5.7:1).
+  - Blok override baru `html[data-theme="light"]`: `text-emerald-400` → `#047857`, `text-red-400` → `#B91C1C`, `text-cyan-400/300/200` → `#155E75` (palet neon Tailwind gagal WCAG AA di atas putih).
+  - `.badge-ct` light `#155E75` → **`#0F4C5C`** (teks badge pada pill `--color-primary/30`).
+- **Catatan**: Changelog 2.4.3 menyebut light-theme contrast sudah "fixed" untuk `.badge-ct`/`.badge-ac1` — terbukti belum menyeluruh (33 elemen tersisa) dan tidak ter-gate karena CI/lokal selalu render dark.
+
+### 🧪 Validasi
+- LH 12.6.1 + Chrome 134 (versi CI persis): **LIGHT a11y 1.0 · DARK a11y 1.0** — 0 audit gagal di kedua tema.
+- `python audit.py` → **12 PASS | 0 FAIL | 0 WARN** · `pytest` **20/20**.
+- Browser: toggle ke tema terang — hero tagline & badge "OPEN FOR REMOTE ROLES" jelas, badge "Short-Term Contract" terbaca, **0 console error**.
+- Artefak diagnosis (Chrome 134 359 MB, report JSON) dibersihkan dari repo.
+
+---
+
 ## [2.5.8] - 2026-08-11 — og-preview.jpg Regenerated ("Applied AI Engineer")
 
 ### 🖼️ Changed

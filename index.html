@@ -172,9 +172,9 @@
         html[data-theme="light"] {
             --color-bg: #F9FAFB;
             --color-surface: #FFFFFF;
-            --color-primary: #0E7490;
-            --color-accent1: #059669;
-            --color-accent2: #0D9488;
+            --color-primary: #155E75;
+            --color-accent1: #047857;
+            --color-accent2: #0F4F4B;
             --color-text-primary: #111827;
             --color-text-secondary: #4B5563;
             --color-border: #E5E7EB;
@@ -941,7 +941,7 @@
             color: #67E8F9;
         }
         html[data-theme="light"] .badge-ct {
-            color: #155E75;
+            color: #0F4C5C;
         }
 
         /* Career badge (badgePtF/badgePt): emerald variant that passes WCAG AA on tinted bg */
@@ -951,6 +951,13 @@
         html[data-theme="light"] .badge-ac1 {
             color: #065F46;
         }
+
+        /* Light-theme contrast: neon Tailwind text colors fail WCAG AA on white bg — darken to AA-safe */
+        html[data-theme="light"] .text-emerald-400 { color: #047857 !important; }
+        html[data-theme="light"] .text-red-400 { color: #B91C1C !important; }
+        html[data-theme="light"] .text-cyan-400,
+        html[data-theme="light"] .text-cyan-300,
+        html[data-theme="light"] .text-cyan-200 { color: #155E75 !important; }
 
         /* Medium Card Feed */
         #medium-feed-content {
