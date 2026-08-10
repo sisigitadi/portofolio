@@ -8,6 +8,7 @@
  * ---------
  *   GET  /count                    → { count, uniq, today, uniq_today }  (public badge)
  *   POST /hit                      → records a visit; echoes visitor's own geolocation
+ *   GET  /pixel?path=…             → 1×1 transparent GIF beacon; records a hit (JS-less visitors / bots)
  *   GET  /api/stats?key=…[&range=][&limit=] → JSON stats + rows for the dashboard
  *   GET  /api/export?key=…[&range=]        → CSV export (server-side, all matching rows)
  *   GET  /dashboard?key=…          → private HTML dashboard (owner only)
@@ -31,7 +32,8 @@ const CORS_HEADERS = {
   'Access-Control-Max-Age': '86400',
 };
 
-const MAX_HITS_PER_MINUTE = 20;        // per-IP anti-spam ceiling
+const MAX_HITS_PER_MINUTE = 20;        // per-IP anti-spam ceiling (human visitors)
+const BOT_MAX_HITS_PER_MINUTE = 120;   // crawlers legitimately fetch many URLs/min — higher ceiling, still finite
 const COUNT_CACHE_TTL_SECONDS = 60;    // KV minimum TTL for the /count cache
 const DASHBOARD_ROWS = 2000;           // rows embedded in the dashboard page / fetched on refresh
 const EXPORT_MAX_ROWS = 50000;         // hard cap for the server-side CSV export
@@ -52,6 +54,7 @@ export default {
     try {
       if (route === '/count' && request.method === 'GET') return await handleCount(env);
       if (route === '/hit' && request.method === 'POST') return await handleHit(request, env);
+      if (route === '/pixel' && request.method === 'GET') return await handlePixel(request, env, url);
       if (route === '/api/stats' && request.method === 'GET') return await handleStats(request, env, url);
       if (route === '/api/export' && request.method === 'GET') return await handleExport(request, env, url);
       if (route === '/dashboard' && request.method === 'GET') return await handleDashboard(request, env, url);
@@ -145,7 +148,26 @@ function clientGeo(request) {
     lat: Number.isFinite(lat) ? lat : null,
     lon: Number.isFinite(lon) ? lon : null,
     timezone: typeof cf.timezone === 'string' && cf.timezone ? cf.timezone : null,
+    // Company / network info straight from the Cloudflare edge (all plans, no API call):
+    asn: Number.isInteger(cf.asn) ? cf.asn : null,
+    asOrganization: typeof cf.asOrganization === 'string' && cf.asOrganization ? cf.asOrganization : null,
+    region: typeof cf.region === 'string' && cf.region ? cf.region : null,
+    regionCode: typeof cf.regionCode === 'string' && cf.regionCode ? cf.regionCode : null,
+    continent: typeof cf.continent === 'string' && cf.continent ? cf.continent : null,
   };
+}
+
+/** Heuristic bot detection — UA tokens + known crawler ASNs (e.g. Google AS15169). */
+const BOT_UA_RE = /bot|crawl|spider|slurp|bingpreview|headless|Googlebot|bingbot|DuckDuckBot|YandexBot|Baiduspider|AhrefsBot|SemrushBot|MJ12bot|Bytespider|GPTBot|CCBot|ia_archiver|petalbot|applebot|facebookexternalhit|twitterbot|curl|wget|python-requests|Go-http-client|monitoring|uptimerobot|pingdom/i;
+const BOT_ASNS = new Set([15169, 396982, 30243, 8075, 8068, 8069, 16509, 16625, 53755, 209242]); // Google, Amazon, Microsoft, DuckDuckGo etc.
+
+function detectBot(userAgent, asn) {
+  const ua = String(userAgent || '');
+  if (BOT_UA_RE.test(ua)) return true;
+  // ASN fallback: a request from a known crawler ASN is treated as a bot,
+  // unless it carries a full browser UA (which would mean a real user on that network).
+  if (asn && BOT_ASNS.has(asn) && !/Mozilla\/5\.0.*(Chrome|Safari|Firefox)/.test(ua)) return true;
+  return false;
 }
 
 function authorized(request, env, url) {
@@ -158,13 +180,10 @@ function authorized(request, env, url) {
 }
 
 function recentRowsQuery(env, since, limit) {
+  const cols = 'ip_hash, city, country_code, lat, lon, timezone, asn, as_org, region, region_code, continent, is_bot, user_agent, referrer, path, is_unique, created_at';
   return since === null
-    ? env.DB.prepare(
-        'SELECT ip_hash, city, country_code, timezone, user_agent, referrer, path, is_unique, created_at FROM visits ORDER BY created_at DESC LIMIT ?'
-      ).bind(limit).all()
-    : env.DB.prepare(
-        'SELECT ip_hash, city, country_code, timezone, user_agent, referrer, path, is_unique, created_at FROM visits WHERE created_at >= ? ORDER BY created_at DESC LIMIT ?'
-      ).bind(since, limit).all();
+    ? env.DB.prepare('SELECT ' + cols + ' FROM visits ORDER BY created_at DESC LIMIT ?').bind(limit).all()
+    : env.DB.prepare('SELECT ' + cols + ' FROM visits WHERE created_at >= ? ORDER BY created_at DESC LIMIT ?').bind(since, limit).all();
 }
 
 /* ------------------------------ endpoints ------------------------------ */
@@ -185,23 +204,24 @@ async function handleCount(env) {
   return json(stats);
 }
 
-async function handleHit(request, env) {
+/**
+ * Shared visit-recording pipeline for POST /hit and GET /pixel.
+ * Returns { rateLimited } or the full echo object on success.
+ */
+async function recordVisit(request, env, info) {
   const geo = clientGeo(request);
   const ipHash = await sha256Hex(env.IP_HASH_SALT || 'salt', geo.ip);
+  const ua = request.headers.get('User-Agent') || '';
+  const isBot = detectBot(ua, geo.asn) ? 1 : 0;
 
-  // Rate limit: ≤ MAX_HITS_PER_MINUTE per IP (authoritative via D1 — avoids KV write throttling).
+  // Rate limit (authoritative via D1 — avoids KV write throttling). Crawlers get a
+  // much higher ceiling so real Googlebot/Bingbot traffic (50–200 req/min) is captured.
+  const limit = isBot ? BOT_MAX_HITS_PER_MINUTE : MAX_HITS_PER_MINUTE;
   const recent = await env.DB.prepare('SELECT COUNT(*) AS c FROM visits WHERE ip_hash = ? AND created_at >= ?')
     .bind(ipHash, Date.now() - 60000).first();
-  if ((recent.c || 0) >= MAX_HITS_PER_MINUTE) {
-    return json({ error: 'rate_limited' }, 429);
+  if ((recent.c || 0) >= limit) {
+    return { rateLimited: true };
   }
-
-  // Request body is optional; every field is length-truncated before storage.
-  let body = {};
-  try {
-    const parsed = await request.json();
-    if (parsed && typeof parsed === 'object') body = parsed;
-  } catch (e) { /* no body — fine */ }
 
   const now = Date.now();
   const dup = await env.DB.prepare('SELECT COUNT(*) AS c FROM visits WHERE ip_hash = ? AND created_at >= ?')
@@ -209,7 +229,7 @@ async function handleHit(request, env) {
   const isUnique = (dup.c || 0) === 0 ? 1 : 0;
 
   await env.DB.prepare(
-    'INSERT INTO visits (ip_hash, city, country_code, lat, lon, timezone, user_agent, referrer, path, is_unique, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+    'INSERT INTO visits (ip_hash, city, country_code, lat, lon, timezone, asn, as_org, region, region_code, continent, is_bot, user_agent, referrer, path, is_unique, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
   ).bind(
     ipHash,
     truncate(geo.city, 100),
@@ -217,9 +237,15 @@ async function handleHit(request, env) {
     geo.lat,
     geo.lon,
     truncate(geo.timezone, 64),
-    truncate(request.headers.get('User-Agent') || '', 500),
-    truncate(body.referrer || '', 500),
-    truncate(body.path || '/', 300),
+    geo.asn,
+    truncate(geo.asOrganization, 128),
+    truncate(geo.region, 128),
+    truncate(geo.regionCode, 16),
+    truncate(geo.continent, 8),
+    isBot,
+    truncate(ua, 500),
+    truncate(info.referrer || '', 500),
+    truncate(info.path || '/', 300),
     isUnique,
     now
   ).run();
@@ -229,18 +255,56 @@ async function handleHit(request, env) {
   }
 
   const stats = await computeStats(env);
-  return json({
-    ok: true,
+  return {
     count: stats.count,
     uniq: stats.uniq,
     today: stats.today,
     uniq_today: stats.uniq_today,
-    // The visitor's OWN geolocation, echoed back for optional personalization.
+    // The visitor's OWN geolocation + network info, echoed back for optional personalization.
     ip: geo.ip,
     city: geo.city,
     country: geo.countryCode,
     timezone: geo.timezone,
+    asn: geo.asn,
+    asOrganization: geo.asOrganization,
+    region: geo.region,
+    continent: geo.continent,
+    isBot: isBot === 1,
+  };
+}
+
+async function handleHit(request, env) {
+  // Request body is optional; every field is length-truncated before storage.
+  let body = {};
+  try {
+    const parsed = await request.json();
+    if (parsed && typeof parsed === 'object') body = parsed;
+  } catch (e) { /* no body — fine */ }
+
+  const rec = await recordVisit(request, env, { path: body.path, referrer: body.referrer });
+  if (rec.rateLimited) return json({ error: 'rate_limited' }, 429);
+  return json({ ok: true, ...rec });
+}
+
+/** 1×1 transparent GIF (base64) — served by GET /pixel. */
+const PIXEL_GIF = 'R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+
+/**
+ * GET /pixel — JS-less tracking beacon (also catches crawlers/bots that don't
+ * execute JavaScript). Records a hit exactly like POST /hit and returns a 1×1
+ * transparent GIF. Query params: path (page), ref (referrer fallback).
+ */
+async function handlePixel(request, env, url) {
+  const gif = () => new Response(Uint8Array.from(atob(PIXEL_GIF), (c) => c.charCodeAt(0)), {
+    status: 200,
+    headers: { 'Content-Type': 'image/gif', 'Cache-Control': 'no-store', ...CORS_HEADERS },
   });
+  const rec = await recordVisit(request, env, {
+    path: url.searchParams.get('path') || '/',
+    referrer: request.headers.get('Referer') || url.searchParams.get('ref') || '',
+  });
+  // Rate-limited hits still get a valid GIF — silently dropped, no signal to bots.
+  return gif();
 }
 
 async function handleStats(request, env, url) {
@@ -260,9 +324,9 @@ async function handleExport(request, env, url) {
     const s = String(v == null ? '' : v);
     return /[",\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;
   };
-  const lines = ['created_at,ip_hash,city,country_code,timezone,path,referrer,user_agent,is_unique'];
+  const lines = ['created_at,ip_hash,city,country_code,region,region_code,continent,timezone,asn,as_org,is_bot,path,referrer,user_agent,is_unique'];
   for (const r of rows.results) {
-    lines.push([r.created_at, r.ip_hash, r.city, r.country_code, r.timezone, r.path, r.referrer, r.user_agent, r.is_unique].map(esc).join(','));
+    lines.push([r.created_at, r.ip_hash, r.city, r.country_code, r.region, r.region_code, r.continent, r.timezone, r.asn, r.as_org, r.is_bot, r.path, r.referrer, r.user_agent, r.is_unique].map(esc).join(','));
   }
   return new Response(lines.join('\n'), {
     status: 200,
@@ -408,6 +472,7 @@ function dashboardPage(stats, rows) {
   th { color:var(--muted); font-weight:600; text-transform:uppercase; letter-spacing:0.05em; font-size:0.68rem; background:var(--surface); }
   tr:last-child td { border-bottom:none; }
   .badge-u { display:inline-block; background:rgba(16,185,129,0.15); color:var(--accent); border:1px solid rgba(16,185,129,0.4); border-radius:999px; font-size:0.62rem; padding:0.05rem 0.45rem; }
+  .badge-bot { display:inline-block; background:rgba(249,115,22,0.15); color:#FB923C; border:1px solid rgba(249,115,22,0.45); border-radius:999px; font-size:0.62rem; padding:0.05rem 0.45rem; }
   .muted { color:var(--muted); }
   .empty { text-align:center; padding:2.5rem 1rem; color:var(--muted); }
   .pager { display:flex; align-items:center; justify-content:center; gap:0.75rem; padding:0.6rem; }
@@ -420,7 +485,7 @@ function dashboardPage(stats, rows) {
 <body>
 <header>
   <h1>🛡️ <span>visitor-tracker</span> · private dashboard</h1>
-  <p>Owner-only view · raw IPs are never stored (salted SHA-256 hash only) · geolocation via Cloudflare edge</p>
+  <p>Owner-only view · raw IPs are never stored (salted SHA-256 hash only) · geolocation + company/ASN via Cloudflare edge</p>
 </header>
 <main>
   <div class="cards">
@@ -456,7 +521,7 @@ function dashboardPage(stats, rows) {
   </div>
   <div class="table-wrap">
     <table>
-      <thead><tr><th>When</th><th>IP (hash)</th><th>Location</th><th>Timezone</th><th>Page</th><th>Referrer</th><th>User-Agent</th></tr></thead>
+      <thead><tr><th>When</th><th>IP (hash)</th><th>Network</th><th>Location</th><th>Timezone</th><th>Page</th><th>Referrer</th><th>User-Agent</th></tr></thead>
       <tbody id="tbody"></tbody>
     </table>
     <div class="pager">
@@ -658,9 +723,14 @@ function dashboardPage(stats, rows) {
     var tbody = document.getElementById('tbody');
     tbody.innerHTML = slice.map(function (r) {
       var loc = (flag(r.country_code) + ' ' + esc(r.city || '') + ' ' + esc(r.country_code || '')).trim();
+      var net = '';
+      if (r.as_org) net += esc(r.as_org);
+      if (r.asn) net += ' <span class="muted">AS' + esc(String(r.asn)) + '</span>';
+      if (r.region) net += ' <span class="muted">· ' + esc(r.region) + (r.region_code ? ' (' + esc(r.region_code) + ')' : '') + '</span>';
       return '<tr>' +
         '<td>' + fmtTime(r.created_at) + '</td>' +
-        '<td>' + shortHash(r.ip_hash) + (r.is_unique ? ' <span class="badge-u">unique</span>' : '') + '</td>' +
+        '<td>' + shortHash(r.ip_hash) + (r.is_unique ? ' <span class="badge-u">unique</span>' : '') + (r.is_bot ? ' <span class="badge-bot">🤖 bot</span>' : '') + '</td>' +
+        '<td>' + (net || '<span class="muted">—</span>') + '</td>' +
         '<td>' + (loc || '<span class="muted">—</span>') + '</td>' +
         '<td class="muted">' + esc(r.timezone || '—') + '</td>' +
         '<td>' + esc(r.path || '/') + '</td>' +
@@ -679,9 +749,9 @@ function dashboardPage(stats, rows) {
   function exportCSV() {
     var rows = filteredRows();
     var escCell = function (v) { var s = String(v == null ? '' : v); return /[",\\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s; };
-    var lines = ['created_at,ip_hash,city,country_code,timezone,path,referrer,user_agent,is_unique'];
+    var lines = ['created_at,ip_hash,city,country_code,region,region_code,continent,timezone,asn,as_org,is_bot,path,referrer,user_agent,is_unique'];
     rows.forEach(function (r) {
-      lines.push([r.created_at, r.ip_hash, r.city, r.country_code, r.timezone, r.path, r.referrer, r.user_agent, r.is_unique].map(escCell).join(','));
+      lines.push([r.created_at, r.ip_hash, r.city, r.country_code, r.region, r.region_code, r.continent, r.timezone, r.asn, r.as_org, r.is_bot, r.path, r.referrer, r.user_agent, r.is_unique].map(escCell).join(','));
     });
     var blob = new Blob([lines.join('\\n')], { type: 'text/csv;charset=utf-8' });
     var a = document.createElement('a');

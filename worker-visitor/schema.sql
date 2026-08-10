@@ -12,6 +12,12 @@ CREATE TABLE IF NOT EXISTS visits (
   lat          REAL,
   lon          REAL,
   timezone     TEXT,                       -- IANA tz name, e.g. 'Asia/Jakarta'
+  asn          INTEGER,                    -- Autonomous System Number, e.g. 15169 (Google)
+  as_org       TEXT,                       -- company / org name, e.g. 'Google LLC' (request.cf.asOrganization)
+  region       TEXT,                       -- first-level region name, e.g. 'West Java' (request.cf.region)
+  region_code  TEXT,                       -- ISO 3166-2 region code, e.g. 'JB' (request.cf.regionCode)
+  continent    TEXT,                       -- 2-letter continent, e.g. 'AS' (request.cf.continent)
+  is_bot       INTEGER NOT NULL DEFAULT 0, -- 1 = crawler/bot detected via UA or ASN
   user_agent   TEXT,
   referrer     TEXT,
   path         TEXT,

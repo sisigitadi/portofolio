@@ -2,12 +2,14 @@
 
 Cloudflare Worker backend untuk `index.html` (portfolio GitHub Pages):
 
-- **`POST /hit`** — mencatat kunjungan: IP (di-hash, tidak pernah disimpan mentah), kota/negara/timezone dari edge Cloudflare (`request.cf`), user-agent, referrer, path.
+- **`POST /hit`** — mencatat kunjungan: IP (di-hash, tidak pernah disimpan mentah), kota/negara/timezone **+ perusahaan/ASN/region/continent** dari edge Cloudflare (`request.cf`), flag bot, user-agent, referrer, path.
+- **`GET /pixel?path=…`** — beacon 1×1 transparent GIF tanpa JavaScript (menangkap crawler/no-JS); mencatat hit sama seperti `/hit` (rate-limit + dedupe harian sama).
 - **`GET /count`** — total kunjungan & unik (badge publik di footer, cache KV 60 detik).
 - **`GET /dashboard?key=…`** — dashboard HTML privat (login key, kartu statistik, tabel filter 24h / 7d / 30d / all).
 - **`GET /api/stats?key=…&range=…`** — JSON mentah untuk integrasi/ekspor.
+- **`GET /api/export?key=…&range=…`** — CSV server-side (hingga 50.000 baris).
 
-Tanpa API pihak ketiga: geolokasi berasal dari edge Cloudflare. Privasi UU PDP: IP mentah **tidak pernah disimpan** — hanya `SHA-256(salt + IP)`.
+Tanpa API pihak ketiga: geolokasi **dan nama perusahaan/ASN** (`request.cf.asOrganization`, `request.cf.asn`, `request.cf.region`) berasal dari edge Cloudflare (semua plan, gratis). Privasi UU PDP: IP mentah **tidak pernah disimpan** — hanya `SHA-256(salt + IP)`; kolom `as_org`/`asn`/`region` adalah data publik geolokasi edge, bukan identitas pribadi.
 
 ---
 
@@ -91,12 +93,13 @@ Dashboard 100% dikode di `worker.js` (fungsi `dashboardPage`/`loginPage` + query
 2. `npx wrangler deploy` (dari folder ini).
 3. Muat ulang dashboard.
 
-Data mentah per kunjungan sudah lengkap (ip_hash, city, country_code, lat, lon, timezone, user_agent, referrer, path, is_unique, created_at) — sebagian besar fitur baru cukup agregasi sisi-klien.
+Data mentah per kunjungan sudah lengkap (ip_hash, city, country_code, lat, lon, timezone, asn, as_org, region, region_code, continent, is_bot, user_agent, referrer, path, is_unique, created_at) — sebagian besar fitur baru cukup agregasi sisi-klien.
 
 ## 🧹 File
 
 | File | Fungsi |
 |---|---|
 | `worker.js` | Worker lengkap (rute, CORS, rate-limit, hash IP, dashboard HTML) |
-| `schema.sql` | Skema tabel D1 `visits` + index |
+| `schema.sql` | Skema tabel D1 `visits` + index (fresh install) |
+| `migration-org.sql` | Migrasi D1: tambah kolom asn/as_org/region/continent/is_bot ke tabel yang sudah ada |
 | `wrangler.toml` | Konfigurasi deploy (binding D1/KV, vars dev-only) |
