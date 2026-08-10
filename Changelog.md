@@ -6,6 +6,20 @@ The format is based on [Keep a Changelog](https://keepachamber.com/en/1.0.0/), a
 
 ---
 
+## [2.5.14] - 2026-08-11 — Upgrade Actions CI: Imun Deprecation Node 20
+
+### 🔄 Changed (semua 3 workflow — node20 → node24 runtime)
+- **`.github/workflows/preflight.yml`**: `actions/checkout@v4` → **v5**, `actions/setup-python@v5` → **v6**.
+- **`.github/workflows/lighthouse-ci.yml`**: `actions/checkout@v4` → **v5**, `actions/setup-node@v4` → **v5**, `browser-actions/setup-chrome@v1` → **v2** (v1 masih `using: node20` — sumber warning deprecation terakhir; v2 node24, input `chrome-version: 134` tetap valid).
+- **`.github/workflows/indexnow.yml`**: `actions/checkout@v4` → **v5**, `actions/setup-python@v5` → **v6**.
+- Semua versi target **diverifikasi node24** via `action.yml` resmi (`using: node24`) sebelum dipasang — bukan tebakan; versi lama `checkout@v4`/`setup-node@v4`/`setup-python@v5`/`setup-chrome@v1` di-scan ulang = 0 sisa.
+
+### 🧪 Validasi
+- 3 workflow YAML valid (`yaml.safe_load`) · 0 kemunculan versi lama di `.github/workflows/`.
+- Dikonfirmasi setelah push: run CI baru tanpa warning deprecation Node 20.
+
+---
+
 ## [2.5.13] - 2026-08-11 — pytest (52 test) Masuk CI Gate preflight
 
 ### 🚀 Changed (.github/workflows/preflight.yml)
