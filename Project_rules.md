@@ -10,6 +10,7 @@ This document establishes the mandatory engineering standards, security protocol
 2. **BRING-YOUR-OWN-KEY (BYOK) PATTERN**: All AI evaluation tools requiring API calls must request keys dynamically from the user and store them strictly in transient client memory.
 3. **SECURE EXTERNAL LINKS**: Every `<a>` element referencing an external domain must specify `target="_blank"` and `rel="noopener noreferrer"` to prevent reverse tabnabbing vulnerabilities.
 4. **SERVERLESS FORM SUBMISSION**: Contact forms must submit exclusively through secure HTTPS POST endpoints (`https://formspree.io/f/...`) without backend server dependencies.
+5. **INDEXNOW KEY IS PUBLIC BY DESIGN (EXCEPTION TO RULE 1)**: The IndexNow key file (`{KEY}.txt` at repo root, content = key) is an ownership-verification token that **must be publicly reachable** on the deployed site per the IndexNow protocol — it is not a third-party API key. Keep it committed & deployed; never treat it as a secret or gitignore it. The ping script is `indexnow-ping.py`, triggered automatically by `.github/workflows/indexnow.yml` on push to `main` (waits for Pages redeploy via sha256 comparison before pinging).
 
 ---
 

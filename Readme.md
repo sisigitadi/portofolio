@@ -56,6 +56,7 @@ This repository contains the single-page application (SPA) portfolio showcasing 
 - **📱 Installable PWA**: `manifest.json` + generated icons make the portfolio installable; `sw.js` service worker delivers offline caching (cache-first for same-origin, network-first for CDNs/navigation with offline fallback).
 - **🛡️ Anti-Spam Form**: Client-side 30-second submit rate limit layered on top of the Formspree honeypot.
 - **🔎 SEO**: `sitemap.xml` and `robots.txt` published for search-engine discovery, with `rel="canonical"`, OpenGraph, Twitter Cards, and JSON-LD all consolidated on the GitHub Pages canonical domain (`https://sisigitadi.github.io/portofolio`).
+- **⚡ IndexNow (real-time crawl notification)**: after every push to `main`, GitHub Actions runs `indexnow-ping.py`, which waits until GitHub Pages has actually redeployed (sha256 of the live page vs local `index.html`), then POSTs an IndexNow ping to `https://api.indexnow.org/indexnow` so Bing & other participating engines crawl immediately. The ownership key lives in a `{KEY}.txt` file at the repo root (auto-discovered by the script; content must equal the filename, per the IndexNow spec). Manual: `python indexnow-ping.py` (or `--dry-run` to preview the payload; `--key-file` to point at a specific key file).
 - **🛰️ Visitor Tracker (optional)**: hit-counter badge in the footer plus a private owner-only dashboard (IP hash, city/country/timezone, referrer, page, user-agent) powered by `worker-visitor/` (Cloudflare Worker + D1). The dashboard ships charts (30-day trend, hourly), top countries/cities, device/browser/OS breakdown, a world dot map, CSV export, path filter, pagination and 60s auto-refresh — all client-side, no CDN. Disabled by default; no cookies, raw IPs never stored. Owner access: click the footer copyright text **9×** to open the dashboard (key never embedded in the site; the login page can remember it in the owner's browser for auto-unlock).
 
 ---
@@ -74,6 +75,16 @@ This repository contains the single-page application (SPA) portfolio showcasing 
 
 - **Screen Reader Isolation**: All cosmetic ornaments (terminal brackets, prompt prefixes like `[SIMULATION]`, decorative status indicators) are isolated using `aria-hidden="true"`.
 - **Live Regions**: Interactive widgets use `aria-live="polite"` to ensure assistive technologies announce dynamic updates cleanly.
+
+---
+
+## ⚡ IndexNow — How It Works
+
+- **What**: [IndexNow](https://www.indexnow.org/) is an open protocol that tells search engines a URL changed, so they re-crawl immediately instead of waiting for their next scheduled crawl.
+- **Key file**: `{KEY}.txt` at the repo root, content = the key itself (8–128 chars, alphanumeric + hyphens). Get a key from Bing Webmaster Tools → **Configuration → IndexNow**, or generate your own and register it there. The file **must be committed and deployed** — it is a public ownership-proof file, exactly like the Google verification file; it is *not* a secret.
+- **Automatic ping**: `.github/workflows/indexnow.yml` runs `python indexnow-ping.py --wait-sha index.html` on every push to `main` (and manually via *Actions* tab). The `--wait-sha` flag polls `https://sisigitadi.github.io/portofolio/index.html` until its sha256 matches the local `index.html` — so the ping never fires before Pages finishes rebuilding. Status 200/202 = success; failures are informative only and never block the push.
+- **keyLocation**: because the site is a GitHub Pages *project* site at a subpath, the ping payload includes `keyLocation: https://sisigitadi.github.io/portofolio/{KEY}.txt` (required by the spec for non-root key files).
+- **Manual use**: `python indexnow-ping.py --dry-run` previews the payload; `python indexnow-ping.py` sends it. Exit 0 = OK, 1 = failure.
 
 ---
 

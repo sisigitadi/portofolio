@@ -6,6 +6,21 @@ The format is based on [Keep a Changelog](https://keepachamber.com/en/1.0.0/), a
 
 ---
 
+## [2.5.11] - 2026-08-11 — IndexNow Real-Time Crawl Notification + Bing Verification
+
+### 🚀 Added (IndexNow — crawl instan untuk Bing & mesin pencari peserta)
+- **`indexnow-ping.py`** — script ping IndexNow (Python 3 murni, tanpa dependensi): auto-discover file key `{KEY}.txt` di root repo (nama file = isi file = key, sesuai spesifikasi IndexNow), opsional `--wait-sha FILE` (polling halaman live sampai sha256 konten == file lokal — mencegah ping sebelum GitHub Pages selesai rebuild), POST JSON ke `https://api.indexnow.org/indexnow` berisi `host` + `key` + `keyLocation` (diperlukan karena file key berada di subpath `/portofolio/`) + `urlList` (homepage + sitemap). Exit 0 sukses / 1 gagal; `--dry-run` mencetak payload tanpa mengirim.
+- **`.github/workflows/indexnow.yml`** — workflow otomatis: setiap push ke `main` menjalankan `python indexnow-ping.py --wait-sha index.html --wait-timeout 420` (tunggu deploy ± selesai, lalu ping). Gagal ping bersifat informatif (tidak memblokir push). Trigger manual via tab Actions.
+- **File key `6605868618dc4f34b628743b70f6d7c9.txt`** (isi = key) di root repo — publik sesuai desain protokol (bukti kepemilikan, bukan secret; lihat Project_rules §1.5).
+- **`BingSiteAuth.xml`** — file verifikasi kepemilikan resmi Bing Webmaster Tools (hash user) — di-commit agar live di Pages dan properti Bing terverifikasi otomatis.
+- **Readme** — bagian baru "IndexNow — How It Works" + bullet di UX; **Project_rules.md §1.5** — klarifikasi bahwa IndexNow key adalah pengecualian mandat "NO API KEY EXPOSURE" (harus publik & ter-deploy).
+
+### 🧪 Validasi
+- `python -m py_compile indexnow-ping.py` OK · dry-run dengan key asli → payload valid (host, key, keyLocation subpath, urlList homepage+sitemap) · error elegan exit 1 saat key tidak ada (UnicodeEncodeError cp1252 Windows di-*fix*: semua output ASCII murni).
+- `python audit.py` → **12 PASS | 0 FAIL | 0 WARN** · `pytest` **20/20** · YAML workflow valid.
+
+---
+
 ## [2.5.10] - 2026-08-11 — Canonical & Structured-Data URLs Normalized to Trailing Slash
 
 ### 🔄 Changed (selaras dengan properti GSC terverifikasi)
