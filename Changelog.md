@@ -6,6 +6,18 @@ The format is based on [Keep a Changelog](https://keepachamber.com/en/1.0.0/), a
 
 ---
 
+## [2.5.8] - 2026-08-11 — og-preview.jpg Regenerated ("Applied AI Engineer")
+
+### 🖼️ Changed
+- **`og-preview.jpg` diregenerasi penuh (1200×630, 119 KB, progressive JPEG, quality 90)** — teks di dalamnya kini **"IT & SecOps Specialist | Applied AI Engineer"** (dua warna cyan/emerald, konsisten judul baru) menggantikan "Applied AI Practitioner". Elemen visual: badge **OPEN FOR REMOTE ROLES**, nama besar putih, tagline dua warna, sub deskripsi *"Security Operations • Applied AI • DevSecOps Automation"* + *"Based in Tangerang, Banten, Indonesia — remote-ready worldwide"*, chip **CORE STACK: AI & SECOPS** & **TOOLS: LINUX • OLLAMA • WAZUH**, URL footer, logo double-bracket — tema dark terminal dengan dot-grid + glow cyan/emerald konsisten situs.
+- **Cache-buster `?v=2.0.0` → `?v=2.1.0`** di 7 lokasi meta (itemprop image, link image_src, og:image, og:image:secure_url, twitter:image, JSON-LD `image`, script SEO dinamis `ogImageUrl`) — memaksa Facebook/WhatsApp/LinkedIn mengambil gambar baru (cache ketat per URL).
+
+### 🧪 Validasi
+- `file og-preview.jpg` → JPEG 1200×630 progressive · ukuran 119 KB (< 130 KB target) · verifikasi visual browser 5/5 (nama, tagline Engineer, badge REMOTE, tanpa crop, tampilan profesional).
+- `python audit.py` → 12 PASS | 0 FAIL | 0 WARN · pytest 20/20.
+
+---
+
 ## [2.5.7] - 2026-08-11 — Lokasi Lengkap "Tangerang, Banten, Indonesia"
 
 ### 🔄 Changed (jawaban atas pertanyaan owner: kenapa bukan "Tangerang, Banten, Indonesia")
