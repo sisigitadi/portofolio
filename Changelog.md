@@ -30,7 +30,7 @@ The format is based on [Keep a Changelog](https://keepachamber.com/en/1.0.0/), a
 - **Dead code dihapus**: panggilan guard `applyArchDynamicText()` di `applyLanguage()` (visualizer arsitektur sudah lama dihapus, guard permanen false).
 - **Frasa konsisten**: "zero network latency" → "no network latency" / "latensi jaringan nol" (pj2m & sm1b3 seragam).
 - **PWA cache bump**: `sw.js` `portofolio-v1` → `portofolio-v2` agar pengunjung lama menerima index.html + gambar assets baru.
-- **og-preview.jpg digenerasi ulang** (1200×630, 96 KB, turun dari 638 KB): tema cyberpunk gelap konsisten dengan situs — nama, tagline dua warna, sub deskripsi, badge "OPEN FOR REMOTE ROLES", chip CORE STACK/TOOLS, URL, garis aksen gradient; meta `og:image`/`twitter:image` cache-buster dibump `?v=1.0.1` → `?v=2.0.0` agar platform sosial mengambil versi baru.
+- **og-preview.jpg digenerasi ulang** (1200×630, 96 KB, turun dari 638 KB): tema cyberpunk gelap konsisten dengan situs — nama, tagline dua warna, sub deskripsi, badge "OPEN FOR REMOTE ROLES", chip CORE STACK/TOOLS, URL, garis aksen gradient; meta `og:image`/`twitter:image` cache-buster dibump `?v=1.0.1` → `?v=2.0.0` dan URL diarahkan ke GitHub Pages (`sisigitadi.github.io/portofolio/og-preview.jpg`) — raw.githubusercontent CDN tidak melewati cache lama. Terverifikasi live via opengraph.xyz (gambar baru 1200×630, 0 console error).
 - CSS custom ditambahkan karena Tailwind terkompilasi tidak memuat class arbitrary (`h-[26rem]`, `group-hover`, dst.) — pendekatan paling aman untuk SPA satu-file tanpa build system.
 
 ### ♿ Alt text deskriptif
