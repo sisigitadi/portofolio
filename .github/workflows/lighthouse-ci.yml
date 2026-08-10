@@ -1,0 +1,45 @@
+# ---------------------------------------------------------------------------
+# Lighthouse CI — Quality Gate (GitHub Actions)
+#
+# Menjalankan Lighthouse (performance, accessibility, best-practices, SEO)
+# terhadap situs yang di-serve dari hasil checkout, di setiap push ke main
+# dan setiap pull request. Assertions (lihat .lighthouserc.json):
+#   - accessibility / best-practices / seo : WAJIB 100 (error — blokir push/PR)
+#   - performance                          : >= 0.5 (warn — non-blocking, skor
+#     sintetis mobile-throttle rentan noise lintas runner)
+#
+# Jalur lokal yang setara:
+#     python -m http.server 8899 --bind 127.0.0.1 &
+#     npx --yes @lhci/cli@0.15.1 autorun --config=.lighthouserc.json
+# ---------------------------------------------------------------------------
+name: lighthouse-ci
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+  workflow_dispatch: # izin trigger manual dari tab Actions
+
+jobs:
+  lighthouse:
+    name: Lighthouse CI (a11y / BP / SEO = 100)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Serve site & run Lighthouse CI
+        run: |
+          python3 -m http.server 8899 --bind 127.0.0.1 > /tmp/httpd.log 2>&1 &
+          SERVER_PID=$!
+          sleep 2
+          npx --yes @lhci/cli@0.15.1 autorun --config=.lighthouserc.json
+          status=$?
+          kill $SERVER_PID 2>/dev/null || true
+          exit $status

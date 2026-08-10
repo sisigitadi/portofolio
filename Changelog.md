@@ -6,6 +6,19 @@ The format is based on [Keep a Changelog](https://keepachamber.com/en/1.0.0/), a
 
 ---
 
+## [2.4.4] - 2026-08-10 — Lighthouse CI Gate (GitHub Actions)
+
+### 🚀 Added (.github/workflows/lighthouse-ci.yml + .lighthouserc.json)
+- **Gerbang kualitas ke-4**: workflow `lighthouse-ci` menjalankan Lighthouse terhadap situs yang di-serve dari hasil checkout (server lokal `python3 -m http.server 8899`) di setiap push/PR ke `main` — melengkapi pre-commit, pre-push, dan preflight-audit.
+- **Assertions (`.lighthouserc.json`)**: `accessibility`, `best-practices`, dan `seo` **wajib 100** (`minScore: 1` → error, memblokir push/PR jika turun); `performance` ≥ 0.5 (**warn**, non-blocking — skor sintetis mobile-throttle rentan noise lintas runner).
+- **Detail teknis**: `@lhci/cli@0.15.1` via `npx` (pin versi), `node 20` via `actions/setup-node@v4`, `chromeFlags --no-sandbox --disable-gpu` (standar runner ubuntu), `numberOfRuns: 2` untuk stabilitas, `upload.target: filesystem` (artefak lokal saja, tanpa server LHCI publik).
+- **Dokumentasi**: Readme §Quality Gates diperbarui "three gates" → "**four gates**" (dengan perintah ekivalen lokal untuk reproduksi); `.gitignore` menambah `lhci-public/` & `.lhci/`.
+
+### 🧪 Validasi
+- `python -c json.load(.lighthouserc.json)` → valid · YAML workflow valid · `lhci healthcheck` lokal → PASS · `lhci autorun` lokal berhasil mengumpulkan hasil Lighthouse ("No browser errors logged") — kegagalan pembersihan temp dir hanya quirk Windows lokal, tidak terjadi di runner ubuntu; pengesahan akhir = run CI pertama di GitHub setelah push.
+
+---
+
 ## [2.4.3] - 2026-08-10 — Lighthouse Optimization: Accessibility 100, Best Practices 100
 
 ### 🚀 Performance

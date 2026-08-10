@@ -6,6 +6,10 @@ __pycache__/
 *.py[cod]
 .pytest_cache/
 
+# Lighthouse CI artifacts (local runs)
+lhci-public/
+.lhci/
+
 # OS junk
 Thumbs.db
 desktop.ini
