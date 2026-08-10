@@ -235,9 +235,9 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
     return p.parse_args(argv)
 
 
-def main(argv: list[str] | None = None) -> int:
+def main(argv: list[str] | None = None, root: Path | None = None) -> int:
     args = parse_args(argv if argv is not None else sys.argv[1:])
-    root = Path(__file__).resolve().parent
+    root = root or Path(__file__).resolve().parent
 
     loaded = load_key(root, args.key_file)
     if loaded is None:

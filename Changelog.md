@@ -6,6 +6,22 @@ The format is based on [Keep a Changelog](https://keepachamber.com/en/1.0.0/), a
 
 ---
 
+## [2.5.12] - 2026-08-11 — Unit Tests untuk indexnow-ping.py (32 test)
+
+### 🧪 Added (test_indexnow_ping.py)
+- **32 unit test baru untuk `indexnow-ping.py`** (pytest) tanpa jaringan — melengkapi `test_audit.py` (20) menjadi total **52 test**:
+  - **Auto-discover key**: menemukan `{KEY}.txt` valid (nama = isi), menolak content-mismatch / nama < 8 char / karakter ilegal / file .txt biasa, memilih key valid di antara banyak file; `load_key` eksplisit vs auto, file hilang → None, nama invalid → None.
+  - **Payload IndexNow**: bentuk `{host, key, keyLocation, urlList}` benar, JSON round-trip aman; `ping_indexnow` dry-run → True tanpa jaringan; HTTP 200 → True; HTTP 403 → False + pesan; error jaringan → False (tidak crash).
+  - **CRLF fallback** (`deployed_content_hash`): file CRLF → hash **sama** dengan konten LF murni (inti perbaikan wait-sha Windows), LF murni tidak berubah, file hilang → None — subprocess.run di-mock agar fallback yang diuji.
+  - **wait_until_deployed**: match → True instan, tidak pernah cocok → False (timeout), file tak ada → True (dilewati); `time.sleep` di-mock agar cepat.
+  - **CLI & main()**: default args, flag `--dry-run`/`--wait-sha`/`--wait-timeout`/`--key-file`, `main()` exit 1 tanpa key, exit 0 + payload benar dengan key (root disuntikkan via parameter baru `main(..., root=...)`), regex nama file key (ok/bad set).
+- **`indexnow-ping.py`**: `main()` kini menerima `root: Path | None` opsional — memungkinkan penyuntikan direktori root di test tanpa menyentuh perilaku produksi.
+
+### 🧪 Validasi
+- `python -m pytest test_audit.py test_indexnow_ping.py -q` → **52 passed** · `python audit.py` → **12 PASS | 0 FAIL | 0 WARN** · `py_compile` OK.
+
+---
+
 ## [2.5.11] - 2026-08-11 — IndexNow Real-Time Crawl Notification + Bing Verification
 
 ### 🚀 Added (IndexNow — crawl instan untuk Bing & mesin pencari peserta)
