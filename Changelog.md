@@ -6,6 +6,19 @@ The format is based on [Keep a Changelog](https://keepachamber.com/en/1.0.0/), a
 
 ---
 
+## [2.5.13] - 2026-08-11 — pytest (52 test) Masuk CI Gate preflight
+
+### 🚀 Changed (.github/workflows/preflight.yml)
+- **Step baru "Run Unit Tests (pytest)"** setelah audit: `python -m pip install pytest` lalu `python -m pytest test_audit.py test_indexnow_ping.py -q` — CI kini menjalankan **52 test penuh** (20 audit + 32 indexnow-ping), bukan hanya `audit.py`. Gagal salah satu → push/PR diblokir.
+- Header workflow diperbarui (audit + pytest sebagai dua gerbang), job name → `Pre-Flight Audit (12 checks) + pytest (52 tests)`.
+- Readme §Four gates disinkronkan (gate #3 kini menyebut audit + 52 pytest).
+
+### 🧪 Validasi
+- YAML tervalidasi (`yaml.safe_load`) — 4 steps: Checkout, Setup Python, Run Pre-Flight Audit, Run Unit Tests (pytest).
+- `python -m pytest test_audit.py test_indexnow_ping.py -q` lokal → **52 passed** (persis perintah CI).
+
+---
+
 ## [2.5.12] - 2026-08-11 — Unit Tests untuk indexnow-ping.py (32 test)
 
 ### 🧪 Added (test_indexnow_ping.py)
