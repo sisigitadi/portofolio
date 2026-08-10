@@ -6,6 +6,20 @@ The format is based on [Keep a Changelog](https://keepachamber.com/en/1.0.0/), a
 
 ---
 
+## [2.5.7] - 2026-08-11 — Lokasi Lengkap "Tangerang, Banten, Indonesia"
+
+### 🔄 Changed (jawaban atas pertanyaan owner: kenapa bukan "Tangerang, Banten, Indonesia")
+- **Strategi lokasi dua tingkat**: `title` tetap **"Tangerang, Indonesia"** (91 char; menambah "Banten" → 98 char akan memotong keyword di SERP yang sudah di batas ~60 char tampilan), sedangkan **deskripsi & konten memakai format lengkap**.
+- **Meta description + og:description + twitter:description** → `Remote IT SecOps & Applied AI Engineer in Tangerang, Banten, Indonesia. SOC, Wazuh SIEM, DevSecOps & AI. View portfolio.` (tepat **120 char** — batas optimal).
+- **Hero pitch EN/ID** → *"Based in Tangerang, Banten, Indonesia — open to remote roles worldwide"* / *"Berbasis di Tangerang, Banten, Indonesia — terbuka untuk peran remote di seluruh dunia"* (HTML default + kamus i18n).
+- **JSON-LD** `Person.description` & `WebSite.description` ikut menyebut Banten; `address` sudah lengkap (`Tangerang` + `Banten` + `Indonesia`) sejak awal.
+- Total kemunculan "Banten": 9× (description×3, pitch EN×2, pitch ID×1, JSON-LD×2, address×1).
+
+### 🧪 Validasi
+- `python audit.py` → **12 PASS | 0 FAIL | 0 WARN** · `pytest` **20/20** · 2 blok JSON-LD valid · description 120 char.
+
+---
+
 ## [2.5.6] - 2026-08-11 — "Remote" Keyword Optimization (Remote-Ready Emphasis)
 
 ### 🚀 Optimasi penekanan "Remote" (intent recruiter global)
