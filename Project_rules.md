@@ -21,7 +21,8 @@ This document establishes the mandatory engineering standards, security protocol
    - *Extractive Summarization*: Describe as word-frequency statistical extraction.
    - *Skill Matching*: Describe as heuristic array matching.
    - *Password Strength*: Describe as mathematical entropy calculation.
-2. **EMPIRICAL PROFESSIONAL TITLES**: Maintain the empirical title `IT & SecOps Specialist | Applied AI Engineer` across all metadata, headers, and bio narratives. This matches the owner's CV wording exactly ("Applied AI Engineer" was the original hero title; it was briefly renamed to "Applied AI Practitioner" in v2.0.4, then restored in v2.5.5 per owner decision for CV alignment & better SEO). Do not use unanchored titles like "Applied AI Practitioner" or invented variants.
+2. **EMPIRICAL PROFESSIONAL TITLES**: Maintain the empirical title `IT & SecOps Specialist | Applied AI Engineer` across headers, bio narratives, JSON-LD, and manifest.json. This matches the owner's CV wording exactly ("Applied AI Engineer" was the original hero title; it was briefly renamed to "Applied AI Practitioner" in v2.0.4, then restored in v2.5.5 per owner decision for CV alignment & better SEO). Do not use unanchored titles like "Applied AI Practitioner" or invented variants.
+   - **SERP-safe meta title (v2.5.15)**: the `<title>` + `meta name="title"` + `itemprop="name"` + `og:title` + `twitter:title` use the compact variant `Sigit Adi Irianto | IT & SecOps | Applied AI Engineer` (53 chars) — Bing/Google truncate titles past ~60-65 chars, so the long empirical title is reserved for on-page content & structured data where length is not truncated. Re-introducing `| Tangerang, Indonesia` or the full title into the meta `<title>` is prohibited unless the total stays ≤ 65 chars.
 3. **NON-MILITARY LANGUAGE**: Do not use the word "veteran". Use professional alternatives such as `"experienced IT & SecOps specialist"` or `"seasoned IT infrastructure manager"`.
 
 ---

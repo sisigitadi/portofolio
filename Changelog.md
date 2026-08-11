@@ -6,6 +6,19 @@ The format is based on [Keep a Changelog](https://keepachamber.com/en/1.0.0/), a
 
 ---
 
+## [2.5.15] - 2026-08-11 — Bing URL Inspection Fix: Title Too Long & Meta Description Missing
+
+### 🔄 Changed (jawaban atas error Bing Webmaster URL Inspection)
+- **Error 1 "Title too long" (91 char → 53 char)**: `<title>` + `meta name="title"` + `itemprop="name"` + `og:title` + `twitter:title` (5 lokasi) dipersingkat dari `Sigit Adi Irianto | IT &amp; SecOps Specialist | Applied AI Engineer | Tangerang, Indonesia` → **`Sigit Adi Irianto | IT &amp; SecOps | Applied AI Engineer`** (53 char decoded, dalam batas Bing/Google ~65 char). Judul empiris penuh tetap di hero, JSON-LD, dan manifest.json (tidak ter-truncate di sana).
+- **Error 2 "Meta Description tag missing"**: meta description + `og:description` + `twitter:description` (3 lokasi) — entitas `&amp;` diganti kata **"and"** (`Remote IT SecOps and Applied AI Engineer in Tangerang, Banten, Indonesia. SOC, Wazuh SIEM, DevSecOps and AI. View portfolio.` — **124 char** ≤ 155 batas Bing). Tag-nya sebenarnya ada (1 instance valid di `<head>`), tapi parser Bing dilaporkan gagal mendeteksi description ber-entity `&amp;`; menghapus entity menghilangkan kandidat penyebab + re-inspect akan memaksa crawl ulang.
+- **Project_rules §2.2** disinkronkan: judul empiris penuh tetap wajib di konten/JSON-LD/manifest, sedangkan meta `<title>` memakai varian ringkas SERP-safe (53 char) — dengan larangan mengembalikan title panjang ke meta tanpa tetap ≤ 65 char.
+
+### 🧪 Validasi
+- 5× title + 3× description di-update; decoded title 53 char, decoded description 124 char.
+- `python audit.py` → **12 PASS | 0 FAIL | 0 WARN** · `pytest` **52/52**.
+
+---
+
 ## [2.5.14] - 2026-08-11 — Upgrade Actions CI: Imun Deprecation Node 20
 
 ### 🔄 Changed (semua 3 workflow — node20 → node24 runtime)
