@@ -2,13 +2,14 @@
 # Pre-Flight Audit & Unit Tests — CI Gate (GitHub Actions)
 #
 # Menjalankan dua gerbang di setiap push ke main dan setiap pull request:
-#   1. audit.py lengkap (12 pemeriksaan) — struktur/sanitasi index.html.
-#   2. pytest penuh (52 test: test_audit.py 20 + test_indexnow_ping.py 32) —
+#   1. audit.py lengkap (13 pemeriksaan, feature-conditional) — struktur/sanitasi
+#      index.html (SPA lama maupun Field Manual satu-bahasa).
+#   2. pytest penuh (62 test: test_audit.py 30 + test_indexnow_ping.py 32) —
 #      perilaku audit & script IndexNow.
 # Jika salah satu gagal (exit != 0), workflow gagal dan push/PR diblokir.
 #
 # Jalur lokal yang setara:
-#     python audit.py           # audit penuh (wajib 12/12 PASS)
+#     python audit.py           # audit penuh (wajib 13/13 PASS)
 #     python audit.py --quick   # tanpa node --check (untuk pre-commit)
 #     python -m pytest test_audit.py test_indexnow_ping.py -q
 # ---------------------------------------------------------------------------
@@ -23,14 +24,14 @@ on:
 
 jobs:
   audit:
-    name: Pre-Flight Audit (12 checks) + pytest (52 tests)
+    name: Pre-Flight Audit (13 checks) + pytest (62 tests)
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0 (pinned)
 
       - name: Setup Python
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0 (pinned)
         with:
           python-version: "3.12"
 

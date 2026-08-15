@@ -1,6 +1,6 @@
 #!/bin/sh
 # ---------------------------------------------------------------------------
-# Git pre-push hook — Gerbang Audit Pre-Flight (12/12 PASS wajib).
+# Git pre-push hook — Gerbang Audit Pre-Flight (13/13 PASS wajib).
 #
 # Menolak push jika audit.py menemukan isu (exit code != 0). Dikenakan
 # pada setiap push ke remote mana pun (branch apa pun).
@@ -17,7 +17,7 @@ set -e
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT"
 
-echo "[pre-push] Menjalankan audit pre-flight (wajib 12/12 PASS)..."
+echo "[pre-push] Menjalankan audit pre-flight (wajib 13/13 PASS)..."
 # Utamakan python3 (audit.py memakai sintaks Python 3; 'python' di sebagian
 # sistem lama masih menunjuk Python 2 yang akan gagal dengan pesan menyesatkan).
 if command -v python3 >/dev/null 2>&1; then

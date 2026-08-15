@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<link rel="canonical" href="https://sisigitadi.github.io/portofolio/">
+<title>Concept 05 — Plaintext · Sigit Adi Irianto</title>
+<style>
+  :root{
+    --bg:#FFFFFF; --ink:#111111; --ink2:#333333; --muted:#666666; --line:#000000;
+    --accent:#CC0000;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);color:var(--ink);font:16px/1.7 ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace}
+  ::selection{background:#111;color:#fff}
+  a{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
+  a:hover{color:var(--accent)}
+  .wrap{max-width:880px;margin:0 auto;padding:0 20px}
+
+  /* hard frame, man-page style */
+  .frame{border:3px solid var(--line);margin:24px 0}
+  .frame-head{border-bottom:3px solid var(--line);padding:12px 16px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:13px;background:#fff}
+  .frame-head b{background:var(--ink);color:#fff;padding:2px 8px}
+  nav{border-bottom:1px solid var(--line);padding:12px 16px;font-size:14px;display:flex;gap:24px;flex-wrap:wrap}
+  nav a{text-decoration:none}
+  nav a:hover{text-decoration:underline}
+
+  header{padding:34px 16px 30px;border-bottom:3px solid var(--line)}
+  .sec-label{display:inline-block;font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--line);padding:3px 10px;margin-bottom:22px}
+  h1{font-size:clamp(32px,6vw,60px);line-height:1.02;font-weight:700;margin-bottom:10px}
+  h1 .underscore{color:var(--accent)}
+  .role{font-size:clamp(15px,2.2vw,19px);font-weight:700;margin-bottom:16px}
+  .role::before{content:"> ";color:var(--accent)}
+  .pitch{color:var(--ink2);max-width:620px;margin-bottom:26px;font-size:15px}
+  .kv{border-top:1px solid var(--line)}
+  .kv .row{display:flex;gap:18px;padding:10px 2px;border-bottom:1px solid var(--line);font-size:14.5px}
+  .kv .k{width:200px;flex-shrink:0;color:var(--muted);text-transform:uppercase;font-size:12px;letter-spacing:.05em;padding-top:4px}
+  .kv .v b{font-weight:700}
+  .cta{display:flex;gap:0;flex-wrap:wrap;margin-top:26px}
+  .btn{display:inline-block;padding:13px 22px;border:2px solid var(--line);color:var(--ink);background:#fff;font:inherit;font-size:14px;font-weight:700;cursor:pointer;margin-right:10px}
+  .btn:hover{background:var(--ink);color:#fff;text-decoration:none}
+  .btn.red{border-color:var(--accent);color:var(--accent)}
+  .btn.red:hover{background:var(--accent);color:#fff}
+
+  section{padding:44px 0;border-top:1px solid var(--line)}
+  h2{font-size:22px;margin-bottom:4px}
+  h2 .no{color:var(--accent);margin-right:8px}
+  .sub{color:var(--muted);font-size:13px;margin-bottom:22px}
+
+  table{width:100%;border-collapse:collapse;font-size:14px}
+  th{text-align:left;text-transform:uppercase;font-size:11.5px;letter-spacing:.06em;color:var(--muted);border-bottom:2px solid var(--line);padding:8px 10px}
+  td{border-bottom:1px solid var(--line);padding:12px 10px;vertical-align:top}
+  td b{font-weight:700}
+  .cat{color:var(--accent);font-weight:700}
+
+  footer{border-top:3px solid var(--line);padding:22px 16px 34px;font-size:13.5px;color:var(--muted)}
+  footer a{color:var(--ink2)}
+  .end{margin-top:16px;color:var(--muted)}
+
+  /* -- animations -- */
+  @keyframes blinkCur{0%,49%{opacity:1}50%,100%{opacity:0}}
+  @keyframes hardIn{from{opacity:0}to{opacity:1}}
+  .underscore{animation:blinkCur 1.1s steps(1) infinite}
+  .kv .row{animation:hardIn .01s linear both}
+  .kv .row:nth-child(1){animation-delay:.15s}
+  .kv .row:nth-child(2){animation-delay:.3s}
+  .kv .row:nth-child(3){animation-delay:.45s}
+  .kv .row:nth-child(4){animation-delay:.6s}
+  .kv .row:nth-child(5){animation-delay:.75s}
+  table tr{animation:hardIn .01s linear both}
+  table tr:nth-child(1){animation-delay:.2s}
+  table tr:nth-child(2){animation-delay:.3s}
+  table tr:nth-child(3){animation-delay:.4s}
+  table tr:nth-child(4){animation-delay:.5s}
+  table tr:nth-child(5){animation-delay:.6s}
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation:none!important;transition:none!important}
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="frame">
+    <div class="frame-head">
+      <span><b>SIGIT(1)</b> — IT &amp; SECOPS SPECIALIST · APPLIED AI ENGINEER</span>
+      <span>2026 · TANGERANG, ID</span>
+    </div>
+    <nav>
+      <a href="#offer">1. OFFER</a>
+      <a href="#projects">2. PROJECTS</a>
+      <a href="#exp">3. HISTORY</a>
+      <a href="#contact">4. CONTACT</a>
+    </nav>
+
+    <header>
+      <span class="sec-label">NAME</span>
+      <h1>SIGIT<span class="underscore">_</span>ADIRI<span class="underscore">_</span>IRIANTO</h1>
+      <div class="role">IT &amp; SecOps Specialist | Applied AI Engineer</div>
+      <p class="pitch">Infrastructure and systems administration for 20+ years. Focused on security operations and applied AI in recent years. Based in Tangerang, Indonesia. Open to remote roles worldwide. No fluff, no buzzwords — just systems that stay up.</p>
+
+      <div class="kv">
+        <div class="row"><div class="k">Experience</div><div class="v"><b>20+ years</b> — infra &amp; sysadmin</div></div>
+        <div class="row"><div class="k">Security</div><div class="v"><b>Wazuh SIEM</b> (MTTR −45%) · <b>FortiWeb WAF</b> · NIST IR · ISO 27001 readiness</div></div>
+        <div class="row"><div class="k">Infra</div><div class="v"><b>Linux / Ubuntu</b> · <b>Docker</b> · SQL reporting pipelines · 50+ staff supported</div></div>
+        <div class="row"><div class="k">AI</div><div class="v"><b>Ollama</b> local LLM · BYOK client-side ML · prompt pipeline testing</div></div>
+        <div class="row"><div class="k">Current</div><div class="v">Web Administrator — Direktorat PPI, Proyek MoE &amp; BPDLH</div></div>
+      </div>
+
+      <div class="cta">
+        <a class="btn" href="#contact">REQUEST RESUME (PDF)</a>
+        <a class="btn red" href="#projects">VIEW PROJECTS</a>
+      </div>
+    </header>
+
+    <section id="offer" style="border-top:3px solid var(--line)">
+      <h2><span class="no">1</span>OFFER</h2>
+      <p class="sub">What I can operate, maintain, and improve for your team.</p>
+      <table>
+        <tr><th>#</th><th>Capability</th><th>Details</th></tr>
+        <tr><td class="cat">01</td><td><b>Applied AI &amp; Prompt Engineering</b></td><td>LLM pipeline testing &amp; optimization, BYOK client-side ML, local models (Ollama).</td></tr>
+        <tr><td class="cat">02</td><td><b>SecOps &amp; Threat Monitoring</b></td><td>Wazuh SIEM triage, FortiWeb WAF telemetry, NIST IR playbooks, ISO 27001 readiness audits.</td></tr>
+        <tr><td class="cat">03</td><td><b>IT Infrastructure &amp; Admin</b></td><td>Linux/Ubuntu &amp; Docker administration, automated SQL reporting, 20+ yrs experience.</td></tr>
+        <tr><td class="cat">04</td><td><b>Remote &amp; Global Readiness</b></td><td>Async workflows, multi-timezone coordination, self-directed troubleshooting, docs.</td></tr>
+      </table>
+    </section>
+
+    <section id="projects">
+      <h2><span class="no">2</span>PROJECTS</h2>
+      <p class="sub">Deployed work, in production.</p>
+      <table>
+        <tr><th>Name</th><th>Category</th><th>Description</th></tr>
+        <tr><td><b>PromptMatrix 2.0</b></td><td class="cat">AI · Web</td><td>Multi-variable prompt testing &amp; optimization for LLM pipelines.</td></tr>
+        <tr><td><b>A.R.Y.A. SOC Analytics</b></td><td class="cat">SecOps</td><td>SOC analytics &amp; triage support dashboard.</td></tr>
+        <tr><td><b>KantinKu ERP</b></td><td class="cat">Web</td><td>Canteen operations ERP with reporting.</td></tr>
+        <tr><td><b>SmartExpenseML</b></td><td class="cat">ML · Privacy</td><td>Local rule-based expense classification — NLP + regex, zero cloud.</td></tr>
+        <tr><td><b>SCOPS Command</b></td><td class="cat">SecOps</td><td>Security operations command tooling.</td></tr>
+      </table>
+    </section>
+
+    <section id="exp">
+      <h2><span class="no">3</span>HISTORY</h2>
+      <p class="sub">Most recent first.</p>
+      <table>
+        <tr><th>Period</th><th>Role</th><th>Context</th></tr>
+        <tr><td class="cat">2026 → NOW</td><td><b>Web Administrator</b></td><td>Direktorat PPI, Proyek MoE &amp; BPDLH — Docker on Ubuntu/WSL, Wazuh SIEM, DVWA sandboxing.</td></tr>
+        <tr><td class="cat">RECENT</td><td><b>SecOps &amp; Applied AI</b></td><td>SOC threat triage, DevSecOps automation, applied AI pipelines.</td></tr>
+        <tr><td class="cat">2000s →</td><td><b>Infrastructure &amp; SysAdmin</b></td><td>Two decades of production uptime, reporting pipelines, team support (50+ staff).</td></tr>
+      </table>
+    </section>
+
+    <footer id="contact">
+      <h2 style="font-size:16px;color:var(--ink)"><span class="no">4</span>CONTACT</h2>
+      <p style="margin-top:8px">linkedin: <a href="#">/in/sigitadi</a><br>
+      email: <a href="#">si.sigitadi@gmail.com</a><br>
+      medium: <a href="#">@si.sigitadi</a></p>
+      <p class="end">Concept 05/05 — Plaintext Brutalist · design preview, not the live site<br>
+      No gradients were harmed in the making of this page.</p>
+    </footer>
+  </div>
+</div>
+
+</body>
+</html>

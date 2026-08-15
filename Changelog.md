@@ -6,6 +6,75 @@ The format is based on [Keep a Changelog](https://keepachamber.com/en/1.0.0/), a
 
 ---
 
+## [2.6.1] - 2026-08-16 — Field Manual → Produksi: SEO/SEM Parity, Visitor Tracker & Gate Audit Adaptif
+
+> **Implementasi konsep terpilih (Field Manual) sebagai `index.html` produksi baru** — semua sinyal SEO/SEM & metode crawler Google/Bing dipertahankan, visitor tracker + shortcut dashboard diaktifkan, dan gerbang produksi (`audit.py` + pytest) diadaptasi agar kompatibel dengan Field Manual.
+
+### 🚀 Added / Changed (index.html — konsep terpilih diimplementasikan)
+- **Field Manual menjadi `index.html` produksi** (konten dari `design-previews/02-field-manual.html`): metafora manual cetak, TOC satu-satunya navigasi, Request Slip — Resume (PDF) ke endpoint Formspree produksi `mkgknrqk` (hidden `source: field-manual`), 16 coretan tinta saat scroll, font Caveat.
+- **SEO/SEM head paritas penuh dengan produksi lama**: title 53 char (fix Bing 2.5.15), description 124 char tanpa `&amp;`, `robots: index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1` (**noindex preview dihapus**), canonical, OG/Twitter (`og-preview.jpg`), JSON-LD Person + WebSite, geo.region, author, referrer, **CSP produksi**, PWA manifest + apple-touch-icon, `favicon.ico` fallback.
+- **Visitor tracker (`worker-visitor/`) aktif**: badge `#visitor-badge` (kolofon manual) + **shortcut tersembunyi klik `#footer-copyright` 9× (selang ≤ 2 dtk) → `/dashboard` privat** — diverifikasi end-to-end via CDP headless (navigasi ke `.../dashboard` terkonfirmasi; worker live, hit tercatat); client script POST `/hit` + poll `/count` 60 dtk + `<noscript>` pixel.
+- **Font Caveat digabung ke satu stylesheet Google Fonts** (Inter + Space Mono + Caveat) sesuai Project_rules §4.4 — tanpa `<link>` terpisah.
+- **Teks kontradiktif dihapus**: "design preview, not the live site" & referensi "production site" di footer; hidden form `source: field-manual-preview` → `field-manual`.
+
+### 🧰 Gate produksi adaptif (audit.py + test)
+- **`audit.py` 11 → 13 pemeriksaan**: check spesifik-SPA menjadi **feature-conditional** — gimmick CLI (#4), carousel testimonial (#7), kamus i18n (#8), panggilan variabel `getElementById` (#9b) melewati sebagai PASS "tidak berlaku" saat fitur tidak ada (Field Manual satu-bahasa & tanpa carousel). Check #8 kini juga FAIL bila `data-i18n` dipakai tanpa kamus.
+- **+2 pemeriksaan baru**: **#11 SEO meta** (title ≤ 65 char, description ≤ 160 char, robots `index` tanpa noindex, canonical, OG, Twitter) dan **#12 structured data JSON-LD valid** (tipe `Person` + `WebSite` wajib, semua blok JSON valid).
+- **`test_audit.py` 20 → 30 test** (+10): satu-bahasa PASS i18n, `data-i18n` tanpa kamus FAIL, tanpa carousel PASS, slide mismatch FAIL, SEO noindex / title hilang / JSON-LD invalid / tipe schema hilang FAIL; mutasi diarahkan ke ID Field Manual (`visitor-badge`, `slip-email`).
+
+### 🛡️ Security hardening (v2.6.1)
+- **CSP `script-src` tanpa `'unsafe-inline'`**: diganti **sha256 hash** dari 2 inline script (`sha256-mVCKz/hkUhstJwPooOgQgDgqC4t/7VfL87IPri1I8bY=` & `sha256-kHtiFb3B+fXE7H8EWDyTM5kRueZ08F1f1Rdw63D0DTE=`) — injeksi script langsung diblokir (XSS mitigation terkuat). **Jika script inline diubah, hash wajib dihitung ulang** (Project_rules §1.7) — kalau tidak, CSP memblokir script dan halaman rusak diam-diam.
+- **`connect-src` dipersempit**: `https:` (bebas) → hanya `'self' https://formspree.io https://portofolio-visitor-tracker.si-sigitadi.workers.dev` (anti-exfiltrasi data ke domain lain).
+- **`img-src` dipersempit**: `https:` → `'self' data: <worker>` (beacon gambar dari domain asing diblokir).
+- **Direktif baru**: `object-src 'none'`, `frame-src 'none'`, `base-uri 'self'` (anti base-tag injection), `form-action 'self' https://formspree.io`, `upgrade-insecure-requests` + **`Permissions-Policy`** (camera/mic/geolocation/payment/usb/autoplay disabled).
+- **Review backend worker** (`worker-visitor/`): aman — constant-time key compare, salted SHA-256 IP, prepared statements (anti SQLi), mitigasi `</script>` breakout pada embed JSON dashboard, HTML escaping pada semua field attacker-controlled (path/referrer/user_agent), rate limit per-IP. Tanpa perubahan kode.
+
+### 🖥️ Display compatibility (semua display)
+- **Fix**: tabel sertifikasi terpotong di layar sangat sempit (Galaxy Fold outer 280px — kolom Issuer ter-clip oleh `overflow:hidden` `.sheet`) → dibungkus **`.table-scroll`** (`overflow-x:auto` + `-webkit-overflow-scrolling:touch`) + pengaman `html,body{overflow-x:hidden}`.
+- **Matriks 14 viewport diverifikasi 0 overflow**: Ulefone Armor 11 5G (360×780 @ DPR2), iPhone SE (320), Android (360), iPhone 12/13 (390), Plus (414), **Fold outer (280)**, phone landscape, tablet 768/1024, laptop 1280–1366, desktop 1440–1920, ultrawide 3440.
+
+### 🔗 Sosmed & OG image
+- **Link X/Twitter dihapus total** (footer, JSON-LD `sameAs`, `twitter:site`, `twitter:creator`) — **nol asosiasi X**; footer kini linkedin · github · medium · email.
+- **`og-preview.jpg` digenerate ulang** dengan estetika Field Manual (1200×630, 82 KB, render via Chrome headless CDP) + cache-bust **`?v=2.6.1`** di 6 referensi (og:image, og:image:secure_url, twitter:image, itemprop image, image_src, JSON-LD image).
+
+### 🔐 CI supply-chain hardening
+- **Semua action workflow di-pin ke commit SHA penuh** di `preflight.yml`, `indexnow.yml`, `lighthouse-ci.yml`: checkout `fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09` (v5.1.0), setup-python `ece7cb06caefa5fff74198d8649806c4678c61a1` (v6.3.0), setup-node `a0853c24544627f65ddf259abe73b1d18a591444` (v5.0.0), setup-chrome `086160e580d6e8c142ad5ba29009dcde677c6321` (v2) — tag tidak bisa bergerak diam-diam (mitigasi supply-chain).
+
+### 🧪 Validasi
+- `python audit.py index.html` → **13 PASS | 0 FAIL | 0 WARN** · SPA lama (`index_asli.html`) tetap **13 PASS** (tanpa regresi) · `python -m pytest test_audit.py test_indexnow_ping.py -q` → **62 passed**.
+- **Lighthouse: a11y 100 · BP 100 · SEO 100 · Performance 98** — audit "CSP effective vs XSS" = **1** (hash-based script-src); perf ≥ 50 non-blocking.
+- Browser (CDP headless): 0 exception, **0 pelanggaran CSP**, font Caveat termuat, visitor badge count live, form validasi jalan, klik 9× → `/dashboard`; display 14 viewport **0 overflow**.
+- SEO: 17/17 tag, 2 blok JSON-LD valid (Person + WebSite, sameAs 4 entri tanpa X); canonical, robots.txt, sitemap.xml, IndexNow key & workflow, Google verification file — semua utuh.
+
+---
+
+## [2.6.0] - 2026-08-16 — Design Directions: 5 Preview Konsep, Field Manual Final & Design Lab 3D
+
+> **Persiapan deploy produksi SPA**: sesi eksplorasi arah desain baru yang human-made (bukan template AI) — `design-previews/` (5 konsep HTML statis) dan `design-lab/` (workshop React + Vite + r3f, 10 konsep 3D). `index.html` produksi **belum diubah** — semua artefak di bawah ini berada di luar gerbang audit produksi; deploy ke live site dilakukan setelah pemilihan arah + implementasi.
+
+### 🚀 Added (design-previews/ — galeri 5 arah desain)
+- **`design-previews/index.html`** — halaman galeri 5 konsep (Soc Console, **Field Manual**, Trade Journal, Signal Monitor, Plaintext Brutalist), masing-masing preview HTML mandiri tanpa dependensi runtime, dibangun dari konten nyata portfolio (Wazuh, Docker, Ollama, 20+ tahun ops).
+- **`02-field-manual.html` — konsep yang dipilih owner, dikerjakan paling dalam**:
+  - TOC jadi satu-satunya navigasi (nav bar dihapus), masthead murni, link "↑ back to contents" per section, semua teks justify, grid offerings 2×2.
+  - Konten 100% akurat terhadap CV terbaru (Sigit_Adi_Irianto_AI_SecOps.pdf): spec table 10 baris (kontak, track record MTTR −45% · 1.000+ prompt-response pairs, pendidikan S.Kom Budi Luhur), 4 proyek dengan URL produksi, field log 10 entri karier 2002–2026, 9 sertifikasi 2 area (2025 di atas, lalu 2024), field reports + slip request resume.
+  - Bench Tests dihapus (mini-app interaktif merusak metafora "dokumen cetak") — demo interaktif tetap hidup di situs produksi.
+  - **Request Slip — Resume (PDF)**: form satu-field (email) bergaya slip kertas; terhubung ke **endpoint Formspree produksi yang sama** (`https://formspree.io/f/mkgknrqk`) dengan pola identik index.html (fetch + FormData, honeypot `_gotcha`, throttle 30 detik, hidden `source: field-manual-preview` + `request: resume-pdf` untuk membedakan kiriman preview vs produksi).
+  - **Polish "kertas di atas meja"**: body warna meja + lembar kertas bershadow; separator distandardisasi (em-dash); `text-wrap: balance` + kerning h1; skip-link a11y.
+  - **Cerita "manual yang sudah dibaca recruiter"**: 16 coretan tinta (4 centang di peran kunci, 4 bintang di statistik & sertifikasi andalan, 4 paraf, 4 catatan margin) yang menggambar sendiri saat scroll (`stroke-dashoffset` + IntersectionObserver), semua `aria-hidden`, mati total di `prefers-reduced-motion`.
+  - **Font tulisan tangan Caveat** (Google Fonts) + jitter per-huruf via JS (rotasi/baseline tiap huruf ±2–3°) — kesan tulisan tangan asli recruiter; fallback `Segoe Script`/`Bradley Hand`. **Untuk produksi**: tambahkan `family=Caveat:wght@500;600` ke stylesheet Google Fonts yang sudah ada (bukan link baru) — CSP produksi sudah mengizinkan `fonts.gstatic.com`.
+- **`design-lab/` — workshop konsep 3D (React + Vite + @react-three/fiber + drei + framer-motion)**: 10 konsep tema futuristik (Perimeter radar dome, Latent neural space, Command deck, Harbor container registry, Verify vault, Orbit timeline, Evidence case files, Archive vault log, Tower ATC, Operator promptable console) — dokumentasi lengkap di `design-lab/CONCEPTS.md`. Kerja terisolasi dari SPA produksi (mandat Project_rules §4.1 tidak dilanggar: `index.html` tetap satu file tanpa build step).
+
+### 🧹 Housekeeping (persiapan deploy)
+- `cr.json` (dump respons API GitHub check-run, 3,8 KB) tersisa dari debugging Lighthouse CI — **hapus sebelum commit produksi** (tidak relevan dengan deploy).
+- `design-previews/.tmp-*.mjs` (script verifikasi CDP sementara) sudah dibersihkan; tidak ada artefak tersisa di galeri.
+
+### 🧪 Validasi
+- Preview statis: 0 error konsol, tanpa overflow horizontal (1366/900/620/480/375 px), form slip terkirim nyata ke Formspree (respons `ok`) — alur end-to-end terbukti.
+- Semua coretan tinta menggambar penuh saat scroll (16/16), font Caveat termuat (`document.fonts.check` true), jitter per-huruf aktif.
+- `index.html` produksi tidak tersentuh — gate produksi (`audit.py` 12 PASS · pytest 52/52 · Lighthouse) tidak terpengaruh sampai implementasi konsep terpilih.
+
+---
+
 ## [2.5.15] - 2026-08-11 — Bing URL Inspection Fix: Title Too Long & Meta Description Missing
 
 ### 🔄 Changed (jawaban atas error Bing Webmaster URL Inspection)

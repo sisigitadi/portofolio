@@ -1,3 +1,4 @@
+import json
 import re
 import sys
 import os
@@ -6,6 +7,7 @@ import subprocess
 import tempfile
 import time
 from collections import Counter
+from html import unescape
 from html.parser import HTMLParser
 
 
@@ -288,12 +290,18 @@ def register(fn):
 
 
 class PreflightAudit:
-    """Audit pre-flight modular (12 pemeriksaan).
+    """Audit pre-flight modular (13 pemeriksaan).
 
     State bersama dihitung sekali di __init__ (scripts, dom_ids) dan di
     pemeriksaan #9 (referensi DOM) — lalu dipakai oleh #9b dan #10.
     quick=True melewati node --check (#6) untuk gerbang cepat (pre-commit);
-    gerbang penuh (pre-push / CI) tetap menjalankan 12 pemeriksaan lengkap.
+    gerbang penuh (pre-push / CI) tetap menjalankan 13 pemeriksaan lengkap.
+
+    Beberapa pemeriksaan bersifat kondisional terhadap fitur yang ada di
+    halaman (gimmick CLI #4, carousel testimonial #7, kamus i18n #8, panggilan
+    variabel getElementById #9b): saat fitur tidak ada, pemeriksaan melewati
+    sebagai PASS "tidak berlaku" — sehingga gate kompatibel baik dengan SPA
+    lama maupun Field Manual sebagai index.html baru.
     """
 
     def __init__(self, content, quick=False):
@@ -376,6 +384,9 @@ class PreflightAudit:
     @register
     def _check_04_gimmick_isolation(self):
         gimmick_markers = ['SYS_CMD_PROMPT', '[SYS_INIT]']
+        if not any(m in self.content for m in gimmick_markers):
+            self._pass("Tidak ada gimmick CLI terminal - pemeriksaan isolasi screen-reader tidak berlaku.")
+            return
         gimmick_violations = []
         for lineno, line in enumerate(self.content.splitlines(), 1):
             if any(m in line for m in gimmick_markers) and 'aria-hidden' not in line:
@@ -447,8 +458,11 @@ class PreflightAudit:
         slide_nums = [int(s) for s in slide_comments]
         total_match = re.search(r'var\s+totalTestimonials\s*=\s*(\d+);', self.content)
         total = int(total_match.group(1)) if total_match else None
+        if total_match is None and not slide_comments:
+            self._pass("Tidak ada carousel testimonial (totalTestimonials) - pemeriksaan sinkronisasi slide tidak berlaku.")
+            return
         if total is None:
-            self._fail("Variabel totalTestimonials tidak ditemukan di script.")
+            self._fail("Komentar slide ditemukan tetapi variabel totalTestimonials tidak ada di script.")
         elif len(slide_nums) != total:
             self._fail(f"Komentar slide ({len(slide_nums)}) tidak sama dengan totalTestimonials ({total}).")
         elif slide_nums != list(range(1, total + 1)):
@@ -460,25 +474,31 @@ class PreflightAudit:
     @register
     def _check_08_i18n(self):
         dict_match = re.search(r'en:\s*\{(.*?)\},\s*id:\s*\{(.*?)\}\s*\};', self.content, re.S)
-        if dict_match:
-            en_keys = extract_dict_keys(dict_match.group(1))
-            id_keys = extract_dict_keys(dict_match.group(2))
-            used_keys = (set(re.findall(r'data-i18n="([^"]+)"', self.content))
-                         | set(re.findall(r'data-i18n-ph="([^"]+)"', self.content)))
+        used_keys = (set(re.findall(r'data-i18n="([^"]+)"', self.content))
+                     | set(re.findall(r'data-i18n-ph="([^"]+)"', self.content)))
 
-            if en_keys != id_keys:
-                self._fail(f"Kamus i18n tidak seimbang: {len(en_keys)} key EN vs {len(id_keys)} key ID. "
-                           f"Hanya-EN: {sorted(en_keys - id_keys)[:5]} | Hanya-ID: {sorted(id_keys - en_keys)[:5]}")
+        if not dict_match:
+            if used_keys:
+                self._fail(f"Ditemukan {len(used_keys)} atribut data-i18n dipakai di HTML tetapi kamus "
+                           f"en/id tidak ditemukan: {sorted(used_keys)[:5]}")
             else:
-                self._pass(f"Parity i18n EN/ID seimbang ({len(en_keys)} key).")
+                self._pass("Halaman satu-bahasa (tanpa kamus en/id & tanpa data-i18n) - pemeriksaan parity i18n tidak berlaku.")
+            return
 
-            missing_usage = sorted(used_keys - en_keys)
-            if missing_usage:
-                self._fail(f"Key data-i18n dipakai di HTML tapi tidak ada di kamus: {missing_usage}")
-            else:
-                self._pass(f"Semua {len(used_keys)} key data-i18n yang dipakai terdefinisi di kamus EN/ID.")
+        en_keys = extract_dict_keys(dict_match.group(1))
+        id_keys = extract_dict_keys(dict_match.group(2))
+
+        if en_keys != id_keys:
+            self._fail(f"Kamus i18n tidak seimbang: {len(en_keys)} key EN vs {len(id_keys)} key ID. "
+                       f"Hanya-EN: {sorted(en_keys - id_keys)[:5]} | Hanya-ID: {sorted(id_keys - en_keys)[:5]}")
         else:
-            self._warn("Kamus i18n (en/id) tidak ditemukan - pemeriksaan i18n dilewati.")
+            self._pass(f"Parity i18n EN/ID seimbang ({len(en_keys)} key).")
+
+        missing_usage = sorted(used_keys - en_keys)
+        if missing_usage:
+            self._fail(f"Key data-i18n dipakai di HTML tapi tidak ada di kamus: {missing_usage}")
+        else:
+            self._pass(f"Semua {len(used_keys)} key data-i18n yang dipakai terdefinisi di kamus EN/ID.")
 
     # -- 9. Semua ID getElementById resolve ke elemen DOM -------------------
     @register
@@ -517,6 +537,7 @@ class PreflightAudit:
         _, _, var_calls, _ = self._dom_refs()
         unique_vars = sorted(set(var_calls))
         if not unique_vars:
+            self._pass("Tidak ada panggilan variabel getElementById - pemeriksaan sumber nilai tidak berlaku.")
             return
         dom_set = set(self.dom_ids)
         var_issues = []
@@ -579,6 +600,69 @@ class PreflightAudit:
         else:
             self._pass(f"Semua {len(qs_ids)} ID querySelector/closest/matches('#...') unik resolve ke elemen DOM "
                        f"(dari {len(set(qs_selectors))} selector).")
+
+    # -- 11. SEO meta dasar (Google & Bing SERP) ----------------------------
+    @register
+    def _check_11_seo_meta(self):
+        issues = []
+        title_len = None
+        title_match = re.search(r'<title>([^<]*)</title>', self.content)
+        if not title_match or not title_match.group(1).strip():
+            issues.append("Tag <title> tidak ditemukan atau kosong")
+        else:
+            title_len = len(unescape(title_match.group(1)))
+            if title_len > 65:
+                issues.append(f"Tag <title> terlalu panjang ({title_len} char > 65 batas SERP)")
+        if 'rel="canonical"' not in self.content:
+            issues.append("Link rel='canonical' tidak ditemukan")
+        robots = re.search(r'name="robots"\s+content="([^"]+)"', self.content)
+        if not robots:
+            issues.append("Meta robots tidak ditemukan")
+        elif 'noindex' in robots.group(1):
+            issues.append("Meta robots memuat noindex (halaman tidak akan terindeks)")
+        desc = re.search(r'name="description"\s+content="([^"]*)"', self.content)
+        if not desc or not desc.group(1).strip():
+            issues.append("Meta description tidak ditemukan atau kosong")
+        else:
+            desc_len = len(unescape(desc.group(1)))
+            if desc_len > 160:
+                issues.append(f"Meta description terlalu panjang ({desc_len} char > 160)")
+        for prop in ('og:title', 'og:description', 'og:image'):
+            if f'property="{prop}"' not in self.content:
+                issues.append(f"Open Graph {prop} tidak ditemukan")
+        if 'name="twitter:card"' not in self.content:
+            issues.append("Twitter Card (twitter:card) tidak ditemukan")
+        if issues:
+            self._fail("SEO meta tidak sehat: " + "; ".join(issues))
+        else:
+            detail = f"title {title_len} char" if title_len else "title ok"
+            self._pass(f"SEO meta lengkap ({detail}, description, robots index, canonical, OG, Twitter).")
+
+    # -- 12. Structured data JSON-LD valid (schema.org) ---------------------
+    @register
+    def _check_12_jsonld(self):
+        blocks = re.findall(r'<script type="application/ld\+json">(.*?)</script>', self.content, re.S)
+        if not blocks:
+            self._fail("Tidak ditemukan blok structured data JSON-LD (schema.org).")
+            return
+        errors = []
+        types = []
+        for i, body in enumerate(blocks, 1):
+            try:
+                data = json.loads(body)
+            except json.JSONDecodeError as e:
+                errors.append(f"blok {i} bukan JSON valid ({e})")
+                continue
+            if isinstance(data, dict) and isinstance(data.get('@type'), str):
+                types.append(data['@type'])
+        required_types = {'Person', 'WebSite'}
+        missing_types = sorted(required_types - set(types))
+        if missing_types:
+            errors.append(f"JSON-LD kekurangan tipe schema.org: {missing_types}")
+        if errors:
+            self._fail("Structured data JSON-LD tidak sehat: " + "; ".join(errors))
+        else:
+            self._pass(f"Structured data JSON-LD valid ({len(blocks)} blok, tipe: {', '.join(types)}).")
 
     # -- Eksekusi -----------------------------------------------------------
     def run(self):

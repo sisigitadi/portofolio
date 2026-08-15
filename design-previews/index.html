@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<link rel="canonical" href="https://sisigitadi.github.io/portofolio/">
+<title>Design Directions — Sigit Adi Irianto Portfolio</title>
+<style>
+  :root{--bg:#F7F6F3;--ink:#1A1A18;--ink2:#4A4A46;--rule:#1A1A18;--accent:#A3241F;--muted:#8A8A84}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);color:var(--ink);font:16px/1.65 Georgia,"Times New Roman",serif}
+  .wrap{max-width:1000px;margin:0 auto;padding:40px 28px 80px}
+  h1{font-size:clamp(28px,4.5vw,44px);line-height:1.08;margin-bottom:10px}
+  .sub{color:var(--ink2);max-width:640px;margin-bottom:34px}
+  .mast{border-bottom:3px double var(--rule);padding-bottom:18px;margin-bottom:30px}
+  .mast .mono{font:12px ui-monospace,Consolas,monospace;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+
+  .card{display:block;text-decoration:none;color:var(--ink);border:1px solid var(--ink2);background:#fff;margin-bottom:22px;transition:box-shadow .15s}
+  .card:hover{box-shadow:6px 6px 0 rgba(26,26,24,.9)}
+  .card-top{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 20px;border-bottom:1px solid var(--ink2);flex-wrap:wrap}
+  .card-top .n{font:12px ui-monospace,Consolas,monospace;letter-spacing:.1em;color:var(--accent)}
+  .card-top .open{font:12px ui-monospace,Consolas,monospace;letter-spacing:.08em;color:var(--muted)}
+  .card-body{padding:20px 20px 18px}
+  .card h2{font-size:22px;margin-bottom:6px}
+  .card .why{font-size:14px;color:var(--ink2);line-height:1.6}
+  .card .why b{color:var(--ink)}
+  .tag{display:inline-block;font:11px ui-monospace,Consolas,monospace;letter-spacing:.06em;text-transform:uppercase;border:1px solid var(--rule);padding:2px 8px;margin-right:8px;margin-top:10px}
+  .foot{margin-top:36px;padding-top:16px;border-top:1px solid var(--ink2);font:12px ui-monospace,Consolas,monospace;color:var(--muted);letter-spacing:.04em}
+
+  /* -- animations -- */
+  @keyframes cardIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+  .card{animation:cardIn .5s ease both}
+  .card:nth-child(1){animation-delay:.05s}
+  .card:nth-child(2){animation-delay:.15s}
+  .card:nth-child(3){animation-delay:.25s}
+  .card:nth-child(4){animation-delay:.35s}
+  .card:nth-child(5){animation-delay:.45s}
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation:none!important;transition:none!important}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="mast">
+    <div class="mono">Design Directions · Portfolio of Sigit Adi Irianto · 5 Concepts</div>
+    <h1>Five directions, all built from the real content.</h1>
+    <p class="sub">Each concept is a standalone HTML preview you can open in a browser. They share the same true material — Wazuh SIEM, Docker, Ollama, 20+ years of ops — but each has a different voice. None of them are AI-template looks: no purple gradients, no floating glassmorphism cards, no generic badges.</p>
+  </div>
+
+  <a class="card" href="01-soc-console.html">
+    <div class="card-top"><span class="n">01 / 05</span><span class="open">OPEN PREVIEW →</span></div>
+    <div class="card-body">
+      <h2>SOC Console</h2>
+      <p class="why"><b>Dark, amber phosphor, log lines.</b> The site behaves like the monitoring console of a real SOC: boot logs, `$ whoami`, status readouts, green/amber status dots. Feels like the tool a SecOps engineer actually works in — not a decoration of one.</p>
+      <span class="tag">dark</span><span class="tag">monospace</span><span class="tag">log-style</span>
+    </div>
+  </a>
+
+  <a class="card" href="02-field-manual.html">
+    <div class="card-top"><span class="n">02 / 05</span><span class="open">OPEN PREVIEW →</span></div>
+    <div class="card-body">
+      <h2>Field Manual</h2>
+      <p class="why"><b>Cream paper, ink charcoal, rust accents, numbered sections.</b> The portfolio is a printed technical manual — "MANUAL NO. SAI-2026", spec table, dotted-leader table of contents, six numbered sections (Offerings, Deployed Projects, Field Log 2002–2026, Field Reports, Certifications, Contact), and a tear-off resume request slip that posts to the real Formspree endpoint. The page carries recruiter's ink — checks, stars, initials, margin notes in a handwriting face (Caveat) — drawn as you scroll. Warm, tactile, and instantly human: a well-kept runbook read by hand.</p>
+      <span class="tag">light</span><span class="tag">paper</span><span class="tag">manual</span><span class="tag">handwritten notes</span>
+    </div>
+  </a>
+
+  <a class="card" href="03-trade-journal.html">
+    <div class="card-top"><span class="n">03 / 05</span><span class="open">OPEN PREVIEW →</span></div>
+    <div class="card-body">
+      <h2>The Operator — Trade Journal</h2>
+      <p class="why"><b>Editorial print, serif display, masthead.</b> The site is a professional trade journal — masthead, dateline, drop caps, pull quotes, index of deployed work. A profile of an operator, not a landing page. Distinguishable, serious, magazine-grade.</p>
+      <span class="tag">light</span><span class="tag">editorial</span><span class="tag">serif</span>
+    </div>
+  </a>
+
+  <a class="card" href="04-signal-monitor.html">
+    <div class="card-top"><span class="n">04 / 05</span><span class="open">OPEN PREVIEW →</span></div>
+    <div class="card-body">
+      <h2>Signal Monitor</h2>
+      <p class="why"><b>Graphite instrument panel, waveform, LED status.</b> The page is a piece of lab hardware: CH1..CH4 channels, oscilloscope traces, signal-strength bars, TRACK records with live status. Speaks the language of telemetry and instrumentation.</p>
+      <span class="tag">dark</span><span class="tag">instrument</span><span class="tag">waveform</span>
+    </div>
+  </a>
+
+  <a class="card" href="05-plaintext-brutalist.html">
+    <div class="card-top"><span class="n">05 / 05</span><span class="open">OPEN PREVIEW →</span></div>
+    <div class="card-body">
+      <h2>Plaintext Brutalist</h2>
+      <p class="why"><b>White, black rules, zero gradients.</b> Man-page styling — SIGIT(1), NAME / OFFER / PROJECTS sections, hard 3px frames, plain tables. The most stripped-down and the most confident: a page that refuses to decorate itself. Maximum credibility, zero AI-slop.</p>
+      <span class="tag">light</span><span class="tag">brutalist</span><span class="tag">man-page</span>
+    </div>
+  </a>
+
+  <div class="foot">These are static previews only — the live site (index.html) is unchanged. Tell me which direction you like and I'll implement it properly, keeping the audit gates (a11y, contrast, Lighthouse 100) intact.</div>
+</div>
+</body>
+</html>

@@ -68,11 +68,11 @@ def test_summary_counts_present(valid_html):
 def test_broken_getelementbyid_dead(valid_html):
     """#9: getElementById menunjuk id yang tidak ada di DOM -> FAIL.
 
-    Catatan: ganti SEMUA kemunculan (bukan count=1) karena kemunculan pertama
-    ada di atribut HTML onclick, bukan di dalam <script> yang dipindai audit.
+    Ganti SEMUA kemunculan getElementById('visitor-badge') (id Field Manual)
+    dengan id palsu sehingga referensi mati terdeteksi.
     """
     content = valid_html.replace(
-        "getElementById('contact-widget')",
+        "getElementById('visitor-badge')",
         "getElementById('id-palsu-tak-ada')")
     assert content != valid_html
     errors, out, _ = run_audit(content, quick=True)
@@ -103,9 +103,11 @@ def test_broken_tag_unbalanced(valid_html):
 
 
 def test_broken_i18n_mismatch(valid_html):
-    """#8: key kamus EN/ID tidak seimbang -> FAIL."""
+    """#8: kamus EN/ID tidak seimbang -> FAIL (kamus di-injeksi karena Field
+    Manual satu-bahasa; halaman dua-bahasa tetap wajib parity)."""
     content = valid_html.replace(
-        "en: {", "en: {zombie_key: 'x',", 1)
+        "</body>",
+        '<script>var I18N = {en: {hello: "Hi"}, id: {}};</script></body>', 1)
     assert content != valid_html
     errors, out, _ = run_audit(content, quick=True)
     assert errors >= 1
@@ -113,10 +115,11 @@ def test_broken_i18n_mismatch(valid_html):
 
 
 def test_broken_slide_count_mismatch(valid_html):
-    """#7: jumlah komentar slide != totalTestimonials -> FAIL."""
+    """#7: totalTestimonials ada tetapi jumlah komentar slide tidak cocok ->
+    FAIL (variabel di-injeksi karena Field Manual tidak punya carousel)."""
     content = valid_html.replace(
-        "var totalTestimonials = 10;",
-        "var totalTestimonials = 11;", 1)
+        "</body>",
+        "<script>var totalTestimonials = 2;</script></body>", 1)
     assert content != valid_html
     errors, out, _ = run_audit(content, quick=True)
     assert errors >= 1
@@ -132,6 +135,107 @@ def test_broken_formspree_endpoint(valid_html):
     errors, out, _ = run_audit(content, quick=True)
     assert errors >= 1
     assert "Formspree" in out
+
+
+# ---------------------------------------------------------------------------
+# Fitur kondisional: Field Manual (tanpa SPA lama) tidak memicu FAIL
+# ---------------------------------------------------------------------------
+def test_single_language_page_passes_i18n(valid_html):
+    """#8: halaman satu-bahasa (tanpa kamus & tanpa data-i18n) -> PASS "tidak
+    berlaku", bukan WARN/FAIL — kompatibel dengan Field Manual."""
+    errors, out, _ = run_audit(valid_html, quick=True)
+    assert errors == 0
+    assert "parity i18n tidak berlaku" in out
+
+
+def test_data_i18n_without_dict_fails(valid_html):
+    """#8: data-i18n dipakai tetapi kamus en/id tidak ada -> FAIL."""
+    content = valid_html.replace(
+        "</body>",
+        '<span data-i18n="lang-switch">EN</span></body>', 1)
+    assert content != valid_html
+    errors, out, _ = run_audit(content, quick=True)
+    assert errors >= 1
+    assert "data-i18n" in out and "kamus" in out
+
+
+def test_no_testimonial_carousel_passes(valid_html):
+    """#7: tanpa totalTestimonials & tanpa komentar slide -> PASS "tidak
+    berlaku" (Field Manual tidak punya carousel testimonial)."""
+    errors, out, _ = run_audit(valid_html, quick=True)
+    assert errors == 0
+    assert "carousel testimonial" in out
+
+
+def test_testimonial_slides_mismatch_fails(valid_html):
+    """#7: totalTestimonials ada tapi jumlah komentar slide tidak cocok -> FAIL."""
+    content = valid_html.replace(
+        "</body>",
+        "<!-- Slide 1: a --><!-- Slide 2: b --><script>var totalTestimonials = 3;</script></body>", 1)
+    assert content != valid_html
+    errors, out, _ = run_audit(content, quick=True)
+    assert errors >= 1
+    assert "totalTestimonials" in out
+
+
+# ---------------------------------------------------------------------------
+# SEO meta & structured data (#11 & #12)
+# ---------------------------------------------------------------------------
+def test_seo_meta_passes(valid_html):
+    """#11: head SEO Field Manual lengkap (title ≤ 65, description ≤ 160, robots
+    index, canonical, OG, Twitter) -> PASS."""
+    errors, out, _ = run_audit(valid_html, quick=True)
+    assert errors == 0
+    assert "SEO meta lengkap" in out
+
+
+def test_seo_noindex_fails(valid_html):
+    """#11: robots memuat noindex -> FAIL (halaman tidak akan terindeks)."""
+    content = valid_html.replace(
+        'content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"',
+        'content="noindex, nofollow"', 1)
+    assert content != valid_html
+    errors, out, _ = run_audit(content, quick=True)
+    assert errors >= 1
+    assert "noindex" in out
+
+
+def test_seo_missing_title_fails(valid_html):
+    """#11: <title> hilang -> FAIL."""
+    content = valid_html.replace(
+        "<title>Sigit Adi Irianto | IT &amp; SecOps | Applied AI Engineer</title>", "", 1)
+    assert content != valid_html
+    errors, out, _ = run_audit(content, quick=True)
+    assert errors >= 1
+    assert "title" in out.lower()
+
+
+def test_jsonld_valid_passes(valid_html):
+    """#12: 2 blok JSON-LD (Person + WebSite) valid -> PASS."""
+    errors, out, _ = run_audit(valid_html, quick=True)
+    assert errors == 0
+    assert "JSON-LD valid" in out
+    assert "Person" in out and "WebSite" in out
+
+
+def test_jsonld_invalid_fails(valid_html):
+    """#12: blok JSON-LD bukan JSON valid -> FAIL."""
+    content = valid_html.replace(
+        '"@type": "Person",', '"@type": "Person", broken:', 1)
+    assert content != valid_html
+    errors, out, _ = run_audit(content, quick=True)
+    assert errors >= 1
+    assert "JSON-LD" in out
+
+
+def test_jsonld_missing_type_fails(valid_html):
+    """#12: tipe Person/WebSite hilang dari JSON-LD -> FAIL."""
+    content = valid_html.replace(
+        '"@type": "Person",', '"@type": "Organization",', 1)
+    assert content != valid_html
+    errors, out, _ = run_audit(content, quick=True)
+    assert errors >= 1
+    assert "kekurangan tipe" in out
 
 
 # ---------------------------------------------------------------------------

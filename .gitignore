@@ -6,6 +6,11 @@ __pycache__/
 *.py[cod]
 .pytest_cache/
 
+# Node (design-lab workshop)
+node_modules/
+**/node_modules/
+npm-install.log
+
 # Lighthouse CI artifacts (local runs)
 lhci-public/
 .lhci/

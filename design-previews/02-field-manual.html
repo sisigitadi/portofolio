@@ -2,130 +2,14 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
-<meta name="theme-color" content="#D6CDB4">
-
-<!-- Security Hardening & CSP Meta Tags (script-src via sha256 hash, tanpa 'unsafe-inline' script; connect/img dibatasi ke origin tepercaya) -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self' https:; script-src 'self' 'sha256-mVCKz/hkUhstJwPooOgQgDgqC4t/7VfL87IPri1I8bY=' 'sha256-kHtiFb3B+fXE7H8EWDyTM5kRueZ08F1f1Rdw63D0DTE='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com data:; img-src 'self' data: https://portofolio-visitor-tracker.si-sigitadi.workers.dev; connect-src 'self' https://formspree.io https://portofolio-visitor-tracker.si-sigitadi.workers.dev; object-src 'none'; frame-src 'none'; base-uri 'self'; form-action 'self' https://formspree.io; upgrade-insecure-requests">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="referrer" content="strict-origin-when-cross-origin">
-<meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=(), usb=(), autoplay=()">
-
-<!-- Canonical URL -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
 <link rel="canonical" href="https://sisigitadi.github.io/portofolio/">
-
-<!-- Performance Preconnect & DNS-Prefetch -->
+<title>Concept 02 — Field Manual · Sigit Adi Irianto</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="dns-prefetch" href="https://fonts.googleapis.com">
-
-<!-- Primary Search Engine SEO Meta Tags -->
-<title>Sigit Adi Irianto | IT &amp; SecOps | Applied AI Engineer</title>
-<meta name="title" content="Sigit Adi Irianto | IT &amp; SecOps | Applied AI Engineer">
-<meta name="description" content="Remote IT SecOps and Applied AI Engineer in Tangerang, Banten, Indonesia. SOC, Wazuh SIEM, DevSecOps and AI. View portfolio.">
-<meta name="author" content="Sigit Adi Irianto">
-<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
-<meta name="geo.region" content="ID-BT">
-<meta name="geo.placename" content="Tangerang">
-
-<!-- Schema.org Microdata & WhatsApp Thumbnail Fallback -->
-<meta itemprop="name" content="Sigit Adi Irianto | IT &amp; SecOps | Applied AI Engineer">
-<meta itemprop="description" content="Applied AI Engineer &amp; IT Security Operations Specialist specializing in practical AI integration, local privacy-first ML workflows, threat triage, and DevSecOps automations.">
-<meta itemprop="image" content="https://sisigitadi.github.io/portofolio/og-preview.jpg?v=2.6.1">
-<link rel="image_src" href="https://sisigitadi.github.io/portofolio/og-preview.jpg?v=2.6.1">
-
-<!-- Open Graph / Social Media (LinkedIn, WhatsApp, Facebook, Telegram) Meta Tags -->
-<meta property="og:site_name" content="Sigit Adi Irianto Portfolio">
-<meta property="og:title" content="Sigit Adi Irianto | IT &amp; SecOps | Applied AI Engineer">
-<meta property="og:description" content="Remote IT SecOps and Applied AI Engineer in Tangerang, Banten, Indonesia. SOC, Wazuh SIEM, DevSecOps and AI. View portfolio.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://sisigitadi.github.io/portofolio/">
-<meta property="og:image" content="https://sisigitadi.github.io/portofolio/og-preview.jpg?v=2.6.1">
-<meta property="og:image:secure_url" content="https://sisigitadi.github.io/portofolio/og-preview.jpg?v=2.6.1">
-<meta property="og:image:type" content="image/jpeg">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Sigit Adi Irianto - IT &amp; SecOps Specialist | Applied AI Engineer Portfolio Preview">
-<meta property="og:locale" content="en_US">
-
-<!-- Twitter Card Meta Tags -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:url" content="https://sisigitadi.github.io/portofolio/">
-<meta name="twitter:title" content="Sigit Adi Irianto | IT &amp; SecOps | Applied AI Engineer">
-<meta name="twitter:description" content="Remote IT SecOps and Applied AI Engineer in Tangerang, Banten, Indonesia. SOC, Wazuh SIEM, DevSecOps and AI. View portfolio."><meta name="twitter:image" content="https://sisigitadi.github.io/portofolio/og-preview.jpg?v=2.6.1">
-
-<!-- Schema.org JSON-LD Structured Data for Google Rich Snippets -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Person",
-  "name": "Sigit Adi Irianto",
-  "jobTitle": "IT &amp; SecOps Specialist | Applied AI Engineer",
-  "url": "https://sisigitadi.github.io/portofolio/",
-  "image": "https://sisigitadi.github.io/portofolio/og-preview.jpg?v=2.6.1",
-  "sameAs": [
-    "https://github.com/sisigitadi",
-    "https://www.linkedin.com/in/sigitadi/",
-    "https://medium.com/@si.sigitadi",
-    "mailto:si.sigitadi@gmail.com"
-  ],
-  "knowsAbout": [
-    "Applied Artificial Intelligence",
-    "Machine Learning",
-    "Natural Language Processing",
-    "LLM Evaluation",
-    "Cybersecurity",
-    "DevSecOps",
-    "Wazuh SIEM",
-    "Docker",
-    "Prompt Engineering",
-    "Python"
-  ],
-  "worksFor": {
-    "@type": "Organization",
-    "name": "Direktorat Pengendalian Perubahan Iklim, Proyek MoE & BPDLH"
-  },
-  "address": {
-    "@type": "PostalAddress",
-    "addressLocality": "Tangerang",
-    "addressRegion": "Banten",
-    "addressCountry": "Indonesia"
-  },
-  "knowsLanguage": ["en", "id"],
-  "description": "IT SecOps Specialist & Applied AI Engineer in Tangerang, Banten, Indonesia — remote-ready worldwide. SOC monitoring, Wazuh SIEM, DevSecOps & applied AI. 20+ years of IT experience."
-}
-</script>
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": "Sigit Adi Irianto | IT & SecOps Specialist | Applied AI Engineer",
-  "url": "https://sisigitadi.github.io/portofolio/",
-  "description": "IT SecOps Specialist & Applied AI Engineer portfolio in Tangerang, Banten, Indonesia — open to remote work worldwide.",
-  "inLanguage": ["en", "id"],
-  "author": {
-    "@type": "Person",
-    "name": "Sigit Adi Irianto",
-    "url": "https://sisigitadi.github.io/portofolio/"
-  }
-}
-</script>
-
-<!-- PWA (Installable & Offline) Metadata -->
-<link rel="manifest" href="manifest.json">
-<link rel="apple-touch-icon" href="icons/icon-192.png">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Sigit Portfolio">
-
-<!-- Google Fonts: single stylesheet per Project_rules §4.3 (Caveat appended to existing family list, no new <link>) -->
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Caveat:wght@500;600&display=swap">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Caveat:wght@500;600&display=swap">
-
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&display=swap">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23F3EEDF'/%3E%3Crect x='7' y='7' width='50' height='50' fill='none' stroke='%23B4552D' stroke-width='5'/%3E%3Ctext x='32' y='45' font-family='Georgia,serif' font-size='36' font-weight='bold' fill='%2320242B' text-anchor='middle'%3ES%3C/text%3E%3C/svg%3E">
-<link rel="icon" href="favicon.ico" sizes="16x16 32x32">
 <style>
   :root{
     --paper:#F3EEDF; --paper2:#EAE4D2; --ink:#20242B; --ink2:#3C434E;
@@ -134,7 +18,6 @@
   }
   *{margin:0;padding:0;box-sizing:border-box}
   html{scroll-behavior:smooth}
-  html,body{overflow-x:hidden} /* pengaman: tidak pernah ada scroll horizontal di level halaman */
   body{background:#D6CDB4;color:var(--ink);font:16px/1.75 Georgia,"Times New Roman",serif;text-align:justify;padding:40px 14px 56px}
   .sheet{position:relative;max-width:1000px;margin:0 auto;background:var(--paper);border:1px solid #C9C1A8;box-shadow:0 24px 60px -18px rgba(58,48,28,0.4);overflow:hidden}
   .sheet::after{content:'';position:absolute;inset:0;pointer-events:none;z-index:2;opacity:.05;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
@@ -252,10 +135,6 @@
   .log .r b{font-size:16px}
   .log .r span{display:block;font-size:14px;color:var(--ink2);margin-top:2px}
 
-  /* certifications table — scrollable pada layar sangat sempit (mis. foldable 280px) */
-  .table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;max-width:100%}
-  .table-scroll table{margin-top:0}
-
   /* field reports — quoted notes */
   .report{background:var(--paper2);border:1px solid var(--rule);padding:22px 24px;margin-bottom:16px;position:relative}
   .report .tag{font:11px ui-monospace,Consolas,monospace;color:var(--accent);letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:10px}
@@ -298,11 +177,6 @@
 
   footer .end{margin-top:34px;border-top:1px solid var(--rule);padding-top:16px;font-size:13px;color:var(--muted)}
   footer .end a{color:var(--ink2)}
-
-  /* visitor hit counter — manual colophon style; hidden until WORKER_URL is set (see worker-visitor/) */
-  .visitor-badge{display:none;margin-top:16px;font:11px ui-monospace,Consolas,monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
-  .visitor-badge .vb-sep{color:var(--accent);margin:0 5px}
-  .visitor-badge .vb-count{color:var(--accent);font-weight:700}
 
   /* ---------- animations (subtle, document-grade) ---------- */
   @keyframes pageIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
@@ -488,7 +362,6 @@
 <section id="certs" aria-labelledby="certs-h"><div class="wrap">
   <div class="sec-head"><span class="no">5.</span><h2 id="certs-h">Certifications</h2><div class="dash"></div></div>
   <p class="lede"><b>Credentials relevant to the current scope — SecOps and applied AI.</b></p>
-  <div class="table-scroll">
   <table>
     <tr><th>Year</th><th>Credential</th><th>Issuer</th></tr>
     <tr class="catrow"><td colspan="3">AI &amp; Automation</td></tr>
@@ -503,7 +376,6 @@
     <tr><td class="yr">2024</td><td><b>Certified SOC Analyst</b></td><td class="iss">Cyber Academy Indonesia</td></tr>
     <tr><td class="yr">2024</td><td><b>DevSecOps for Software Security &amp; IT Auditor</b></td><td class="iss">Kelas.work</td></tr>
   </table>
-  </div>
   <div class="mnote rot2"><span>verified — all current, dates checked</span><svg class="underline" viewBox="0 0 52 8" aria-hidden="true"><path d="M1 5 C9 2 18 6 28 3 C36 1 44 5 51 2" pathLength="120"/></svg></div>
   <div class="ink-sign"><svg class="ink paraf" viewBox="0 0 28 24" aria-hidden="true"><path d="M3 12 C5 4 8 18 11 10 C13 5 15 17 18 9 C20 4 22 14 25 8" pathLength="120"/></svg></div>
 </div>
@@ -522,7 +394,7 @@
         <input type="email" id="slip-email" name="email" placeholder="you@company.com" autocomplete="email" required />
       </div>
       <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="display:none" aria-hidden="true" />
-      <input type="hidden" name="source" value="field-manual" />
+      <input type="hidden" name="source" value="field-manual-preview" />
       <input type="hidden" name="request" value="resume-pdf" />
       <button type="submit" id="slip-submit" class="btn solid">Request Resume (PDF)</button>
     </form>
@@ -530,21 +402,17 @@
     <p class="slip-foot">Your email is used only to send the resume — nothing else, nothing stored.</p>
   </div>
 
-  <p>linkedin <a href="https://www.linkedin.com/in/sigitadi/" target="_blank" rel="noopener noreferrer">/in/sigitadi</a> &nbsp;·&nbsp; github <a href="https://github.com/sisigitadi" target="_blank" rel="noopener noreferrer">/sisigitadi</a> &nbsp;·&nbsp; medium <a href="https://medium.com/@si.sigitadi" target="_blank" rel="noopener noreferrer">@si.sigitadi</a> &nbsp;·&nbsp; email <a href="mailto:si.sigitadi@gmail.com">si.sigitadi@gmail.com</a></p>
+  <p>linkedin <a href="https://www.linkedin.com/in/sigitadi/" target="_blank" rel="noopener noreferrer">/in/sigitadi</a> &nbsp;·&nbsp; email <a href="mailto:si.sigitadi@gmail.com">si.sigitadi@gmail.com</a> &nbsp;·&nbsp; github <a href="https://github.com/sisigitadi" target="_blank" rel="noopener noreferrer">/sisigitadi</a> &nbsp;·&nbsp; medium <a href="https://medium.com/@si.sigitadi" target="_blank" rel="noopener noreferrer">@si.sigitadi</a></p>
 
   <div class="sig">
     <span style="font-size:13px;color:var(--muted)">Keep this manual. Replace when a new edition ships.</span>
   </div>
 
   <div class="end">
+    <p>Concept 02/05 — Field Manual · design preview, not the live site.</p>
+    <p style="margin-top:6px">The slip above posts to the same Formspree endpoint as the live site — test submissions reach the owner's inbox. EN/ID and the remaining interactive widgets live on the production site. This page remains gate-compatible with the project's a11y &amp; audit requirements.</p>
     <p style="margin-top:6px">END OF MANUAL — SAI-2026 · p. 6 / 6 · No gradients were harmed in the making of this page.</p>
     <div class="ink-sign"><svg class="ink paraf" viewBox="0 0 28 24" aria-hidden="true"><path d="M4 10 C6 6 8 16 11 9 C13 4 15 14 18 7 C20 3 22 12 25 6" pathLength="120"/></svg></div>
-    <!-- Owner shortcut target: click 9x (gaps ≤ 2s) → private visitor dashboard (see worker-visitor/README.md) -->
-    <p id="footer-copyright" style="margin-top:14px">&copy; 2026 Sigit Adi Irianto — All Rights Reserved.</p>
-    <!-- Visitor hit counter badge (server-backed, no cookies; hidden until WORKER_URL is set) -->
-    <div id="visitor-badge" class="visitor-badge" role="status" aria-live="polite">
-      <span>Site Visits</span><span class="vb-sep" aria-hidden="true">:</span><span id="visitor-count" class="vb-count">--</span>
-    </div>
   </div>
 </div></footer>
 </div><!-- /sheet -->
@@ -633,73 +501,6 @@
     })
   })()
 </script>
-
-<!-- Visitor Tracker Client (hit counter badge + hidden owner dashboard shortcut — Cloudflare Worker backend, see worker-visitor/) -->
-<script>
-  ;(function () {
-    // Set to your deployed Worker URL, e.g. "https://portofolio-visitor-tracker.<account>.workers.dev"
-    var WORKER_URL = 'https://portofolio-visitor-tracker.si-sigitadi.workers.dev';
-    if (!WORKER_URL) return;
-
-    var badge = document.getElementById('visitor-badge');
-    var countEl = document.getElementById('visitor-count');
-    if (!badge || !countEl) return;
-
-    function setCount(n) {
-      if (typeof n !== 'number' || isNaN(n)) { countEl.textContent = '--'; return; }
-      countEl.textContent = n.toLocaleString('en-US');
-    }
-
-    // Reveal the badge only when the tracker backend responds (manual colophon style).
-    badge.style.display = 'block';
-
-    // Record this visit (IP + location are hashed/stored server-side by the Worker).
-    var payload = { path: location.pathname, referrer: document.referrer, lang: 'en' };
-    try { payload.w = screen.width; payload.h = screen.height; } catch (e) {}
-    fetch(WORKER_URL + '/hit', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    }).then(function (res) {
-      return res.json().catch(function () { return null; });
-    }).then(function (data) {
-      if (data && typeof data.count === 'number') setCount(data.count);
-    }).catch(function () {});
-
-    // Keep the badge fresh across tabs / sessions.
-    setInterval(function () {
-      fetch(WORKER_URL + '/count').then(function (res) {
-        return res.json().catch(function () { return null; });
-      }).then(function (data) {
-        if (data && typeof data.count === 'number') setCount(data.count);
-      }).catch(function () {});
-    }, 60000);
-
-    // --- Secret owner shortcut: click the footer copyright 9x within 2s gaps -> dashboard ---
-    // Opens /dashboard (key-protected). Tick 'remember key' on the login page once, and the
-    // login page auto-unlocks on later visits (key lives only in YOUR browser, same origin as
-    // the dashboard — never embedded in this HTML).
-    var copyrightEl = document.getElementById('footer-copyright');
-    var dashClicks = 0;
-    var dashTimer = null;
-    if (copyrightEl) {
-      copyrightEl.addEventListener('click', function () {
-        dashClicks++;
-        clearTimeout(dashTimer);
-        dashTimer = setTimeout(function () { dashClicks = 0; }, 2000);
-        if (dashClicks >= 9) {
-          dashClicks = 0;
-          window.location.href = WORKER_URL + '/dashboard';
-        }
-      });
-    }
-  })();
-</script>
-
-<!-- JS-less fallback: 1x1 tracking pixel (records crawlers / no-JS visitors via GET /pixel; no double count — only rendered when JS is off) -->
-<noscript>
-  <img src="https://portofolio-visitor-tracker.si-sigitadi.workers.dev/pixel?path=/portofolio" width="1" height="1" alt="" style="position:absolute;left:-9999px;top:-9999px" referrerpolicy="no-referrer-when-downgrade">
-</noscript>
 
 </body>
 </html>

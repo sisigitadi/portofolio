@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<link rel="canonical" href="https://sisigitadi.github.io/portofolio/">
+<title>Concept 04 — Signal Monitor · Sigit Adi Irianto</title>
+<style>
+  :root{
+    --bg:#111416; --panel:#1A1F23; --panel2:#14181B; --line:#2A3138; --line2:#38424C;
+    --txt:#D9E0E6; --dim:#8A94A0; --faint:#5B6670;
+    --amber:#FFB020; --green:#3DDC84; --orange:#FF7A2F; --cyan:#4CC9F0;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);color:var(--txt);font:15px/1.65 ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace}
+  ::selection{background:rgba(255,176,32,.22)}
+  a{color:var(--amber);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 24px}
+
+  /* chassis frame */
+  .chassis{border:1px solid var(--line2);background:var(--panel2);margin:20px auto 0}
+  .chassis-head{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:10px 18px;border-bottom:1px solid var(--line);flex-wrap:wrap;font-size:12px;color:var(--dim)}
+  .leds{display:flex;gap:14px;font-size:11px}
+  .led{display:flex;align-items:center;gap:6px}
+  .led i{width:9px;height:9px;border-radius:50%;display:inline-block}
+  .led.on i{background:var(--green);box-shadow:0 0 7px var(--green)}
+  .led.on2 i{background:var(--amber);box-shadow:0 0 7px var(--amber)}
+  .led .lbl{color:var(--faint)}
+
+  nav{display:flex;gap:28px;flex-wrap:wrap;padding:14px 18px;border-bottom:1px solid var(--line);font-size:12.5px}
+  nav a{color:var(--dim)}
+  nav a:hover{color:var(--amber);text-decoration:none}
+  nav .ch{color:var(--faint)}
+
+  /* hero = instrument readout */
+  header{padding:30px 18px 26px;border-bottom:1px solid var(--line)}
+  .readout-head{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;color:var(--faint);font-size:11.5px;letter-spacing:.06em;margin-bottom:6px}
+  .wave{width:100%;height:120px;display:block;margin:10px 0 4px}
+  h1{font-size:clamp(32px,5.5vw,58px);font-weight:700;letter-spacing:-1px;line-height:1.05;margin-top:14px;color:#F2F6FA}
+  .role{color:var(--amber);font-size:clamp(14px,2vw,18px);margin:8px 0 18px}
+  .pitch{color:var(--dim);max-width:640px;font-size:14px;margin-bottom:24px}
+  .pitch b{color:var(--txt)}
+  .cta{display:flex;gap:12px;flex-wrap:wrap}
+  .btn{display:inline-block;padding:11px 20px;font-size:13px;border:1px solid var(--amber);color:var(--amber);background:transparent;cursor:pointer}
+  .btn.solid{background:var(--amber);color:#14181B;font-weight:700}
+  .btn:hover{background:var(--amber);color:#14181B;text-decoration:none}
+
+  /* gauge strip */
+  .gauges{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;background:var(--line);border-bottom:1px solid var(--line)}
+  .g{background:var(--panel);padding:16px 18px}
+  .g .k{color:var(--faint);font-size:11px;text-transform:uppercase;letter-spacing:.08em}
+  .g .bar{height:6px;background:var(--line2);margin:10px 0 6px;position:relative}
+  .g .bar i{position:absolute;inset:0 auto 0 0;background:var(--amber)}
+  .g .bar i.grn{background:var(--green)}
+  .g .bar i.org{background:var(--orange)}
+  .g .v{font-size:22px;font-weight:700;color:#F2F6FA}
+  .g .v small{font-size:12px;color:var(--dim);font-weight:400}
+
+  section{padding:44px 0;border-top:1px solid var(--line)}
+  .pane{display:flex;align-items:baseline;gap:12px;margin-bottom:26px}
+  .pane .ch{color:var(--amber);font-size:12px}
+  .pane h2{font-size:20px;font-weight:700;color:#F2F6FA}
+  .pane .line{flex:1;border-bottom:1px dashed var(--line2)}
+
+  .ch-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+  .ch-card{background:var(--panel);border:1px solid var(--line);padding:20px}
+  .ch-card .cn{color:var(--amber);font-size:11.5px;letter-spacing:.08em;margin-bottom:10px;display:flex;justify-content:space-between}
+  .ch-card h3{font-size:15px;color:#F2F6FA;margin-bottom:8px}
+  .ch-card p{color:var(--dim);font-size:13px}
+  .ch-card .sig{margin-top:12px;font-size:11px;color:var(--green)}
+
+  .proj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+  .pc{background:var(--panel2);border:1px solid var(--line);padding:16px 18px}
+  .pc .id{color:var(--faint);font-size:11px}
+  .pc h3{font-size:15px;margin:5px 0 6px;color:#F2F6FA}
+  .pc p{color:var(--dim);font-size:12.5px}
+  .pc .stat{display:flex;gap:6px;align-items:center;margin-top:10px;font-size:11px;color:var(--green)}
+
+  footer{padding:22px 0 50px;border-top:1px solid var(--line);color:var(--faint);font-size:12px}
+  footer a{color:var(--dim)}
+
+  /* -- animations -- */
+  @keyframes drawTrace{from{stroke-dashoffset:1400}to{stroke-dashoffset:0}}
+  @keyframes ledBlink{0%,100%{opacity:1}50%{opacity:.25}}
+  @keyframes growBar{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+  .wave path{stroke-dasharray:1400;animation:drawTrace 2.4s ease-out forwards}
+  .wave path:nth-child(2){animation-delay:.5s}
+  .led.on2 i{animation:ledBlink 1.6s ease-in-out infinite}
+  .g .bar i{transform-origin:left;animation:growBar 1s ease both}
+  .g:nth-child(1) .bar i{animation-delay:.3s}
+  .g:nth-child(2) .bar i{animation-delay:.45s}
+  .g:nth-child(3) .bar i{animation-delay:.6s}
+  .g:nth-child(4) .bar i{animation-delay:.75s}
+  .ch-card,.pc{animation:fadeUp .5s ease both}
+  .ch-card:nth-child(1),.pc:nth-child(1){animation-delay:.05s}
+  .ch-card:nth-child(2),.pc:nth-child(2){animation-delay:.15s}
+  .ch-card:nth-child(3),.pc:nth-child(3){animation-delay:.25s}
+  .ch-card:nth-child(4),.pc:nth-child(4){animation-delay:.35s}
+  .pc:nth-child(5){animation-delay:.45s}
+  .stat i{animation:ledBlink 2s ease-in-out infinite}
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation:none!important;transition:none!important}
+  }
+</style>
+</head>
+<body>
+
+<div class="chassis wrap">
+  <div class="chassis-head">
+    <span>MONITOR 01 — S.A.IRIANTO / OPS</span>
+    <span class="leds">
+      <span class="led on"><i></i><span class="lbl">PWR</span></span>
+      <span class="led on2"><i></i><span class="lbl">TRIG</span></span>
+      <span class="led on"><i></i><span class="lbl">NET</span></span>
+      <span class="led"><i style="background:var(--line2)"></i><span class="lbl">REC</span></span>
+    </span>
+  </div>
+
+  <nav>
+    <a href="#offer">CH1 · OFFER</a>
+    <a href="#projects">CH2 · PROJECTS</a>
+    <a href="#exp">CH3 · EXPERIENCE</a>
+    <a href="#contact">CH4 · CONTACT</a>
+    <span class="ch" style="margin-left:auto">SAMPLE 48kHz · EN/ID</span>
+  </nav>
+
+  <header>
+    <div class="readout-head"><span>CH1 — IDENTITY</span><span>V: 2026.03 · REMOTE: READY</span></div>
+    <svg class="wave" viewBox="0 0 1000 120" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0,60 C40,60 60,20 100,20 C140,20 160,100 200,100 C240,100 260,10 300,10 C340,10 360,90 400,90 C440,90 460,30 500,30 C540,30 560,80 600,80 C640,80 660,25 700,25 C740,25 760,95 800,95 C840,95 860,45 900,45 C940,45 960,60 1000,60"
+        fill="none" stroke="#FFB020" stroke-width="2" opacity="0.85"/>
+      <path d="M0,60 C60,60 80,100 120,100 C160,100 180,20 220,20 C260,20 280,110 320,110 C360,110 380,15 420,15 C460,15 480,105 520,105 C560,105 580,35 620,35 C660,35 680,90 720,90 C760,90 780,50 820,50 C860,50 880,70 920,70 C960,70 980,60 1000,60"
+        fill="none" stroke="#3DDC84" stroke-width="1.5" opacity="0.5"/>
+    </svg>
+    <h1>SIGIT ADI IRIANTO</h1>
+    <div class="role">// IT &amp; SecOps Specialist · Applied AI Engineer</div>
+    <p class="pitch">Signal source: <b>20+ years</b> infrastructure &amp; systems administration. Recent focus: <b>security operations</b> and <b>applied AI</b>. Base station Tangerang, ID — transmissions open worldwide.</p>
+    <div class="cta">
+      <a class="btn solid" href="#contact">REQUEST RESUME / PDF</a>
+      <a class="btn" href="#projects">SCAN PROJECTS</a>
+    </div>
+  </header>
+
+  <div class="gauges">
+    <div class="g"><div class="k">Field Experience</div><div class="bar"><i class="grn" style="width:95%"></i></div><div class="v">20<small>+ yrs</small></div></div>
+    <div class="g"><div class="k">MTTR Reduction</div><div class="bar"><i style="width:45%"></i></div><div class="v">45<small>%</small></div></div>
+    <div class="g"><div class="k">Team Scale</div><div class="bar"><i class="org" style="width:70%"></i></div><div class="v">50<small>+ staff</small></div></div>
+    <div class="g"><div class="k">Timezone Reach</div><div class="bar"><i class="grn" style="width:88%"></i></div><div class="v">Global</div></div>
+  </div>
+</div>
+
+<section id="offer"><div class="wrap">
+  <div class="pane"><span class="ch">CH1</span><h2>Output Channels</h2><div class="line"></div><span class="ch" style="color:var(--faint)">4 ACTIVE</span></div>
+  <div class="ch-grid">
+    <div class="ch-card"><div class="cn">OUT·01 <span>AI</span></div><h3>Applied AI &amp; Prompt Engineering</h3><p>LLM pipeline testing &amp; optimization, BYOK client-side ML, local models (Ollama).</p><div class="sig">● SIGNAL STABLE</div></div>
+    <div class="ch-card"><div class="cn">OUT·02 <span>SEC</span></div><h3>SecOps &amp; Threat Monitoring</h3><p>Wazuh SIEM triage (MTTR −45%), FortiWeb WAF, NIST IR playbooks, ISO 27001 readiness.</p><div class="sig">● SIGNAL STABLE</div></div>
+    <div class="ch-card"><div class="cn">OUT·03 <span>OPS</span></div><h3>IT Infrastructure &amp; Administration</h3><p>Linux/Ubuntu, Docker, automated SQL reporting, 20+ years supporting 50+ staff.</p><div class="sig">● SIGNAL STABLE</div></div>
+    <div class="ch-card"><div class="cn">OUT·04 <span>REM</span></div><h3>Remote &amp; Global Readiness</h3><p>Async operations, multi-timezone coordination, self-directed troubleshooting.</p><div class="sig">● SIGNAL STABLE</div></div>
+  </div>
+</div></section>
+
+<section id="projects"><div class="wrap">
+  <div class="pane"><span class="ch">CH2</span><h2>Recorded Outputs</h2><div class="line"></div><span class="ch" style="color:var(--faint)">5 TRACKS</span></div>
+  <div class="proj-grid">
+    <div class="pc"><div class="id">TRK-01 · AI/WEB</div><h3>PromptMatrix 2.0</h3><p>Prompt testing &amp; optimization for LLM pipelines.</p><div class="stat"><i style="width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 6px var(--green)"></i>IN PRODUCTION</div></div>
+    <div class="pc"><div class="id">TRK-02 · SECOPS</div><h3>A.R.Y.A. SOC Analytics</h3><p>SOC analytics &amp; triage support.</p><div class="stat"><i style="width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 6px var(--green)"></i>IN PRODUCTION</div></div>
+    <div class="pc"><div class="id">TRK-03 · WEB</div><h3>KantinKu ERP</h3><p>Canteen operations ERP with reporting.</p><div class="stat"><i style="width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 6px var(--green)"></i>IN PRODUCTION</div></div>
+    <div class="pc"><div class="id">TRK-04 · ML</div><h3>SmartExpenseML</h3><p>Local rule-based expense classification, zero cloud.</p><div class="stat"><i style="width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 6px var(--green)"></i>IN PRODUCTION</div></div>
+    <div class="pc"><div class="id">TRK-05 · SECOPS</div><h3>SCOPS Command</h3><p>Security operations command tooling.</p><div class="stat"><i style="width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 6px var(--green)"></i>IN PRODUCTION</div></div>
+  </div>
+</div></section>
+
+<section id="exp"><div class="wrap">
+  <div class="pane"><span class="ch">CH3</span><h2>Timeline Trace</h2><div class="line"></div></div>
+  <div style="border-top:1px solid var(--line)">
+    <div style="padding:14px 0;border-bottom:1px solid var(--line);display:flex;gap:20px;flex-wrap:wrap"><span style="color:var(--amber);font-size:12px;min-width:120px">2026 → NOW</span><span><b style="color:#F2F6FA">Web Administrator</b> <span style="color:var(--dim)">— Direktorat PPI, Proyek MoE &amp; BPDLH · Docker/Ubuntu/WSL · Wazuh SIEM · DVWA sandbox</span></span></div>
+    <div style="padding:14px 0;border-bottom:1px solid var(--line);display:flex;gap:20px;flex-wrap:wrap"><span style="color:var(--amber);font-size:12px;min-width:120px">RECENT</span><span><b style="color:#F2F6FA">SecOps &amp; Applied AI</b> <span style="color:var(--dim)">— SOC triage · DevSecOps automation · applied AI pipelines</span></span></div>
+    <div style="padding:14px 0;display:flex;gap:20px;flex-wrap:wrap"><span style="color:var(--amber);font-size:12px;min-width:120px">2000s →</span><span><b style="color:#F2F6FA">Infrastructure &amp; SysAdmin</b> <span style="color:var(--dim)">— two decades of production uptime, 50+ staff</span></span></div>
+  </div>
+</div></section>
+
+<footer id="contact"><div class="wrap">
+  <div class="pane" style="margin-bottom:10px"><span class="ch">CH4</span><h2 style="font-size:16px">Uplink</h2><div class="line"></div></div>
+  <div>linkedin <a href="#">/in/sigitadi</a> · email <a href="#">si.sigitadi@gmail.com</a> · github <a href="#">/sisigitadi</a></div>
+  <div style="margin-top:16px">Concept 04/05 — Signal Monitor · design preview, not the live site</div>
+</div></footer>
+
+</body>
+</html>

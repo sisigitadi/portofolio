@@ -4,7 +4,7 @@
 #
 # Menjalankan audit.py dalam mode cepat (tanpa node --check) agar error
 # struktural terdeteksi sebelum commit. Gerbang final tetap pre-push / CI
-# yang menjalankan audit penuh (12 pemeriksaan).
+# yang menjalankan audit penuh (13 pemeriksaan).
 #
 # Cara aktifkan (sekali saja, dari root repo):
 #     git config core.hooksPath .githooks
