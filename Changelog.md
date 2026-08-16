@@ -13,6 +13,8 @@ The format is based on [Keep a Changelog](https://keepachamber.com/en/1.0.0/), a
 - **`h1` line-height 1.15**: dinaikkan dari `1.02` ke `1.15` — mencegah huruf tinggi/bawah (*ascender/descender*) saling menyentuh saat teks membungkus (*wrap*) di mobile.
 - **TOC flex wrap**: `.toc .trow` kini memiliki `flex-wrap: wrap`, `gap: 8px 10px`, dan `min-width: 12px` pada `.dots` agar nomor halaman selalu rapi.
 - **Footer links flexbox (`.footer-links`)**: baris tautan kontak diubah dari paragraf satu baris dengan `&nbsp;·&nbsp;` menjadi flexbox berbasis chip/item dengan `gap: 6px 12px` (turun baris per item secara alami tanpa bertabrakan di layar <380px).
+- **CTA note mobile alignment**: `.cta-note` diatur `margin: 8px 0 0 0` di media query `≤620px` agar saat turun ke bawah tombol pada layar sempit, catatan tulisan tangan tersusun simetris dan rata kiri.
+- **Mobile section padding**: `section` diatur `padding: 38px 0 0` di mobile (dari 52px) untuk alur scroll yang lebih padat dan nyaman di HP.
 - **Mobile wrapper padding**: `footer .wrap` dan `.wrap` di media query `≤620px` disesuaikan dengan padding `16px` yang proporsional.
 
 ### 🛠️ PWA, SEO & Tracker Sync
