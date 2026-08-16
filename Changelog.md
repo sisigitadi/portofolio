@@ -4,6 +4,23 @@ All notable changes to the **Sigit Adi Irianto Portfolio SPA** project will be d
 
 The format is based on [Keep a Changelog](https://keepachamber.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.7.5] - 2026-08-16 — Offerings Rewritten: Sentence-Style, Grounded, No Overclaims
+
+> **Offerings section (lede + 4 cards) revised** per owner feedback that the descriptions felt ambiguous, disconnected, and overclaiming. Capability keyword-dumps became full sentences; ungrounded capabilities dropped; one inaccurate claim corrected.
+
+### ✏️ Changed
+- **Lede**: `built on 24 years of production operations` → `24 years of infrastructure experience, with SecOps and applied AI as the recent focus` (AI/SecOps are ±2 years old — the old phrasing implied all four areas have 24 years).
+- **1.01 Applied AI**: dropped ungrounded "filtering, and summarization"; corrected the inaccurate `Two shipped AI products — PromptMatrix and SmartExpenseML — are built on this stack` (neither is Ollama-based) → `Shipped, live products: PromptMatrix (cloud Gemini API) and SmartExpenseML (100% browser-side) — both built and maintained end to end`.
+- **1.02 SecOps**: dropped ungrounded "DevSecOps pipelines"; list now reads as one connected sentence ending with the ISO 27001 readiness gap analyses.
+- **1.03 Infra**: dropped weak "REST API integration" and the cliché "supporting engineering teams end to end" → `keeping engineering teams running day to day`; "Runbooks and documentation are standard" → `Runbooks and documentation on every environment`.
+- **1.04 Remote**: keyword-dump bullets ("Asynchronous operations, multi-timezone coordination…") became sentences — `Asynchronous work across time zones, with multi-stakeholder coordination as the default` and `Self-directed troubleshooting and disciplined documentation — nothing depends on memory`.
+
+### 🧪 Validation
+- `python audit.py` → **13 PASS | 0 FAIL | 0 WARN** · `pytest` → **62/62** · parity maintained (`index.html` + preview).
+- All claims remain grounded in the field log, project cards, or owner-confirmed figures — no new claims introduced.
+
+---
+
 ## [2.7.3] - 2026-08-16 — Remove Dead CSS Rules (Post-Overhaul Cleanup)
 
 > **CSS cleanup after the v2.7.0 content overhaul**: rules left unused by the new markup removed from both `index.html` and the preview — no visual change, smaller stylesheet.
