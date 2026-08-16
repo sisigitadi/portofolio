@@ -4,6 +4,16 @@ All notable changes to the **Sigit Adi Irianto Portfolio SPA** project will be d
 
 The format is based on [Keep a Changelog](https://keepachamber.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.7.16] - 2026-08-16 — Title Page Footer Added (p. 1 / 7)
+
+> **Owner question**: the title page had no page-number footer at all — the first `.pg` footer started at Offerings. Now the cover carries the same footer as every other page: `SAI-2026 · Field Manual · ↑ back to contents · p. 1 / 7`, making the numbering fully continuous from page 1.
+
+### 📄 Changed (index.html + design-previews/02-field-manual.html)
+- Added `.pg` footer after `</header>` with `p. 1 / 7` — same layout as all other sections.
+- Seven footers now span p.1/7 → p.7/7; parity + audit **13 PASS** · pytest **62/62**.
+
+---
+
 ## [2.7.15] - 2026-08-16 — Seven-Page Layout: Each Section on Its Own Page
 
 > **Owner request**: every section now gets its own page instead of sharing. The manual is **7 pages**: title = p.1 (unnumbered), Offerings = p.2, Deployed Projects = p.3, Field Log = p.4, Field Reports = p.5, Certifications = p.6, Contact = p.7. TOC and every section footer updated to `p. x / 7`.
