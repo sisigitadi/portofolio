@@ -1064,17 +1064,10 @@
         if (stampTimer) { clearTimeout(stampTimer); stampTimer = null }
       }
       contactSec.addEventListener('mouseenter', startStampTimer)
+      contactSec.addEventListener('mousemove', startStampTimer)
       contactSec.addEventListener('mouseleave', stopStampTimer)
-      var contactIo = new IntersectionObserver(function (entries) {
-        for (var n = 0; n < entries.length; n++) {
-          if (entries[n].isIntersecting) {
-            startStampTimer()
-          } else {
-            stopStampTimer()
-          }
-        }
-      }, { threshold: 0.25 })
-      contactIo.observe(contactSec)
+      contactSec.addEventListener('touchstart', startStampTimer, { passive: true })
+      contactSec.addEventListener('focusin', startStampTimer)
     }
   })()
   ;(function () {

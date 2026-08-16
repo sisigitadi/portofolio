@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#D6CDB4">
 
 <!-- Security Hardening & CSP Meta Tags (script-src via sha256 hash, no 'unsafe-inline' script; connect/img restricted to trusted origins) -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self' https:; script-src 'self' 'sha256-y2Zt22noOrlCkwpC3G2gXr/XAPjMvAh7471co7MQs6E=' 'sha256-u86bYsMwO71wBLrZtpK99d81VjwgfFiFsf5wljgOhxc='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com data:; img-src 'self' data: https://portofolio-visitor-tracker.si-sigitadi.workers.dev; connect-src 'self' https://formspree.io https://portofolio-visitor-tracker.si-sigitadi.workers.dev; object-src 'none'; frame-src 'none'; base-uri 'self'; form-action 'self' https://formspree.io; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' https:; script-src 'self' 'sha256-OwjqoTrhPRMZ+EuIVmGul76gPYZp5ARjo3wv9DtL5Zs=' 'sha256-u86bYsMwO71wBLrZtpK99d81VjwgfFiFsf5wljgOhxc='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com data:; img-src 'self' data: https://portofolio-visitor-tracker.si-sigitadi.workers.dev; connect-src 'self' https://formspree.io https://portofolio-visitor-tracker.si-sigitadi.workers.dev; object-src 'none'; frame-src 'none'; base-uri 'self'; form-action 'self' https://formspree.io; upgrade-insecure-requests">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=(), usb=(), autoplay=()">
@@ -1079,17 +1079,10 @@
         if (stampTimer) { clearTimeout(stampTimer); stampTimer = null }
       }
       contactSec.addEventListener('mouseenter', startStampTimer)
+      contactSec.addEventListener('mousemove', startStampTimer)
       contactSec.addEventListener('mouseleave', stopStampTimer)
-      var contactIo = new IntersectionObserver(function (entries) {
-        for (var n = 0; n < entries.length; n++) {
-          if (entries[n].isIntersecting) {
-            startStampTimer()
-          } else {
-            stopStampTimer()
-          }
-        }
-      }, { threshold: 0.25 })
-      contactIo.observe(contactSec)
+      contactSec.addEventListener('touchstart', startStampTimer, { passive: true })
+      contactSec.addEventListener('focusin', startStampTimer)
     }
   })()
   ;(function () {
