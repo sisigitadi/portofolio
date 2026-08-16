@@ -4,6 +4,18 @@ All notable changes to the **Sigit Adi Irianto Portfolio SPA** project will be d
 
 The format is based on [Keep a Changelog](https://keepachamber.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.7.6] - 2026-08-16 — Shorten Offerings Lede
+
+> **Copy polish** per owner request: the §1 lede compressed from two sentences (~165 chars) to one tight line — same facts, same value proposition.
+
+### ✏️ Changed
+- **§1 Offerings lede**: `What I can operate, maintain, and improve for your team. Four areas of work — 24 years of infrastructure experience, with SecOps and applied AI as the recent focus.` → `Four areas I operate, maintain, and improve — 24 years of infrastructure, with SecOps & applied AI the recent focus.`
+
+### 🧪 Validation
+- `python audit.py` → **13 PASS | 0 FAIL | 0 WARN** · parity maintained.
+
+---
+
 ## [2.7.5] - 2026-08-16 — Offerings Rewritten: Sentence-Style, Grounded, No Overclaims
 
 > **Offerings section (lede + 4 cards) revised** per owner feedback that the descriptions felt ambiguous, disconnected, and overclaiming. Capability keyword-dumps became full sentences; ungrounded capabilities dropped; one inaccurate claim corrected.
