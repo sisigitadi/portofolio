@@ -4,6 +4,22 @@ All notable changes to the **Sigit Adi Irianto Portfolio SPA** project will be d
 
 The format is based on [Keep a Changelog](https://keepachamber.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.7.9] - 2026-08-16 — Consistent Section Numbering (1.01 … 5.09)
+
+> **Numbering system extended from §1 Offerings to every section** (per owner request): the `X.YY` item numbers now run across the whole manual — projects `2.01`–`2.04`, field-log entries `3.01`–`3.10`, field reports `4.01`–`4.04`, certifications `5.01`–`5.09`.
+
+### 🔢 Changed
+- **§2 Projects**: `2.01`–`2.04` corner badges added to each card (same `.num` style as offerings; `.pc` gained `position:relative`).
+- **§3 Field Log**: each date column prefixed `3.01 · MAR 2026 — NOW` … `3.10 · 2002 — 2014`; `.log .y` column widened `170px` → `195px` so the longest prefixed date fits without wrapping.
+- **§4 Field Reports**: tag `Field Report 01 · Recommendation` → `4.01 · Recommendation` (… `4.04 · General Manager`).
+- **§5 Certifications**: year cells prefixed `5.01 · 2025` … `5.09 · 2024`.
+
+### 🧪 Validation
+- Browser (headless Chrome + CDP @ 1366/1024/768): all numbers render, **0 overflow, 0 horizontal scroll**.
+- `python audit.py` → **13 PASS | 0 FAIL | 0 WARN** · `pytest` → **62/62** · parity maintained.
+
+---
+
 ## [2.7.8] - 2026-08-16 — Move n8n to Applied AI Offering (1.01)
 
 > **Owner direction**: n8n belongs with the applied-AI offering, not IT infrastructure.
