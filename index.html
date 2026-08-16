@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#D6CDB4">
 
 <!-- Security Hardening & CSP Meta Tags (script-src via sha256 hash, tanpa 'unsafe-inline' script; connect/img dibatasi ke origin tepercaya) -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self' https:; script-src 'self' 'sha256-mVCKz/hkUhstJwPooOgQgDgqC4t/7VfL87IPri1I8bY=' 'sha256-kHtiFb3B+fXE7H8EWDyTM5kRueZ08F1f1Rdw63D0DTE='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com data:; img-src 'self' data: https://portofolio-visitor-tracker.si-sigitadi.workers.dev; connect-src 'self' https://formspree.io https://portofolio-visitor-tracker.si-sigitadi.workers.dev; object-src 'none'; frame-src 'none'; base-uri 'self'; form-action 'self' https://formspree.io; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' https:; script-src 'self' 'sha256-ab5GJjc8r00zWEYRbqbyjn04uleXLhdL9gv03+SVz/A=' 'sha256-u86bYsMwO71wBLrZtpK99d81VjwgfFiFsf5wljgOhxc='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com data:; img-src 'self' data: https://portofolio-visitor-tracker.si-sigitadi.workers.dev; connect-src 'self' https://formspree.io https://portofolio-visitor-tracker.si-sigitadi.workers.dev; object-src 'none'; frame-src 'none'; base-uri 'self'; form-action 'self' https://formspree.io; upgrade-insecure-requests">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=(), usb=(), autoplay=()">
@@ -60,7 +60,7 @@
   "@context": "https://schema.org",
   "@type": "Person",
   "name": "Sigit Adi Irianto",
-  "jobTitle": "IT &amp; SecOps Specialist | Applied AI Engineer",
+  "jobTitle": "IT & SecOps Specialist | Applied AI Engineer",
   "url": "https://sisigitadi.github.io/portofolio/",
   "image": "https://sisigitadi.github.io/portofolio/og-preview.jpg?v=2.6.1",
   "sameAs": [
@@ -135,7 +135,7 @@
   *{margin:0;padding:0;box-sizing:border-box}
   html{scroll-behavior:smooth}
   html,body{overflow-x:hidden} /* pengaman: tidak pernah ada scroll horizontal di level halaman */
-  body{background:#D6CDB4;color:var(--ink);font:16px/1.75 Georgia,"Times New Roman",serif;text-align:justify;padding:40px 14px 56px}
+  body{background:#D6CDB4;color:var(--ink);font:16px/1.75 Georgia,"Times New Roman",serif;text-align:left;padding:40px 14px 56px}
   .sheet{position:relative;max-width:1000px;margin:0 auto;background:var(--paper);border:1px solid #C9C1A8;box-shadow:0 24px 60px -18px rgba(58,48,28,0.4);overflow:hidden}
   .sheet::after{content:'';position:absolute;inset:0;pointer-events:none;z-index:2;opacity:.05;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
   .ink{width:36px;height:34px;margin-left:10px;vertical-align:-4px}
@@ -162,10 +162,10 @@
 
   /* ---------- title page ---------- */
   header{padding:34px 0 26px;position:relative}
-  h1{font-size:clamp(28px,6.5vw,72px);line-height:1.02;font-weight:700;letter-spacing:-1px;text-align:left;text-wrap:balance;margin-bottom:14px}
+  h1{font-size:clamp(28px,6.5vw,72px);line-height:1.15;font-weight:700;letter-spacing:-1px;text-align:left;text-wrap:balance;margin-bottom:14px}
   h1 .thin{font-weight:400;color:var(--ink2)}
   .role{font-size:clamp(17px,2.4vw,22px);color:var(--accent2);margin-bottom:20px}
-  .pitch{max-width:600px;color:var(--ink2);margin-bottom:6px;text-align:justify}
+  .pitch{max-width:600px;color:var(--ink2);margin-bottom:6px;text-align:left;line-height:1.7}
   .pitch + .pitch{margin-top:14px}
   .pitch b{color:var(--ink)}
   .pitch .u{text-decoration:underline;text-decoration-color:var(--accent);text-underline-offset:3px}
@@ -179,14 +179,14 @@
   /* table of contents */
   .toc{border-top:2px solid var(--ink);margin:30px 0 4px}
   .toc .th{font:11.5px ui-monospace,Consolas,monospace;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;padding:10px 2px 4px}
-  .toc .trow{display:flex;align-items:baseline;gap:10px;padding:7px 2px;border-bottom:1px solid var(--rule);font-size:15px}
+  .toc .trow{display:flex;align-items:baseline;gap:8px 10px;padding:7px 2px;border-bottom:1px solid var(--rule);font-size:15px;flex-wrap:wrap}
   .toc .trow a{border-bottom:none;color:var(--ink)}
   .toc .trow a:hover{color:var(--accent)}
   .toc .no{font:12px ui-monospace,Consolas,monospace;color:var(--accent);min-width:34px}
-  .toc .dots{flex:1;border-bottom:1px dotted var(--muted);transform:translateY(-4px)}
+  .toc .dots{flex:1;min-width:12px;border-bottom:1px dotted var(--muted);transform:translateY(-4px)}
   .toc .pg{font:12px ui-monospace,Consolas,monospace;color:var(--muted)}
 
-  .cta{display:flex;gap:14px;flex-wrap:wrap;margin:32px 0 8px}
+  .cta{display:flex;gap:14px;flex-wrap:wrap;margin:32px 0 8px;align-items:center}
   .cta-note{display:flex;align-items:center;gap:6px;margin:2px 0 0 26px;transform:rotate(-1.6deg)}
   .cta-note span{font:500 24px/1.25 var(--hand);color:#000;letter-spacing:.005em;text-shadow:0 0 2px rgba(0,0,0,.55),0 0 6px rgba(0,0,0,.3),0 0 14px rgba(0,0,0,.18),0 0 24px rgba(0,0,0,.09)}
   .cta-note .ink.paraf{width:40px;height:28px;margin-left:2px;transform:rotate(-14deg)}
@@ -216,7 +216,7 @@
   .sec-head .no{font:15px ui-monospace,Consolas,monospace;color:var(--accent)}
   .sec-head h2{font-size:26px;font-weight:700;text-wrap:balance}
   .sec-head .dash{flex:1;border-bottom:1px dotted var(--rule)}
-  .lede{color:var(--ink2);max-width:640px;margin-bottom:26px;font-size:15px;text-align:justify}
+  .lede{color:var(--ink2);max-width:640px;margin-bottom:26px;font-size:15px;text-align:left;line-height:1.7}
   .lede b{color:var(--ink)}
 
   .offer,.proj{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:8px}
@@ -226,6 +226,8 @@
   @media (max-width:620px){
     body{padding:10px 6px 24px}
     .sheet{box-shadow:none}
+    .wrap{padding:0 16px}
+    footer .wrap{padding:24px 16px 48px}
     .offer,.proj{grid-template-columns:1fr}
     .spec .row{flex-direction:column;gap:2px}
     .spec .k{width:auto;white-space:normal}
@@ -237,6 +239,7 @@
     .mnote{flex-wrap:wrap;justify-content:flex-end}
     .mnote span{font-size:19px}
     .mnote svg.underline{width:36px;height:7px}
+    .footer-links{gap:8px 12px}
   }
   .oc h3{font-size:18px;margin-bottom:8px}
   .oc p{font-size:14.5px;color:var(--ink2);line-height:1.65}
@@ -285,7 +288,7 @@
   .pg a:hover{color:var(--accent);border-bottom:1px solid var(--accent)}
 
   /* ---------- footer / end ---------- */
-  footer{border-top:2px solid var(--ink);margin-top:56px}
+  footer{border-top:2px solid var(--ink);margin-top:56px;text-align:left}
   footer .wrap{padding:28px 28px 64px}
   .slip{background:var(--paper2);border:1px solid var(--rule);border-top:2px solid var(--ink);padding:22px 24px;margin:4px 0 26px;max-width:560px}
   .slip .slip-head{font:12px ui-monospace,Consolas,monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
@@ -300,6 +303,9 @@
   .slip .slip-status.ok{color:#1E7A3C}
   .slip .slip-status.err{color:var(--accent)}
   .slip .slip-foot{margin-top:12px;font-size:12.5px;color:var(--muted);font-style:italic}
+  .footer-links{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;margin:18px 0 14px;font-size:15px;line-height:1.6}
+  .footer-links span{display:inline-flex;align-items:baseline;gap:4px}
+  .footer-links .sep{color:var(--muted)}
   footer .sig{margin:26px 0 0;font-size:15px}
 
   footer .end{margin-top:34px;border-top:1px solid var(--rule);padding-top:16px;font-size:13px;color:var(--muted)}
@@ -538,7 +544,15 @@
     <p class="slip-foot">Your email is used only to send the resume — nothing else, nothing stored.</p>
   </div>
 
-  <p>linkedin <a href="https://www.linkedin.com/in/sigitadi/" target="_blank" rel="noopener noreferrer">/in/sigitadi</a> &nbsp;·&nbsp; github <a href="https://github.com/sisigitadi" target="_blank" rel="noopener noreferrer">/sisigitadi</a> &nbsp;·&nbsp; medium <a href="https://medium.com/@si.sigitadi" target="_blank" rel="noopener noreferrer">@si.sigitadi</a> &nbsp;·&nbsp; email <a href="mailto:si.sigitadi@gmail.com">si.sigitadi@gmail.com</a></p>
+  <p class="footer-links">
+    <span>linkedin <a href="https://www.linkedin.com/in/sigitadi/" target="_blank" rel="noopener noreferrer">/in/sigitadi</a></span>
+    <span class="sep" aria-hidden="true">·</span>
+    <span>github <a href="https://github.com/sisigitadi" target="_blank" rel="noopener noreferrer">/sisigitadi</a></span>
+    <span class="sep" aria-hidden="true">·</span>
+    <span>medium <a href="https://medium.com/@si.sigitadi" target="_blank" rel="noopener noreferrer">@si.sigitadi</a></span>
+    <span class="sep" aria-hidden="true">·</span>
+    <span>email <a href="mailto:si.sigitadi@gmail.com">si.sigitadi@gmail.com</a></span>
+  </p>
 
   <div class="sig">
     <span style="font-size:13px;color:var(--muted)">Keep this manual. Replace when a new edition ships.</span>
@@ -640,6 +654,13 @@
         })
     })
   })()
+  ;(function () {
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.register('sw.js').catch(function () {})
+      })
+    }
+  })()
 </script>
 
 <!-- Visitor Tracker Client (hit counter badge + hidden owner dashboard shortcut — Cloudflare Worker backend, see worker-visitor/) -->
@@ -656,10 +677,8 @@
     function setCount(n) {
       if (typeof n !== 'number' || isNaN(n)) { countEl.textContent = '--'; return; }
       countEl.textContent = n.toLocaleString('en-US');
+      badge.style.display = 'block';
     }
-
-    // Reveal the badge only when the tracker backend responds (manual colophon style).
-    badge.style.display = 'block';
 
     // Record this visit (IP + location are hashed/stored server-side by the Worker).
     var payload = { path: location.pathname, referrer: document.referrer, lang: 'en' };
