@@ -4,6 +4,17 @@ All notable changes to the **Sigit Adi Irianto Portfolio SPA** project will be d
 
 The format is based on [Keep a Changelog](https://keepachamber.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.7.17] - 2026-08-16 — Contact Page Footer Standardized (p. 7 / 7)
+
+> **Owner observation**: page 7 (Contact) used a `<footer>` element without the standard `.pg` bar — the page number was embedded inline in the END OF MANUAL line, so it sat at a different position than every other page. Now the contact page carries the same footer bar as the rest (`SAI-2026 · Field Manual · ↑ back to contents · p. 7 / 7`), and the END OF MANUAL line no longer repeats the number.
+
+### 📄 Changed (index.html + design-previews/02-field-manual.html)
+- Added `.pg` footer bar after `</footer>` with `p. 7 / 7` — identical layout to pages 1–6.
+- END OF MANUAL line: `p. 7 / 7` removed (no duplicated page number).
+- All seven footers now render in the same position; parity + audit **13 PASS** · pytest **62/62**.
+
+---
+
 ## [2.7.16] - 2026-08-16 — Title Page Footer Added (p. 1 / 7)
 
 > **Owner question**: the title page had no page-number footer at all — the first `.pg` footer started at Offerings. Now the cover carries the same footer as every other page: `SAI-2026 · Field Manual · ↑ back to contents · p. 1 / 7`, making the numbering fully continuous from page 1.
