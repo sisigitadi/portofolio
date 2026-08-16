@@ -1076,15 +1076,16 @@
         if (stampFired || stampTimer) return
         stampTimer = setTimeout(triggerStamp, 3000)
       }
-      function stopStampTimer() {
-        if (stampFired) return
-        if (stampTimer) { clearTimeout(stampTimer); stampTimer = null }
-      }
       contactSec.addEventListener('mouseenter', startStampTimer)
       contactSec.addEventListener('mousemove', startStampTimer)
-      contactSec.addEventListener('mouseleave', stopStampTimer)
       contactSec.addEventListener('touchstart', startStampTimer, { passive: true })
       contactSec.addEventListener('focusin', startStampTimer)
+      var contactIo = new IntersectionObserver(function (entries) {
+        for (var n = 0; n < entries.length; n++) {
+          if (entries[n].isIntersecting) startStampTimer()
+        }
+      }, { threshold: 0.15 })
+      contactIo.observe(contactSec)
     }
   })()
   ;(function () {
