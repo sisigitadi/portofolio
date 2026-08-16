@@ -4,6 +4,22 @@ All notable changes to the **Sigit Adi Irianto Portfolio SPA** project will be d
 
 The format is based on [Keep a Changelog](https://keepachamber.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.7.14] - 2026-08-16 — Worker Deploy Mandate Documented + Live Worker Redeployed
+
+> **Operational fix + rule**: the dashboard changes from v2.7.12/2.7.13 (map removal, 2×2 grid) were committed but **not deployed** — Cloudflare Workers are deployed independently of git, so the live dashboard still showed the old code. The worker was redeployed (`npx wrangler deploy`, version `5594c5eb-…`) and the rule is now documented so this cannot be missed again.
+
+### 🚀 Live Worker Redeployed
+- `npx wrangler deploy` from `worker-visitor/` → `portofolio-visitor-tracker` updated (version `5594c5eb-4c97-428f-abf7-a5b51ad8215e`); KV/D1 bindings intact, secrets untouched. Verified `/count` responds and `/dashboard` without key returns the login page.
+
+### 📚 Rule Documented
+- **`Project_rules.md` §1.10**: any `worker-visitor/worker.js` change requires BOTH `git push` AND `npx wrangler deploy` from `worker-visitor/` — the worker is a separate Cloudflare deployment; secrets survive redeploys (no `[vars]`).
+- **`Readme.md`** Visitor Tracker bullet: noted the two-step deploy requirement.
+
+### 🧪 Validation
+- `node --test worker-visitor/worker.test.js` → **26/26** · `python audit.py` → **13 PASS**.
+
+---
+
 ## [2.7.13] - 2026-08-16 — Visitor Dashboard: 2×2 Proportional Chart Grid
 
 > **Owner request**: the four mid-size dashboard panels (Visits by hour, Top countries, Top cities, Devices · Browsers · OS) now sit in a tidy **two rows × two equal columns** grid instead of the `auto-fit` flow that left a ragged 3+1 layout. The trend chart keeps its full-width row.
