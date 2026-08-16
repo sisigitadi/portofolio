@@ -6,6 +6,26 @@ The format is based on [Keep a Changelog](https://keepachamber.com/en/1.0.0/), a
 
 ---
 
+## [2.6.3] - 2026-08-16 — Responsive Hero Fix (360px) + Handwriting Font & Ink Strokes Enlarged
+
+> **Perbaikan tampilan ponsel + keterbacaan "coretan tinta"**: nama hero `h1` di Ulefone Armor 11 5G (360px) turun dari 40px ke 28px sehingga muat **satu baris** (sebelumnya 2 baris dengan spasi antar kata melebar — penyebabnya `text-align: justify` dari `body` menurun ke `h1`), dan font tulisan tangan Caveat + coretan pulpen SVG diperbesar agar lebih terlihat.
+
+### 🎨 Hero `h1` — responsive fix (index.html)
+- **`font-size: clamp(40px, 7vw, 72px)` → `clamp(28px, 6.5vw, 72px)`** — di viewport 360px (Ulefone Armor 11 5G) ukuran nama turun 40px → 28px, "Sigit Adi Irianto." muat **satu baris**; skala halus 28px (ponsel) → ~50px (768) → ~66px (1024) → cap 72px (≥1366).
+- **`text-align: left` ditambahkan ke `h1`** — akar masalah "spasi yg jauh antar kata": `body{text-align:justify}` menurun ke `h1`, jadi baris ter-wrap diregang justify. Kini rata kiri (tetap `text-wrap: balance`); di layar super sempit (Fold outer 280px, konten 210px) yang masih 2 baris tidak ada lagi celah justify.
+
+### ✍️ Handwriting font & coretan pulpen diperbesar
+- **Font Caveat**: catatan margin (`.mnote`) 16px → **19px**; catatan CTA (`.cta-note`) 16.5px → **20px** (line-height disesuaikan 1.15/1.2).
+- **Coretan SVG `.ink`**: centang 24×22 → 30×28, bintang 19×19 → 24×24, paraf 38×24 → 46×30 (paraf tanda tangan 34×22 → 42×27, paraf CTA 26×20 → 33×24), coretan bawah garis 52×8 → 60×9.
+- **Ketebalan tinta**: `stroke-width` 2.6 → **3** (makin terlihat, tetap `pathLength="120"` + `stroke-dasharray` untuk animasi gambat saat scroll).
+
+### 🧪 Validasi (Chrome headless CDP, emulasi device metrics)
+- **Matriks 8 viewport**: 280 / 320 / 360 / 414 / 768 / 1024 / 1366 / 1920 — `h1` **satu baris mulai 320px** (360 Ulefone terkonfirmasi `WRAPPED=false`), selalu muat kontainer (`fitsContainer=true`), **0 horizontal scroll** di semua lebar; 280px tetap 2 baris tapi rata kiri (tanpa spasi justify).
+- Terkonfirmasi teraplikasi: `mnote=19px`, `cta=20px`, star 24×24, paraf 42px, `stroke-width=3px`.
+- `python audit.py` → **13 PASS | 0 FAIL | 0 WARN** · `node --test worker-visitor/worker.test.js` → **26/26** · tanpa dampak CSP (perubahan hanya CSS — `style-src 'unsafe-inline'`; hash script tidak tersentuh).
+
+---
+
 ## [2.6.2] - 2026-08-16 — Visitor Worker Hardening: Body Guard, Fail-Closed Salt, Referrer Policy + Route Test Suite
 
 > **Review & hardening worker visitor (`worker-visitor/`)**: tiga celah kecil ditutup (body `POST /hit` tanpa batas ukuran, fallback salt `'salt'` konstan saat `IP_HASH_SALT` tidak dikonfigurasi, dashboard tanpa `Referrer-Policy`), ditambah **26 route test pertama** (node:test, tanpa dependensi) yang masuk gate CI preflight, sinkronisasi dokumen "tracker nonaktif default" yang usang, dan PWA cache bump.
