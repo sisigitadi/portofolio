@@ -21,6 +21,11 @@
   body{background:#D6CDB4;color:var(--ink);font:16px/1.75 Georgia,"Times New Roman",serif;text-align:justify;padding:40px 14px 56px}
   .sheet{position:relative;max-width:1000px;margin:0 auto;background:var(--paper);border:1px solid #C9C1A8;box-shadow:0 24px 60px -18px rgba(58,48,28,0.4);overflow:hidden}
   .sheet::after{content:'';position:absolute;inset:0;pointer-events:none;z-index:2;opacity:.05;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+  @keyframes dossierLanding{0%{opacity:0;transform:perspective(1200px) translateY(-75px) rotateX(14deg) rotateY(-3.5deg) scale(0.96);box-shadow:0 45px 70px -15px rgba(32,36,43,0.38),0 25px 35px -20px rgba(32,36,43,0.25)}45%{opacity:1;transform:perspective(1200px) translateY(-18px) rotateX(7deg) rotateY(-1.5deg) scale(0.985);box-shadow:0 35px 50px -10px rgba(32,36,43,0.28)}78%{transform:perspective(1200px) translateY(3px) rotateX(-1deg) rotateY(0.5deg) scale(1.002);box-shadow:0 16px 28px -6px rgba(32,36,43,0.16)}100%{opacity:1;transform:perspective(1200px) translateY(0) rotateX(0deg) rotateY(0deg) scale(1);box-shadow:0 24px 60px -18px rgba(58,48,28,0.4)}}
+  .sheet.landing-active{animation:dossierLanding 1.15s cubic-bezier(0.22,1,0.36,1) forwards;transform-origin:50% 0%;will-change:transform,box-shadow,opacity}
+  @keyframes statusPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.85)}}
+  .hdr .meta b::before{content:'• ';color:#2E7D32;display:inline-block;animation:statusPulse 2.4s ease-in-out infinite}
+  @media (prefers-reduced-motion:reduce){.sheet.landing-active{animation:none !important;transform:none !important}.hdr .meta b::before{animation:none !important}}
   .ink{height:1.25em;width:auto;margin-left:8px;vertical-align:-0.28em}
   .ink.star{height:1.25em;width:auto;margin-left:6px}
   .ink.paraf{width:38px;height:24px;margin-left:16px;transform:rotate(-8deg)}
@@ -121,7 +126,8 @@
   .oc p,.oc .blist{font-size:14.5px;color:var(--ink2);line-height:1.65}
   .oc .ref{display:block;margin-top:14px;font:12px ui-monospace,Consolas,monospace;color:var(--muted);letter-spacing:.04em}
 
-  .pc{background:var(--paper2);border:1px solid var(--rule);padding:20px;display:flex;flex-direction:column;position:relative}
+  .pc{background:var(--paper2);border:1px solid var(--rule);padding:20px;display:flex;flex-direction:column;position:relative;transition:transform .22s cubic-bezier(0.2,0.8,0.2,1),box-shadow .22s cubic-bezier(0.2,0.8,0.2,1),border-color .22s ease}
+  .pc:hover{transform:translateY(-3px);box-shadow:0 12px 24px -8px rgba(32,36,43,.18);border-color:var(--accent)}
   .pc .tag{font:11.5px ui-monospace,Consolas,monospace;color:var(--accent);letter-spacing:.06em;text-transform:uppercase}
   .pc h3{font-size:18px;margin:6px 0 6px}
   .pc .status{margin-top:12px;font:11px ui-monospace,Consolas,monospace;letter-spacing:.06em;text-transform:uppercase;border-top:1px solid var(--rule);padding-top:8px;color:var(--muted)}
@@ -129,8 +135,8 @@
   .visitor-badge{display:none;margin-top:16px;font:11px ui-monospace,Consolas,monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
   .visitor-badge .vb-sep{color:var(--accent);margin:0 5px}
   .visitor-badge .vb-count{color:var(--accent);font-weight:700}
-  .pc .url{display:block;margin-top:7px;font:11.5px ui-monospace,Consolas,monospace;color:var(--accent2);border-bottom:1px dotted var(--accent);word-break:break-all;width:fit-content}
-  .pc .url:hover{color:var(--accent);border-bottom:1px solid var(--accent)}
+  .pc .url{display:block;margin-top:7px;font:11.5px ui-monospace,Consolas,monospace;color:var(--accent2);border-bottom:1px dotted var(--accent);word-break:break-all;width:fit-content;transition:transform .18s ease,color .18s ease}
+  .pc:hover .url{transform:translate(2px,-2px);color:var(--accent)}
 
   /* field log — the career, as dated entries */
   .log{border-top:2px solid var(--ink)}
@@ -979,6 +985,23 @@
         }
       }
     }
+  })()
+  ;(function () {
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (reduce) return
+    var sheet = document.querySelector('.sheet')
+    if (!sheet) return
+    sheet.classList.add('landing-active')
+    function cleanUp() {
+      sheet.classList.remove('landing-active')
+      window.removeEventListener('scroll', cleanUp)
+      window.removeEventListener('click', cleanUp)
+      window.removeEventListener('keydown', cleanUp)
+    }
+    setTimeout(cleanUp, 1200)
+    window.addEventListener('scroll', cleanUp, { passive: true, once: true })
+    window.addEventListener('click', cleanUp, { passive: true, once: true })
+    window.addEventListener('keydown', cleanUp, { passive: true, once: true })
   })()
   ;(function () {
     var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches

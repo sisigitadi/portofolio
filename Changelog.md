@@ -4,6 +4,29 @@ All notable changes to the **Sigit Adi Irianto Portfolio SPA** project will be d
 
 The format is based on [Keep a Changelog](https://keepachamber.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.8.1] - 2026-08-17 — The Floating Dossier Landing & In-Page Physics Micro-Interactions
+
+> **Visual & UX Polish**: Implemented tactile 3D entry animation ("The Floating Dossier Landing") where the entire portfolio document floats and lands onto the desk surface with realistic aerodynamic easing. Added non-blocking instant-skip on interaction, tactile 3D hover physics on project cards, and breathing status pulse indicators across all 3 documents (`index.html`, `ai-engineer.html`, `secops-specialist.html`).
+
+### 📄 Added & Changed
+- **Entry Sequence Animation (`@keyframes dossierLanding`)**:
+  - Implemented 1.15s 3D perspective floating-drop animation on `.sheet` container with dynamic desk shadow expansion/contraction.
+  - Added non-blocking instant-skip listener: scrolling, clicking, or pressing any key instantly settles the animation.
+  - Zero performance overhead: pure CSS hardware-accelerated transforms + native RAF/transition.
+- **In-Page Micro-Interactions**:
+  - Added 3D tactile elevation (`translateY(-3px)` + soft paper shadow) and accent border transition on hover for all project cards (`.pc`).
+  - Added live status breathing pulse (`statusPulse` 2.4s infinite) to the hero availability indicator (`.hdr .meta b`).
+- **Accessibility & Print Isolation**:
+  - Completely neutralized under `@media (prefers-reduced-motion: reduce)`.
+  - Zero impact on print: `@media print` cleanly bypasses all animations and 3D transforms, guaranteeing exact 2-page A4 PDF output.
+- **Ecosystem & Rules Sync**:
+  - Synchronized across `index.html`, `ai-engineer.html`, `secops-specialist.html`, and `design-previews/02-field-manual.html`.
+  - Bumped PWA Service Worker cache to `portofolio-v35` (`sw.js`).
+  - Updated `Project_rules.md` (§6 Tri-Document Portfolio, SEO & Social Media Mandate).
+  - Updated `test_audit.py` (64/64 pytest pass).
+
+---
+
 ## [2.8.0] - 2026-08-17 — Dedicated Standalone Portfolios & ATS Resumes (AI Engineer & SecOps Specialist)
 
 > **Major Release**: Deployed two standalone, dedicated static web portfolio & CV pages (`ai-engineer.html` and `secops-specialist.html`) matching the Field Manual design, layout, ink animations, and ATS 2-page print rules 100% identically with the Master site (`index.html`). Each page provides native, zero-glitch browser viewing and pristine 2-page PDF printing.
