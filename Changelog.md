@@ -4,6 +4,20 @@ All notable changes to the **Sigit Adi Irianto Portfolio SPA** project will be d
 
 The format is based on [Keep a Changelog](https://keepachamber.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.7.8] - 2026-08-16 — Move n8n to Applied AI Offering (1.01)
+
+> **Owner direction**: n8n belongs with the applied-AI offering, not IT infrastructure.
+
+### ✏️ Changed
+- **1.01 Applied AI & Prompt Engineering** bullet 1: now includes `n8n workflow automation` alongside Ollama and on-device classification (as AI/workflow automation tooling).
+- **1.01 REF tag**: `promptmatrix · ollama · text-classification` → `promptmatrix · ollama · n8n · text-classification`.
+- 1.03 IT Infrastructure untouched — no n8n there.
+
+### 🧪 Validation
+- `python audit.py` → **13 PASS | 0 FAIL | 0 WARN** · `pytest` → **62/62** · parity maintained.
+
+---
+
 ## [2.7.7] - 2026-08-16 — Offerings Lede Rewrite (CV-Style) + Drop n8n from 1.03
 
 > **Owner-directed copy changes**: the §1 lede replaced with a recruiter-scannable CV-style sentence, and n8n removed from the 1.03 offering because it is too recent to claim as a long-standing capability.
