@@ -4,6 +4,19 @@ All notable changes to the **Sigit Adi Irianto Portfolio SPA** project will be d
 
 The format is based on [Keep a Changelog](https://keepachamber.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.7.11] - 2026-08-16 — Docs Sync: Item Numbering in Readme
+
+> **Documentation update** per owner request: the Field Manual's new item-numbering system (corner badges `1.01`–`5.09`) documented in `Readme.md`. All docs re-scanned — no other stale references remain.
+
+### 📚 Changed
+- **`Readme.md`** — Field Manual section: added `item-numbered sections (corner badges 1.01–5.09)` to the content description.
+- Re-scanned `Readme.md`, `Project_rules.md`, `design-lab/CONCEPTS.md`, `worker-visitor/README.md` for session-era stale terms (S.Kom, dual-boot, home labs, aspirational, Directorate of Climate Change, Director's Note, nothing stored, Real-time threat, all current, Division, 20+ years of IT, each backed, built on this stack, no data sent to the cloud, most recent first) — **clean** (historical Changelog entries intentionally untouched).
+
+### 🧪 Validation
+- `python audit.py` → **13 PASS | 0 FAIL | 0 WARN**.
+
+---
+
 ## [2.7.10] - 2026-08-16 — Section Numbers as Corner Badges (Same Placement as Offerings)
 
 > **Owner request**: the section numbers in §2–§5 should sit in the same corner-badge position as the offerings' `1.01`–`1.04` — not as inline prefixes. All numbers became the accent corner tab; inline prefixes removed.
