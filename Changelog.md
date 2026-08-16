@@ -4,6 +4,29 @@ All notable changes to the **Sigit Adi Irianto Portfolio SPA** project will be d
 
 The format is based on [Keep a Changelog](https://keepachamber.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.6.7] - 2026-08-16 — Responsive Layout Fixes, Footer Links Wrap, JSON-LD Ampersand, PWA Theme & SW Registration
+
+> **Pembaruan tata letak responsif menyeluruh & sinkronisasi PWA/SEO**: perataan teks diubah dari `justify` ke `left` untuk mencegah teks bertumpuk/patah canggung pada mobile, tautan kontak footer diubah menjadi flexbox responsif, entitas `&amp;` JSON-LD diperbaiki, warna `manifest.json` diselaraskan ke tema Field Manual, pendaftaran `sw.js` diaktifkan kembali, dan badge visitor diatur hanya muncul setelah ada respons backend.
+
+### 📐 Layout & Typography Enhancements (index.html)
+- **Perataan teks `left`**: `body`, `.pitch`, `.lede`, dan `footer` kini menggunakan `text-align: left` — menghilangkan spasi antar-kata renggang (*rivers of whitespace*) dan teks yang berjejal di layar ponsel sempit.
+- **`h1` line-height 1.15**: dinaikkan dari `1.02` ke `1.15` — mencegah huruf tinggi/bawah (*ascender/descender*) saling menyentuh saat teks membungkus (*wrap*) di mobile.
+- **TOC flex wrap**: `.toc .trow` kini memiliki `flex-wrap: wrap`, `gap: 8px 10px`, dan `min-width: 12px` pada `.dots` agar nomor halaman selalu rapi.
+- **Footer links flexbox (`.footer-links`)**: baris tautan kontak diubah dari paragraf satu baris dengan `&nbsp;·&nbsp;` menjadi flexbox berbasis chip/item dengan `gap: 6px 12px` (turun baris per item secara alami tanpa bertabrakan di layar <380px).
+- **Mobile wrapper padding**: `footer .wrap` dan `.wrap` di media query `≤620px` disesuaikan dengan padding `16px` yang proporsional.
+
+### 🛠️ PWA, SEO & Tracker Sync
+- **JSON-LD `jobTitle` fix**: karakter `&amp;` diubah menjadi `&` murni pada blok schema.org Person.
+- **`manifest.json` theme color sync**: `theme_color` diubah ke `#D6CDB4` dan `background_color` ke `#F3EEDF` (selaras dengan `<meta name="theme-color">` dan palet Field Manual).
+- **Service Worker PWA registration**: menambahkan registrasi `sw.js` secara otomatis pada event `window.load`.
+- **Visitor badge delay**: `#visitor-badge` hanya mengubah `style.display = 'block'` saat respons hit/count berhasil diterima dari worker.
+- **CSP hash recalculation**: nilai hash SHA-256 script inline diperbarui pada meta `Content-Security-Policy`.
+
+### 🧪 Validasi & Testing
+- `python audit.py` → **13 PASS | 0 FAIL | 0 WARN** (100% Production Ready).
+- `pytest` (`test_audit.py` & `test_indexnow_ping.py`) → **62/62 PASSED**.
+- `node --test worker-visitor/worker.test.js` → **26/26 PASSED**.
+
 ---
 
 ## [2.6.6] - 2026-08-16 — Fix: Catatan Tinta Satu Baris (Ulefone 360px) — Verifikasi Ukur Dikoreksi
