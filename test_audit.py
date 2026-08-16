@@ -52,6 +52,26 @@ def test_valid_index_production_ready(valid_html):
     assert any(node_lines)  # one of the node outcomes must appear
 
 
+def test_valid_ai_engineer_production_ready():
+    """ai-engineer.html passes every check with 0 errors."""
+    target = ROOT / "ai-engineer.html"
+    if not target.exists():
+        pytest.skip("ai-engineer.html not found")
+    errors, out, _ = run_audit(target.read_text(encoding="utf-8"))
+    assert errors == 0
+    assert "[FAIL]" not in out
+
+
+def test_valid_secops_specialist_production_ready():
+    """secops-specialist.html passes every check with 0 errors."""
+    target = ROOT / "secops-specialist.html"
+    if not target.exists():
+        pytest.skip("secops-specialist.html not found")
+    errors, out, _ = run_audit(target.read_text(encoding="utf-8"))
+    assert errors == 0
+    assert "[FAIL]" not in out
+
+
 def test_summary_counts_present(valid_html):
     """The final summary includes PASS/FAIL/WARN counts + timing."""
     buf = io.StringIO()

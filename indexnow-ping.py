@@ -251,7 +251,12 @@ def main(argv: list[str] | None = None, root: Path | None = None) -> int:
 
     base = f"https://{args.host}{args.base_path}"
     key_location = args.key_location or f"{base}/{key_file.name}"
-    urls = args.urls or [base + "/", base + "/sitemap.xml"]
+    urls = args.urls or [
+        base + "/",
+        base + "/ai-engineer.html",
+        base + "/secops-specialist.html",
+        base + "/sitemap.xml",
+    ]
 
     payload = build_payload(args.host, key, key_location, urls)
     print(f"[indexnow] Host: {args.host} | keyLocation: {key_location}")

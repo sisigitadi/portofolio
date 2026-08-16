@@ -58,3 +58,27 @@ This document establishes the mandatory engineering standards, security protocol
 3. **CAREER TIMELINE ORDER & BADGING**: The most recent / current role must occupy Position 1 at the top of the timeline, with status badges following the contract-type color mapping (Contract/Project = purple, Part-Time = emerald, Short-Term Contract = amber, Full-Time = cyan).
 4. **SINGLE SEO CANONICAL SOURCE OF TRUTH**: `rel="canonical"`, `og:url`, `twitter:url`, Schema.org JSON-LD `url`, `robots.txt` (`Sitemap:`), and `sitemap.xml` (`<loc>`) MUST all reference the identical canonical domain `https://sisigitadi.github.io/portofolio` (the GitHub Pages URL where the site is actually served). Do not reintroduce `sigitadi.my.id`, the `github.com/sisigitadi/portofolio` repository page, or any divergent URL across these files.
 5. **OG/SOCIAL IMAGE SYNC (v2.6.1)**: `og-preview.jpg` (1200×630) must reflect the site's active design. When the design/identity changes, regenerate the image and bump the `?v=X.Y.Z` cache-buster across **all** references at once — og:image, og:image:secure_url, twitter:image, itemprop image, image_src, JSON-LD `image` (currently 6 locations). The reference count must stay consistent; never leave some references on the old version.
+
+---
+
+## 📑 6. Tri-Document Portfolio, SEO & Social Media Mandate (v2.8.0)
+
+1. **TRI-DOCUMENT INTEGRITY & SYNCHRONIZATION**: The repository maintains three standalone static portfolio & ATS CV documents:
+   - `index.html` (Master Portfolio & Hybrid Database CV)
+   - `ai-engineer.html` (Applied AI Engineer & LLM Specialist Target Weapon)
+   - `secops-specialist.html` (SecOps & Threat Monitoring Specialist Target Weapon)
+   Any global architectural, typographic, print stylesheet (`@media print`), core career chronology (2002–2026), education, or script change applied to `index.html` MUST be immediately propagated to both `ai-engineer.html` and `secops-specialist.html`.
+2. **ROLE-SPECIFIC POSITIONING & SECTION PRIORITIZATION**:
+   - `ai-engineer.html`: Role title `Applied AI Engineer & LLM Specialist`, AI & Automation certifications first, PromptMatrix & SmartExpenseML at #2.01/#2.02, AI Trainer experience prioritized.
+   - `secops-specialist.html`: Role title `SecOps & Threat Monitoring Specialist`, Cybersecurity & SecOps certifications first, SCOPS & A.R.Y.A. at #2.01/#2.02, SecOps/SOC experience prioritized.
+   - `index.html`: Retains balanced master profile (ATS 9.2/10) with full chronological breadth.
+3. **STRICT 2-PAGE ATS PRINT PARITY**: The `@media print` rules in all three files must remain 100% mathematically and structurally identical (font-size 10px, line-height 1.35, linear single-line career rows, and single-line certifications) to ensure all three files produce a pristine 2-page A4 PDF output without page-spill.
+4. **SERP TITLE & META LENGTH LIMITS**:
+   - Meta `<title>` must not exceed 65 characters to prevent SERP truncation across Google/Bing.
+   - Meta `description` must stay strictly between 120 and 160 characters with dense empirical keywords.
+5. **CANONICAL & SOCIAL GRAPH (OG / TWITTER / WHATSAPP)**:
+   - Each page must define its exact unique canonical URL in `<link rel="canonical">`, `og:url`, `twitter:url`, and JSON-LD `url`.
+   - Open Graph images must use high-resolution 1200×630 banners (`og-preview.jpg`) with matching `?v=X.Y.Z` cache-busters across all 3 pages.
+   - Twitter card must specify `summary_large_image`. WhatsApp microdata fallback tags (`itemprop="image"`, `link rel="image_src"`) must remain present.
+6. **STRUCTURED DATA (JSON-LD)**: Each page must include two verified JSON-LD blocks (`Person` and `WebSite`) with valid schema, accurate `jobTitle`, role-aligned `knowsAbout` taxonomy, and valid external author links.
+7. **MULTI-PAGE DISCOVERY & SYNC**: All three documents must remain registered in `sw.js` CORE cache (`portofolio-vXX`), `sitemap.xml`, `indexnow-ping.py`, and the Private Dashboard Resume Hub launcher in `worker-visitor/worker.js`.
