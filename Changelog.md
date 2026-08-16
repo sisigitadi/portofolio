@@ -6,6 +6,29 @@ The format is based on [Keep a Changelog](https://keepachamber.com/en/1.0.0/), a
 
 ---
 
+## [2.6.2] - 2026-08-16 — Visitor Worker Hardening: Body Guard, Fail-Closed Salt, Referrer Policy + Route Test Suite
+
+> **Review & hardening worker visitor (`worker-visitor/`)**: tiga celah kecil ditutup (body `POST /hit` tanpa batas ukuran, fallback salt `'salt'` konstan saat `IP_HASH_SALT` tidak dikonfigurasi, dashboard tanpa `Referrer-Policy`), ditambah **26 route test pertama** (node:test, tanpa dependensi) yang masuk gate CI preflight, sinkronisasi dokumen "tracker nonaktif default" yang usang, dan PWA cache bump.
+
+### 🛡️ Security hardening (worker-visitor/worker.js)
+- **Body guard `POST /hit` (10 KB)**: helper `readJsonBody()` — tolak via header `Content-Length` sebelum buffering; untuk body chunked (tanpa Content-Length) stream dibaca dengan cap dan **dibatalkan begitu melewati batas** → HTTP **413 `payload_too_large`** sebelum menyentuh D1. Payload asli klien (path/referrer/lang/w/h) < 1 KB; body kosong/malformed tetap diperlakukan `{}` (tanpa regresi).
+- **Fail-closed `IP_HASH_SALT`**: guard `secretConfigured()` kini dipakai bersama oleh `authorized()` (DASHBOARD_KEY) dan `recordVisit()` — salt missing/placeholder `CHANGE_ME_*` → **HTTP 500, tidak ada kunjungan direkam** (sebelumnya fallback diam-diam ke konstanta `'salt'` = hash bisa ditebak & identik lintas deploy, mengalahkan anonimisasi UU PDP).
+- **`Referrer-Policy: no-referrer`** pada semua respons HTML dashboard/login — URL dashboard memuat `?key=…`; key tidak pernah bocor sebagai `Referer` ke pihak ketiga.
+
+### 🧪 Route test suite pertama (worker-visitor/)
+- **`worker.test.js` — 26 test** (node:test, nol dependensi, Node 20+): semua rute — `/count` (D1 + cache KV, cache-hit tanpa D1), `/hit` (hash salt diverifikasi byte-untuk-byte, 413 via Content-Length & stream, 429 rate-limit, fail-closed salt, body kosong/malformed), `/pixel` (GIF89a, flag bot, silent drop rate-limit), `/api/stats` & `/api/export` (403/200, quoting CSV), `/dashboard` (login vs dashboard + `Referrer-Policy`), CORS/404/500-no-D1.
+- **`package.json`** (`"type": "module"` + `npm test`) + **gate CI**: `preflight.yml` kini menjalankan `node --test worker-visitor/worker.test.js` (setup-node v5 pin) sebagai gerbang ketiga — total gate: audit 13 · pytest 62 · worker 26.
+
+### 🔄 Docs & PWA
+- **Readme.md**: klaim usang "visitor tracker optional / disabled by default (0 request sampai `WORKER_URL` diisi)" disinkronkan — tracker **aktif** (`WORKER_URL` sudah terpasang); komentar `index.html` ("hidden until `WORKER_URL` is set") ikut dikoreksi.
+- **`sw.js` cache bump `portofolio-v2` → `portofolio-v3`** — pengunjung lama menerima index.html & aset baru saat deploy berikutnya (activate purge cache lama).
+
+### 🚀 Deploy & validasi
+- Worker **di-deploy & diverifikasi live**: `GET /count` 200 (218 total · 42 unik), `/dashboard` 200 + `Referrer-Policy: no-referrer`, `POST /hit` oversized → **413** (guard aktif tanpa mencemari counter), `/nope` 404; secret `DASHBOARD_KEY` & `IP_HASH_SALT` terkonfirmasi ada sebelum deploy.
+- Lokal: `node --test worker-visitor/worker.test.js` → **26/26** · `python -m pytest test_audit.py test_indexnow_ping.py -q` → **62 passed** · `python audit.py` → **13 PASS | 0 FAIL | 0 WARN**.
+
+---
+
 ## [2.6.1] - 2026-08-16 — Field Manual → Produksi: SEO/SEM Parity, Visitor Tracker & Gate Audit Adaptif
 
 > **Implementasi konsep terpilih (Field Manual) sebagai `index.html` produksi baru** — semua sinyal SEO/SEM & metode crawler Google/Bing dipertahankan, visitor tracker + shortcut dashboard diaktifkan, dan gerbang produksi (`audit.py` + pytest) diadaptasi agar kompatibel dengan Field Manual.

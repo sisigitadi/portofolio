@@ -37,6 +37,7 @@ const BOT_MAX_HITS_PER_MINUTE = 120;   // crawlers legitimately fetch many URLs/
 const COUNT_CACHE_TTL_SECONDS = 60;    // KV minimum TTL for the /count cache
 const DASHBOARD_ROWS = 2000;           // rows embedded in the dashboard page / fetched on refresh
 const EXPORT_MAX_ROWS = 50000;         // hard cap for the server-side CSV export
+const MAX_BODY_BYTES = 10 * 1024;      // POST /hit payload is tiny (path/referrer/lang/w/h) — reject anything bigger up front
 
 export default {
   async fetch(request, env) {
@@ -78,7 +79,13 @@ function json(data, status = 200) {
 function htmlResponse(body, status = 200) {
   return new Response(body, {
     status,
-    headers: { 'Content-Type': 'text/html; charset=utf-8', ...CORS_HEADERS, 'Cache-Control': 'no-store' },
+    headers: {
+      'Content-Type': 'text/html; charset=utf-8',
+      // Dashboard URLs carry ?key=… — never leak it to third parties via the Referer header.
+      'Referrer-Policy': 'no-referrer',
+      ...CORS_HEADERS,
+      'Cache-Control': 'no-store',
+    },
   });
 }
 
@@ -95,6 +102,15 @@ function safeEqual(a, b) {
   return diff === 0;
 }
 
+/**
+ * True when a secret is actually configured — rejects missing values and dev
+ * placeholders so a deploy without `wrangler secret put` can never run with a
+ * weak, well-known value (guards both DASHBOARD_KEY and IP_HASH_SALT).
+ */
+function secretConfigured(secret) {
+  return !!secret && secret.indexOf('CHANGE_ME_') !== 0;
+}
+
 async function sha256Hex(salt, input) {
   const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(salt + input));
   return Array.from(new Uint8Array(digest)).map((b) => b.toString(16).padStart(2, '0')).join('');
@@ -108,6 +124,48 @@ function startOfTodayUTC(now = Date.now()) {
 function truncate(value, max) {
   const s = String(value == null ? '' : value);
   return s.length > max ? s.slice(0, max) : s;
+}
+
+/**
+ * Read a JSON request body with a hard size cap.
+ * - Content-Length (when present) is checked first, so oversized payloads are
+ *   rejected without buffering anything.
+ * - Otherwise the body is streamed and reading is aborted as soon as the cap
+ *   is exceeded — chunked/unknown-length bodies can't bypass the limit.
+ * Returns { value } with parsed JSON (or {} for empty/invalid bodies), or { tooLarge }.
+ */
+async function readJsonBody(request, maxBytes) {
+  const len = parseInt(request.headers.get('Content-Length') || '', 10);
+  if (Number.isFinite(len) && len > maxBytes) return { tooLarge: true };
+
+  const reader = request.body ? request.body.getReader() : null;
+  if (!reader) return { value: {} };
+
+  let total = 0;
+  const chunks = [];
+  for (;;) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    total += value.byteLength;
+    if (total > maxBytes) {
+      await reader.cancel();
+      return { tooLarge: true };
+    }
+    chunks.push(value);
+  }
+
+  const bytes = new Uint8Array(total);
+  let offset = 0;
+  for (const chunk of chunks) {
+    bytes.set(chunk, offset);
+    offset += chunk.byteLength;
+  }
+
+  try {
+    return { value: JSON.parse(new TextDecoder().decode(bytes)) };
+  } catch (e) {
+    return { value: {} }; // empty / malformed body — treated as "no fields", never a 4xx
+  }
 }
 
 function rangeSince(range) {
@@ -175,7 +233,7 @@ function authorized(request, env, url) {
   const expected = env.DASHBOARD_KEY;
   // Reject unconfigured dev placeholders so a deploy without `wrangler secret put`
   // can never expose the dashboard behind a committed value.
-  if (!expected || expected.indexOf('CHANGE_ME_') === 0) return false;
+  if (!secretConfigured(expected)) return false;
   return safeEqual(provided, expected);
 }
 
@@ -210,7 +268,13 @@ async function handleCount(env) {
  */
 async function recordVisit(request, env, info) {
   const geo = clientGeo(request);
-  const ipHash = await sha256Hex(env.IP_HASH_SALT || 'salt', geo.ip);
+  // Fail closed: never record a visit with a missing/placeholder salt — the hash would
+  // use a well-known constant, making it predictable (reversible) and identical across
+  // deployments. Same guard philosophy as authorized() for DASHBOARD_KEY.
+  if (!secretConfigured(env.IP_HASH_SALT)) {
+    throw new Error('IP_HASH_SALT not configured (run `wrangler secret put IP_HASH_SALT`); refusing to record a visit with a weak hash');
+  }
+  const ipHash = await sha256Hex(env.IP_HASH_SALT, geo.ip);
   const ua = request.headers.get('User-Agent') || '';
   const isBot = detectBot(ua, geo.asn) ? 1 : 0;
 
@@ -274,14 +338,12 @@ async function recordVisit(request, env, info) {
 }
 
 async function handleHit(request, env) {
-  // Request body is optional; every field is length-truncated before storage.
-  let body = {};
-  try {
-    const parsed = await request.json();
-    if (parsed && typeof parsed === 'object') body = parsed;
-  } catch (e) { /* no body — fine */ }
+  // Request body is optional and tiny (path/referrer); oversized payloads are rejected
+  // before parsing — every stored field is additionally length-truncated in recordVisit.
+  const body = await readJsonBody(request, MAX_BODY_BYTES);
+  if (body.tooLarge) return json({ error: 'payload_too_large' }, 413);
 
-  const rec = await recordVisit(request, env, { path: body.path, referrer: body.referrer });
+  const rec = await recordVisit(request, env, { path: body.value.path, referrer: body.value.referrer });
   if (rec.rateLimited) return json({ error: 'rate_limited' }, 429);
   return json({ ok: true, ...rec });
 }

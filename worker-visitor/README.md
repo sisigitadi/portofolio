@@ -37,7 +37,7 @@ printf '%s' 'RANDOM_SALT'           | npx wrangler secret put IP_HASH_SALT   # s
 npx wrangler deploy
 ```
 
-> ⚠️ **JANGAN pakai `[vars]` di `wrangler.toml` untuk DASHBOARD_KEY/IP_HASH_SALT**: deploy dengan `[vars]` akan **menimpa secret** yang sama namanya (terkonfirmasi saat deploy pertama — worker `authorized()` bahkan menolak nilai placeholder `CHANGE_ME_*` sebagai pengaman kedua). Secret adalah satu-satunya sumber nilai produksi.
+> ⚠️ **JANGAN pakai `[vars]` di `wrangler.toml` untuk DASHBOARD_KEY/IP_HASH_SALT**: deploy dengan `[vars]` akan **menimpa secret** yang sama namanya (terkonfirmasi saat deploy pertama — worker `authorized()` menolak `DASHBOARD_KEY` yang missing/placeholder `CHANGE_ME_*`, dan `recordVisit` fail-closed (HTTP 500, tidak merekam apa pun) jika `IP_HASH_SALT` tidak dikonfigurasi). Secret adalah satu-satunya sumber nilai produksi.
 
 ## 🔌 Hubungkan ke index.html
 
@@ -49,7 +49,7 @@ npx wrangler deploy
 
 - `https://<worker-url>/dashboard?key=<DASHBOARD_KEY>` → halaman HTML.
 - `https://<worker-url>/api/stats?key=<DASHBOARD_KEY>&range=30d` → JSON.
-- Tanpa key (atau key salah) → 403 / halaman login. Perbandingan key memakai constant-time compare.
+- Tanpa key (atau key salah) → 403 / halaman login. Perbandingan key memakai constant-time compare. **Anti-bocor key via referrer**: semua respons HTML dashboard/login mengirim header `Referrer-Policy: no-referrer` — jika Anda membuka link eksternal dari halaman dashboard (yang URL-nya memuat `?key=…`), key tidak pernah ikut terkirim sebagai `Referer`.
 - **Shortcut tersembunyi**: di footer portofolio, klik teks copyright **9×** (selang antar-klik ≤ 2 dtk) → langsung membuka `/dashboard`. Kunci **tidak pernah** tersemat di HTML portofolio; di halaman login centang *"Remember key in this browser"* sekali, dan kunjungan berikutnya **auto-unlock** (kunci tersimpan di localStorage browser pemilik, satu origin dengan dashboard). Tautan *"Forget saved key"* di footer dashboard menghapusnya.
 
 ## 🧪 Uji

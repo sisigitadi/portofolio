@@ -1,0 +1,10 @@
+{
+  "name": "portofolio-visitor-tracker",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Cloudflare Worker hit counter + private visitor dashboard for the portfolio",
+  "type": "module",
+  "scripts": {
+    "test": "node --test worker-visitor/worker.test.js"
+  }
+}
