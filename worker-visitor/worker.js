@@ -508,7 +508,8 @@ function dashboardPage(stats, rows) {
   .card { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:0.9rem 1rem; }
   .card .n { font-size:1.7rem; font-weight:700; color:var(--primary); }
   .card .l { font-size:0.72rem; color:var(--muted); text-transform:uppercase; letter-spacing:0.08em; }
-  .charts { display:grid; grid-template-columns:repeat(auto-fit,minmax(340px,1fr)); gap:0.75rem; margin-bottom:1.5rem; }
+  .charts { display:grid; grid-template-columns:repeat(2,1fr); gap:0.75rem; margin-bottom:1.5rem; }
+  @media (max-width:720px) { .charts { grid-template-columns:1fr; } }
   .panel { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:0.9rem 1rem; }
   .panel-wide { grid-column:1 / -1; }
   .panel h2 { margin:0 0 0.6rem; font-size:0.78rem; color:var(--muted); text-transform:uppercase; letter-spacing:0.08em; }

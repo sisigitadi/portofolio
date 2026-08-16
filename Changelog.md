@@ -4,6 +4,19 @@ All notable changes to the **Sigit Adi Irianto Portfolio SPA** project will be d
 
 The format is based on [Keep a Changelog](https://keepachamber.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.7.13] - 2026-08-16 — Visitor Dashboard: 2×2 Proportional Chart Grid
+
+> **Owner request**: the four mid-size dashboard panels (Visits by hour, Top countries, Top cities, Devices · Browsers · OS) now sit in a tidy **two rows × two equal columns** grid instead of the `auto-fit` flow that left a ragged 3+1 layout. The trend chart keeps its full-width row.
+
+### 📐 Changed (worker-visitor/worker.js)
+- `.charts` grid: `repeat(auto-fit,minmax(340px,1fr))` → `repeat(2,1fr)` — all four panels equal width, arranged hour+countries / cities+devices.
+- Added `@media (max-width:720px){ .charts{grid-template-columns:1fr} }` so narrow screens keep the single-column stack (was implicit via `auto-fit`).
+
+### 🧪 Validation
+- Headless Chrome render with sample data: 4 panels equal width (570px) in 2×2, trend full-width, **0 h-scroll**; at 700px all panels stack to one column. `node --check` OK · worker tests **26/26**.
+
+---
+
 ## [2.7.12] - 2026-08-16 — Remove World Dot Map from Visitor Dashboard
 
 > **Owner request**: the visitor dashboard's equirectangular world-dot map (lat/lon scatter rendered into `#chart-map`) removed. The dashboard keeps the trend/hourly/countries/cities/devices charts, table, filters, and CSV export.
