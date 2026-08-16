@@ -1,8 +1,9 @@
-var CACHE = 'portofolio-v3';
+var CACHE = 'portofolio-v4';
 var CORE = [
     './',
     './index.html',
     './manifest.json',
+    './favicon.ico',
     './icons/icon-192.png',
     './icons/icon-512.png'
 ];

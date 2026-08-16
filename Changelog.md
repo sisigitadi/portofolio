@@ -18,6 +18,8 @@ The format is based on [Keep a Changelog](https://keepachamber.com/en/1.0.0/), a
 - **Mobile wrapper padding**: `footer .wrap` dan `.wrap` di media query `≤620px` disesuaikan dengan padding `16px` yang proporsional.
 
 ### 🛠️ PWA, SEO & Tracker Sync
+- **OG/Social Image Sync (`Project_rules §5.5`)**: cache-buster `og-preview.jpg?v=2.6.1` di-bump ke `?v=2.6.7` di 6 lokasi sekaligus (meta itemprop, image_src, og:image, og:image:secure_url, twitter:image, JSON-LD image) untuk pembaruan cache pratinjau media sosial.
+- **PWA Service Worker Precache Lengkap (`sw.js`)**: menambahkan `'./favicon.ico'` ke array `CORE` precache dan melakukan cache bump `portofolio-v3` → `portofolio-v4`.
 - **JSON-LD `jobTitle` fix**: karakter `&amp;` diubah menjadi `&` murni pada blok schema.org Person.
 - **`manifest.json` theme color sync**: `theme_color` diubah ke `#D6CDB4` dan `background_color` ke `#F3EEDF` (selaras dengan `<meta name="theme-color">` dan palet Field Manual).
 - **Service Worker PWA registration**: menambahkan registrasi `sw.js` secara otomatis pada event `window.load`.
