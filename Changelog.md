@@ -4,6 +4,29 @@ All notable changes to the **Sigit Adi Irianto Portfolio SPA** project will be d
 
 The format is based on [Keep a Changelog](https://keepachamber.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.8.0] - 2026-08-17 — Dedicated Standalone Portfolios & ATS Resumes (AI Engineer & SecOps Specialist)
+
+> **Major Release**: Deployed two standalone, dedicated static web portfolio & CV pages (`ai-engineer.html` and `secops-specialist.html`) matching the Field Manual design, layout, ink animations, and ATS 2-page print rules 100% identically with the Master site (`index.html`). Each page provides native, zero-glitch browser viewing and pristine 2-page PDF printing.
+
+### 📄 Added & Changed
+- **Dedicated Standalone Pages**:
+  - [`ai-engineer.html`](file:///d:/Projects/portofolio-main/ai-engineer.html): Fully tailored portfolio & resume for **Applied AI Engineer & LLM Specialist** (`PromptMatrix` & `SmartExpenseML` priority, on-device NLP, RLHF evaluations, AI & Automation certification order).
+  - [`secops-specialist.html`](file:///d:/Projects/portofolio-main/secops-specialist.html): Fully tailored portfolio & resume for **SecOps & Threat Monitoring Specialist** (`SCOPS` & `A.R.Y.A.` priority, Wazuh SIEM, NIST IR playbooks, Cybersecurity certification order).
+  - [`index.html`](file:///d:/Projects/portofolio-main/index.html): Retained as the authoritative Master Portfolio & Master CV (Balanced Profile, ATS Score 9.2/10).
+- **Private Dashboard Launcher Updates (`worker-visitor/worker.js`)**:
+  - Resume Hub launcher buttons now link directly to their respective dedicated standalone static pages (`/`, `/ai-engineer.html`, `/secops-specialist.html`), enabling immediate, seamless browser opening and print export (`Ctrl + P`).
+- **PWA & Offline Service Worker (`sw.js`)**:
+  - Registered `ai-engineer.html` and `secops-specialist.html` in `CORE` pre-cached assets.
+  - Bumped cache version to `portofolio-v34`.
+- **Search Engine Discovery (`sitemap.xml`)**:
+  - Added XML entries for both new dedicated portfolio URLs.
+- **Parity & CI Validation**:
+  - `python audit.py`: **13 PASS | 0 FAIL | 0 WARN**.
+  - `pytest`: **62/62 PASSED**.
+  - `worker.test.js`: **26/26 PASSED**.
+
+---
+
 ## [2.7.20] - 2026-08-17 — Executive Resume Hub & Specialized CV System (Master / AI / SecOps)
 
 > **Major Feature & Optimization**: Introduced parameter-driven ATS-optimized 2-page CV variants (`?cv=ai`, `?cv=secops`, `?cv=master`), an automated print controller (`&print=1`), and direct launcher integration in the Private Owner Dashboard. Cleaned public web UI to preserve minimal Field Manual aesthetic, aligned copy ("Twenty-four years" consistency, corporate project lede, unpunctuated header name), and updated `FIELD EXPERIENCE` to `"Feb 2002 → present · IT → SecOps & AI"`.
