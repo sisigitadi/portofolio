@@ -222,7 +222,7 @@
   .offer,.proj{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:8px}
   .proj{margin-top:4px}
   .oc{background:var(--paper2);border:1px solid var(--rule);padding:22px;position:relative}
-  .oc .num{position:absolute;top:-12px;right:14px;background:var(--paper);padding:0 8px;font:12px ui-monospace,Consolas,monospace;color:var(--accent)}
+  .num{position:absolute;top:-12px;right:14px;background:var(--paper);padding:0 8px;font:12px ui-monospace,Consolas,monospace;color:var(--accent)}
   @media (max-width:620px){
     body{padding:10px 6px 24px}
     .sheet{box-shadow:none}
@@ -258,8 +258,8 @@
 
   /* field log — the career, as dated entries */
   .log{border-top:2px solid var(--ink)}
-  .log .row{display:flex;gap:22px;padding:13px 2px;border-bottom:1px solid var(--rule)}
-  .log .y{width:195px;flex-shrink:0;font:12.5px ui-monospace,Consolas,monospace;color:var(--accent);padding-top:3px;letter-spacing:.02em;white-space:nowrap;text-align:right}
+  .log .row{display:flex;gap:22px;padding:13px 2px;border-bottom:1px solid var(--rule);position:relative}
+  .log .y{width:170px;flex-shrink:0;font:12.5px ui-monospace,Consolas,monospace;color:var(--accent);padding-top:3px;letter-spacing:.02em;white-space:nowrap;text-align:right}
   .log .r > b{font-size:16px}
   .log .r span,.log .r .blist{display:block;font-size:14px;color:var(--ink2);margin-top:2px}
 
@@ -280,8 +280,8 @@
   th{text-align:left;font:11.5px ui-monospace,Consolas,monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border-bottom:2px solid var(--ink);padding:8px 10px}
   td{border-bottom:1px solid var(--rule);padding:11px 10px;vertical-align:top}
   td b{font-weight:700}
-  td .yr{font:12.5px ui-monospace,Consolas,monospace;color:var(--accent);white-space:nowrap}
-  td .iss{color:var(--ink2)}
+  td.yr{font:12.5px ui-monospace,Consolas,monospace;color:var(--accent);white-space:nowrap}
+  td.iss{color:var(--ink2);position:relative}
   tr.catrow td{font:11px ui-monospace,Consolas,monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);background:var(--paper2);padding:7px 10px;border-bottom:1.5px solid var(--ink)}
 
   /* page footer strip */
@@ -452,16 +452,16 @@
   <div class="sec-head"><span class="no">3.</span><h2 id="log-h">Field Log — Career History, 2002 — 2026</h2><div class="dash"></div></div>
   <p class="lede">Ten roles, 2002 → 2026, newest first.</p>
   <div class="log">
-    <div class="row"><div class="y">3.01 · MAR 2026 — NOW</div><div class="r"><b>Web Administrator (Contract) — Ministry of Environment, BPDLH Project <svg class="ink" viewBox="0 0 28 26" aria-hidden="true"><path d="M3 15 Q6 19 9 21 Q12 23 15 19 L25 3" pathLength="120"/></svg></b><ul class="blist"><li>Docker-based infrastructure on Ubuntu/WSL for a government web platform, with Wazuh SIEM monitoring and DVWA sandboxing.</li><li>Streamlined telemetry analysis cut weekly manual log review time by 30%.</li></ul></div></div>
-    <div class="row"><div class="y">3.02 · OCT 2025 — DEC 2025</div><div class="r"><b>Senior Programmer (Short-Term Contract) — Ministry of Home Affairs <svg class="ink" viewBox="0 0 28 26" aria-hidden="true"><path d="M3 13 Q7 18 10 20 Q13 22 16 17 L24 3" pathLength="120"/></svg></b><ul class="blist"><li>Backend components for a high-volume digital governance transaction system; reliability risks identified and resolved.</li><li>Processing thousands of transactions a day, with UU PDP data minimization as a default.</li></ul></div></div>
-    <div class="row"><div class="y">3.03 · JAN 2025 — SEP 2025</div><div class="r"><b>SOC Analyst (Part-Time) — PT. Prospera Consulting Engineers</b><ul class="blist"><li>Incident Response playbooks for Tier-1 analysts based on NIST frameworks.</li><li>Wazuh-based pre-audit gap analyses for ISO 27001 readiness.</li><li>MTTA down 55% after playbook rollout — measured against the new baseline.</li></ul></div></div>
-    <div class="row"><div class="y">3.04 · OCT 2024 — DEC 2024</div><div class="r"><b>Incident Handling Operational (Short-Term Contract) — Ministry of Home Affairs</b><ul class="blist"><li>Shift operations and real-time threat hunting with Wazuh SIEM and FortiWeb WAF — 500+ alerts a day.</li><li>Escalation pathways restructured to support the team's MTTR reduction targets — a single, tested path from alert to containment.</li></ul></div></div>
-    <div class="row"><div class="y">3.05 · JUN 2024 — NOW</div><div class="r"><b>AI Trainer &amp; LLM Evaluator (Freelance) — Multiple AI evaluation platforms <svg class="ink" viewBox="0 0 28 26" aria-hidden="true"><path d="M3 14 Q6 18 9 20 Q12 22 15 18 L25 4" pathLength="120"/></svg></b><ul class="blist"><li>RLHF-style evaluation of model factuality, instruction-following, and safety; 1,000+ prompt-response pairs reviewed and rated against platform safety guidelines.</li><li>Part-time, concurrent with the contract roles above — multi-variable prompt testing and optimization via client-side BYOK workflows.</li></ul></div></div>
-    <div class="row"><div class="y">3.06 · MAY 2023 — AUG 2024</div><div class="r"><b>IT &amp; Operations Manager (Full-Time) — ACE Ltd.</b><ul class="blist"><li>Owned IT infrastructure and technical operations for a 50+ person engineering team.</li><li>Automated SQL reporting pipelines, eliminating manual data entry from operational reporting.</li></ul></div></div>
-    <div class="row"><div class="y">3.07 · DEC 2020 — APR 2023</div><div class="r"><b>Project Office Manager (Contract) — Ministry of Public Works and Housing (PUPR)</b><ul class="blist"><li>IT support logistics across concurrent public-infrastructure projects.</li><li>One reporting standard across four concurrent sites.</li></ul></div></div>
-    <div class="row"><div class="y">3.08 · JUN 2020 — NOV 2020</div><div class="r"><b>Assistant to Office Manager (Short-Term Contract) — Nippon Koei Co., Ltd.</b><ul class="blist"><li>Reporting and budget-tracking workflows for an irrigation modernization project; resource-allocation bottlenecks reduced across regional teams.</li><li>Bottlenecks showed up in the numbers before they became delays — across the 6-month engagement.</li></ul></div></div>
-    <div class="row"><div class="y">3.09 · JUN 2014 — APR 2020</div><div class="r"><b>IT Manager (Full-Time) — PT. Dipta Safari Jaya <svg class="ink" viewBox="0 0 28 26" aria-hidden="true"><path d="M3 12 Q6 17 9 19 Q12 21 15 17 L25 2" pathLength="120"/></svg></b><ul class="blist"><li>Enterprise network infrastructure and backup-recovery protocols over a 6-year tenure, with automated system monitoring keeping availability high.</li><li>Servers, local network, and hardware kept healthy — outages fixed on-site, fast.</li></ul></div></div>
-    <div class="row"><div class="y">3.10 · 2002 — 2014</div><div class="r"><b>Early Career Experience (Full-Time) — PT. Laju Karunia Jaya · Arya Mobile</b><ul class="blist"><li>Foundational IT support roles across two companies.</li><li>Twelve years — networking, hardware, and end-user support.</li></ul></div></div>
+    <div class="row"><span class="num">3.01</span><div class="y">MAR 2026 — NOW</div><div class="r"><b>Web Administrator (Contract) — Ministry of Environment, BPDLH Project <svg class="ink" viewBox="0 0 28 26" aria-hidden="true"><path d="M3 15 Q6 19 9 21 Q12 23 15 19 L25 3" pathLength="120"/></svg></b><ul class="blist"><li>Docker-based infrastructure on Ubuntu/WSL for a government web platform, with Wazuh SIEM monitoring and DVWA sandboxing.</li><li>Streamlined telemetry analysis cut weekly manual log review time by 30%.</li></ul></div></div>
+    <div class="row"><span class="num">3.02</span><div class="y">OCT 2025 — DEC 2025</div><div class="r"><b>Senior Programmer (Short-Term Contract) — Ministry of Home Affairs <svg class="ink" viewBox="0 0 28 26" aria-hidden="true"><path d="M3 13 Q7 18 10 20 Q13 22 16 17 L24 3" pathLength="120"/></svg></b><ul class="blist"><li>Backend components for a high-volume digital governance transaction system; reliability risks identified and resolved.</li><li>Processing thousands of transactions a day, with UU PDP data minimization as a default.</li></ul></div></div>
+    <div class="row"><span class="num">3.03</span><div class="y">JAN 2025 — SEP 2025</div><div class="r"><b>SOC Analyst (Part-Time) — PT. Prospera Consulting Engineers</b><ul class="blist"><li>Incident Response playbooks for Tier-1 analysts based on NIST frameworks.</li><li>Wazuh-based pre-audit gap analyses for ISO 27001 readiness.</li><li>MTTA down 55% after playbook rollout — measured against the new baseline.</li></ul></div></div>
+    <div class="row"><span class="num">3.04</span><div class="y">OCT 2024 — DEC 2024</div><div class="r"><b>Incident Handling Operational (Short-Term Contract) — Ministry of Home Affairs</b><ul class="blist"><li>Shift operations and real-time threat hunting with Wazuh SIEM and FortiWeb WAF — 500+ alerts a day.</li><li>Escalation pathways restructured to support the team's MTTR reduction targets — a single, tested path from alert to containment.</li></ul></div></div>
+    <div class="row"><span class="num">3.05</span><div class="y">JUN 2024 — NOW</div><div class="r"><b>AI Trainer &amp; LLM Evaluator (Freelance) — Multiple AI evaluation platforms <svg class="ink" viewBox="0 0 28 26" aria-hidden="true"><path d="M3 14 Q6 18 9 20 Q12 22 15 18 L25 4" pathLength="120"/></svg></b><ul class="blist"><li>RLHF-style evaluation of model factuality, instruction-following, and safety; 1,000+ prompt-response pairs reviewed and rated against platform safety guidelines.</li><li>Part-time, concurrent with the contract roles above — multi-variable prompt testing and optimization via client-side BYOK workflows.</li></ul></div></div>
+    <div class="row"><span class="num">3.06</span><div class="y">MAY 2023 — AUG 2024</div><div class="r"><b>IT &amp; Operations Manager (Full-Time) — ACE Ltd.</b><ul class="blist"><li>Owned IT infrastructure and technical operations for a 50+ person engineering team.</li><li>Automated SQL reporting pipelines, eliminating manual data entry from operational reporting.</li></ul></div></div>
+    <div class="row"><span class="num">3.07</span><div class="y">DEC 2020 — APR 2023</div><div class="r"><b>Project Office Manager (Contract) — Ministry of Public Works and Housing (PUPR)</b><ul class="blist"><li>IT support logistics across concurrent public-infrastructure projects.</li><li>One reporting standard across four concurrent sites.</li></ul></div></div>
+    <div class="row"><span class="num">3.08</span><div class="y">JUN 2020 — NOV 2020</div><div class="r"><b>Assistant to Office Manager (Short-Term Contract) — Nippon Koei Co., Ltd.</b><ul class="blist"><li>Reporting and budget-tracking workflows for an irrigation modernization project; resource-allocation bottlenecks reduced across regional teams.</li><li>Bottlenecks showed up in the numbers before they became delays — across the 6-month engagement.</li></ul></div></div>
+    <div class="row"><span class="num">3.09</span><div class="y">JUN 2014 — APR 2020</div><div class="r"><b>IT Manager (Full-Time) — PT. Dipta Safari Jaya <svg class="ink" viewBox="0 0 28 26" aria-hidden="true"><path d="M3 12 Q6 17 9 19 Q12 21 15 17 L25 2" pathLength="120"/></svg></b><ul class="blist"><li>Enterprise network infrastructure and backup-recovery protocols over a 6-year tenure, with automated system monitoring keeping availability high.</li><li>Servers, local network, and hardware kept healthy — outages fixed on-site, fast.</li></ul></div></div>
+    <div class="row"><span class="num">3.10</span><div class="y">2002 — 2014</div><div class="r"><b>Early Career Experience (Full-Time) — PT. Laju Karunia Jaya · Arya Mobile</b><ul class="blist"><li>Foundational IT support roles across two companies.</li><li>Twelve years — networking, hardware, and end-user support.</li></ul></div></div>
   </div>
   <div class="ink-sign"><svg class="ink paraf" viewBox="0 0 28 24" aria-hidden="true"><path d="M2 10 C4 6 6 18 9 11 C11 5 13 15 16 8 C18 4 20 12 23 7 L26 5" pathLength="120"/></svg></div>
 </div>
@@ -471,23 +471,23 @@
 <section id="reports" aria-labelledby="reports-h"><div class="wrap">
   <div class="sec-head"><span class="no">4.</span><h2 id="reports-h">Field Reports</h2><div class="dash"></div></div>
   <p class="lede">Four notes from people who worked with me.</p>
-  <div class="report">
-    <span class="tag">4.01 · Recommendation</span>
+  <div class="report"><span class="num">4.01</span>
+    <span class="tag">Recommendation</span>
     <blockquote>"Sigit handled our Docker server environments and Wazuh monitoring setup with great care. He is very reliable, quick to respond when telemetry alerts come in, and keeps everything running smoothly."</blockquote>
     <p class="who"><b>Project Team Leader — Jaelani</b> — <span class="proj">Ministry of Environment</span></p>
   </div>
-  <div class="report">
-    <span class="tag">4.02 · Consultation Reference</span>
+  <div class="report"><span class="num">4.02</span>
+    <span class="tag">Consultation Reference</span>
     <blockquote>"Sigit wrote practical Incident Response playbooks for our Tier-1 team and guided us through Wazuh-based pre-audit security reviews. He is organized, meticulous, and easy to work with."</blockquote>
     <p class="who"><b>SOC Lead — Reza Ahmad</b> — <span class="proj">Prospera project · Tier-1 team</span></p>
   </div>
-  <div class="report">
-    <span class="tag">4.03 · Manager's Note</span>
+  <div class="report"><span class="num">4.03</span>
+    <span class="tag">Manager's Note</span>
     <blockquote>"Sigit took care of our office IT infrastructure for over 50 employees without any issues. He streamlined our reporting workflows and kept our daily technology operations running without a hitch."</blockquote>
     <p class="who"><b>HRD Manager — Rahmat Hidayat</b> — <span class="proj">ACE Ltd</span></p>
   </div>
-  <div class="report">
-    <span class="tag">4.04 · General Manager</span>
+  <div class="report"><span class="num">4.04</span>
+    <span class="tag">General Manager</span>
     <blockquote>"Sigit managed our company servers, local network, and hardware for 6 years. Whenever there was a network outage or hardware failure, Sigit was always there to fix it quickly."</blockquote>
     <p class="who"><b>General Manager — Sudjari</b> — <span class="proj">Dipta Safari Jaya</span></p>
   </div>
@@ -503,16 +503,16 @@
   <table>
     <tr><th>Year</th><th>Credential</th><th>Issuer</th></tr>
     <tr class="catrow"><td colspan="3">AI &amp; Automation</td></tr>
-    <tr><td class="yr">5.01 · 2025</td><td><b>Microsoft Azure AI Fundamentals (AI-900) <svg class="ink" viewBox="0 0 28 26" aria-hidden="true"><path d="M3 15 Q6 19 9 21 Q12 23 15 19 L25 3" pathLength="120"/></svg></b></td><td class="iss">Microsoft</td></tr>
-    <tr><td class="yr">5.02 · 2025</td><td><b>LLM-Based Tools &amp; Gemini API Integration for Data Scientists</b></td><td class="iss">Hacktiv8</td></tr>
-    <tr><td class="yr">5.03 · 2025</td><td><b>Business Automation with n8n</b></td><td class="iss">Kodeka Labs</td></tr>
+    <tr><td class="yr">2025</td><td><b>Microsoft Azure AI Fundamentals (AI-900) <svg class="ink" viewBox="0 0 28 26" aria-hidden="true"><path d="M3 15 Q6 19 9 21 Q12 23 15 19 L25 3" pathLength="120"/></svg></b></td><td class="iss">Microsoft<span class="num">5.01</span></td></tr>
+    <tr><td class="yr">2025</td><td><b>LLM-Based Tools &amp; Gemini API Integration for Data Scientists</b></td><td class="iss">Hacktiv8<span class="num">5.02</span></td></tr>
+    <tr><td class="yr">2025</td><td><b>Business Automation with n8n</b></td><td class="iss">Kodeka Labs<span class="num">5.03</span></td></tr>
     <tr class="catrow"><td colspan="3">Cybersecurity, SecOps &amp; Infrastructure</td></tr>
-    <tr><td class="yr">5.04 · 2025</td><td><b>Ubuntu Linux Professional Certification</b></td><td class="iss">Canonical</td></tr>
-    <tr><td class="yr">5.05 · 2025</td><td><b>Penetration Testing Professional</b></td><td class="iss">Cybrary</td></tr>
-    <tr><td class="yr">5.06 · 2025</td><td><b>Certified Ethical Hacker Foundation</b></td><td class="iss">LinkedIn Learning</td></tr>
-    <tr><td class="yr">5.07 · 2024</td><td><b>Indonesia Cross-Sectoral Cyber Exercise #9</b></td><td class="iss">BSSN</td></tr>
-    <tr><td class="yr">5.08 · 2024</td><td><b>Certified SOC Analyst</b></td><td class="iss">Cyber Academy Indonesia</td></tr>
-    <tr><td class="yr">5.09 · 2024</td><td><b>DevSecOps for Software Security &amp; IT Auditor</b></td><td class="iss">Kelas.work</td></tr>
+    <tr><td class="yr">2025</td><td><b>Ubuntu Linux Professional Certification</b></td><td class="iss">Canonical<span class="num">5.04</span></td></tr>
+    <tr><td class="yr">2025</td><td><b>Penetration Testing Professional</b></td><td class="iss">Cybrary<span class="num">5.05</span></td></tr>
+    <tr><td class="yr">2025</td><td><b>Certified Ethical Hacker Foundation</b></td><td class="iss">LinkedIn Learning<span class="num">5.06</span></td></tr>
+    <tr><td class="yr">2024</td><td><b>Indonesia Cross-Sectoral Cyber Exercise #9</b></td><td class="iss">BSSN<span class="num">5.07</span></td></tr>
+    <tr><td class="yr">2024</td><td><b>Certified SOC Analyst</b></td><td class="iss">Cyber Academy Indonesia<span class="num">5.08</span></td></tr>
+    <tr><td class="yr">2024</td><td><b>DevSecOps for Software Security &amp; IT Auditor</b></td><td class="iss">Kelas.work<span class="num">5.09</span></td></tr>
   </table>
   </div>
   <div class="mnote rot2"><span>verified — year &amp; issuer listed</span><svg class="underline" viewBox="0 0 52 8" aria-hidden="true"><path d="M1 5 C9 2 18 6 28 3 C36 1 44 5 51 2" pathLength="120"/></svg></div>

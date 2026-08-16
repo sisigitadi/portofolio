@@ -4,6 +4,22 @@ All notable changes to the **Sigit Adi Irianto Portfolio SPA** project will be d
 
 The format is based on [Keep a Changelog](https://keepachamber.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.7.10] - 2026-08-16 — Section Numbers as Corner Badges (Same Placement as Offerings)
+
+> **Owner request**: the section numbers in §2–§5 should sit in the same corner-badge position as the offerings' `1.01`–`1.04` — not as inline prefixes. All numbers became the accent corner tab; inline prefixes removed.
+
+### 🔢 Changed
+- **§3 Field Log**: `3.01`–`3.10` moved out of the date column into top-right corner badges on each row (`.log .row` gained `position:relative`); dates reverted to plain (`MAR 2026 — NOW`), date column width back to `170px`.
+- **§4 Field Reports**: `4.01`–`4.04` become corner badges; tags reverted to descriptive text only (`Recommendation`, `Consultation Reference`, `Manager's Note`, `General Manager`).
+- **§5 Certifications**: `5.01`–`5.09` become badges anchored to the issuer cell (`.iss`); year cells back to plain `2025`/`2024`.
+- **CSS**: `.oc .num` generalized to `.num` so the badge style applies in every section; fixed two latent broken selectors `td .yr` / `td .iss` → `td.yr` / `td.iss` (the classes sit on the `<td>` itself, so the descendant combinator never matched — the year column now gets its intended mono-accent styling and `.iss` anchors the badges).
+
+### 🧪 Validation
+- Browser (headless Chrome + CDP @ 1366): all 31 badges render at their container's top-right corner, **0 text overlaps, 0 horizontal scroll**.
+- `python audit.py` → **13 PASS | 0 FAIL | 0 WARN** · `pytest` → **62/62** · parity maintained.
+
+---
+
 ## [2.7.9] - 2026-08-16 — Consistent Section Numbering (1.01 … 5.09)
 
 > **Numbering system extended from §1 Offerings to every section** (per owner request): the `X.YY` item numbers now run across the whole manual — projects `2.01`–`2.04`, field-log entries `3.01`–`3.10`, field reports `4.01`–`4.04`, certifications `5.01`–`5.09`.
