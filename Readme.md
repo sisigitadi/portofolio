@@ -10,7 +10,7 @@
 
 This repository contains the single-page application (SPA) portfolio showcasing 20+ years of operational experience across IT infrastructure management, Security Operations Center (SOC) threat triage, DevSecOps automation pipelines, and practical applied AI engineering.
 
-> **Current Role**: Web Administrator — *Direktorat Pengendalian Perubahan Iklim, Proyek MoE & BPDLH* (Mar 2026 – Present), managing Docker-based infrastructure on Ubuntu/WSL for government web platforms with Wazuh SIEM monitoring and DVWA security sandboxing.
+> **Current Role**: Web Administrator — *Ministry of Environment (BPDLH Project)* (Mar 2026 – Present), managing Docker-based infrastructure on Ubuntu/WSL for a government web platform with Wazuh SIEM monitoring and DVWA security sandboxing.
 
 ---
 
@@ -67,7 +67,7 @@ This repository contains the single-page application (SPA) portfolio showcasing 
 
 - **`design-previews/` — 5 static HTML design directions** (open `design-previews/index.html` as the gallery): `01-soc-console` (dark, amber phosphor, log lines), `02-field-manual` (**chosen concept** — cream paper/ink/rust accent, printed manual document), `03-trade-journal` (editorial print), `04-signal-monitor` (instrument panel), `05-plaintext-brutalist` (man page, zero gradients). All built from real portfolio content, no runtime styling CDN, no AI-template look.
 - **Field Manual (`02-field-manual.html`) — chosen concept, implemented into production v2.6.1**: 100% CV-accurate content (spec table, 4 projects + production URLs, field log 2002–2026, 9 certifications, field reports), TOC as the only navigation, paper sheet on a desk, a11y skip-link, and **Request Slip — Resume (PDF)** — a single-field (email) form **connected to the production Formspree endpoint** (`https://formspree.io/f/mkgknrqk`, honeypot + 30s throttle, hidden `source: field-manual`).
-- **Ink scribbles "a manual a recruiter actually reads"**: 16 marks (check/star/paraph/margin notes) draw on scroll via `stroke-dashoffset` + IntersectionObserver, handwritten font **Caveat** (Google Fonts) + per-letter jitter — all `aria-hidden`, disabled under `prefers-reduced-motion`. **When implementing into production**: add `family=Caveat:wght@500;600` to the existing Google Fonts stylesheet (no new link).
+- **Ink scribbles "a manual a recruiter actually reads"**: 16 ink marks (checks/paraphs/underlines) draw on scroll via `stroke-dashoffset` + IntersectionObserver, handwritten font **Caveat** (Google Fonts) + per-letter jitter — all `aria-hidden`, disabled under `prefers-reduced-motion`. **When implementing into production**: add `family=Caveat:wght@500;600` to the existing Google Fonts stylesheet (no new link).
 - **`design-lab/` — 3D concept workshop (React + Vite + @react-three/fiber + drei + framer-motion)**: 10 futuristic theme concepts (radar dome, neural space, mission deck, container registry, identity vault, career orbit, forensics files, syslog vault, ATC tower, promptable console) — full documentation in `design-lab/CONCEPTS.md`.
 
 ---

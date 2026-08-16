@@ -4,6 +4,45 @@ All notable changes to the **Sigit Adi Irianto Portfolio SPA** project will be d
 
 The format is based on [Keep a Changelog](https://keepachamber.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.7.3] - 2026-08-16 — Remove Dead CSS Rules (Post-Overhaul Cleanup)
+
+> **CSS cleanup after the v2.7.0 content overhaul**: rules left unused by the new markup removed from both `index.html` and the preview — no visual change, smaller stylesheet.
+
+### 🧹 Removed
+- `.pitch + .pitch` (hero is now a single paragraph), `.pitch b` / `.pitch .u` (no bold/underline markup left in the hero), `.lede b` (no `<b>` in ledes), `.blist li b{white-space:nowrap}` (no `<b>` in bullets) — verified dead against the DOM in both files.
+- `.blist` comment updated: "dash markers" → "accent dot markers" (the marker was changed from `–` to a 5px accent circle in the bullet redesign).
+
+### 🧪 Validation
+- `python audit.py` → **13 PASS | 0 FAIL | 0 WARN** · `pytest` → **62/62** · parity maintained.
+
+---
+
+## [2.7.2] - 2026-08-16 — Drop PUPR Cliché
+
+> **Copy polish**: the management-speak tail removed so the concrete fact stands alone.
+
+### ✏️ Changed
+- **PUPR field-log entry** bullet 2: `One reporting standard across four concurrent sites — decisions driven by data, not emails.` → `One reporting standard across four concurrent sites.`
+
+### 🧪 Validation
+- `python audit.py` → **13 PASS | 0 FAIL | 0 WARN** · `pytest` → **62/62** · parity maintained.
+
+---
+
+## [2.7.1] - 2026-08-16 — Qualify Remaining Audit Items (slip-foot, A.R.Y.A., hero)
+
+> **Last three green-flag audit items tightened** so nothing on the page reads as an unverifiable claim.
+
+### ✏️ Changed
+- **Footer slip note**: `nothing else, nothing stored.` → `never shared, never added to any list.` (Formspree stores submissions server-side, so the old phrasing was factually risky).
+- **A.R.Y.A. project card**: `Real-time threat-intelligence dashboard` → `SOC analytics & threat-hunting dashboard` (Streamlit apps render on interaction — no streaming, so "real-time" overclaimed).
+- **Hero pitch**: `automated response` → `automated response playbooks` (grounded in the NIST IR playbooks written for Tier-1 analysts).
+
+### 🧪 Validation
+- `python audit.py` → **13 PASS | 0 FAIL | 0 WARN** · `pytest` → **62/62** · parity maintained.
+
+---
+
 ## [2.7.0] - 2026-08-16 — Field Manual Content Overhaul: Bulleted Descriptions, Number Dedupe, Overclaim & Consistency Audit Fixes
 
 > **Deep content revision of the Field Manual page** (per owner request, two full text audits): every description in all five sections converted to accent-dot bullet points with a grounded second sentence, achievement numbers deduplicated so each figure appears once in its best-fitting place, overclaims qualified or removed ("simulated" MTTR, cloud-privacy scope, 24-year claim), consistency issues fixed (tag vs. source role, ministry naming, field-log ordering), and ambiguous/AI-sounding phrasing eliminated. The hero pitch, spec table, and all 10 field-log entries were revised; only grounded facts and owner-confirmed figures were used — no new claims.

@@ -1,7 +1,7 @@
 # 10 Futuristic Theme Concepts — Sigit Adi Irianto Portfolio
 
 > Stack: **React + Vite** · **@react-three/fiber + drei** (3D) · **framer-motion** (UI motion)
-> All concepts are built from real portfolio content: Wazuh SIEM, Docker/Ubuntu, Ollama & prompt engineering, UU PDP / BYOK, MTTR −45%, 20+ year career 2002→2026, 4 parallel infrastructure projects (PUPR), SOC & IR playbooks, BSSN/DevSecOps/pen-test certifications.
+> All concepts are built from real portfolio content: Wazuh SIEM, Docker/Ubuntu, Ollama & prompt engineering, UU PDP / BYOK, simulated MTTR −45%, 20+ year career 2002→2026, 4 parallel infrastructure projects (PUPR), SOC & IR playbooks, BSSN/DevSecOps/pen-test certifications.
 
 ---
 
@@ -19,7 +19,7 @@
 
 ### Content — what's already strong
 - The "20+ years ops + SOC + applied AI" narrative is consistent across hero, about, experience, testimonials, certifications.
-- **Concrete metrics** (MTTR −45%, 50+ staff teams) and **Challenge → Approach → Result case studies** in modals — gold for the "operational console" theme.
+- **Concrete metrics** (simulated MTTR −45%, 50+ staff teams) and **Challenge → Approach → Result case studies** in modals — gold for the "operational console" theme.
 - Real projects with production links; relevant Medium articles (Wazuh+Telegram, data exfil, brute force).
 
 ### Content — gaps these concepts can fill
@@ -61,7 +61,7 @@
 
 - **3D centerpiece**: 3D desk/deck — `RoundedBox` (drei) holo panels rotating slowly (`Float` + slow `OrbitControls`, autoRotate), a `Sphere` globe labeled with locations (Tangerang, BPDLH project, remote global).
 - **Framer-motion**: boot sequence on load (log "POWER ON → SENSOR CHECK → ALL SYSTEMS NOMINAL"), then statistic panels appear staggered like telemetry; mission progress bars per section.
-- **Transition**: sections = mission "phases"; big counters (MTTR −45%, 20+ yrs, 50+ staff) count up with `animate`.
+- **Transition**: sections = mission "phases"; big counters (simulated MTTR −45%, 20+ yrs, 50+ staff) count up with `animate`.
 - **Palette/Type**: graphite + cyan + amber; large screens, experimental display typography for titles (Chakra Petch).
 - **Why it fits**: captures the career scale (IT Manager, Project Office Manager) without sounding boastful.
 
