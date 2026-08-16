@@ -231,10 +231,12 @@
     .spec .k{width:auto;white-space:normal}
     .log .row{flex-direction:column;gap:4px}
     .log .y{width:auto;white-space:normal}
-    /* catatan tinta tetap satu baris di layar sempit: konten 290px di 360px — dekorasi diperkecil agar teks + coretan muat */
+    /* catatan tinta tetap satu baris di layar sempit (360px, konten 290px): teks mnote 19px + underline 44px agar catatan terpanjang (nat 280px @23px) muat; flex-wrap hanya pengaman di <320px */
     .cta-note span{font-size:22px}
     .cta-note .ink.paraf{width:34px;height:24px}
-    .mnote svg.underline{width:52px;height:8px}
+    .mnote{flex-wrap:wrap;justify-content:flex-end}
+    .mnote span{font-size:19px}
+    .mnote svg.underline{width:36px;height:7px}
   }
   .oc h3{font-size:18px;margin-bottom:8px}
   .oc p{font-size:14.5px;color:var(--ink2);line-height:1.65}

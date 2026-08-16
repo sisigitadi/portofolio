@@ -6,6 +6,26 @@ The format is based on [Keep a Changelog](https://keepachamber.com/en/1.0.0/), a
 
 ---
 
+## [2.6.6] - 2026-08-16 — Fix: Catatan Tinta Satu Baris (Ulefone 360px) — Verifikasi Ukur Dikoreksi
+
+> **Bug report owner (Ulefone Armor 11 5G, 360px)**: setelah v2.6.5, `good fit — references checked` dan `scope matches the role exactly` **masih 2 baris** — v2.6.5 hanya mengecilkan dekorasi (underline 52px) tapi teks `.mnote` **tetap 23px**: catatan terpanjang butuh 232–285px teks + 52px underline vs konten 290px (avail 231px) → wrap.
+>
+> **Koreksi metode verifikasi**: klaim 1-baris v2.6.5 memakai `getClientRects()` — metode itu **salah** (span di flex container ter-blockify, selalu mengembalikan 1 rect walau teks wrap). v2.6.6 memakai detektor valid: **tinggi span vs 1.4× line-height** (1 baris ≈ line-height, 2 baris ≈ 2×), divalidasi terhadap kasus desktop yang sudah pasti satu baris sebelum dipakai.
+
+### 🔧 Fixed (index.html — media query ≤620px, hanya mobile)
+- **`.mnote span` 23px → 19px** — teks adalah pembatas sebenarnya, bukan dekorasi.
+- **`.mnote svg.underline` 52×8 → 36×7** — margin catatan terpanjang (`verified — all current, dates checked`, nat 236px) naik dari 3px → **11px** agar aman terhadap variasi rendering font perangkat.
+- **`.mnote{flex-wrap:wrap;justify-content:flex-end}`** — pengaman: jika dekorasi tak muat, underline turun ke baris kedua, teks tetap satu baris.
+- `.cta-note` **tetap 22px** (sudah satu baris — `strong candidate — proceed` render 1 baris, spanH 33.3 < ambang 38.5).
+- **Desktop ≥621px tidak berubah** (mnote 23px, underline 72px) — semua satu baris dengan margin ≥36px.
+
+### 🧪 Validasi (Chrome headless CDP, detektor tinggi-vs-line-height)
+- **@360 (Ulefone)**: keempat mnote + cta **1 baris** — `scope…` margin 49px, `references checked` 55px, `verified…` 11px.
+- 320px: teks mnote tetap 1 baris (underline turun via flex-wrap untuk catatan terpanjang); 280px (Fold outer): baru wrap — di luar target.
+- `python audit.py` → **13 PASS | 0 FAIL | 0 WARN** · `node --test worker-visitor/worker.test.js` → **26/26** · `pytest` → **62/62** · tanpa dampak CSP.
+
+---
+
 ## [2.6.5] - 2026-08-16 — Fix: Catatan Tinta Satu Baris di Layar Sempit (Ulefone 360px)
 
 > **Bug report owner (Ulefone Armor 11 5G, 360px)**: setelah v2.6.4, catatan tulisan tangan Caveat (23–24px) + coretan pulpen wrap menjadi 2 baris dan terlihat rancu — konten 290px di viewport 360px tidak cukup menampung teks + dekorasi tinta (mnote butuh 211px teks + 72px underline; cta butuh 218px + 44px paraf).
