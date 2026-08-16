@@ -23,10 +23,11 @@
   .sheet::after{content:'';position:absolute;inset:0;pointer-events:none;z-index:2;opacity:.05;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
   @keyframes dossierLanding{0%{opacity:0;transform:perspective(1200px) translateY(-75px) rotateX(14deg) rotateY(-3.5deg) scale(0.96);box-shadow:0 45px 70px -15px rgba(32,36,43,0.38),0 25px 35px -20px rgba(32,36,43,0.25)}45%{opacity:1;transform:perspective(1200px) translateY(-18px) rotateX(7deg) rotateY(-1.5deg) scale(0.985);box-shadow:0 35px 50px -10px rgba(32,36,43,0.28)}78%{transform:perspective(1200px) translateY(3px) rotateX(-1deg) rotateY(0.5deg) scale(1.002);box-shadow:0 16px 28px -6px rgba(32,36,43,0.16)}100%{opacity:1;transform:perspective(1200px) translateY(0) rotateX(0deg) rotateY(0deg) scale(1);box-shadow:0 24px 60px -18px rgba(58,48,28,0.4)}}
   .sheet.landing-active{animation:dossierLanding 1.15s cubic-bezier(0.22,1,0.36,1) forwards;transform-origin:50% 0%;will-change:transform,box-shadow,opacity}
-  .status-live{display:inline-flex;align-items:center;gap:7px}
-  .live-dot{width:7px;height:7px;border-radius:50%;background:#16a34a;display:inline-block;box-shadow:0 0 0 0 rgba(22,163,74,0.7);animation:livePulse 2s infinite;flex-shrink:0}
-  @keyframes livePulse{0%{transform:scale(0.95);box-shadow:0 0 0 0 rgba(22,163,74,0.7)}70%{transform:scale(1);box-shadow:0 0 0 6px rgba(22,163,74,0)}100%{transform:scale(0.95);box-shadow:0 0 0 0 rgba(22,163,74,0)}}
-  @media (prefers-reduced-motion:reduce){.sheet.landing-active{animation:none !important;transform:none !important}.live-dot{animation:none !important}}
+  .status-underlined{position:relative;display:inline-block}
+  .pen-stroke{position:absolute;left:0;bottom:-4px;width:100%;height:8px;overflow:visible;pointer-events:none}
+  .pen-stroke path{fill:none;stroke:var(--accent);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:100;stroke-dashoffset:100;filter:url(#inkBleed);animation:penLoop 4.4s ease-in-out infinite}
+  @keyframes penLoop{0%{stroke-dashoffset:100;opacity:0}8%{opacity:1}38%{stroke-dashoffset:0;opacity:1}80%{stroke-dashoffset:0;opacity:1}93%{stroke-dashoffset:0;opacity:0}100%{stroke-dashoffset:100;opacity:0}}
+  @media (prefers-reduced-motion:reduce){.sheet.landing-active{animation:none !important;transform:none !important}.pen-stroke path{animation:none !important;stroke-dashoffset:0 !important;opacity:1 !important}}
   .ink{height:1.25em;width:auto;margin-left:8px;vertical-align:-0.28em}
   .ink.star{height:1.25em;width:auto;margin-left:6px}
   .ink.paraf{width:38px;height:24px;margin-left:16px;transform:rotate(-8deg)}
@@ -675,7 +676,7 @@
     Twenty-four years of enterprise operations, beginning in infrastructure and systems administration — keeping systems up and teams unblocked. The recent focus has been security operations and applied AI: Wazuh SIEM triage, automated response playbooks, and local-first AI tooling.
   </p>
   <div class="spec">
-    <div class="row"><div class="k">STATUS</div><div class="v status-live"><span class="live-dot" aria-hidden="true"></span>Open to remote roles worldwide</div></div>
+    <div class="row"><div class="k">STATUS</div><div class="v"><span class="status-underlined">Open to remote roles worldwide<svg class="pen-stroke" viewBox="0 0 160 10" preserveAspectRatio="none" aria-hidden="true"><path d="M2 7 C35 2, 75 9, 115 4 C135 1, 150 7, 158 5" pathLength="100"/></svg></span></div></div>
     <div class="row"><div class="k">BASE OF OPERATIONS</div><div class="v">Banten, Indonesia — WIB, UTC+7</div></div>
     <div class="row"><div class="k">CONTACT</div><div class="v"><a href="#contact">si.sigitadi@gmail.com</a></div></div>
     <div class="row"><div class="k">FIELD EXPERIENCE</div><div class="v">Feb 2002 → present · IT → SecOps &amp; AI</div></div>
