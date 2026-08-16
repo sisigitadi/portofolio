@@ -6,6 +6,26 @@ The format is based on [Keep a Changelog](https://keepachamber.com/en/1.0.0/), a
 
 ---
 
+## [2.6.4] - 2026-08-16 — Tinta Hitam + Efek Ink Bleed: Handwriting & Coretan Lebih Besar, Kontras Kuat
+
+> **Keputusan owner setelah review v2.6.3**: font tulisan tangan Caveat & coretan pulpen diperbesar lagi, warna tinta diubah dari karat (`#8A4A26`) ke **hitam murni (`#000`)**, dan ditambah **efek tinta bocor** (halo blur gelap di sekitar teks & goresan) — kesan pulpen basah yang meresap ke kertas krem.
+
+### 🖋️ Ukuran & warna tinta (index.html)
+- **Font Caveat diperbesar lagi**: catatan margin (`.mnote`) 19px → **23px**, catatan CTA (`.cta-note`) 20px → **24px** (line-height 1.25; max-width catatan 340px → 400px).
+- **Coretan SVG diperbesar lagi**: centang 30×28 → **36×34**, bintang 24×24 → **28×28**, paraf 46×30 → **54×36** (tanda tangan 42×27 → **50×32**, opacity .85 → .9, paraf CTA 33×24 → **40×28**), coretan bawah garis 60×9 → **72×11**.
+- **Warna hitam murni `#000`** untuk semua teks Caveat dan semua goresan `.ink path` + coretan bawah garis (sebelumnya aksen karat `#8A4A26`/`--accent`) — kontras kuat di atas kertas krem, berlaku serentak untuk semua paraf tanda tangan (field log, sertifikasi, footer) via aturan global `.ink`.
+
+### 💧 Efek tinta bocor (ink bleed)
+- **Teks**: `text-shadow` 4 lapis blur bertingkat — `0 0 2px rgba(0,0,0,.55)`, `0 0 6px rgba(0,0,0,.3)`, `0 0 14px rgba(0,0,0,.18)`, `0 0 24px rgba(0,0,0,.09)` — halo gelap menyebar keluar huruf seperti tinta meresap ke serat kertas.
+- **Goresan SVG**: filter inline **`#inkBleed`** (SVG hidden `aria-hidden` di `<body>`) — `feGaussianBlur stdDeviation 2.2` di-render **di bawah** stroke asli (`feMerge`), diterapkan via `filter:url(#inkBleed)` ke semua `.ink path` dan coretan bawah garis; tanpa memengaruhi animasi `stroke-dashoffset` saat scroll.
+
+### 🧪 Validasi (Chrome headless CDP)
+- Terverifikasi: `mnote=23px`, `cta=24px`, teks & stroke `rgb(0,0,0)`, `stroke-width 3.6px`, `filter=BLEED` pada semua 3 paraf tanda tangan (termasuk footer), text-shadow 4 lapis ON, `stdDeviation=2.2`, `#inkBleed` terdefinisi, `h1` tetap satu baris di 360px.
+- `python audit.py` → **13 PASS | 0 FAIL | 0 WARN** · `node --test worker-visitor/worker.test.js` → **26/26** · tanpa dampak CSP (perubahan CSS + SVG defs saja — hash script tidak tersentuh; SVG hidden `aria-hidden` aman untuk screen reader).
+- Review visual: screenshot hero 360px + close-up catatan CTA (tinta hitam + halo bleed terlihat jelas di kertas krem).
+
+---
+
 ## [2.6.3] - 2026-08-16 — Responsive Hero Fix (360px) + Handwriting Font & Ink Strokes Enlarged
 
 > **Perbaikan tampilan ponsel + keterbacaan "coretan tinta"**: nama hero `h1` di Ulefone Armor 11 5G (360px) turun dari 40px ke 28px sehingga muat **satu baris** (sebelumnya 2 baris dengan spasi antar kata melebar — penyebabnya `text-align: justify` dari `body` menurun ke `h1`), dan font tulisan tangan Caveat + coretan pulpen SVG diperbesar agar lebih terlihat.
