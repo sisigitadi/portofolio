@@ -4,6 +4,36 @@ All notable changes to the **Sigit Adi Irianto Portfolio SPA** project will be d
 
 The format is based on [Keep a Changelog](https://keepachamber.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.7.0] - 2026-08-16 — Field Manual Content Overhaul: Bulleted Descriptions, Number Dedupe, Overclaim & Consistency Audit Fixes
+
+> **Deep content revision of the Field Manual page** (per owner request, two full text audits): every description in all five sections converted to accent-dot bullet points with a grounded second sentence, achievement numbers deduplicated so each figure appears once in its best-fitting place, overclaims qualified or removed ("simulated" MTTR, cloud-privacy scope, 24-year claim), consistency issues fixed (tag vs. source role, ministry naming, field-log ordering), and ambiguous/AI-sounding phrasing eliminated. The hero pitch, spec table, and all 10 field-log entries were revised; only grounded facts and owner-confirmed figures were used — no new claims.
+
+### ✏️ Hero & Spec Table (front matter)
+- **Hero pitch (variant B + audit fix)**: now explains the 24 years ("keeping systems up and teams unblocked") and the recent SecOps/AI focus with concrete examples (Wazuh triage, local-first tooling); removed the ambiguous "Nothing here is aspirational" paragraph and the vague "the last two have been" → "The recent focus has been…".
+- **FIELD EXPERIENCE row**: `Feb 2002 → present · infra & sysadmin · SecOps & AI since 2024` — precise range (was "20+ years", which undersold the Feb 2002 start), verified one line at all desktop/tablet widths (768px column capacity measured via CDP).
+- **TRACK RECORD row**: `Simulated MTTR −45% via automated SOC triage · 1,000+ prompt-response pairs` — "simulated" now explicit (the 45% is a SCOPS simulation, not production measurement), "4 projects live" removed (duplicated 3× — kept in the DEPLOYMENTS row and §2 lede).
+- **EDUCATION**: "S.Kom" removed. **DAILY DRIVER**: `Kali Linux · Windows 11 · Docker on Ubuntu/WSL` ("home labs" reverted — unverifiable; production grounding is the MoE/BPDLH field-log entry). **SIEM & WAF**: `Wazuh · FortiWeb · NIST IR Playbooks` (Elasticsearch removed — a Wazuh backend, not a SIEM/WAF tool, and ungrounded elsewhere). **AI STACK**: reordered to runtime → capability → practice → differentiator with `BYOK (privacy-first)`.
+- **Masthead**: "IT — SecOps & AI Division" → "Field Manual · IT · SecOps & Applied AI" ("Division" read as an org structure).
+
+### 🎯 Bulleted Descriptions (all sections)
+- **New `.blist` CSS** (accent 5px dot marker via `::before`, no script change → CSP hashes untouched): ledes, 4 offering cards, 4 project cards, and 10 field-log entries converted from prose to bullets — single-sentence descriptions gained one grounded second sentence.
+- **Numbers added only where already proven**: 500+ alerts/day (owner-confirmed, placed in Incident Handling — Kemendagri, matching its "high-volume alerts" testimonial), 50+ servers & workstations, 30% log-review cut (MoE), 55% MTTA cut (SOC Analyst, "measured against the new baseline"), thousands of transactions/day (Kemendagri), 1,000+ prompt-response pairs (AI Trainer), 4 concurrent sites (PUPR), 6-month (Nippon Koei) & 6-year (Dipta) tenures, Twelve years (Early Career).
+- **Number dedupe**: 45% (spec + SCOPS card, both qualified "simulated"), 1,000+ (spec + AI Trainer), 50+ (1.03 fleet + ACE team — different meanings) — each figure now appears once per context; offerings no longer repeat log numbers.
+
+### 🧹 Consistency & Audit Fixes
+- **Overclaim fixes**: "no data sent to the cloud" → "local models keep data on-device; cloud APIs only where explicitly wired" (PromptMatrix uses the Gemini API); "each backed by 24 years" → "built on 24 years" (AI/SecOps are ±2 years old); "nothing stored" left as-is pending Formspree check; certs mnote "all current, dates checked" → "verified — year & issuer listed" (no visible dates to check).
+- **Leftover cleanup**: removed "uu-pdp" from 1.04 REF (UU PDP stays only in Senior Programmer, where it fits); removed bold from all description text; star icons → check icons (4); field-log year column right-aligned on desktop (A1); log reordered by **start date** newest-first (MAR 2026 → … → 2002).
+- **Attribution consistency**: Field Report 03 tag "Director's Note" → "Manager's Note" (source is now HRD Manager); "HRD Director" → "HRD Manager"; testimonial 01 + JSON-LD `worksFor` aligned to "Ministry of Environment".
+- **Dedupe within cards**: SCOPS (H/M/L once), PromptMatrix ("3 criteria" once), SmartExpenseML (privacy claim once), AI Trainer (safety-guidelines boilerplate replaced with grounded BYOK detail), Early Career (two-companies fact).
+
+### 🧪 Validation
+- `python audit.py` → **13 PASS | 0 FAIL | 0 WARN** · `pytest` → **62/62**.
+- All 4 project URLs verified live (200/200/200/303) — "In production" claims grounded.
+- Parity maintained: `design-previews/02-field-manual.html` mirrors every content change (10 rows, 18 `.blist` each).
+- `sw.js` cache bumped `portofolio-v5` → `portofolio-v6` so returning visitors receive the overhauled page.
+
+---
+
 ## [2.6.9] - 2026-08-16 — CSP Hash Recalculation: Script-1 Hash Refreshed After Comment Translation + SW Cache Bump v5
 
 > **Bug found by browser render verification of v2.6.8**: the first inline `<script>` was **silently blocked by CSP**. Root cause: the English-only sweep translated an Indonesian comment **inside** the first inline `<script>` block, which changed the script content → its SHA-256 hash changed → the hash in the `Content-Security-Policy` meta went stale (exactly the failure mode documented in Project_rules §1.7) → CSP blocked the script. The stale hash was only visible in a real browser (console CSP violation), not in `audit.py` (which checks script syntax via `node --check`, not hash validity).

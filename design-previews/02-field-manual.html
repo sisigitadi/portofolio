@@ -21,8 +21,8 @@
   body{background:#D6CDB4;color:var(--ink);font:16px/1.75 Georgia,"Times New Roman",serif;text-align:justify;padding:40px 14px 56px}
   .sheet{position:relative;max-width:1000px;margin:0 auto;background:var(--paper);border:1px solid #C9C1A8;box-shadow:0 24px 60px -18px rgba(58,48,28,0.4);overflow:hidden}
   .sheet::after{content:'';position:absolute;inset:0;pointer-events:none;z-index:2;opacity:.05;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
-  .ink{width:24px;height:22px;margin-left:10px;vertical-align:-4px}
-  .ink.star{width:19px;height:19px;margin-left:8px}
+  .ink{height:1.25em;width:auto;margin-left:8px;vertical-align:-0.28em}
+  .ink.star{height:1.25em;width:auto;margin-left:6px}
   .ink.paraf{width:38px;height:24px;margin-left:16px;transform:rotate(-8deg)}
   .ink-sign{text-align:right;margin-top:12px}
   .ink-sign .ink.paraf{width:34px;height:22px;margin-left:0;opacity:.85}
@@ -101,6 +101,11 @@
   .sec-head .dash{flex:1;border-bottom:1px dotted var(--rule)}
   .lede{color:var(--ink2);max-width:640px;margin-bottom:26px;font-size:15px;text-align:justify}
   .lede b{color:var(--ink)}
+  /* bulleted descriptions — dash markers, manual style */
+  .blist{list-style:none;margin:0;padding:0}
+  .blist li{position:relative;padding-left:18px;margin:4px 0}
+  .blist li::before{content:'';position:absolute;left:2px;top:0.65em;width:5px;height:5px;border-radius:50%;background:var(--accent)}
+  .blist li b{white-space:nowrap}
 
   .offer,.proj{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:8px}
   .proj{margin-top:4px}
@@ -113,16 +118,16 @@
     .spec .row{flex-direction:column;gap:2px}
     .spec .k{width:auto;white-space:normal}
     .log .row{flex-direction:column;gap:4px}
-    .log .y{width:auto;white-space:normal}
+    .log .y{width:auto;white-space:normal;text-align:left}
   }
   .oc h3{font-size:18px;margin-bottom:8px}
-  .oc p{font-size:14.5px;color:var(--ink2);line-height:1.65}
+  .oc p,.oc .blist{font-size:14.5px;color:var(--ink2);line-height:1.65}
   .oc .ref{display:block;margin-top:14px;font:12px ui-monospace,Consolas,monospace;color:var(--muted);letter-spacing:.04em}
 
   .pc{background:var(--paper2);border:1px solid var(--rule);padding:20px;display:flex;flex-direction:column}
   .pc .tag{font:11.5px ui-monospace,Consolas,monospace;color:var(--accent);letter-spacing:.06em;text-transform:uppercase}
   .pc h3{font-size:18px;margin:6px 0 6px}
-  .pc p{font-size:14px;color:var(--ink2);flex:1}
+  .pc p,.pc .blist{font-size:14px;color:var(--ink2);flex:1}
   .pc .status{margin-top:12px;font:11px ui-monospace,Consolas,monospace;letter-spacing:.06em;text-transform:uppercase;border-top:1px solid var(--rule);padding-top:8px;color:var(--muted)}
   .pc .status b{color:var(--accent);font-weight:700}
   .pc .url{display:block;margin-top:7px;font:11.5px ui-monospace,Consolas,monospace;color:var(--accent2);border-bottom:1px dotted var(--accent);word-break:break-all;width:fit-content}
@@ -131,9 +136,9 @@
   /* field log — the career, as dated entries */
   .log{border-top:2px solid var(--ink)}
   .log .row{display:flex;gap:22px;padding:13px 2px;border-bottom:1px solid var(--rule)}
-  .log .y{width:170px;flex-shrink:0;font:12.5px ui-monospace,Consolas,monospace;color:var(--accent);padding-top:3px;letter-spacing:.02em;white-space:nowrap}
-  .log .r b{font-size:16px}
-  .log .r span{display:block;font-size:14px;color:var(--ink2);margin-top:2px}
+  .log .y{width:170px;flex-shrink:0;font:12.5px ui-monospace,Consolas,monospace;color:var(--accent);padding-top:3px;letter-spacing:.02em;white-space:nowrap;text-align:right}
+  .log .r > b{font-size:16px}
+  .log .r span,.log .r .blist{display:block;font-size:14px;color:var(--ink2);margin-top:2px}
 
   /* field reports — quoted notes */
   .report{background:var(--paper2);border:1px solid var(--rule);padding:22px 24px;margin-bottom:16px;position:relative}
@@ -239,7 +244,7 @@
 <div class="sheet">
 
 <div class="mast" id="top"><div class="wrap">
-  <span>Field Manual · IT — SecOps &amp; AI Division</span>
+  <span>Field Manual · IT · SecOps &amp; Applied AI</span>
   <span class="meta">Manual No. SAI-2026 / Copy 01 · Current as of Aug 2026</span>
 </div></div>
 
@@ -247,23 +252,18 @@
   <h1>Sigit Adi Irianto<span class="thin">.</span></h1>
   <div class="role">IT &amp; SecOps Specialist &nbsp;·&nbsp; Applied AI Engineer</div>
   <p class="pitch">
-    Twenty-plus years of enterprise experience in infrastructure and systems administration — the last two
-    in security operations and applied AI.
+    Twenty-plus years of enterprise operations, beginning in infrastructure and systems administration — keeping systems up and teams unblocked. The recent focus has been security operations and applied AI: Wazuh SIEM triage, automated response, and local-first AI tooling.
   </p>
-  <p class="pitch">
-    Nothing here is aspirational: if it is in this manual, <b>it has run in production</b>.
-  </p>
-
   <div class="spec">
     <div class="row"><div class="k">STATUS</div><div class="v">Open to remote roles worldwide</div></div>
     <div class="row"><div class="k">BASE OF OPERATIONS</div><div class="v">Banten, Indonesia — WIB, UTC+7</div></div>
     <div class="row"><div class="k">CONTACT</div><div class="v">si.sigitadi@gmail.com</div></div>
-    <div class="row"><div class="k">FIELD EXPERIENCE</div><div class="v">20+ years — infrastructure &amp; systems administration; last 2 years SecOps &amp; applied AI</div></div>
-    <div class="row"><div class="k">TRACK RECORD</div><div class="v">MTTR −45% via automated SOC triage · 1,000+ prompt-response pairs evaluated <svg class="ink star" viewBox="0 0 28 26" aria-hidden="true"><path d="M14 2 L16.8 8.2 L23.5 8.9 L18.4 13.4 L20 20 L14 16.6 L8 20 L9.6 13.4 L4.5 8.9 L11.2 8.2 Z" pathLength="120"/></svg></div></div>
-    <div class="row"><div class="k">EDUCATION</div><div class="v">S.Kom Computer Science — Universitas Budi Luhur</div></div>
-    <div class="row"><div class="k">DAILY DRIVER</div><div class="v">Kali Linux — Windows 11</div></div>
-    <div class="row"><div class="k">SIEM &amp; WAF</div><div class="v">Wazuh SIEM (alert triage, threat hunting) · FortiWeb WAF · NIST IR playbooks <svg class="ink star" viewBox="0 0 28 26" aria-hidden="true"><path d="M14 2 L16.8 8.2 L23.5 8.9 L18.4 13.4 L20 20 L14 16.6 L8 20 L9.6 13.4 L4.5 8.9 L11.2 8.2 Z" pathLength="120"/></svg></div></div>
-    <div class="row"><div class="k">AI STACK</div><div class="v">Local AI models (Ollama) · prompt engineering &amp; evaluation · on-device NLP</div></div>
+    <div class="row"><div class="k">FIELD EXPERIENCE</div><div class="v">Feb 2002 → present · infra &amp; sysadmin · SecOps &amp; AI since 2024</div></div>
+    <div class="row"><div class="k">TRACK RECORD</div><div class="v">Simulated MTTR −45% via automated SOC triage · 1,000+ prompt-response pairs <svg class="ink" viewBox="0 0 28 26" aria-hidden="true"><path d="M3 15 Q6 19 9 21 Q12 23 15 19 L25 3" pathLength="120"/></svg></div></div>
+    <div class="row"><div class="k">EDUCATION</div><div class="v">Computer Science — Universitas Budi Luhur</div></div>
+    <div class="row"><div class="k">DAILY DRIVER</div><div class="v">Kali Linux · Windows 11 · Docker on Ubuntu/WSL</div></div>
+    <div class="row"><div class="k">SIEM &amp; WAF</div><div class="v">Wazuh · FortiWeb · NIST IR Playbooks <svg class="ink" viewBox="0 0 28 26" aria-hidden="true"><path d="M3 15 Q6 19 9 21 Q12 23 15 19 L25 3" pathLength="120"/></svg></div></div>
+    <div class="row"><div class="k">AI STACK</div><div class="v">Ollama · on-device NLP · prompt engineering &amp; evaluation · BYOK (privacy-first)</div></div>
     <div class="row"><div class="k">DEPLOYMENTS</div><div class="v">4 deployed projects in Section 2</div></div>
   </div>
 
@@ -285,12 +285,12 @@
 
 <section id="offer" aria-labelledby="offer-h"><div class="wrap">
   <div class="sec-head"><span class="no">1.</span><h2 id="offer-h">Offerings</h2><div class="dash"></div></div>
-  <p class="lede">What I can <b>operate, maintain, and improve</b> for your team.</p>
+  <p class="lede">What I can operate, maintain, and improve for your team. Four areas of work — built on 24 years of production operations.</p>
   <div class="offer">
-    <div class="oc"><span class="num">1.01</span><h3>Applied AI &amp; Prompt Engineering</h3><p>Local AI models (Ollama), prompt engineering and quality evaluation, on-device text classification, filtering, and summarization — running privately on the device, no data sent to the cloud.</p><span class="ref">REF: promptmatrix · ollama · text-classification</span></div>
-    <div class="oc"><span class="num">1.02</span><h3>SecOps &amp; Threat Monitoring</h3><p>Wazuh SIEM alert triage &amp; threat hunting (MTTR −45%), FortiWeb WAF telemetry, NIST IR playbooks written for Tier-1 analysts, ISO 27001 readiness gap analysis, DevSecOps pipelines.</p><span class="ref">REF: wazuh · fortiweb · nist</span></div>
-    <div class="oc"><span class="num">1.03</span><h3>IT Infrastructure &amp; Administration</h3><p>Linux/Ubuntu &amp; Docker administration, automated SQL reporting pipelines, REST API integration and n8n workflow automation — supporting engineering teams of 50+.</p><span class="ref">REF: linux · docker · sql · n8n</span></div>
-    <div class="oc"><span class="num">1.04</span><h3>Remote &amp; Global Readiness</h3><p>Asynchronous operations, multi-timezone coordination, multi-stakeholder environments, self-directed troubleshooting, disciplined documentation. UU PDP-compliant by habit — privacy is a design constraint, not a feature.</p><span class="ref">REF: async · multi-stakeholder · uu-pdp</span></div>
+    <div class="oc"><span class="num">1.01</span><h3>Applied AI &amp; Prompt Engineering</h3><ul class="blist"><li>Local AI models (Ollama), prompt engineering and quality evaluation, on-device text classification, filtering, and summarization — local models keep data on-device; cloud APIs only where explicitly wired.</li><li>Two shipped AI products — PromptMatrix and SmartExpenseML — are built on this stack.</li></ul><span class="ref">REF: promptmatrix · ollama · text-classification</span></div>
+    <div class="oc"><span class="num">1.02</span><h3>SecOps &amp; Threat Monitoring</h3><ul class="blist"><li>Wazuh SIEM alert triage &amp; threat hunting, FortiWeb WAF telemetry, NIST IR playbooks written for Tier-1 analysts, ISO 27001 readiness gap analysis, DevSecOps pipelines.</li><li>Playbooks and dashboards for triaging 500+ alerts a day — from alert to action without a handoff.</li></ul><span class="ref">REF: wazuh · fortiweb · nist</span></div>
+    <div class="oc"><span class="num">1.03</span><h3>IT Infrastructure &amp; Administration</h3><ul class="blist"><li>Linux/Ubuntu &amp; Docker administration, automated SQL reporting pipelines, REST API integration and n8n workflow automation — supporting engineering teams end to end.</li><li>Runbooks and documentation are standard — across a fleet of 50+ servers and workstations.</li></ul><span class="ref">REF: linux · docker · sql · n8n</span></div>
+    <div class="oc"><span class="num">1.04</span><h3>Remote &amp; Global Readiness</h3><ul class="blist"><li>Asynchronous operations, multi-timezone coordination, multi-stakeholder environments.</li><li>Self-directed troubleshooting, disciplined documentation.</li></ul><span class="ref">REF: async · multi-stakeholder</span></div>
   </div>
   <div class="mnote rot1"><span>scope matches the role exactly</span><svg class="underline" viewBox="0 0 52 8" aria-hidden="true"><path d="M1 5 C10 1 20 6 30 3 C38 1 45 5 51 2" pathLength="120"/></svg></div>
 </div>
@@ -299,12 +299,12 @@
 
 <section id="projects" aria-labelledby="projects-h"><div class="wrap">
   <div class="sec-head"><span class="no">2.</span><h2 id="projects-h">Deployed Projects</h2><div class="dash"></div></div>
-  <p class="lede">Work that is <b>in production</b> — not demos, not mockups.</p>
+  <p class="lede">Work that is in production — not demos, not mockups. Four deployments, all live.</p>
   <div class="proj">
-    <div class="pc"><span class="tag">SecOps · Dashboard</span><h3>SCOPS — Security Operations Automation Platform <svg class="ink star" viewBox="0 0 28 26" aria-hidden="true"><path d="M14 2 L16.8 8.2 L23.5 8.9 L18.4 13.4 L20 20 L14 16.6 L8 20 L9.6 13.4 L4.5 8.9 L11.2 8.2 Z" pathLength="120"/></svg></h3><p>SOC triage dashboard with High/Medium/Low risk classification logic and Wazuh telemetry integration — simulated MTTR cut 45% versus manual triage.</p><span class="status">Status: <b>In production</b></span><a class="url" href="https://sisigitadi.github.io/scops" target="_blank" rel="noopener noreferrer">sisigitadi.github.io/scops ↗</a></div>
-    <div class="pc"><span class="tag">SecOps · Streamlit</span><h3>A.R.Y.A. — SOC Analytics &amp; Threat Hunting</h3><p>Real-time threat-intelligence dashboard in Python/Streamlit with custom data pipelines and REST ingestion that parses and visualizes JSON/XML/CSV log payloads for Tier-1 analysts.</p><span class="status">Status: <b>In production</b></span><a class="url" href="https://arya-soc.streamlit.app" target="_blank" rel="noopener noreferrer">arya-soc.streamlit.app ↗</a></div>
-    <div class="pc"><span class="tag">AI · Web</span><h3>PromptMatrix — LLM Prompt Evaluation</h3><p>TypeScript, Next.js, LangChain and the Gemini API; tests prompt stability across variants with semantic-similarity scoring for instruction-following, consistency, and format adherence.</p><span class="status">Status: <b>In production</b></span><a class="url" href="https://sisigitadi.github.io/promptmatrix2" target="_blank" rel="noopener noreferrer">sisigitadi.github.io/promptmatrix2 ↗</a></div>
-    <div class="pc"><span class="tag">AI · Privacy-first</span><h3>SmartExpenseML — Client-Side Expense Classifier</h3><p>Privacy-first client-side Naive Bayes classifier that categorizes expenses from informal Indonesian currency inputs ("25rb", "5.5jt") — entirely in the browser, no data leaves it.</p><span class="status">Status: <b>In production</b></span><a class="url" href="https://sisigitadi.github.io/smartexpenseML" target="_blank" rel="noopener noreferrer">sisigitadi.github.io/smartexpenseML ↗</a></div>
+    <div class="pc"><span class="tag">SecOps · Dashboard</span><h3>SCOPS — Security Operations Automation Platform <svg class="ink" viewBox="0 0 28 26" aria-hidden="true"><path d="M3 15 Q6 19 9 21 Q12 23 15 19 L25 3" pathLength="120"/></svg></h3><ul class="blist"><li>SOC triage dashboard with High/Medium/Low risk classification logic and Wazuh telemetry integration — simulated MTTR cut 45% versus manual triage.</li><li>Turns raw telemetry into a queue an analyst can act on at a glance.</li></ul><span class="status">Status: <b>In production</b></span><a class="url" href="https://sisigitadi.github.io/scops" target="_blank" rel="noopener noreferrer">sisigitadi.github.io/scops ↗</a></div>
+    <div class="pc"><span class="tag">SecOps · Streamlit</span><h3>A.R.Y.A. — SOC Analytics &amp; Threat Hunting</h3><ul class="blist"><li>Real-time threat-intelligence dashboard in Python/Streamlit with custom data pipelines and REST ingestion that parses and visualizes JSON/XML/CSV log payloads for Tier-1 analysts.</li><li>Built so a Tier-1 analyst can read threat telemetry without a data-science background.</li></ul><span class="status">Status: <b>In production</b></span><a class="url" href="https://arya-soc.streamlit.app" target="_blank" rel="noopener noreferrer">arya-soc.streamlit.app ↗</a></div>
+    <div class="pc"><span class="tag">AI · Web</span><h3>PromptMatrix — LLM Prompt Evaluation</h3><ul class="blist"><li>TypeScript, Next.js, LangChain and the Gemini API; tests prompt stability across variants with semantic-similarity scoring for instruction-following, consistency, and format adherence.</li><li>Answers a concrete question: which prompt version performs best before it ships.</li></ul><span class="status">Status: <b>In production</b></span><a class="url" href="https://sisigitadi.github.io/promptmatrix2" target="_blank" rel="noopener noreferrer">sisigitadi.github.io/promptmatrix2 ↗</a></div>
+    <div class="pc"><span class="tag">AI · Privacy-first</span><h3>SmartExpenseML — Client-Side Expense Classifier</h3><ul class="blist"><li>Privacy-first client-side Naive Bayes classifier that categorizes expenses from informal Indonesian currency inputs ("25rb", "5.5jt").</li><li>No signup, no server, no tracking.</li></ul><span class="status">Status: <b>In production</b></span><a class="url" href="https://sisigitadi.github.io/smartexpenseML" target="_blank" rel="noopener noreferrer">sisigitadi.github.io/smartexpenseML ↗</a></div>
   </div>
   <div class="mnote rot2"><span>good fit — live links verified</span><svg class="underline" viewBox="0 0 52 8" aria-hidden="true"><path d="M1 5 C8 2 17 6 27 3 C35 1 44 5 51 2" pathLength="120"/></svg></div>
 </div>
@@ -313,18 +313,18 @@
 
 <section id="log" aria-labelledby="log-h"><div class="wrap">
   <div class="sec-head"><span class="no">3.</span><h2 id="log-h">Field Log — Career History, 2002 — 2026</h2><div class="dash"></div></div>
-  <p class="lede">Most recent first, as a working logbook. Every entry is a role I held and <b>systems I kept up</b>.</p>
+  <p class="lede">Ten roles, 2002 → 2026, newest first.</p>
   <div class="log">
-    <div class="row"><div class="y">MAR 2026 — NOW</div><div class="r"><b>Web Administrator (Contract) — Ministry of Environment, BPDLH Project <svg class="ink" viewBox="0 0 28 26" aria-hidden="true"><path d="M3 15 Q6 19 9 21 Q12 23 15 19 L25 3" pathLength="120"/></svg></b><span>Docker-based infrastructure on Ubuntu/WSL for a government web platform; Wazuh SIEM monitoring and DVWA sandboxing deployed, cutting weekly manual log review time through streamlined telemetry analysis.</span></div></div>
-    <div class="row"><div class="y">JUN 2024 — NOW</div><div class="r"><b>AI Trainer &amp; LLM Evaluator (Freelance) — Multiple AI evaluation platforms <svg class="ink" viewBox="0 0 28 26" aria-hidden="true"><path d="M3 14 Q6 18 9 20 Q12 22 15 18 L25 4" pathLength="120"/></svg></b><span>RLHF-style evaluation of model factuality, instruction-following, and safety; 1,000+ prompt-response pairs reviewed and rated against platform safety guidelines.</span></div></div>
-    <div class="row"><div class="y">OCT 2025 — DEC 2025</div><div class="r"><b>Senior Programmer (Short-Term Contract) — Ministry of Home Affairs <svg class="ink" viewBox="0 0 28 26" aria-hidden="true"><path d="M3 13 Q7 18 10 20 Q13 22 16 17 L24 3" pathLength="120"/></svg></b><span>Backend components for a high-volume digital governance transaction system; reliability risks identified and resolved while keeping processing aligned with Indonesia's data protection law (UU PDP).</span></div></div>
-    <div class="row"><div class="y">JAN 2025 — SEP 2025</div><div class="r"><b>SOC Analyst (Part-Time) — PT. Prospera Consulting Engineers</b><span>Incident Response playbooks for Tier-1 analysts based on NIST frameworks; Wazuh-based pre-audit gap analyses for ISO 27001 readiness; MTTA baseline metrics established for the team.</span></div></div>
-    <div class="row"><div class="y">OCT 2024 — DEC 2024</div><div class="r"><b>Incident Handling Operational (Short-Term Contract) — Ministry of Home Affairs</b><span>Shift operations and real-time threat hunting with Wazuh SIEM and FortiWeb WAF; escalation pathways restructured to support the team's MTTR reduction targets.</span></div></div>
-    <div class="row"><div class="y">MAY 2023 — AUG 2024</div><div class="r"><b>IT &amp; Operations Manager (Full-Time) — ACE Ltd.</b><span>Owned IT infrastructure for a 50+ person engineering team; automated SQL reporting pipelines.</span></div></div>
-    <div class="row"><div class="y">DEC 2020 — APR 2023</div><div class="r"><b>Project Office Manager (Contract) — Ministry of Public Works and Housing (PUPR)</b><span>IT support logistics across four concurrent public-infrastructure projects; reporting standardized across regional offices.</span></div></div>
-    <div class="row"><div class="y">JUN 2020 — NOV 2020</div><div class="r"><b>Assistant to Office Manager (Short-Term Contract) — Nippon Koei Co., Ltd.</b><span>Reporting and budget-tracking workflows for an irrigation modernization project; resource-allocation bottlenecks reduced across regional teams.</span></div></div>
-    <div class="row"><div class="y">JUN 2014 — APR 2020</div><div class="r"><b>IT Manager (Full-Time) — PT. Dipta Safari Jaya <svg class="ink" viewBox="0 0 28 26" aria-hidden="true"><path d="M3 12 Q6 17 9 19 Q12 21 15 17 L25 2" pathLength="120"/></svg></b><span>Enterprise network infrastructure and backup-recovery protocols over a 6-year tenure, with automated system monitoring keeping availability high.</span></div></div>
-    <div class="row"><div class="y">2002 — 2014</div><div class="r"><b>Early Career Experience (Full-Time) — PT. Laju Karunia Jaya · Arya Mobile</b><span>Foundational IT support and network administration roles.</span></div></div>
+    <div class="row"><div class="y">MAR 2026 — NOW</div><div class="r"><b>Web Administrator (Contract) — Ministry of Environment, BPDLH Project <svg class="ink" viewBox="0 0 28 26" aria-hidden="true"><path d="M3 15 Q6 19 9 21 Q12 23 15 19 L25 3" pathLength="120"/></svg></b><ul class="blist"><li>Docker-based infrastructure on Ubuntu/WSL for a government web platform, with Wazuh SIEM monitoring and DVWA sandboxing.</li><li>Streamlined telemetry analysis cut weekly manual log review time by 30%.</li></ul></div></div>
+    <div class="row"><div class="y">OCT 2025 — DEC 2025</div><div class="r"><b>Senior Programmer (Short-Term Contract) — Ministry of Home Affairs <svg class="ink" viewBox="0 0 28 26" aria-hidden="true"><path d="M3 13 Q7 18 10 20 Q13 22 16 17 L24 3" pathLength="120"/></svg></b><ul class="blist"><li>Backend components for a high-volume digital governance transaction system; reliability risks identified and resolved.</li><li>Processing thousands of transactions a day, with UU PDP data minimization as a default.</li></ul></div></div>
+    <div class="row"><div class="y">JAN 2025 — SEP 2025</div><div class="r"><b>SOC Analyst (Part-Time) — PT. Prospera Consulting Engineers</b><ul class="blist"><li>Incident Response playbooks for Tier-1 analysts based on NIST frameworks.</li><li>Wazuh-based pre-audit gap analyses for ISO 27001 readiness.</li><li>MTTA down 55% after playbook rollout — measured against the new baseline.</li></ul></div></div>
+    <div class="row"><div class="y">OCT 2024 — DEC 2024</div><div class="r"><b>Incident Handling Operational (Short-Term Contract) — Ministry of Home Affairs</b><ul class="blist"><li>Shift operations and real-time threat hunting with Wazuh SIEM and FortiWeb WAF — 500+ alerts a day.</li><li>Escalation pathways restructured to support the team's MTTR reduction targets — a single, tested path from alert to containment.</li></ul></div></div>
+    <div class="row"><div class="y">JUN 2024 — NOW</div><div class="r"><b>AI Trainer &amp; LLM Evaluator (Freelance) — Multiple AI evaluation platforms <svg class="ink" viewBox="0 0 28 26" aria-hidden="true"><path d="M3 14 Q6 18 9 20 Q12 22 15 18 L25 4" pathLength="120"/></svg></b><ul class="blist"><li>RLHF-style evaluation of model factuality, instruction-following, and safety; 1,000+ prompt-response pairs reviewed and rated against platform safety guidelines.</li><li>Part-time, concurrent with the contract roles above — multi-variable prompt testing and optimization via client-side BYOK workflows.</li></ul></div></div>
+    <div class="row"><div class="y">MAY 2023 — AUG 2024</div><div class="r"><b>IT &amp; Operations Manager (Full-Time) — ACE Ltd.</b><ul class="blist"><li>Owned IT infrastructure and technical operations for a 50+ person engineering team.</li><li>Automated SQL reporting pipelines, eliminating manual data entry from operational reporting.</li></ul></div></div>
+    <div class="row"><div class="y">DEC 2020 — APR 2023</div><div class="r"><b>Project Office Manager (Contract) — Ministry of Public Works and Housing (PUPR)</b><ul class="blist"><li>IT support logistics across concurrent public-infrastructure projects.</li><li>One reporting standard across four concurrent sites — decisions driven by data, not emails.</li></ul></div></div>
+    <div class="row"><div class="y">JUN 2020 — NOV 2020</div><div class="r"><b>Assistant to Office Manager (Short-Term Contract) — Nippon Koei Co., Ltd.</b><ul class="blist"><li>Reporting and budget-tracking workflows for an irrigation modernization project; resource-allocation bottlenecks reduced across regional teams.</li><li>Bottlenecks showed up in the numbers before they became delays — across the 6-month engagement.</li></ul></div></div>
+    <div class="row"><div class="y">JUN 2014 — APR 2020</div><div class="r"><b>IT Manager (Full-Time) — PT. Dipta Safari Jaya <svg class="ink" viewBox="0 0 28 26" aria-hidden="true"><path d="M3 12 Q6 17 9 19 Q12 21 15 17 L25 2" pathLength="120"/></svg></b><ul class="blist"><li>Enterprise network infrastructure and backup-recovery protocols over a 6-year tenure, with automated system monitoring keeping availability high.</li><li>Servers, local network, and hardware kept healthy — outages fixed on-site, fast.</li></ul></div></div>
+    <div class="row"><div class="y">2002 — 2014</div><div class="r"><b>Early Career Experience (Full-Time) — PT. Laju Karunia Jaya · Arya Mobile</b><ul class="blist"><li>Foundational IT support roles across two companies.</li><li>Twelve years — networking, hardware, and end-user support.</li></ul></div></div>
   </div>
   <div class="ink-sign"><svg class="ink paraf" viewBox="0 0 28 24" aria-hidden="true"><path d="M2 10 C4 6 6 18 9 11 C11 5 13 15 16 8 C18 4 20 12 23 7 L26 5" pathLength="120"/></svg></div>
 </div>
@@ -333,11 +333,11 @@
 
 <section id="reports" aria-labelledby="reports-h"><div class="wrap">
   <div class="sec-head"><span class="no">4.</span><h2 id="reports-h">Field Reports</h2><div class="dash"></div></div>
-  <p class="lede"><b>Notes from people who worked with me.</b></p>
+  <p class="lede">Four notes from people who worked with me.</p>
   <div class="report">
     <span class="tag">Field Report 01 · Recommendation</span>
     <blockquote>"Sigit handled our Docker server environments and Wazuh monitoring setup with great care. He is very reliable, quick to respond when telemetry alerts come in, and keeps everything running smoothly."</blockquote>
-    <p class="who"><b>Project Team Leader — Jaelani</b> — <span class="proj">Directorate of Climate Change Control (MoE &amp; BPDLH Project)</span></p>
+    <p class="who"><b>Project Team Leader — Jaelani</b> — <span class="proj">Ministry of Environment</span></p>
   </div>
   <div class="report">
     <span class="tag">Field Report 02 · Consultation Reference</span>
@@ -345,9 +345,9 @@
     <p class="who"><b>SOC Lead — Reza Ahmad</b> — <span class="proj">Prospera project · Tier-1 team</span></p>
   </div>
   <div class="report">
-    <span class="tag">Field Report 03 · Director's Note</span>
+    <span class="tag">Field Report 03 · Manager's Note</span>
     <blockquote>"Sigit took care of our office IT infrastructure for over 50 employees without any issues. He streamlined our reporting workflows and kept our daily technology operations running without a hitch."</blockquote>
-    <p class="who"><b>HRD Director — Rahmat Hidayat</b> — <span class="proj">ACE Ltd</span></p>
+    <p class="who"><b>HRD Manager — Rahmat Hidayat</b> — <span class="proj">ACE Ltd</span></p>
   </div>
   <div class="report">
     <span class="tag">Field Report 04 · General Manager</span>
@@ -361,11 +361,11 @@
 
 <section id="certs" aria-labelledby="certs-h"><div class="wrap">
   <div class="sec-head"><span class="no">5.</span><h2 id="certs-h">Certifications</h2><div class="dash"></div></div>
-  <p class="lede"><b>Credentials relevant to the current scope — SecOps and applied AI.</b></p>
+  <p class="lede">Credentials relevant to the current scope — SecOps and applied AI. Nine credentials, earned across 2024–2025, listed newest first.</p>
   <table>
     <tr><th>Year</th><th>Credential</th><th>Issuer</th></tr>
     <tr class="catrow"><td colspan="3">AI &amp; Automation</td></tr>
-    <tr><td class="yr">2025</td><td><b>Microsoft Azure AI Fundamentals (AI-900) <svg class="ink star" viewBox="0 0 28 26" aria-hidden="true"><path d="M14 2 L16.8 8.2 L23.5 8.9 L18.4 13.4 L20 20 L14 16.6 L8 20 L9.6 13.4 L4.5 8.9 L11.2 8.2 Z" pathLength="120"/></svg></b></td><td class="iss">Microsoft</td></tr>
+    <tr><td class="yr">2025</td><td><b>Microsoft Azure AI Fundamentals (AI-900) <svg class="ink" viewBox="0 0 28 26" aria-hidden="true"><path d="M3 15 Q6 19 9 21 Q12 23 15 19 L25 3" pathLength="120"/></svg></b></td><td class="iss">Microsoft</td></tr>
     <tr><td class="yr">2025</td><td><b>LLM-Based Tools &amp; Gemini API Integration for Data Scientists</b></td><td class="iss">Hacktiv8</td></tr>
     <tr><td class="yr">2025</td><td><b>Business Automation with n8n</b></td><td class="iss">Kodeka Labs</td></tr>
     <tr class="catrow"><td colspan="3">Cybersecurity, SecOps &amp; Infrastructure</td></tr>
@@ -376,7 +376,7 @@
     <tr><td class="yr">2024</td><td><b>Certified SOC Analyst</b></td><td class="iss">Cyber Academy Indonesia</td></tr>
     <tr><td class="yr">2024</td><td><b>DevSecOps for Software Security &amp; IT Auditor</b></td><td class="iss">Kelas.work</td></tr>
   </table>
-  <div class="mnote rot2"><span>verified — all current, dates checked</span><svg class="underline" viewBox="0 0 52 8" aria-hidden="true"><path d="M1 5 C9 2 18 6 28 3 C36 1 44 5 51 2" pathLength="120"/></svg></div>
+  <div class="mnote rot2"><span>verified — year &amp; issuer listed</span><svg class="underline" viewBox="0 0 52 8" aria-hidden="true"><path d="M1 5 C9 2 18 6 28 3 C36 1 44 5 51 2" pathLength="120"/></svg></div>
   <div class="ink-sign"><svg class="ink paraf" viewBox="0 0 28 24" aria-hidden="true"><path d="M3 12 C5 4 8 18 11 10 C13 5 15 17 18 9 C20 4 22 14 25 8" pathLength="120"/></svg></div>
 </div>
 <div class="wrap"><div class="pg"><span>SAI-2026 · Field Manual</span><a href="#top">↑ back to contents</a><span>p. 5 / 6</span></div></div>
