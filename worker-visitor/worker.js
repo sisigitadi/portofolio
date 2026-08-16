@@ -562,7 +562,6 @@ function dashboardPage(stats, rows) {
     <div class="panel"><h2>Top countries</h2><div id="chart-countries"></div></div>
     <div class="panel"><h2>Top cities</h2><div id="chart-cities"></div></div>
     <div class="panel"><h2>Devices · Browsers · OS</h2><div id="chart-devices"></div></div>
-    <div class="panel panel-wide"><h2>Visitor map (lat / lon from Cloudflare edge)</h2><div id="chart-map"></div></div>
   </div>
   <div class="toolbar">
     <label for="range">Range</label>
@@ -594,7 +593,7 @@ function dashboardPage(stats, rows) {
   </div>
   <div class="empty" id="empty" style="display:none">No visits in this range yet.</div>
 </main>
-<footer>Data source: D1 (<code>visits</code>) · charts/map use the latest ${DASHBOARD_ROWS} visits · clear all rows with <code>npx wrangler d1 execute portofolio-visits --remote --command "DELETE FROM visits"</code> · <a href="#" id="forget-key" style="color:var(--muted);">Forget saved key</a></footer>
+<footer>Data source: D1 (<code>visits</code>) · charts use the latest ${DASHBOARD_ROWS} visits · clear all rows with <code>npx wrangler d1 execute portofolio-visits --remote --command "DELETE FROM visits"</code> · <a href="#" id="forget-key" style="color:var(--muted);">Forget saved key</a></footer>
 <script>
   var STATS = ${statsJson};
   var ROWS = ${rowsJson};
@@ -734,32 +733,6 @@ function dashboardPage(stats, rows) {
     el.innerHTML = '<div class="dev-grid">' + panel('Device', byDevice) + panel('Browser', byBrowser) + panel('OS', byOs) + '</div>';
   }
 
-  function renderMap() {
-    var W = 900, H = 450;
-    var points = {};
-    ROWS.forEach(function (r) {
-      if (typeof r.lat !== 'number' || typeof r.lon !== 'number' || !isFinite(r.lat) || !isFinite(r.lon)) return;
-      var k = Math.round(r.lat * 2) + ',' + Math.round(r.lon * 2);
-      points[k] = (points[k] || 0) + 1;
-    });
-    var svg = '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="visitor world map">';
-    svg += '<rect x="0" y="0" width="' + W + '" height="' + H + '" fill="#0F172A" rx="10"/>';
-    for (var gx = 0; gx <= 360; gx += 30) { var x = (gx / 360) * W; svg += '<line x1="' + x + '" y1="0" x2="' + x + '" y2="' + H + '" stroke="rgba(255,255,255,0.05)"/>'; }
-    for (var gy = -60; gy <= 60; gy += 30) { var y = ((90 - gy) / 180) * H; svg += '<line x1="0" y1="' + y + '" x2="' + W + '" y2="' + y + '" stroke="rgba(255,255,255,0.05)"/>'; }
-    svg += '<text x="8" y="18" font-size="11" fill="#9CA3AF">equirectangular projection · dot size = visit count</text>';
-    var keys = Object.keys(points);
-    keys.forEach(function (k) {
-      var parts = k.split(',');
-      var lat = parseFloat(parts[0]) / 2, lon = parseFloat(parts[1]) / 2;
-      var x = ((lon + 180) / 360) * W, y = ((90 - lat) / 180) * H;
-      var c = points[k];
-      var r = Math.min(3 + Math.sqrt(c) * 1.5, 12);
-      svg += '<circle cx="' + x + '" cy="' + y + '" r="' + r + '" fill="rgba(34,211,238,0.55)" stroke="#22D3EE" stroke-width="1"><title>' + lat.toFixed(1) + ', ' + lon.toFixed(1) + ' · ' + c + ' visits</title></circle>';
-    });
-    svg += '</svg>';
-    document.getElementById('chart-map').innerHTML = keys.length ? svg : '<p class="muted">No geolocated visits yet.</p>';
-  }
-
   /* ---------- render: table (range + path filter + pagination) ---------- */
   function filteredRows() {
     var range = document.getElementById('range').value;
@@ -802,7 +775,7 @@ function dashboardPage(stats, rows) {
     }).join('');
     document.getElementById('empty').style.display = rows.length ? 'none' : 'block';
     document.getElementById('page-info').textContent = 'Page ' + page + ' of ' + totalPages + ' · ' + fmtNum(rows.length) + ' rows';
-    document.getElementById('count-line').textContent = 'Table: ' + fmtNum(rows.length) + ' of ' + fmtNum(ROWS.length) + ' visits (filtered) · charts/map: latest ' + fmtNum(ROWS.length);
+    document.getElementById('count-line').textContent = 'Table: ' + fmtNum(rows.length) + ' of ' + fmtNum(ROWS.length) + ' visits (filtered) · charts: latest ' + fmtNum(ROWS.length);
     document.getElementById('prev').disabled = page <= 1;
     document.getElementById('next').disabled = page >= totalPages;
   }
@@ -859,7 +832,6 @@ function dashboardPage(stats, rows) {
     renderCountries();
     renderCities();
     renderDevices();
-    renderMap();
     renderTable();
     setUpdated();
   }

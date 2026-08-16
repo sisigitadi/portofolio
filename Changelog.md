@@ -4,6 +4,23 @@ All notable changes to the **Sigit Adi Irianto Portfolio SPA** project will be d
 
 The format is based on [Keep a Changelog](https://keepachamber.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.7.12] - 2026-08-16 — Remove World Dot Map from Visitor Dashboard
+
+> **Owner request**: the visitor dashboard's equirectangular world-dot map (lat/lon scatter rendered into `#chart-map`) removed. The dashboard keeps the trend/hourly/countries/cities/devices charts, table, filters, and CSV export.
+
+### 🗺️ Removed (worker-visitor/worker.js)
+- `renderMap()` function (SVG world map + dot-size encoding) and its `renderMap()` call in `renderAll()`.
+- The `Visitor map (lat / lon from Cloudflare edge)` panel (`#chart-map`) from the dashboard HTML.
+- "charts/map" wording → "charts" in the dashboard footer and table count-line.
+
+### 📚 Docs
+- `worker-visitor/README.md` + root `Readme.md`: dropped the "world dot map" mention from the dashboard feature list.
+
+### 🧪 Validation
+- `node --check worker-visitor/worker.js` → OK · `node --test worker-visitor/worker.test.js` → **26/26 pass** · `python audit.py` → **13 PASS**.
+
+---
+
 ## [2.7.11] - 2026-08-16 — Docs Sync: Item Numbering in Readme
 
 > **Documentation update** per owner request: the Field Manual's new item-numbering system (corner badges `1.01`–`5.09`) documented in `Readme.md`. All docs re-scanned — no other stale references remain.

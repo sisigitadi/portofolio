@@ -92,7 +92,7 @@ Covers every route (`/count`, `/hit`, `/pixel`, `/api/stats`, `/api/export`, `/d
 Everything renders client-side with no CDN, from the latest 2,000 visits:
 
 - **Stat cards** (total, unique, today) + **30-day daily trend** & **per-hour (UTC) distribution** — SVG bar charts.
-- **Top 8 countries & cities** (emoji flags), **device/browser/OS breakdown** (UA parsing), **world dot map** (equirectangular projection from edge lat/lon).
+- **Top 8 countries & cities** (emoji flags), **device/browser/OS breakdown** (UA parsing).
 - **Table** with range filter, **path filter**, 50 rows/page pagination.
 - **CSV export**: *Export CSV (view)* button (filtered results, client-side) + `GET /api/export?key=…&range=…` (server-side, up to 50,000 rows).
 - **60s auto-refresh** (default ON, toolbar toggle; polls `/api/stats` without reload, falls back to reload if the key is not in the URL).
