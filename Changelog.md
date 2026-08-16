@@ -6,6 +6,21 @@ The format is based on [Keep a Changelog](https://keepachamber.com/en/1.0.0/), a
 
 ---
 
+## [2.6.5] - 2026-08-16 — Fix: Catatan Tinta Satu Baris di Layar Sempit (Ulefone 360px)
+
+> **Bug report owner (Ulefone Armor 11 5G, 360px)**: setelah v2.6.4, catatan tulisan tangan Caveat (23–24px) + coretan pulpen wrap menjadi 2 baris dan terlihat rancu — konten 290px di viewport 360px tidak cukup menampung teks + dekorasi tinta (mnote butuh 211px teks + 72px underline; cta butuh 218px + 44px paraf).
+
+### 🔧 Fixed (index.html — media query ≤620px, hanya mobile)
+- **`.cta-note span` 24px → 22px** dan **`.cta-note .ink.paraf` 40×28 → 34×24**.
+- **`.mnote svg.underline` 72×11 → 52×8** — teks `.mnote` **tetap 23px** (cukup mengecilkan underline agar muat satu baris).
+- **Desktop ≥621px tidak berubah** (cta 24px, underline 72px) — ukuran besar tetap di layar lebar.
+
+### 🧪 Validasi (Chrome headless CDP — jumlah baris via `getClientRects()`)
+- cta & keempat mnote **1 baris** di viewport 280 / 320 / 360 / 414 / 1366 (sebelumnya terdeteksi wrap via tinggi-vs-line-height, metode itu false positive untuk span berisi huruf `inline-block` ber-transform — dikoreksi ke hitung rect per baris).
+- `python audit.py` → **13 PASS | 0 FAIL | 0 WARN** · `node --test worker-visitor/worker.test.js` → **26/26** · `pytest` → **62/62** · tanpa dampak CSP.
+
+---
+
 ## [2.6.4] - 2026-08-16 — Tinta Hitam + Efek Ink Bleed: Handwriting & Coretan Lebih Besar, Kontras Kuat
 
 > **Keputusan owner setelah review v2.6.3**: font tulisan tangan Caveat & coretan pulpen diperbesar lagi, warna tinta diubah dari karat (`#8A4A26`) ke **hitam murni (`#000`)**, dan ditambah **efek tinta bocor** (halo blur gelap di sekitar teks & goresan) — kesan pulpen basah yang meresap ke kertas krem.
