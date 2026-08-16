@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
 <meta name="theme-color" content="#D6CDB4">
 
-<!-- Security Hardening & CSP Meta Tags (script-src via sha256 hash, tanpa 'unsafe-inline' script; connect/img dibatasi ke origin tepercaya) -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self' https:; script-src 'self' 'sha256-ab5GJjc8r00zWEYRbqbyjn04uleXLhdL9gv03+SVz/A=' 'sha256-u86bYsMwO71wBLrZtpK99d81VjwgfFiFsf5wljgOhxc='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com data:; img-src 'self' data: https://portofolio-visitor-tracker.si-sigitadi.workers.dev; connect-src 'self' https://formspree.io https://portofolio-visitor-tracker.si-sigitadi.workers.dev; object-src 'none'; frame-src 'none'; base-uri 'self'; form-action 'self' https://formspree.io; upgrade-insecure-requests">
+<!-- Security Hardening & CSP Meta Tags (script-src via sha256 hash, no 'unsafe-inline' script; connect/img restricted to trusted origins) -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' https:; script-src 'self' 'sha256-95M56TvPm8qwFARcpmHg9b9SQZyilD7V+fHZtcg1h7g=' 'sha256-u86bYsMwO71wBLrZtpK99d81VjwgfFiFsf5wljgOhxc='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com data:; img-src 'self' data: https://portofolio-visitor-tracker.si-sigitadi.workers.dev; connect-src 'self' https://formspree.io https://portofolio-visitor-tracker.si-sigitadi.workers.dev; object-src 'none'; frame-src 'none'; base-uri 'self'; form-action 'self' https://formspree.io; upgrade-insecure-requests">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=(), usb=(), autoplay=()">
@@ -134,7 +134,7 @@
   }
   *{margin:0;padding:0;box-sizing:border-box}
   html{scroll-behavior:smooth}
-  html,body{overflow-x:hidden} /* pengaman: tidak pernah ada scroll horizontal di level halaman */
+  html,body{overflow-x:hidden} /* guard: never allow horizontal scroll at the page level */
   body{background:#D6CDB4;color:var(--ink);font:16px/1.75 Georgia,"Times New Roman",serif;text-align:left;padding:40px 14px 56px}
   .sheet{position:relative;max-width:1000px;margin:0 auto;background:var(--paper);border:1px solid #C9C1A8;box-shadow:0 24px 60px -18px rgba(58,48,28,0.4);overflow:hidden}
   .sheet::after{content:'';position:absolute;inset:0;pointer-events:none;z-index:2;opacity:.05;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
@@ -199,7 +199,7 @@
   .js .mnote.in-view svg.underline path{animation:inkDraw 1s ease-out .3s forwards}
   .mnote.rot1{transform:rotate(1.6deg)}
   .mnote.rot2{transform:rotate(-1.5deg)}
-  /* per-letter jitter: setiap huruf miring/naik-turun sedikit — kesan tulis tangan asli */
+  /* per-letter jitter: each letter tilts/rises slightly — a handwritten feel */
   .mnote span i,.cta-note span i{font-style:normal;display:inline-block}
   .mnote span i:nth-child(3n){transform:rotate(-3deg) translateY(1px)}
   .mnote span i:nth-child(4n){transform:rotate(2.5deg) translateY(-1px)}
@@ -234,7 +234,7 @@
     .spec .k{width:auto;white-space:normal}
     .log .row{flex-direction:column;gap:4px}
     .log .y{width:auto;white-space:normal}
-    /* catatan CTA rata kiri saat wrap di bawah tombol pada layar sempit */
+    /* CTA note left-aligned when it wraps below the button on narrow screens */
     .cta-note{margin:8px 0 0 0}
     .cta-note span{font-size:22px}
     .cta-note .ink.paraf{width:34px;height:24px}
@@ -263,7 +263,7 @@
   .log .r b{font-size:16px}
   .log .r span{display:block;font-size:14px;color:var(--ink2);margin-top:2px}
 
-  /* certifications table — scrollable pada layar sangat sempit (mis. foldable 280px) */
+  /* certifications table — scrollable on very narrow screens (e.g. foldable 280px) */
   .table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;max-width:100%}
   .table-scroll table{margin-top:0}
 
@@ -367,7 +367,7 @@
     .ink path{stroke-dashoffset:0}
   }
 
-  /* tactile: kartu terangkat seperti kertas (hanya device dengan hover) */
+  /* tactile: cards lift like paper (only on devices with hover) */
   .oc,.pc,.report{transition:transform .22s ease,box-shadow .22s ease}
   @media (hover:hover){
     .oc:hover,.pc:hover,.report:hover{transform:translateY(-3px) rotate(-.4deg);box-shadow:0 12px 26px -14px rgba(58,48,28,.5)}
@@ -375,7 +375,7 @@
 </style>
 </head>
 <body>
-<!-- Ink-bleed filter (feGaussianBlur di bawah stroke asli) — dipakai oleh .ink path & coretan bawah garis -->
+<!-- Ink-bleed filter (feGaussianBlur under the original stroke) — used by .ink path & underline squiggles -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><filter id="inkBleed" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="2.2" result="bleed"/><feMerge><feMergeNode in="bleed"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs></svg>
 <a class="skip-link" href="#content">Skip to content</a>
 <div class="sheet">
@@ -576,7 +576,7 @@
 <script>
   document.documentElement.classList.add('js')
   ;(function () {
-    /* wrap tiap huruf catatan tinta dalam <i> — rotasi/baseline per huruf, kesan tulisan tangan asli */
+    /* wrap each letter of ink notes in <i> — per-letter rotation/baseline, handwritten feel */
     var notes = document.querySelectorAll('.mnote span, .cta-note span')
     for (var n = 0; n < notes.length; n++) {
       var txt = notes[n].textContent

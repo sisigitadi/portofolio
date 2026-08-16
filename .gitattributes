@@ -1,5 +1,5 @@
-# Pastikan shell script selalu tersimpan sebagai LF agar tidak rusak
-# oleh normalisasi CRLF (mis. diklone di mesin Windows lain).
+# Keep shell scripts stored as LF so CRLF normalization cannot break them
+# (e.g. when cloned on another Windows machine).
 *.sh text eol=lf
 .githooks/pre-push text eol=lf
 .githooks/pre-commit text eol=lf

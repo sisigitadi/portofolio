@@ -11,7 +11,7 @@ const CREAM = '#efe6d5'
 const GOLD = '#e8c87a'
 const CYAN = '#7dd3fc'
 
-/* milestone: tahun → persen sepanjang 2002-2026 */
+/* milestone: year → percent along 2002-2026 */
 const MILESTONES = [
   { y: 2002, p: 0.0, t: 'Arya Mobile', d: 'Helpdesk & hardware', active: false },
   { y: 2009, p: 0.29, t: 'Laju Karunia Jaya', d: 'Enterprise systems', active: false },
@@ -87,7 +87,7 @@ function OrbitScene({ progress }) {
           <sphereGeometry args={[1.28, 24, 16]} />
           <meshBasicMaterial color={CYAN} wireframe transparent opacity={0.16} />
         </mesh>
-        {/* daratan bergaya — beberapa lingkaran kecil sebagai kontur */}
+        {/* stylized landmass — a few small circles as contours */}
         <Html center distanceFactor={10} style={{ pointerEvents: 'none' }}>
           <div style={{ font: '10px ui-monospace, monospace', color: CREAM, letterSpacing: '0.2em', textAlign: 'center', transform: 'translateY(-8px)', opacity: 0.85 }}>
             2002 → 2026
@@ -114,7 +114,7 @@ function OrbitPage() {
       scene={<OrbitScene progress={progress} />}
     >
       <section className="hero">
-        <div className="kicker">Orbit — 24 tahun karier, dari 2002 ke 2026</div>
+        <div className="kicker">Orbit — a 24-year career, from 2002 to 2026</div>
         <h1>
           <motion.span
             initial={{ opacity: 0, scale: 1.4, filter: 'blur(8px)' }}
@@ -125,19 +125,19 @@ function OrbitPage() {
           </motion.span>
         </h1>
         <p className="sub">
-          Setiap milestone = satelit di orbitnya sendiri. Scroll — kamera mengelilingi planet
-          mengikuti 24 tahun perjalanan: dari helpdesk, ke IT management, ke SOC, ke applied AI.
+          Every milestone = a satellite in its own orbit. Scroll — the camera circles the planet
+          along 24 years of the journey: from helpdesk, to IT management, to SOC, to applied AI.
         </p>
         <div className="actions">
-          <a className="btn solid" href="#timeline">TERBANGI ORBIT ↓</a>
+          <a className="btn solid" href="#timeline">FLY THE ORBIT ↓</a>
         </div>
-        <div className="scroll-hint">▾ scroll — kamera mengorbit planet</div>
+        <div className="scroll-hint">▾ scroll — the camera orbits the planet</div>
       </section>
 
       <section id="timeline" className="section" style={{ paddingTop: 30 }}>
         <div className="mono">// INSERTION BURNS</div>
-        <h2>Delapan orbit, satu lintasan</h2>
-        <p className="lede">Tiap fase masuk orbit dengan "insertion burn" — muncul kecil, lalu stabil di tempatnya.</p>
+        <h2>Eight orbits, one trajectory</h2>
+        <p className="lede">Each phase enters orbit with an "insertion burn" — appearing small, then stabilizing in place.</p>
         <div style={{ maxWidth: 700 }}>
           {MILESTONES.map((m, i) => (
             <motion.div
@@ -158,9 +158,9 @@ function OrbitPage() {
       </section>
 
       <footer className="demo">
-        <span className="mono-up">ORBIT · konsep 06/10</span>
-        <span>satelit emas = orbit aktif 2026 (BPDLH)</span>
-        <a href="#/">← kembali ke galeri</a>
+        <span className="mono-up">ORBIT · concept 06/10</span>
+        <span>gold satellite = active 2026 orbit (BPDLH)</span>
+        <a href="#/">← back to gallery</a>
       </footer>
     </ConceptLayout>
   )

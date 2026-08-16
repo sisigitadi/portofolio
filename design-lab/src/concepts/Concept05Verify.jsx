@@ -30,7 +30,7 @@ function IdCard({ progress }) {
     <group position={[0, 0, 0]}>
       <Float speed={1.6} rotationIntensity={0.15} floatIntensity={0.5}>
         <group ref={group} position={[0, 0.15, 0]}>
-          {/* kartu holografik */}
+          {/* holographic card */}
           <RoundedBox args={[2.4, 1.5, 0.07]} radius={0.05} smoothness={4}
             onPointerOver={(e) => { e.stopPropagation(); setHover(true) }}
             onPointerOut={() => setHover(false)}>
@@ -44,12 +44,12 @@ function IdCard({ progress }) {
               opacity={0.92}
             />
           </RoundedBox>
-          {/* tepi wireframe */}
+          {/* wireframe edge */}
           <mesh>
             <boxGeometry args={[2.44, 1.54, 0.09]} />
             <meshBasicMaterial color={CYAN} wireframe transparent opacity={0.35} />
           </mesh>
-          {/* garis scan */}
+          {/* scan line */}
           <mesh ref={scan} position={[0, 0, 0.08]}>
             <planeGeometry args={[2.28, 0.05]} />
             <meshBasicMaterial color={GOLD} transparent opacity={0.85} />
@@ -84,27 +84,27 @@ function VerifyPage() {
       scene={<IdCard />}
     >
       <section className="hero">
-        <div className="kicker">Holographic identity vault — kredensial yang bisa diverifikasi</div>
+        <div className="kicker">Holographic identity vault — verifiable credentials</div>
         <h1 style={{ fontSize: 'clamp(30px, 5.6vw, 60px)' }}>
           <DecryptText text="HUMAN.FILE — SIGIT ADI IRIANTO" />
         </h1>
         <Stagger className="sub" gap={0.2}>
           <motion.p variants={item}>
-            BYOK, UU PDP, 100% client-side — privasi bukan hiasan di portofolio ini, tapi arsitekturnya.
-            Kartu di layar dipindai ulang terus-menerus: bukti verifikasi setiap detik.
+            BYOK, UU PDP, 100% client-side — privacy isn't decoration in this portfolio, it's the architecture.
+            The card on screen is scanned over and over: proof of verification every second.
           </motion.p>
           <motion.div variants={item} className="actions">
-            <a className="btn solid" href="#fields">BUKA FILE ↓</a>
+            <a className="btn solid" href="#fields">OPEN FILE ↓</a>
             <a className="btn" href="mailto:si.sigitadi@gmail.com">si.sigitadi@gmail.com ↗</a>
           </motion.div>
         </Stagger>
-        <div className="scroll-hint">▾ scroll — field file di-dekripsi satu per satu</div>
+        <div className="scroll-hint">▾ scroll — file fields decrypt one by one</div>
       </section>
 
       <section id="fields" className="section" style={{ paddingTop: 20 }}>
         <div className="mono">// FIELD VERIFIED</div>
-        <h2>Data pribadi, ditampilkan dengan kontrol</h2>
-        <p className="lede">Seperti onboarding kartu akses: setiap field terbuka berurutan, dan hanya data yang perlu ditampilkan.</p>
+        <h2>Personal data, displayed with control</h2>
+        <p className="lede">Like access-card onboarding: each field opens in sequence, and only the data that needs showing is shown.</p>
         <div style={{ maxWidth: 620 }}>
           {FIELDS.map((f, i) => (
             <FadeUp key={i} delay={i * 0.1}>
@@ -121,7 +121,7 @@ function VerifyPage() {
 
       <section className="section" style={{ paddingTop: 30 }}>
         <div className="mono">// SEALS & STAMPS</div>
-        <h2>Sertifikasi terverifikasi</h2>
+        <h2>Verified certifications</h2>
         <div className="grid">
           {CERTS.map((c, i) => (
             <FadeUp key={i} delay={i * 0.05}>
@@ -147,9 +147,9 @@ function VerifyPage() {
       </section>
 
       <footer className="demo">
-        <span className="mono-up">VERIFY · konsep 05/10</span>
-        <span>kartu holo dipindai terus · stamp VERIFIED pada tiap sertifikat</span>
-        <a href="#/">← kembali ke galeri</a>
+        <span className="mono-up">VERIFY · concept 05/10</span>
+        <span>holo card scanned continuously · VERIFIED stamp on every certificate</span>
+        <a href="#/">← back to gallery</a>
       </footer>
     </ConceptLayout>
   )

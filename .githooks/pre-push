@@ -1,15 +1,15 @@
 #!/bin/sh
 # ---------------------------------------------------------------------------
-# Git pre-push hook — Gerbang Audit Pre-Flight (13/13 PASS wajib).
+# Git pre-push hook — Pre-Flight Audit gate (13/13 PASS required).
 #
-# Menolak push jika audit.py menemukan isu (exit code != 0). Dikenakan
-# pada setiap push ke remote mana pun (branch apa pun).
+# Rejects the push if audit.py finds issues (exit code != 0). Applies to every
+# push to any remote (any branch).
 #
-# Cara aktifkan (sekali saja, dari root repo):
+# How to enable (once, from the repo root):
 #     git config core.hooksPath .githooks
 #     chmod +x .githooks/pre-push
 #
-# Cara nonaktifkan:
+# How to disable:
 #     git config --unset core.hooksPath
 # ---------------------------------------------------------------------------
 set -e
@@ -17,22 +17,22 @@ set -e
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT"
 
-echo "[pre-push] Menjalankan audit pre-flight (wajib 13/13 PASS)..."
-# Utamakan python3 (audit.py memakai sintaks Python 3; 'python' di sebagian
-# sistem lama masih menunjuk Python 2 yang akan gagal dengan pesan menyesatkan).
+echo "[pre-push] Running pre-flight audit (must be 13/13 PASS)...
+# Prefer python3 (audit.py uses Python 3 syntax; 'python' on some older
+# systems still points to Python 2, which would fail with a misleading error).
 if command -v python3 >/dev/null 2>&1; then
     PYTHON=python3
 elif command -v python >/dev/null 2>&1; then
     PYTHON=python
 else
-    echo "[pre-push] ERROR: Python 3 tidak ditemukan. Push DIBATALKAN."
+    echo "[pre-push] ERROR: Python 3 not found. Push BLOCKED."
     exit 1
 fi
 
 if "$PYTHON" audit.py; then
-    echo "[pre-push] OK — audit lulus. Push diizinkan."
+    echo "[pre-push] OK — audit passed. Push allowed."
 else
-    echo "[pre-push] GAGAL — audit menemukan isu. Push DIBATALKAN."
-    echo "[pre-push] Perbaiki isu di atas sebelum mencoba push lagi."
+    echo "[pre-push] FAILED — audit found issues. Push BLOCKED."
+    echo "[pre-push] Fix the issues above before pushing again."
     exit 1
 fi

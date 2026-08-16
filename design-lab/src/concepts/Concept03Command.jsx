@@ -19,10 +19,10 @@ function circle(r, seg = 80, y = 0) {
   return pts
 }
 
-/* lokasi: Tangerang + proyek-proyek */
+/* locations: Tangerang + projects */
 const MARKS = [
   { lat: -6.2, lon: 106.6, label: 'TANGERANG · HQ', c: CYAN },     // Tangerang
-  { lat: -6.2, lon: 106.85, label: 'BPDLH · MoE', c: EMERALD },    // Jakarta (proyek saat ini)
+  { lat: -6.2, lon: 106.85, label: 'BPDLH · MoE', c: EMERALD },    // Jakarta (current project)
   { lat: -7.25, lon: 110.3, label: 'PUPR · PROYEK', c: AMBER },    // Jawa Tengah (Waduk Bener dll)
   { lat: 3.1, lon: 101.6, label: 'KL · REMOTE', c: '#a78bfa' },    // Kuala Lumpur (contoh remote global)
 ]
@@ -76,7 +76,7 @@ function useMemoCircle(r) {
 
 const PANELS = [
   { pos: [-3.4, 1.5, -0.6], rot: [0.15, 0.5, -0.06], w: 2.0, h: 1.15, title: 'WAZUH TELEMETRY', lines: ['ALERTS/24H: 312', 'TRIAGED: 100%', 'MTTR Δ: −45%'], c: EMERALD },
-  { pos: [-3.2, -0.4, 0.4], rot: [-0.08, 0.35, 0.05], w: 1.9, h: 1.0, title: 'UPTIME', lines: ['SYSADMIN SINCE 2002', 'TEAMS: 50+ STAFF', 'MODUS: REMOTE-FIRST'], c: CYAN },
+  { pos: [-3.2, -0.4, 0.4], rot: [-0.08, 0.35, 0.05], w: 1.9, h: 1.0, title: 'UPTIME', lines: ['SYSADMIN SINCE 2002', 'TEAMS: 50+ STAFF', 'MODE: REMOTE-FIRST'], c: CYAN },
   { pos: [-3.1, -1.9, -0.2], rot: [0.1, 0.45, 0.02], w: 1.8, h: 0.9, title: 'AI / LLM', lines: ['OLLAMA · BYOK', 'PROMPT EVAL', 'GEMINI PIPELINE'], c: AMBER },
 ]
 
@@ -123,7 +123,7 @@ function CommandScene() {
       <ambientLight intensity={0.5} />
       <pointLight position={[0, 5, 6]} intensity={50} color={CYAN} />
       <pointLight position={[-5, -2, 3]} intensity={25} color={AMBER} />
-      {/* inti holografik */}
+      {/* holographic core */}
       <group ref={core} position={[0, 0, 0]}>
         <mesh>
           <octahedronGeometry args={[0.55, 0]} />
@@ -159,7 +159,7 @@ function CommandPage() {
       scene={<CommandScene />}
     >
       <section className="hero">
-        <div className="kicker">Mission control — 24 tahun operasi, satu dek</div>
+        <div className="kicker">Mission control — 24 years of operations, one deck</div>
         <h1>
           <motion.span
             initial={{ opacity: 0, letterSpacing: '0.5em' }}
@@ -189,22 +189,22 @@ function CommandPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 2.6, duration: 0.5 }}
         >
-          <a className="btn solid" href="#phase">LIHAT FASE MISI ↓</a>
+          <a className="btn solid" href="#phase">VIEW MISSION PHASES ↓</a>
         </motion.div>
-        <div className="scroll-hint">▾ scroll — panel telemetri mengambang di layar</div>
+        <div className="scroll-hint">▾ scroll — telemetry panels float on screen</div>
       </section>
 
       <section id="phase" className="section" style={{ paddingTop: 40 }}>
         <div className="mono">// FASE MISI</div>
-        <h2>Track record, bukan daftar</h2>
-        <p className="lede">Setiap fase = misi yang saya jalankan sampai selesai. Panel mengambang di layar: hover untuk membaca telemetri.</p>
+        <h2>Track record, not a list</h2>
+        <p className="lede">Every phase = a mission I see through to the end. Floating panels on screen: hover to read the telemetry.</p>
         <div className="grid">
           {[
-            { t: 'Web Administrator · BPDLH', d: 'Docker/Ubuntu + Wazuh untuk platform pemerintah.', v: 45, s: 'AKTIF 2026', c: EMERALD },
-            { t: 'AI Trainer & LLM Evaluator', d: 'Prompt multi-variabel, eval format, BYOK.', v: 100, s: '2024→SEKARANG', c: CYAN },
+            { t: 'Web Administrator · BPDLH', d: 'Docker/Ubuntu + Wazuh for government platforms.', v: 45, s: 'ACTIVE 2026', c: EMERALD },
+            { t: 'AI Trainer & LLM Evaluator', d: 'Multi-variable prompt, format eval, BYOK.', v: 100, s: '2024→NOW', c: CYAN },
             { t: 'SOC Analyst · Prospera', d: 'Playbook IR NIST, gap analysis ISO 27001.', v: 78, s: '2025', c: AMBER },
-            { t: 'IT & Ops Manager · ACE', d: 'SQL pipeline otomatis, tim 50+ orang.', v: 62, s: '2023–2024', c: '#a78bfa' },
-            { t: 'Project Office Manager · PUPR', d: '4 proyek infrastruktur paralel.', v: 88, s: '2020–2023', c: EMERALD },
+            { t: 'IT & Ops Manager · ACE', d: 'Automated SQL pipelines, 50+ person team.', v: 62, s: '2023–2024', c: '#a78bfa' },
+            { t: 'Project Office Manager · PUPR', d: '4 parallel infrastructure projects.', v: 88, s: '2020–2023', c: EMERALD },
             { t: 'IT Manager · Dipta Safari Jaya', d: 'Enterprise network & backup-recovery.', v: 71, s: '2014–2020', c: CYAN },
           ].map((m, i) => (
             <FadeUp key={i} delay={i * 0.06}>
@@ -229,9 +229,9 @@ function CommandPage() {
       </section>
 
       <footer className="demo">
-        <span className="mono-up">COMMAND · konsep 03/10</span>
-        <span>boot sequence → fase misi dengan progress telemetri</span>
-        <a href="#/">← kembali ke galeri</a>
+        <span className="mono-up">COMMAND · concept 03/10</span>
+        <span>boot sequence → mission phases with telemetry progress</span>
+        <a href="#/">← back to gallery</a>
       </footer>
     </ConceptLayout>
   )

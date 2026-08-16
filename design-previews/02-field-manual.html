@@ -82,7 +82,7 @@
   .js .mnote.in-view svg.underline path{animation:inkDraw 1s ease-out .3s forwards}
   .mnote.rot1{transform:rotate(1.6deg)}
   .mnote.rot2{transform:rotate(-1.5deg)}
-  /* per-letter jitter: setiap huruf miring/naik-turun sedikit — kesan tulis tangan asli */
+  /* per-letter jitter: each letter slightly tilted/raised — the feel of real handwriting */
   .mnote span i,.cta-note span i{font-style:normal;display:inline-block}
   .mnote span i:nth-child(3n){transform:rotate(-3deg) translateY(1px)}
   .mnote span i:nth-child(4n){transform:rotate(2.5deg) translateY(-1px)}
@@ -227,7 +227,7 @@
     .ink path{stroke-dashoffset:0}
   }
 
-  /* tactile: kartu terangkat seperti kertas (hanya device dengan hover) */
+  /* tactile: cards lift like paper (only on devices with hover) */
   .oc,.pc,.report{transition:transform .22s ease,box-shadow .22s ease}
   @media (hover:hover){
     .oc:hover,.pc:hover,.report:hover{transform:translateY(-3px) rotate(-.4deg);box-shadow:0 12px 26px -14px rgba(58,48,28,.5)}
@@ -420,7 +420,7 @@
 <script>
   document.documentElement.classList.add('js')
   ;(function () {
-    /* wrap tiap huruf catatan tinta dalam <i> — rotasi/baseline per huruf, kesan tulisan tangan asli */
+    /* wrap each ink-note letter in <i> — per-letter rotation/baseline, the feel of real handwriting */
     var notes = document.querySelectorAll('.mnote span, .cta-note span')
     for (var n = 0; n < notes.length; n++) {
       var txt = notes[n].textContent

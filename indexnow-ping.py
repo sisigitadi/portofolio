@@ -1,27 +1,27 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-indexnow-ping.py — Kirim ping IndexNow setelah konten live di GitHub Pages.
+indexnow-ping.py — Send an IndexNow ping after content goes live on GitHub Pages.
 
-IndexNow adalah protokol terbuka yang memberi tahu mesin pencari (Bing, Yandex,
-Seznam, Naver, Yep, dsb.) bahwa URL berubah, sehingga crawl dilakukan segera
-alih-alih menunggu jadwal crawl berikutnya.
+IndexNow is an open protocol that tells search engines (Bing, Yandex,
+Seznam, Naver, Yep, etc.) that a URL changed, so it is crawled right away
+instead of waiting for the next scheduled crawl.
 
-Alur script:
-  1. Temukan file key `{KEY}.txt` di root repo (isi file = KEY itu sendiri,
-     sesuai spesifikasi IndexNow: https://www.indexnow.org/documentation).
-  2. Opsional: tunggu sampai halaman live benar-benar memuat konten terbaru
-     (--wait-sha) — mencegah ping sebelum GitHub Pages selesai build.
-  3. POST JSON ke https://api.indexnow.org/indexnow berisi host, key,
-     keyLocation, dan urlList.
+Script flow:
+  1. Find the `{KEY}.txt` key file in the repo root (file content = the KEY itself,
+     per the IndexNow spec: https://www.indexnow.org/documentation).
+  2. Optional: wait until the live page actually serves the latest content
+     (--wait-sha) — prevents pinging before GitHub Pages finishes building.
+  3. POST JSON to https://api.indexnow.org/indexnow with host, key,
+     keyLocation, and urlList.
 
-Contoh pemakaian:
-  python indexnow-ping.py                     # auto-discover key, langsung ping
-  python indexnow-ping.py --dry-run           # cetak payload tanpa mengirim
-  python indexnow-ping.py --key-file abc.txt  # tentukan file key eksplisit
-  python indexnow-ping.py --wait-sha index.html   # tunggu deploy, baru ping
+Usage examples:
+  python indexnow-ping.py                     # auto-discover key, ping right away
+  python indexnow-ping.py --dry-run           # print the payload without sending
+  python indexnow-ping.py --key-file abc.txt  # explicit key file
+  python indexnow-ping.py --wait-sha index.html   # wait for deploy, then ping
 
-Exit code: 0 = sukses (atau dry-run), 1 = gagal (key tak ditemukan / ping ditolak).
+Exit code: 0 = success (or dry-run), 1 = failure (key not found / ping rejected).
 """
 
 import argparse
@@ -35,7 +35,7 @@ import urllib.request
 from pathlib import Path
 
 # ---------------------------------------------------------------------------
-# Konstanta
+# Constants
 # ---------------------------------------------------------------------------
 API_ENDPOINT = "https://api.indexnow.org/indexnow"
 DEFAULT_HOST = "sisigitadi.github.io"
@@ -45,14 +45,14 @@ LIVE_URL = "https://{host}{base_path}/index.html"
 
 
 # ---------------------------------------------------------------------------
-# Penemuan file key
+# Key file discovery
 # ---------------------------------------------------------------------------
 def discover_key_file(root: Path) -> Path | None:
-    """Temukan file key IndexNow di root repo.
+    """Find the IndexNow key file in the repo root.
 
-    Sesuai spesifikasi, file bernama `{KEY}.txt` dan isinya persis KEY itu
-    sendiri. Pindai semua *.txt di root dan cocokkan nama/isi + pola karakter
-    (alfanumerik & tanda hubung, 8-128 karakter).
+    Per the spec, the file is named `{KEY}.txt` and its content is exactly the KEY
+    itself. Scan every *.txt in the root and match name/content + character pattern
+    (alphanumeric & hyphen, 8-128 characters).
     """
     for candidate in sorted(root.glob("*.txt")):
         name = candidate.name
@@ -69,45 +69,45 @@ def discover_key_file(root: Path) -> Path | None:
 
 
 def load_key(root: Path, key_file: str | None) -> tuple[str, Path] | None:
-    """Muat key + path file key. Prioritas argumen --key-file, lalu auto-discover."""
+    """Load the key + key-file path. The --key-file argument wins, then auto-discover."""
     if key_file:
         p = Path(key_file)
         if not p.is_absolute():
             p = root / p
         if not p.exists():
-            print(f"[indexnow] ERROR: file key tidak ditemukan: {p}")
+            print(f"[indexnow] ERROR: key file not found: {p}")
             return None
         key = p.name[: -len(".txt")] if p.name.lower().endswith(".txt") else p.read_text(encoding="utf-8").strip()
         if not KEY_FILENAME_RE.match(p.name):
-            print(f"[indexnow] ERROR: nama file key tidak valid (harus {KEY_FILENAME_RE.pattern}): {p.name}")
+            print(f"[indexnow] ERROR: invalid key filename (must match {KEY_FILENAME_RE.pattern}): {p.name}")
             return None
         return key, p
 
     found = discover_key_file(root)
     if found is None:
-        print("[indexnow] ERROR: file key IndexNow tidak ditemukan di root repo.")
-        print("[indexnow]         Buat file `{KEY}.txt` (isi = KEY) dari Bing Webmaster Tools -> Configuration -> IndexNow,")
-        print("[indexnow]         atau generate key sendiri (8-128 char alfanumerik + tanda hubung) lalu daftarkan.")
+        print("[indexnow] ERROR: no IndexNow key file found in the repo root.")
+        print("[indexnow]         Create a `{KEY}.txt` file (content = KEY) from Bing Webmaster Tools -> Configuration -> IndexNow,")
+        print("[indexnow]         or generate your own key (8-128 alphanumeric chars + hyphens) and register it.")
         return None
     key = found.name[: -len(".txt")]
     return key, found
 
 
 # ---------------------------------------------------------------------------
-# Tunggu sampai konten live == konten lokal (verifikasi deploy selesai)
+# Wait until live content == local content (verify the deploy finished)
 # ---------------------------------------------------------------------------
 def _sha256(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
 
 
 def deployed_content_hash(root: Path, rel_path: str) -> str | None:
-    """Hash konten PERSIS yang akan di-deploy dari repo (git HEAD), bukan file
-    kerja lokal.
+    """Hash the EXACT content that will be deployed from the repo (git HEAD), not the
+    local working file.
 
-    Alasan: checkout Windows menormalkan baris baru menjadi CRLF (core.autocrlf),
-    sehingga sha256 file lokal != sha256 konten di GitHub/Live (LF). Karena yang
-    di-deploy adalah konten commit (LF), hash harus dihitung dari `git show
-    HEAD:file`. Fallback bila git tidak tersedia: baca file lokal lalu normalisasi
+    Why: Windows checkouts normalize line endings to CRLF (core.autocrlf),
+    so the sha256 of the local file != sha256 of the GitHub/Live content (LF). Since
+    the deployed content is the commit content (LF), the hash must come from `git show
+    HEAD:file`. Fallback when git is unavailable: read the local file and normalize
     CRLF -> LF.
     """
     try:
@@ -124,7 +124,7 @@ def deployed_content_hash(root: Path, rel_path: str) -> str | None:
     except Exception:
         pass
 
-    # Fallback: normalisasi CRLF -> LF agar sebanding dengan konten deployed.
+    # Fallback: normalize CRLF -> LF so it is comparable to the deployed content.
     try:
         raw = (root / rel_path).read_bytes()
         return _sha256(raw.replace(b"\r\n", b"\n"))
@@ -133,8 +133,8 @@ def deployed_content_hash(root: Path, rel_path: str) -> str | None:
 
 
 def _fetch_live_sha(url: str) -> str | None:
-    """Ambil konten live dan kembalikan sha256-nya (tanpa Accept-Encoding agar
-    server mengirim body polos, sehingga hash sebanding dengan file lokal)."""
+    """Fetch the live content and return its sha256 (no Accept-Encoding so the
+    server sends the plain body, so the hash is comparable to the local file)."""
     try:
         req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (IndexNow ping script)"})
         with urllib.request.urlopen(req, timeout=30) as resp:
@@ -145,34 +145,34 @@ def _fetch_live_sha(url: str) -> str | None:
 
 
 def wait_until_deployed(root: Path, wait_sha: str, timeout: int) -> bool:
-    """Polling halaman live sampai sha256-nya sama dengan file lokal.
+    """Poll the live page until its sha256 matches the local file.
 
-    GitHub Pages butuh ±1-3 menit rebuild setelah push; ping sebelum live hanya
-    membuang sinyal (Bing crawl melihat konten lama). Mengembalikan True bila
-    konten sudah live sebelum timeout, False bila timeout (ping tetap dijalankan
-    best-effort oleh pemanggil).
+    GitHub Pages takes ±1-3 minutes to rebuild after a push; pinging before it is live
+    just wastes the signal (Bing crawls the old content). Returns True when the
+    content is live before the timeout, False on timeout (the caller still runs
+    the ping best-effort).
     """
     rel_path = wait_sha
     target = deployed_content_hash(root, rel_path)
     if target is None:
-        print(f"[indexnow] WARN: file untuk --wait-sha tidak bisa dibaca: {rel_path} — dilewati.")
+        print(f"[indexnow] WARN: file for --wait-sha could not be read: {rel_path} — skipped.")
         return True
 
     url = LIVE_URL.format(host=DEFAULT_HOST, base_path=DEFAULT_BASE_PATH)
-    print(f"[indexnow] Menunggu deploy selesai (target sha256: {target[:12]}...) - max {timeout}s")
+    print(f"[indexnow] Waiting for the deploy to finish (target sha256: {target[:12]}...) - max {timeout}s")
     deadline = time.monotonic() + timeout
     while time.monotonic() < deadline:
         live = _fetch_live_sha(url)
         if live == target:
-            print("[indexnow] [OK] Konten live sudah mutakhir (sha256 cocok).")
+            print("[indexnow] [OK] Live content is up to date (sha256 matches).")
             return True
         time.sleep(15)
-    print(f"[indexnow] [WARN] Timeout {timeout}s - konten live belum sama dengan repo. Ping tetap dilanjutkan (best-effort).")
+    print(f"[indexnow] [WARN] Timeout {timeout}s - live content still differs from the repo. Ping continues anyway (best-effort).")
     return False
 
 
 # ---------------------------------------------------------------------------
-# Ping IndexNow
+# IndexNow ping
 # ---------------------------------------------------------------------------
 def build_payload(host: str, key: str, key_location: str, urls: list[str]) -> dict:
     return {"host": host, "key": key, "keyLocation": key_location, "urlList": urls}
@@ -180,7 +180,7 @@ def build_payload(host: str, key: str, key_location: str, urls: list[str]) -> di
 
 def ping_indexnow(payload: dict, dry_run: bool, verbose: bool) -> bool:
     if dry_run:
-        print("[indexnow] [DRY-RUN] payload yang akan dikirim:")
+        print("[indexnow] [DRY-RUN] payload that would be sent:")
         print(json.dumps(payload, indent=2))
         return True
 
@@ -198,23 +198,23 @@ def ping_indexnow(payload: dict, dry_run: bool, verbose: bool) -> bool:
         status = e.code
         detail = e.read().decode("utf-8", "replace")[:200]
         if verbose:
-            print(f"[indexnow] detail respon ({status}): {detail}")
+            print(f"[indexnow] response detail ({status}): {detail}")
     except Exception as e:
-        print(f"[indexnow] ERROR jaringan: {e}")
+        print(f"[indexnow] network ERROR: {e}")
         return False
 
     if status in (200, 202):
-        note = " (diterima, validasi key menunggu fetch pertama)" if status == 202 else ""
-        print(f"[indexnow] [OK] Ping IndexNow sukses - HTTP {status}{note}")
+        note = " (accepted, key validation awaits first fetch)" if status == 202 else ""
+        print(f"[indexnow] [OK] IndexNow ping successful - HTTP {status}{note}")
         return True
     if status == 403:
-        print("[indexnow] [FAIL] HTTP 403 - key tidak valid. Pastikan `{KEY}.txt` live di situs dan isinya == nama file.")
+        print("[indexnow] [FAIL] HTTP 403 - invalid key. Make sure `{KEY}.txt` is live on the site and its content == the filename.")
     elif status == 422:
-        print("[indexnow] [FAIL] HTTP 422 - URL tidak cocok dengan host/keyLocation.")
+        print("[indexnow] [FAIL] HTTP 422 - URL does not match the host/keyLocation.")
     elif status == 429:
-        print("[indexnow] [FAIL] HTTP 429 - rate limit. Coba lagi nanti.")
+        print("[indexnow] [FAIL] HTTP 429 - rate limited. Try again later.")
     else:
-        print(f"[indexnow] [FAIL] Ping gagal - HTTP {status}.")
+        print(f"[indexnow] [FAIL] Ping failed - HTTP {status}.")
     return False
 
 
@@ -222,16 +222,16 @@ def ping_indexnow(payload: dict, dry_run: bool, verbose: bool) -> bool:
 # CLI
 # ---------------------------------------------------------------------------
 def parse_args(argv: list[str]) -> argparse.Namespace:
-    p = argparse.ArgumentParser(description="Kirim ping IndexNow setelah deploy GitHub Pages.")
-    p.add_argument("--key-file", default=None, help="Path file key `{KEY}.txt` (default: auto-discover di root repo)")
+    p = argparse.ArgumentParser(description="Send an IndexNow ping after a GitHub Pages deploy.")
+    p.add_argument("--key-file", default=None, help="Path to the `{KEY}.txt` key file (default: auto-discover in the repo root)")
     p.add_argument("--host", default=DEFAULT_HOST, help=f"Host situs (default: {DEFAULT_HOST})")
-    p.add_argument("--base-path", default=DEFAULT_BASE_PATH, help=f"Subpath situs (default: {DEFAULT_BASE_PATH})")
-    p.add_argument("--key-location", default=None, help="URL lengkap file key (default: https://{host}{base_path}/{key}.txt)")
-    p.add_argument("--urls", nargs="*", default=None, help="Daftar URL yang di-ping (default: homepage + sitemap)")
-    p.add_argument("--wait-sha", default=None, metavar="FILE", help="Tunggu hingga konten live == FILE (mis. index.html) sebelum ping")
-    p.add_argument("--wait-timeout", type=int, default=360, help="Timeout tunggu deploy dalam detik (default: 360)")
-    p.add_argument("--dry-run", action="store_true", help="Cetak payload tanpa mengirim")
-    p.add_argument("--verbose", action="store_true", help="Tampilkan detail respon error")
+    p.add_argument("--base-path", default=DEFAULT_BASE_PATH, help=f"Site subpath (default: {DEFAULT_BASE_PATH})")
+    p.add_argument("--key-location", default=None, help="Full URL of the key file (default: https://{host}{base_path}/{key}.txt)")
+    p.add_argument("--urls", nargs="*", default=None, help="URLs to ping (default: homepage + sitemap)")
+    p.add_argument("--wait-sha", default=None, metavar="FILE", help="Wait until the live content == FILE (e.g. index.html) before pinging")
+    p.add_argument("--wait-timeout", type=int, default=360, help="Deploy wait timeout in seconds (default: 360)")
+    p.add_argument("--dry-run", action="store_true", help="Print the payload without sending")
+    p.add_argument("--verbose", action="store_true", help="Show error response details")
     return p.parse_args(argv)
 
 
@@ -243,9 +243,9 @@ def main(argv: list[str] | None = None, root: Path | None = None) -> int:
     if loaded is None:
         return 1
     key, key_file = loaded
-    print(f"[indexnow] Key ditemukan: {key_file.name}")
+    print(f"[indexnow] Key found: {key_file.name}")
 
-    # Tunggu deploy (opsional) — best-effort, tidak menggagalkan ping
+    # Wait for the deploy (optional) — best-effort, does not fail the ping
     if args.wait_sha:
         wait_until_deployed(root, args.wait_sha, args.wait_timeout)
 

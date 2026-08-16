@@ -13,7 +13,7 @@ const CLUSTERS = [
   { c: new THREE.Color('#fbbf24'), n: 600, label: 'INFRA / OPS', key: 'Docker · Ubuntu' },
 ]
 
-/* titik token dalam ruang embedding — 4 cluster di sekitar pusat */
+/* token points in the embedding space — 4 clusters around the center */
 function buildPoints() {
   const positions = []
   const colors = []
@@ -86,7 +86,7 @@ function RotatingCloud() {
       <Points positions={data.positions} colors={data.colors} stride={3} frustumCulled>
         <PointMaterial size={0.05} sizeAttenuation transparent depthWrite={false} vertexColors />
       </Points>
-      {/* checkpoint proyek */}
+      {/* project checkpoints */}
       {CLUSTERS.map((cl, i) => {
         const a = (i / CLUSTERS.length) * Math.PI * 2
         const pos = [Math.cos(a) * 3.4, (i - CLUSTERS.length / 2) * 1.15, Math.sin(a) * 3.4]
@@ -132,7 +132,7 @@ function LatentPage() {
       scene={<LatentScene progress={progress} />}
     >
       <section className="hero">
-        <div className="kicker">Neural weight-space — terbang menembus embedding</div>
+        <div className="kicker">Neural weight-space — flying through the embedding</div>
         <h1 style={{ display: 'flex', gap: '0.06em' }}>
           {heading.map((ch, i) => (
             <motion.span
@@ -151,22 +151,22 @@ function LatentPage() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.9, duration: 0.6 }}
         >
-          Setiap titik = token dalam ruang embedding model yang saya uji & optimalkan
-          (PromptMatrix, eval LLM, Ollama). Setiap cluster = proyek. Scroll untuk terbang.
+          Every point = a token in the embedding space of the models I test & optimize
+          (PromptMatrix, LLM eval, Ollama). Each cluster = a project. Scroll to fly.
         </motion.p>
-        <div className="scroll-hint">▾ scroll — kamera menyusuri ruang laten</div>
+        <div className="scroll-hint">▾ scroll — the camera glides through the latent space</div>
       </section>
 
       <section className="section" style={{ paddingTop: 40 }}>
-        <div className="mono">// DIMENSI KEAHLIAN</div>
-        <h2>Empat cluster di ruang laten</h2>
-        <p className="lede">Titik di layar dikelompokkan oleh warna — sama seperti pipeline yang saya bangun: prompt → keamanan → privasi → infrastruktur.</p>
+        <div className="mono">// SKILL DIMENSIONS</div>
+        <h2>Four clusters in the latent space</h2>
+        <p className="lede">Points on screen are grouped by color — just like the pipelines I build: prompt → security → privacy → infrastructure.</p>
         <div className="grid">
           {[
-            { c: '#6ee7ff', t: 'Applied AI & Prompt', d: 'Uji multi-variabel, kontrol format output, eval sadar-keamanan.' },
+            { c: '#6ee7ff', t: 'Applied AI & Prompt', d: 'Multi-variable testing, output-format control, security-aware eval.' },
             { c: '#a78bfa', t: 'SecOps & Threat', d: 'Wazuh triage, NIST IR playbooks, MTTA/MTTR baseline.' },
-            { c: '#34d399', t: 'Privacy-First', d: 'BYOK, 100% client-side, kepatuhan UU PDP.' },
-            { c: '#fbbf24', t: 'Infra & Ops', d: 'Linux/Docker, SQL pipeline, tim 50+ orang.' },
+            { c: '#34d399', t: 'Privacy-First', d: 'BYOK, 100% client-side, UU PDP compliant.' },
+            { c: '#fbbf24', t: 'Infra & Ops', d: 'Linux/Docker, SQL pipelines, 50+ person teams.' },
           ].map((d, i) => (
             <FadeUp key={i} delay={i * 0.08}>
               <div className="tile" style={{ borderTop: '3px solid ' + d.c }}>
@@ -180,9 +180,9 @@ function LatentPage() {
       </section>
 
       <footer className="demo">
-        <span className="mono-up">LATENT · konsep 02/10</span>
-        <span>scroll menggerakkan kamera — 4 cluster warna = 4 domain</span>
-        <a href="#/">← kembali ke galeri</a>
+        <span className="mono-up">LATENT · concept 02/10</span>
+        <span>scroll moves the camera — 4 color clusters = 4 domains</span>
+        <a href="#/">← back to gallery</a>
       </footer>
     </ConceptLayout>
   )

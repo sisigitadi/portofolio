@@ -44,7 +44,7 @@ function CaseCard({ c }) {
               </div>
               <div style={{ fontWeight: 700, fontSize: 13, marginBottom: 3 }}>{c.t}</div>
               <div style={{ fontSize: 10.5, marginBottom: 6 }}>{c.d}</div>
-              {/* bar redaksi */}
+              {/* redaction bar */}
               <div style={{ position: 'relative', height: 15, background: INK, overflow: 'hidden' }}>
                 <motion.div
                   initial={false}
@@ -82,11 +82,11 @@ function EvidenceScene() {
 }
 
 const CHAIN = [
-  { y: '2002–2014', t: 'Hardware & Enterprise Systems', d: 'Dua perusahaan, satu disiplin: jaga sistem tetap hidup.', st: 'ARCHIVED' },
+  { y: '2002–2014', t: 'Hardware & Enterprise Systems', d: 'Two companies, one discipline: keep systems alive.', st: 'ARCHIVED' },
   { y: '2014–2020', t: 'IT Manager · Dipta Safari Jaya', d: 'Network enterprise, backup-recovery, 6 tahun uptime.', st: 'ARCHIVED' },
-  { y: '2020–2023', t: 'Project Office Manager · PUPR', d: '4 proyek infrastruktur paralel, standardisasi pelaporan.', st: 'ARCHIVED' },
-  { y: '2024–2025', t: 'Incident Handling → SOC Analyst', d: 'Playbook NIST, MTTA baseline, threat hunting real-time.', st: 'CLOSED' },
-  { y: '2026', t: 'Web Admin · BPDLH', d: 'Docker + Wazuh untuk platform pemerintah.', st: 'OPEN' },
+  { y: '2020–2023', t: 'Project Office Manager · PUPR', d: '4 parallel infrastructure projects, standardized reporting.', st: 'ARCHIVED' },
+  { y: '2024–2025', t: 'Incident Handling → SOC Analyst', d: 'NIST playbooks, MTTA baseline, real-time threat hunting.', st: 'CLOSED' },
+  { y: '2026', t: 'Web Admin · BPDLH', d: 'Docker + Wazuh for government platforms.', st: 'OPEN' },
 ]
 
 function EvidencePage() {
@@ -99,24 +99,24 @@ function EvidencePage() {
       scene={<EvidenceScene />}
     >
       <section className="hero">
-        <div className="kicker">Forensics case files — bukti kerja, bukan klaim</div>
+        <div className="kicker">Forensics case files — evidence of work, not claims</div>
         <h1 style={{ fontSize: 'clamp(30px, 6vw, 64px)' }}>
           <TypeLine text="EVIDENCE LOCKER" speed={40} />
         </h1>
         <p className="sub">
-          Setiap proyek = berkas bukti: nomor kasus, hasil, dan rantai penanganan (chain of custody).
-          Hover kartu di layar untuk membuka bar yang di-redaksi.
+          Every project = an evidence file: case number, results, and chain of custody.
+          Hover the card on screen to open its redacted bars.
         </p>
         <div className="actions">
-          <a className="btn solid" href="#chain">BUKA CHAIN OF CUSTODY ↓</a>
+          <a className="btn solid" href="#chain">OPEN CHAIN OF CUSTODY ↓</a>
         </div>
-        <div className="scroll-hint">▾ scroll — berkas di-redaksi, kecuali yang Anda buka</div>
+        <div className="scroll-hint">▾ scroll — files are redacted, except the ones you open</div>
       </section>
 
       <section id="chain" className="section" style={{ paddingTop: 20 }}>
         <div className="mono">// CHAIN OF CUSTODY</div>
-        <h2>Rantai penanganan 2002 → 2026</h2>
-        <p className="lede">Hover tiap baris: bagian yang di-redaksi terbuka seperti berkas forensik asli.</p>
+        <h2>Chain of custody 2002 → 2026</h2>
+        <p className="lede">Hover each row: redacted parts open like a real forensics file.</p>
         <div style={{ maxWidth: 720 }}>
           {CHAIN.map((c, i) => (
             <FadeUp key={i} delay={i * 0.06}>
@@ -142,9 +142,9 @@ function EvidencePage() {
       </section>
 
       <footer className="demo">
-        <span className="mono-up">EVIDENCE · konsep 07/10</span>
-        <span>hover kartu 3D → redaction bar terbuka</span>
-        <a href="#/">← kembali ke galeri</a>
+        <span className="mono-up">EVIDENCE · concept 07/10</span>
+        <span>hover 3D card → redaction bar opens</span>
+        <a href="#/">← back to gallery</a>
       </footer>
     </ConceptLayout>
   )

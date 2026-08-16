@@ -10,7 +10,7 @@ const PHOSPHOR = '#39d353'
 const DIM = '#1f6b3a'
 const CREAM = '#efe6d5'
 
-/* level vault: tiap dekade punya rak log */
+/* vault levels: each decade has a log shelf */
 const LEVELS = [
   { y: 8.5, era: '2020s', label: 'SECOPS & AI', count: 26 },
   { y: 5.2, era: '2010s', label: 'IT MANAGEMENT', count: 30 },
@@ -23,7 +23,7 @@ function LogbookRow({ x, z, i }) {
       <RoundedBox args={[0.5, 0.34, 0.34]} radius={0.03} smoothness={3}>
         <meshStandardMaterial color="#10250f" roughness={0.8} />
       </RoundedBox>
-      {/* label punggung buku */}
+      {/* book spine label */}
       <mesh position={[0, 0, 0.18]}>
         <planeGeometry args={[0.5, 0.34]} />
         <meshBasicMaterial color={PHOSPHOR} transparent opacity={0.5 + (i % 3) * 0.15} />
@@ -65,7 +65,7 @@ function ArchiveScene({ progress }) {
   const eye = useRef(new THREE.Vector3())
   useFrame(() => {
     const t = p.get()
-    const y = 8.6 - t * 8.8 // turun dari level atas ke bawah
+    const y = 8.6 - t * 8.8 // descend from the top level to the bottom
     if (reduced) return
     targetY.current.set(0, y, 8.4)
     eye.current.set(0, y + 1.2, 0)
@@ -77,13 +77,13 @@ function ArchiveScene({ progress }) {
     <>
       <ambientLight intensity={0.55} />
       <pointLight position={[0, 10, 6]} intensity={40} color={PHOSPHOR} />
-      {/* dinding kiri/kanan */}
+      {/* left/right walls */}
       <Line points={[[-5.4, 10.5, -2.6], [-5.4, -1.2, -2.6]]} color={DIM} lineWidth={1} transparent opacity={0.5} />
       <Line points={[[5.4, 10.5, -2.6], [5.4, -1.2, -2.6]]} color={DIM} lineWidth={1} transparent opacity={0.5} />
       <Line points={[[-5.4, 10.5, 2.6], [-5.4, -1.2, 2.6]]} color={DIM} lineWidth={1} transparent opacity={0.5} />
       <Line points={[[5.4, 10.5, 2.6], [5.4, -1.2, 2.6]]} color={DIM} lineWidth={1} transparent opacity={0.5} />
       {LEVELS.map((l, i) => <VaultShelf key={i} level={l} />)}
-      {/* lantai */}
+      {/* floor */}
       <Line points={rail} color={PHOSPHOR} lineWidth={1} transparent opacity={0.4} />
       <fog attach="fog" args={['#050a06', 6, 20]} />
     </>
@@ -108,7 +108,7 @@ function ArchivePage() {
       scene={<ArchiveScene progress={progress} />}
     >
       <section className="hero">
-        <div className="kicker">Syslog archive — vault waktu 2002 → 2026</div>
+        <div className="kicker">Syslog archive — a time vault 2002 → 2026</div>
         <h1>
           <motion.span
             initial={{ opacity: 0, y: 30 }}
@@ -119,19 +119,19 @@ function ArchivePage() {
           </motion.span>
         </h1>
         <p className="sub">
-          Tiga dekade log, tiga lantai vault. Scroll — kamera turun melewati rak-rak logbook,
-          dari akar sysadmin sampai SOC & AI hari ini. Semua tercatat, semua terarsip.
+          Three decades of logs, three vault floors. Scroll — the camera descends past logbook shelves,
+          from sysadmin roots to today's SOC & AI. All recorded, all archived.
         </p>
         <div className="actions">
-          <a className="btn solid" href="#decades">TURUN KE VAULT ↓</a>
+          <a className="btn solid" href="#decades">DESCEND INTO THE VAULT ↓</a>
         </div>
-        <div className="scroll-hint">▾ scroll — kamera turun melewati level 2020s → 2000s</div>
+        <div className="scroll-hint">▾ scroll — the camera descends past levels 2020s → 2000s</div>
       </section>
 
       <section id="decades" className="section" style={{ paddingTop: 30 }}>
         <div className="mono">// LOG DECADES</div>
-        <h2>Tiga dekade, tiga lantai</h2>
-        <p className="lede">Baris log asli — diketik ulang setiap era masuk viewport.</p>
+        <h2>Three decades, three floors</h2>
+        <p className="lede">Real log lines — retyped as each era enters the viewport.</p>
         {ERAS.map((e, i) => (
           <div key={i} style={{ marginBottom: 26 }}>
             <FadeUp delay={0.05}>
@@ -149,9 +149,9 @@ function ArchivePage() {
       </section>
 
       <footer className="demo">
-        <span className="mono-up">ARCHIVE · konsep 08/10</span>
-        <span>level vault = dekade karier, log = bukti nyata</span>
-        <a href="#/">← kembali ke galeri</a>
+        <span className="mono-up">ARCHIVE · concept 08/10</span>
+        <span>vault levels = career decades, logs = real evidence</span>
+        <a href="#/">← back to gallery</a>
       </footer>
     </ConceptLayout>
   )

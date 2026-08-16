@@ -1,7 +1,7 @@
 /* ============================================================
-   DESIGN LAB — 10 konsep tema portofolio (r3f + framer-motion)
-   Shared stylesheet. Warna per konsep lewat CSS custom props
-   yang di-set inline pada .concept-page.
+   DESIGN LAB — 10 portfolio-themed concepts (r3f + framer-motion)
+   Shared stylesheet. Per-concept colors via CSS custom props
+   set inline on .concept-page.
    ============================================================ */
 :root {
   --lab-bg: #0b0d10;

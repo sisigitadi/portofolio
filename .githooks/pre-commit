@@ -1,16 +1,16 @@
 #!/bin/sh
 # ---------------------------------------------------------------------------
-# Git pre-commit hook — Audit cepat (--quick) untuk deteksi dini.
+# Git pre-commit hook — Quick audit (--quick) for early detection.
 #
-# Menjalankan audit.py dalam mode cepat (tanpa node --check) agar error
-# struktural terdeteksi sebelum commit. Gerbang final tetap pre-push / CI
-# yang menjalankan audit penuh (13 pemeriksaan).
+# Runs audit.py in quick mode (without node --check) so structural errors are
+# caught before commit. The final gate remains pre-push / CI, which runs the
+# full audit (13 checks).
 #
-# Cara aktifkan (sekali saja, dari root repo):
+# How to enable (once, from the repo root):
 #     git config core.hooksPath .githooks
 #     chmod +x .githooks/pre-commit
 #
-# Cara nonaktifkan:
+# How to disable:
 #     git config --unset core.hooksPath
 # ---------------------------------------------------------------------------
 set -e
@@ -18,19 +18,19 @@ set -e
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT"
 
-echo "[pre-commit] Menjalankan audit cepat (--quick)..."
+echo "[pre-commit] Running quick audit (--quick)..."
 if command -v python3 >/dev/null 2>&1; then
     PYTHON=python3
 elif command -v python >/dev/null 2>&1; then
     PYTHON=python
 else
-    echo "[pre-commit] ERROR: Python 3 tidak ditemukan. Commit DIBATALKAN."
+    echo "[pre-commit] ERROR: Python 3 not found. Commit BLOCKED."
     exit 1
 fi
 
 if "$PYTHON" audit.py --quick; then
-    echo "[pre-commit] OK — audit cepat lulus. Commit diizinkan."
+    echo "[pre-commit] OK — quick audit passed. Commit allowed."
 else
-    echo "[pre-commit] GAGAL — audit cepat menemukan isu. Commit DIBATALKAN."
+    echo "[pre-commit] FAILED — quick audit found issues. Commit BLOCKED."
     exit 1
 fi

@@ -1,5 +1,5 @@
-/* CDP smoke-test (connect-mode): muat URL, tangkap error konsol + teks body.
-   Jalankan setelah Chrome headless dengan --remote-debugging-port=9555:
+/* CDP smoke-test (connect-mode): load URL, capture console errors + body text.
+   Run after Chrome headless with --remote-debugging-port=9555:
      Usage: node scripts/cdp-check.mjs <url> [port] */
 const URL = process.argv[2] || 'http://localhost:4173/'
 const PORT = process.argv[3] || 9555
@@ -17,7 +17,7 @@ for (let i = 0; i < 40; i++) {
   await sleep(250)
 }
 if (!target) {
-  console.log('ERROR: tidak bisa terhubung ke CDP port', PORT)
+  console.log('ERROR: cannot connect to CDP port', PORT)
   process.exit(2)
 }
 

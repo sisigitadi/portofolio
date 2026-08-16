@@ -1,17 +1,17 @@
 name: indexnow-ping
 
-# Kirim ping IndexNow setiap kali konten di-push ke main, agar Bing & mesin
-# pencari peserta IndexNow lain langsung tahu URL berubah (crawl segera,
-# bukan menunggu jadwal). Script menunggu GitHub Pages selesai rebuild
-# (bandingkan sha256 konten live vs index.html) sebelum mengirim ping.
+# Send an IndexNow ping every time content is pushed to main, so Bing & other
+# search engines participating in IndexNow know immediately that a URL changed (crawl soon,
+# not on schedule). The script waits for GitHub Pages to finish rebuilding
+# (compares sha256 of live content vs index.html) before sending the ping.
 #
-# Status 200/202 = sukses. Gagal (key invalid dsb.) hanya memengaruhi
-# workflow ini — TIDAK memblokir push (bersifat informatif).
+# Status 200/202 = success. Failures (invalid key, etc.) only affect
+# this workflow — they do NOT block the push (informational only).
 
 on:
   push:
     branches: [main]
-  workflow_dispatch: # izin trigger manual dari tab Actions
+  workflow_dispatch: # allow manual trigger from the Actions tab
 
 permissions:
   contents: read
@@ -28,5 +28,5 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Ping IndexNow (setelah Pages deploy)
+      - name: Ping IndexNow (after Pages deploy)
         run: python indexnow-ping.py --wait-sha index.html --wait-timeout 420

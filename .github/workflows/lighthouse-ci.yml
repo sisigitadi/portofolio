@@ -1,19 +1,19 @@
 # ---------------------------------------------------------------------------
 # Lighthouse CI — Quality Gate (GitHub Actions)
 #
-# Menjalankan Lighthouse (performance, accessibility, best-practices, SEO)
-# terhadap situs yang di-serve dari hasil checkout, di setiap push ke main
-# dan setiap pull request. Assertions (lihat .lighthouserc.json):
-#   - accessibility / best-practices / seo : WAJIB 100 (error — blokir push/PR)
-#   - performance                          : >= 0.5 (warn — non-blocking, skor
-#     sintetis mobile-throttle rentan noise lintas runner)
+# Runs Lighthouse (performance, accessibility, best-practices, SEO) against the
+# site served from the checkout, on every push to main and every pull request.
+# Assertions (see .lighthouserc.json):
+#   - accessibility / best-practices / seo : REQUIRED 100 (error — blocks push/PR)
+#   - performance                          : >= 0.5 (warn — non-blocking; the
+#     synthetic mobile-throttle score is prone to cross-runner noise)
 #
-# Chrome di-pin ke versi yang kompatibel dengan Lighthouse yang di-bundle
-# @lhci/cli (12.6.1) agar tidak rusak oleh versi Chrome runner yang terlalu
-# baru. Jika run gagal, output Lighthouse penuh di-dump sebagai annotations
-# (::error::) agar diagnosa terlihat langsung di tab Actions / check-runs.
+# Chrome is pinned to a version compatible with the Lighthouse bundled with
+# @lhci/cli (12.6.1) so newer runner Chrome versions cannot break it. If a run
+# fails, the full Lighthouse output is dumped as annotations (::error::) so the
+# diagnosis is visible right in the Actions tab / check-runs.
 #
-# Jalur lokal yang setara:
+# Local equivalent:
 #     python -m http.server 8899 --bind 127.0.0.1 &
 #     npx --yes @lhci/cli@0.15.1 autorun --config=.lighthouserc.json
 # ---------------------------------------------------------------------------
@@ -24,7 +24,7 @@ on:
     branches: [main, master]
   pull_request:
     branches: [main, master]
-  workflow_dispatch: # izin trigger manual dari tab Actions
+  workflow_dispatch: # allow manual trigger from the Actions tab
 
 jobs:
   lighthouse:
@@ -40,8 +40,8 @@ jobs:
         with:
           node-version: "20"
 
-      # Pin Chrome yang kompatibel dengan Lighthouse 12.6.1 (bundle @lhci/cli
-      # 0.15.1). setup-chrome mengekspor CHROME_PATH yang dihormati lhci.
+      # Pin Chrome compatible with Lighthouse 12.6.1 (the @lhci/cli 0.15.1
+      # bundle). setup-chrome exports CHROME_PATH which lhci honors.
       - name: Setup Chrome (LH-compatible)
         uses: browser-actions/setup-chrome@086160e580d6e8c142ad5ba29009dcde677c6321 # v2 (pinned)
         with:

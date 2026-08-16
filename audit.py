@@ -12,13 +12,13 @@ from html.parser import HTMLParser
 
 
 # ---------------------------------------------------------------------------
-# Helper: tokenizer untuk mengekstrak key kamus i18n (aman terhadap string)
+# Helper: tokenizer to extract keys from an i18n dictionary (string-safe)
 # ---------------------------------------------------------------------------
 def extract_dict_keys(body):
-    """Ekstrak key objek dari body dict dengan melewati string (tanda kutip).
+    """Extract object keys from a dict body, skipping quoted strings.
 
-    Catatan: tokenizer mengasumsikan nilai string tidak memakai template literal
-    backtick berinterpolasi (${...}) dan semua string tersambung dengan benar.
+    Note: the tokenizer assumes string values do not use interpolated template
+    literals (${...}) and that all strings are properly closed.
     """
     keys = []
     i = 0
@@ -50,24 +50,24 @@ def extract_dict_keys(body):
 
 
 # ---------------------------------------------------------------------------
-# Helper: scanner JS bersama — melewati string/regex/komentar dan me-yield
-# panggilan fungsi dengan argumen pertamanya (dipakai #9 dan #10).
+# Helper: shared JS scanner — skips strings/regex/comments and yields function
+# calls with their first argument (used by checks #9 and #10).
 # ---------------------------------------------------------------------------
 _REGEX_PRECEDING_KEYWORDS = {'return', 'typeof', 'instanceof', 'in', 'new',
                              'delete', 'void', 'yield', 'case', 'do', 'else'}
 
 
 def _looks_like_regex_start(js_body, i):
-    """Heuristik: '/' di posisi i memulai regex literal (bukan pembagian).
+    """Heuristic: does '/' at position i start a regex literal (not division)?
 
-    RegEx literal sering memuat karakter kutip (mis. /[&<>"']/g) yang bisa
-    menipu tokenizer string; heuristik ini memakai konteks karakter sebelumnya
-    (operator, tanda kurung, atau kata kunci seperti return).
+    Regex literals often contain quote characters (e.g. /[&<>"']/g) that could
+    fool the string tokenizer; this heuristic uses the preceding character
+    context (operator, parenthesis, or a keyword such as return).
 
-    Batasan yang diketahui (tidak terjadi di kodebase saat ini): regex yang
-    muncul tepat setelah ')' (mis. if (x) /re/.test(y)) salah diklasifikasi
-    sebagai pembagian; kasus patologis x = "a" / "b" atau x++ / 2 dianggap
-    regex. Cukup aman untuk konteks audit kode ini."""
+    Known limitations (not present in the current codebase): a regex appearing
+    right after ')' (e.g. if (x) /re/.test(y)) is misclassified as division;
+    pathological cases like x = "a" / "b" or x++ / 2 are treated as regex.
+    Safe enough for auditing this codebase."""
     j = i - 1
     while j >= 0 and js_body[j] in ' \t\r\n':
         j -= 1
@@ -75,7 +75,7 @@ def _looks_like_regex_start(js_body, i):
         return True
     c = js_body[j]
     if c.isalnum() or c in '_)]}':
-        # Cek apakah kata sebelumnya adalah keyword yang mendahului regex
+        # Check whether the previous word is a keyword that precedes a regex
         start = j
         while start >= 0 and (js_body[start].isalnum() or js_body[start] in '_$'):
             start -= 1
@@ -85,39 +85,39 @@ def _looks_like_regex_start(js_body, i):
 
 
 def _iter_call_args(js_body):
-    """Generator: yield (func_name, arg_value, is_string, end_pos) untuk tiap
-    panggilan `func(<arg1>)` di dalam JS.
+    """Generator: yield (func_name, arg_value, is_string, end_pos) for each
+    `func(<arg1>)` call inside the JS.
 
-    - is_string=True  bila arg1 string literal (arg_value = isinya, end_pos =
-      posisi tepat setelah kutip penutup — untuk cek '+' / ')').
-    - is_string=False bila arg1 identifier (arg_value = namanya, end_pos =
-      posisi setelah identifier).
-    - arg_value=None  bila arg1 bukan keduanya (tetap diyield agar konsisten).
+    - is_string=True  when arg1 is a string literal (arg_value = its contents,
+      end_pos = position right after the closing quote — for checking '+' / ')').
+    - is_string=False when arg1 is an identifier (arg_value = its name, end_pos =
+      the position after the identifier).
+    - arg_value=None  when arg1 is neither (still yielded for consistency).
 
-    Aman terhadap string literal (', ", `), regex literal, dan komentar
-    (/* */, //) sehingga teks contoh dalam komentar/string tidak menghasilkan
-    false positive. Nama fungsi yang diyield adalah identifier utuh
-    (mis. querySelectorAll, bukan prefix 'querySelector') sehingga boundary
-    identifier (myGetElementById, myQuerySelector) otomatis tertangani.
+    Safe against string literals (', ", `), regex literals, and comments
+    (/* */, //) so example text inside comments/strings does not produce false
+    positives. Yielded function names are full identifiers (e.g.
+    querySelectorAll, not the prefix 'querySelector') so identifier boundaries
+    (myGetElementById, myQuerySelector) are handled automatically.
 
-    Batasan: template literal berinterpolasi (getElementById(`foo-${x}`))
-    dibaca utuh sebagai string "statis" — pola ini tidak dipakai di kodebase.
+    Limitation: interpolated template literals (getElementById(`foo-${x}`)) are
+    read whole as "static" strings — this pattern is not used in the codebase.
     """
     i = 0
     n = len(js_body)
     while i < n:
         c = js_body[i]
-        # Komentar blok /* ... */
+        # Block comment /* ... */
         if c == '/' and i + 1 < n and js_body[i + 1] == '*':
             end = js_body.find('*/', i + 2)
             i = end + 2 if end != -1 else n
             continue
-        # Komentar baris // ...
+        # Line comment // ...
         if c == '/' and i + 1 < n and js_body[i + 1] == '/':
             end = js_body.find('\n', i + 2)
             i = end + 1 if end != -1 else n
             continue
-        # RegEx literal (mis. /[&<>"']/g) — lewati sampai '/' penutup
+        # Regex literal (e.g. /[&<>"']/g) — skip to the closing '/'
         if c == '/' and _looks_like_regex_start(js_body, i):
             j = i + 1
             in_class = False
@@ -148,7 +148,7 @@ def _iter_call_args(js_body):
                 i += 1
             i += 1
             continue
-        # Identifier — kemungkinan nama fungsi diikuti '(' argumen pertama
+        # Identifier — possibly a function name followed by '(' first argument
         if c.isalpha() or c in '_$':
             start = i
             while i < n and (js_body[i].isalnum() or js_body[i] in '_$'):
@@ -162,7 +162,7 @@ def _iter_call_args(js_body):
                 while j < n and js_body[j] in ' \t\r\n':
                     j += 1
                 if j < n and js_body[j] in '\'"`':
-                    # Argumen pertama = string literal
+                    # First argument = string literal
                     quote = js_body[j]
                     j += 1
                     buf = []
@@ -181,17 +181,17 @@ def _iter_call_args(js_body):
                     i = j + 1
                     continue
                 if j < n and (js_body[j].isalpha() or js_body[j] in '_$'):
-                    # Argumen pertama = identifier (mis. getElementById(modalId))
+                    # First argument = identifier (e.g. getElementById(modalId))
                     k = j
                     while k < n and (js_body[k].isalnum() or js_body[k] in '_$'):
                         k += 1
                     yield (func_name, js_body[j:k], False, k)
                     i = k
                     continue
-                # Argumen pertama bukan string/identifier — tetap diyield.
-                # PENTING: i = j (bukan j + 1) agar karakter pertama argumen
-                # diproses ulang oleh loop (mis. regex literal /.../ yang
-                # memuat kutip tidak lolos terdeteksi sebagai string palsu).
+                # First argument is neither string nor identifier — still yielded.
+                # IMPORTANT: i = j (not j + 1) so the first character of the
+                # argument is reprocessed by the loop (e.g. a regex literal
+                # /.../ containing quotes is not falsely detected as a string).
                 yield (func_name, None, False, j + 1)
                 i = j
                 continue
@@ -200,36 +200,36 @@ def _iter_call_args(js_body):
 
 
 # ---------------------------------------------------------------------------
-# Helper #9+#10: satu pass _iter_call_args -> referensi DOM (getElementById
-# dan querySelector/All sekaligus, tanpa memindai body JS dua kali)
+# Helper #9+#10: single _iter_call_args pass -> DOM references (getElementById
+# and querySelector/All together, without scanning the JS body twice)
 # ---------------------------------------------------------------------------
 def extract_dom_refs(js_body):
-    """Satu pass: ekstrak referensi getElementById dan querySelector sekaligus.
+    """Single pass: extract getElementById and querySelector references.
 
-    Mengembalikan (ids_statis, prefix_dinamis, var_calls, selectors):
-      - ids_statis:  getElementById('foo') -> 'foo'
-      - prefix_dinamis: getElementById('foo' + x) -> 'foo' (diverifikasi hanya
-        awalan/prefix-nya terhadap DOM)
-      - var_calls:   getElementById(modalId) -> 'modalId' (argumen variabel;
-        diverifikasi pemeriksa lewat sumber nilainya)
-      - selectors:   argumen string dari querySelector(All), closest, dan
-        matches ('...') — semuanya selector yang mereferensikan elemen DOM
+    Returns (static_ids, dynamic_prefixes, var_calls, selectors):
+      - static_ids:  getElementById('foo') -> 'foo'
+      - dynamic_prefixes: getElementById('foo' + x) -> 'foo' (verified only as a
+        prefix against the DOM)
+      - var_calls:   getElementById(modalId) -> 'modalId' (variable argument;
+        verified by the checker through the source of its value)
+      - selectors:   string arguments of querySelector(All), closest, and
+        matches ('...') — all selectors that reference DOM elements
 
-    Catatan batasan (konsisten pra-refactor): komentar antara '(' dan argumen
-    pertama (foo(/* c */ 'x')) membuat argumen tak di-yield; call bersarang
-    sebagai argumen (foo(bar('x'))) terklasifikasi sebagai identifier 'bar'.
-    end_pos pada _iter_call_args hanya valid bila is_string=True."""
+    Known limitation (consistent pre-refactor): a comment between '(' and the
+    first argument (foo(/* c */ 'x')) makes the argument not yielded; nested
+    calls as arguments (foo(bar('x'))) are classified as identifier 'bar'.
+    end_pos in _iter_call_args is only valid when is_string=True."""
     ids = []
     prefixes = []
     var_calls = []
     selectors = []
-    # Fungsi DOM-traversal yang menerima selector string; argumennya diperlakukan
-    # sama dengan querySelector/All oleh pemeriksa #10.
+    # DOM-traversal functions that accept a selector string; their arguments are
+    # treated the same as querySelector/All by check #10.
     selector_funcs = {'querySelector', 'querySelectorAll', 'closest', 'matches'}
     for func_name, arg_value, is_string, end_pos in _iter_call_args(js_body):
         if func_name == 'getElementById':
             if is_string:
-                # Setelah string literal: '+' => prefix dinamis; selain itu ID statis
+                # After a string literal: '+' => dynamic prefix; otherwise static ID
                 k = end_pos
                 while k < len(js_body) and js_body[k] in ' \t\r\n':
                     k += 1
@@ -245,7 +245,7 @@ def extract_dom_refs(js_body):
 
 
 # ---------------------------------------------------------------------------
-# Helper: pemeriksa keseimbangan tag HTML (HTMLParser standar)
+# Helper: HTML tag-balance checker (standard HTMLParser)
 # ---------------------------------------------------------------------------
 VOID_TAGS = {'area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input',
              'link', 'meta', 'param', 'source', 'track', 'wbr'}
@@ -262,7 +262,7 @@ class TagBalanceParser(HTMLParser):
             self.stack.append(tag)
 
     def handle_startendtag(self, tag, attrs):
-        pass  # self-closing (mis. <path />) — tidak perlu ditutup
+        pass  # self-closing (e.g. <path />) — does not need closing
 
     def handle_endtag(self, tag):
         if tag in VOID_TAGS:
@@ -274,34 +274,34 @@ class TagBalanceParser(HTMLParser):
 
 
 # ---------------------------------------------------------------------------
-# Audit pre-flight modular: setiap pemeriksaan adalah metode terdaftar lewat
-# dekorator @check. Menambah pemeriksaan baru cukup menulis satu metode dengan
-# dekorator — tanpa menyentuh run() atau pemanggil.
+# Modular pre-flight audit: each check is a method registered via the @check
+# decorator. Adding a new check is just one decorated method — no changes to
+# run() or the callers.
 # ---------------------------------------------------------------------------
-# Registry level modul: dekorator dieksekusi saat class body dievaluasi, jadi
-# tidak boleh mereferensikan PreflightAudit (belum terikat).
+# Module-level registry: the decorator runs while the class body is being
+# evaluated, so it must not reference PreflightAudit (not yet bound).
 _CHECKS_REGISTRY = []
 
 
 def register(fn):
-    """Dekorator: daftarkan metode sebagai pemeriksaan (urutan = urutan kode)."""
+    """Decorator: register a method as a check (order = source order)."""
     _CHECKS_REGISTRY.append(fn)
     return fn
 
 
 class PreflightAudit:
-    """Audit pre-flight modular (13 pemeriksaan).
+    """Modular pre-flight audit (13 checks).
 
-    State bersama dihitung sekali di __init__ (scripts, dom_ids) dan di
-    pemeriksaan #9 (referensi DOM) — lalu dipakai oleh #9b dan #10.
-    quick=True melewati node --check (#6) untuk gerbang cepat (pre-commit);
-    gerbang penuh (pre-push / CI) tetap menjalankan 13 pemeriksaan lengkap.
+    Shared state is computed once in __init__ (scripts, dom_ids) and in check
+    #9 (DOM references) — then reused by #9b and #10.
+    quick=True skips node --check (#6) for fast gates (pre-commit); the full
+    gate (pre-push / CI) still runs all 13 checks.
 
-    Beberapa pemeriksaan bersifat kondisional terhadap fitur yang ada di
-    halaman (gimmick CLI #4, carousel testimonial #7, kamus i18n #8, panggilan
-    variabel getElementById #9b): saat fitur tidak ada, pemeriksaan melewati
-    sebagai PASS "tidak berlaku" — sehingga gate kompatibel baik dengan SPA
-    lama maupun Field Manual sebagai index.html baru.
+    Some checks are conditional on features present on the page (CLI gimmick
+    #4, testimonial carousel #7, i18n dictionary #8, variable getElementById
+    call #9b): when the feature is absent, the check passes as "not applicable"
+    — so the gate works for both the legacy SPA and the Field Manual as the
+    new index.html.
     """
 
     def __init__(self, content, quick=False):
@@ -310,18 +310,18 @@ class PreflightAudit:
         self.errors = 0
         self.pass_count = 0
         self.warn_count = 0
-        # State bersama (dihitung sekali, dipakai banyak pemeriksaan)
+        # Shared state (computed once, used by many checks)
         self.scripts = re.findall(r'<script(?![^>]*\bsrc=)(?![^>]*\btype=)[^>]*>(.*?)</script>',
                                   content, re.S)
         self.dom_ids = re.findall(r'id="([^"]+)"', content)
-        self._dom_refs_cache = None  # lazy cache, di-reset di run() agar idempotent
+        self._dom_refs_cache = None  # lazy cache, reset in run() to stay idempotent
 
     def _dom_refs(self):
-        """Referensi DOM (getElementById + selector) dihitung sekali lalu di-cache.
+        """DOM references (getElementById + selectors) computed once, then cached.
 
-        Check #9, #9b, dan #10 memakai hasil ini — karena lazy + cached, urutan
-        deklarasi check tidak lagi menentukan: setiap check aman dipanggil kapan
-        pun tanpa mengandalkan check lain berjalan lebih dulu.
+        Checks #9, #9b, and #10 use this result — because it is lazy + cached,
+        check declaration order no longer matters: each check is safe to call at
+        any time without relying on another check having run first.
         """
         if self._dom_refs_cache is None:
             used_ids, used_prefixes, var_calls, qs_selectors = [], [], [], []
@@ -353,67 +353,67 @@ class PreflightAudit:
         if '<form' in self.content:
             if ('action="https://formspree.io/f/mkgknrqk"' not in self.content
                     or 'method="POST"' not in self.content):
-                self._fail("Form Kontak tidak terkonfigurasi dengan endpoint Formspree yang benar atau tidak menggunakan POST.")
+                self._fail("Contact form is not configured with the correct Formspree endpoint or does not use POST.")
             else:
-                self._pass("Form Kontak terhubung ke Formspree (Endpoint: mkgknrqk).")
+                self._pass("Contact form connected to Formspree (Endpoint: mkgknrqk).")
         else:
-            self._warn("Tidak ditemukan elemen <form> di dalam file.")
+            self._warn("No <form> element found in the file.")
 
-    # -- 2. Keamanan Tautan Eksternal (anti tabnabbing) ---------------------
+    # -- 2. External Link Safety (anti tabnabbing) --------------------------
     @register
     def _check_02_external_links(self):
         external_links = re.findall(r'<a[^>]+href=["\']http[^>]+>', self.content)
         missing_target = [link for link in external_links
                           if 'target="_blank"' not in link or 'noopener' not in link]
         if missing_target:
-            self._fail(f"Ditemukan {len(missing_target)} tautan eksternal yang rentan tabnabbing "
-                       f"(tanpa target='_blank' & rel='noopener noreferrer').")
+            self._fail(f"Found {len(missing_target)} external links vulnerable to tabnabbing "
+                       f"(missing target='_blank' & rel='noopener noreferrer').")
         else:
-            self._pass("Tautan eksternal aman dari tabnabbing.")
+            self._pass("External links are safe from tabnabbing.")
 
-    # -- 3. Absolute Path Lokal (aset rusak di GitHub Pages) ----------------
+    # -- 3. Local Absolute Paths (broken assets on GitHub Pages) ------------
     @register
     def _check_03_local_paths(self):
         local_paths = re.findall(r'(?:src|href)=["\'](?:file://|[A-Z]:/|/Users/|C:/)', self.content)
         if local_paths:
-            self._fail(f"Ditemukan Absolute Path lokal (Aset akan rusak di Production): {local_paths}")
+            self._fail(f"Found local Absolute Paths (assets will break in Production): {local_paths}")
         else:
-            self._pass("Semua asset path menggunakan relative path yang valid.")
+            self._pass("All asset paths use valid relative paths.")
 
-    # -- 4. Isolasi Gimmick CLI dari Screen Reader (per baris) --------------
+    # -- 4. CLI Gimmick Isolation from Screen Reader (per line) -------------
     @register
     def _check_04_gimmick_isolation(self):
         gimmick_markers = ['SYS_CMD_PROMPT', '[SYS_INIT]']
         if not any(m in self.content for m in gimmick_markers):
-            self._pass("Tidak ada gimmick CLI terminal - pemeriksaan isolasi screen-reader tidak berlaku.")
+            self._pass("No CLI terminal gimmick - screen-reader isolation check not applicable.")
             return
         gimmick_violations = []
         for lineno, line in enumerate(self.content.splitlines(), 1):
             if any(m in line for m in gimmick_markers) and 'aria-hidden' not in line:
                 gimmick_violations.append((lineno, line.strip()[:80]))
         if gimmick_violations:
-            self._fail(f"Gimmick terminal belum diisolasi dari Screen Reader (aria-hidden hilang): {gimmick_violations}")
+            self._fail(f"Terminal gimmick not isolated from Screen Reader (aria-hidden missing): {gimmick_violations}")
         else:
-            self._pass("Elemen UI/UX (Gimmick CLI) telah diisolasi per-baris (WCAG compliant).")
+            self._pass("UI/UX elements (CLI gimmick) are isolated per line (WCAG compliant).")
 
-    # -- 5. Keseimbangan Tag HTML (HTMLParser standar) ----------------------
+    # -- 5. HTML Tag Balance (standard HTMLParser) --------------------------
     @register
     def _check_05_tag_balance(self):
         parser = TagBalanceParser()
         parser.feed(self.content)
         if parser.errors:
-            self._fail(f"Ditemukan {len(parser.errors)} ketidakseimbangan tag HTML: {parser.errors[:10]}")
+            self._fail(f"Found {len(parser.errors)} HTML tag-balance errors: {parser.errors[:10]}")
         elif parser.stack:
-            self._fail(f"Tag HTML belum tertutup: {parser.stack}")
+            self._fail(f"Unclosed HTML tags: {parser.stack}")
         else:
-            self._pass("Dokumen HTML seimbang (zero tag-balance errors).")
+            self._pass("HTML document is balanced (zero tag-balance errors).")
 
-    # -- 6. Sintaks Inline Script (node --check) ----------------------------
+    # -- 6. Inline Script Syntax (node --check) -----------------------------
     @register
     def _check_06_scripts(self):
         if self.quick:
-            self._warn("Mode cepat (--quick): pemeriksaan sintaks node --check dilewati "
-                       "(dijalankan penuh oleh pre-push / CI).")
+            self._warn("Quick mode (--quick): node --check syntax check skipped "
+                       "(run in full by pre-push / CI).")
             return
         if shutil.which('node'):
             script_errors = []
@@ -428,9 +428,9 @@ class PreflightAudit:
                         result = subprocess.run(['node', '--check', tmp_path],
                                                 capture_output=True, text=True)
                     except OSError as e:
-                        # Environment (mis. handle stdout yang di-redirect oleh
-                        # test runner/pytest di Windows) membuat node gagal
-                        # diluncurkan — audit memilih WARN, bukan crash.
+                        # Environment issues (e.g. stdout redirected by the test
+                        # runner/pytest on Windows) prevent node from launching —
+                        # the audit chooses WARN instead of crashing.
                         node_env_error = e
                         break
                     if result.returncode != 0:
@@ -442,16 +442,16 @@ class PreflightAudit:
                         except OSError:
                             pass
             if node_env_error:
-                self._warn(f"node --check tidak dapat diluncurkan (OSError: {node_env_error}) - "
-                           "pemeriksaan sintaks dilewati.")
+                self._warn(f"node --check could not be launched (OSError: {node_env_error}) - "
+                           "syntax check skipped.")
             elif script_errors:
-                self._fail(f"{len(script_errors)} inline script gagal node --check: {script_errors}")
+                self._fail(f"{len(script_errors)} inline scripts failed node --check: {script_errors}")
             else:
-                self._pass(f"Semua {len(self.scripts)} inline script lolos node --check.")
+                self._pass(f"All {len(self.scripts)} inline scripts passed node --check.")
         else:
-            self._warn("node.js tidak ditemukan - pemeriksaan sintaks inline script dilewati.")
+            self._warn("node.js not found - inline script syntax check skipped.")
 
-    # -- 7. Sinkronisasi Carousel Testimonial -------------------------------
+    # -- 7. Testimonial Carousel Sync ---------------------------------------
     @register
     def _check_07_testimonials(self):
         slide_comments = re.findall(r'<!--\s*Slide\s+(\d+)\s*:', self.content)
@@ -459,18 +459,18 @@ class PreflightAudit:
         total_match = re.search(r'var\s+totalTestimonials\s*=\s*(\d+);', self.content)
         total = int(total_match.group(1)) if total_match else None
         if total_match is None and not slide_comments:
-            self._pass("Tidak ada carousel testimonial (totalTestimonials) - pemeriksaan sinkronisasi slide tidak berlaku.")
+            self._pass("No testimonial carousel (totalTestimonials) - slide-sync check not applicable.")
             return
         if total is None:
-            self._fail("Komentar slide ditemukan tetapi variabel totalTestimonials tidak ada di script.")
+            self._fail("Slide comments found but the totalTestimonials variable is missing from the script.")
         elif len(slide_nums) != total:
-            self._fail(f"Komentar slide ({len(slide_nums)}) tidak sama dengan totalTestimonials ({total}).")
+            self._fail(f"Slide comments ({len(slide_nums)}) do not match totalTestimonials ({total}).")
         elif slide_nums != list(range(1, total + 1)):
-            self._fail(f"Penomoran komentar slide tidak berurutan: {slide_nums}")
+            self._fail(f"Slide comment numbering is out of order: {slide_nums}")
         else:
-            self._pass(f"{total} slide testimonial sinkron dengan totalTestimonials ({slide_nums}).")
+            self._pass(f"{total} testimonial slides in sync with totalTestimonials ({slide_nums}).")
 
-    # -- 8. Parity & Coverage Kamus i18n (EN/ID) ----------------------------
+    # -- 8. i18n Dictionary Parity & Coverage (EN/ID) -----------------------
     @register
     def _check_08_i18n(self):
         dict_match = re.search(r'en:\s*\{(.*?)\},\s*id:\s*\{(.*?)\}\s*\};', self.content, re.S)
@@ -479,28 +479,28 @@ class PreflightAudit:
 
         if not dict_match:
             if used_keys:
-                self._fail(f"Ditemukan {len(used_keys)} atribut data-i18n dipakai di HTML tetapi kamus "
-                           f"en/id tidak ditemukan: {sorted(used_keys)[:5]}")
+                self._fail(f"Found {len(used_keys)} data-i18n attributes used in the HTML but the "
+                           f"en/id dictionary is missing: {sorted(used_keys)[:5]}")
             else:
-                self._pass("Halaman satu-bahasa (tanpa kamus en/id & tanpa data-i18n) - pemeriksaan parity i18n tidak berlaku.")
+                self._pass("Single-language page (no en/id dictionary & no data-i18n) - i18n parity check not applicable.")
             return
 
         en_keys = extract_dict_keys(dict_match.group(1))
         id_keys = extract_dict_keys(dict_match.group(2))
 
         if en_keys != id_keys:
-            self._fail(f"Kamus i18n tidak seimbang: {len(en_keys)} key EN vs {len(id_keys)} key ID. "
-                       f"Hanya-EN: {sorted(en_keys - id_keys)[:5]} | Hanya-ID: {sorted(id_keys - en_keys)[:5]}")
+            self._fail(f"i18n dictionary unbalanced: {len(en_keys)} EN keys vs {len(id_keys)} ID keys. "
+                       f"EN-only: {sorted(en_keys - id_keys)[:5]} | ID-only: {sorted(id_keys - en_keys)[:5]}")
         else:
-            self._pass(f"Parity i18n EN/ID seimbang ({len(en_keys)} key).")
+            self._pass(f"i18n EN/ID parity balanced ({len(en_keys)} keys).")
 
         missing_usage = sorted(used_keys - en_keys)
         if missing_usage:
-            self._fail(f"Key data-i18n dipakai di HTML tapi tidak ada di kamus: {missing_usage}")
+            self._fail(f"data-i18n keys used in the HTML but missing from the dictionary: {missing_usage}")
         else:
-            self._pass(f"Semua {len(used_keys)} key data-i18n yang dipakai terdefinisi di kamus EN/ID.")
+            self._pass(f"All {len(used_keys)} used data-i18n keys are defined in the EN/ID dictionary.")
 
-    # -- 9. Semua ID getElementById resolve ke elemen DOM -------------------
+    # -- 9. All getElementById IDs resolve to DOM elements ------------------
     @register
     def _check_09_dom_ids(self):
         used_ids, used_prefixes, _, _ = self._dom_refs()
@@ -510,140 +510,140 @@ class PreflightAudit:
         dom_counter = Counter(self.dom_ids)
         dup_ids = sorted(i for i, n in dom_counter.items() if n > 1)
 
-        # Prefix dinamis (getElementById('prefix' + var)) harus punya minimal
-        # satu ID DOM yang diawali prefix tersebut agar rujukan runtime tidak
-        # kosong. Catatan: jaminan "setidaknya satu elemen cocok prefix",
-        # bukan bahwa setiap nilai runtime pasti resolve.
+        # Dynamic prefixes (getElementById('prefix' + var)) must have at least
+        # one DOM ID starting with that prefix so runtime references are not
+        # empty. Note: this guarantees "at least one element matches the
+        # prefix", not that every runtime value resolves.
         unmatched_prefixes = sorted({p for p in used_prefixes
                                      if not any(d.startswith(p) for d in self.dom_ids)})
 
         id_issues = []
         if missing_ids:
-            id_issues.append(f"{len(missing_ids)} ID getElementById tidak ada di DOM: {missing_ids[:10]}")
+            id_issues.append(f"{len(missing_ids)} getElementById IDs not present in the DOM: {missing_ids[:10]}")
         if unmatched_prefixes:
-            id_issues.append(f"{len(unmatched_prefixes)} prefix ID dinamis getElementById tidak cocok dengan ID DOM mana pun: {unmatched_prefixes[:10]}")
+            id_issues.append(f"{len(unmatched_prefixes)} dynamic getElementById ID prefixes do not match any DOM ID: {unmatched_prefixes[:10]}")
         if dup_ids:
-            id_issues.append(f"{len(dup_ids)} atribut id duplikat (getElementById ambigu): {dup_ids[:10]}")
+            id_issues.append(f"{len(dup_ids)} duplicate id attributes (ambiguous getElementById): {dup_ids[:10]}")
 
         if id_issues:
-            self._fail(f"Referensi elemen tidak sehat: {'; '.join(id_issues)}")
+            self._fail(f"Unhealthy element references: {'; '.join(id_issues)}")
         else:
-            detail = f" + {len(set(used_prefixes))} prefix dinamis terverifikasi" if used_prefixes else ""
-            self._pass(f"Semua {len(used_unique)} ID getElementById unik resolve ke elemen DOM{detail} (0 rujukan mati, 0 id duplikat).")
+            detail = f" + {len(set(used_prefixes))} verified dynamic prefixes" if used_prefixes else ""
+            self._pass(f"All {len(used_unique)} unique getElementById IDs resolve to DOM elements{detail} (0 dead references, 0 duplicate ids).")
 
-    # -- 9b. Panggilan variabel getElementById(modalId): sumber nilai --------
+    # -- 9b. Variable getElementById(modalId) calls: value source -----------
     @register
     def _check_09b_modal_var(self):
         _, _, var_calls, _ = self._dom_refs()
         unique_vars = sorted(set(var_calls))
         if not unique_vars:
-            self._pass("Tidak ada panggilan variabel getElementById - pemeriksaan sumber nilai tidak berlaku.")
+            self._pass("No variable getElementById calls - value-source check not applicable.")
             return
         dom_set = set(self.dom_ids)
         var_issues = []
-        # Catatan batasan: regex hanya mengenali function declaration
-        # (function nama(params)); arrow/method shorthand tidak terdeteksi dan
-        # akan memicu FAIL "bukan parameter fungsi mana pun" — konsisten dengan
-        # gaya function declaration yang dipakai di kodebase ini.
+        # Note: the regex only recognizes function declarations
+        # (function name(params)); arrow/method shorthand is not detected and
+        # would trigger a FAIL "not a parameter of any function" — consistent
+        # with the function-declaration style used in this codebase.
         func_defs = re.findall(r'function\s+(\w+)\s*\(([^)]*)\)', self.content)
         data_targets = set(re.findall(r'data-modal-target="([^"]+)"', self.content))
 
-        # Fungsi pemilik variabel + seluruh literal call-nya (dihitung sekali)
+        # Functions owning the variable + all their literal calls (computed once)
         owner_funcs = sorted({fn for fn, params in func_defs
                               for v in unique_vars
                               if re.search(r'\b' + re.escape(v) + r'\b', params)})
         lit_calls = set(lc for fn in owner_funcs
                         for lc in re.findall(r'\b' + re.escape(fn) + r"\(\s*'([^']+)'\s*\)", self.content))
 
-        # Catatan batasan: call ber-argumen gabungan (openModal('modal-' + id))
-        # tidak cocok pola literal; asimetris dengan #9 yang menangani prefix.
-        # Tidak dipakai di kodebase saat ini.
+        # Note: calls with combined arguments (openModal('modal-' + id)) do not
+        # match the literal pattern; asymmetric with #9 which handles prefixes.
+        # Not used in the current codebase.
 
         for var_name in unique_vars:
             if not any(re.search(r'\b' + re.escape(var_name) + r'\b', params)
                        for _, params in func_defs):
                 var_issues.append(
-                    f"{var_name} bukan parameter fungsi mana pun (referensi tak terlacak)")
+                    f"{var_name} is not a parameter of any function (untracked reference)")
                 continue
-            # Semua literal call ke fungsi pemilik harus menunjuk elemen DOM
+            # All literal calls to the owning function must point to a DOM element
             bad_calls = sorted(lit_calls - dom_set)
             if bad_calls:
                 var_issues.append(
-                    f"{var_name} -> literal call memuat nilai tanpa elemen DOM: {bad_calls}")
-            # Semua data-modal-target (dibaca via dataset.modalTarget) resolve
+                    f"{var_name} -> literal calls contain values without a DOM element: {bad_calls}")
+            # All data-modal-target (read via dataset.modalTarget) resolve
             bad_targets = sorted(data_targets - dom_set)
             if bad_targets:
                 var_issues.append(
-                    f"{var_name} -> data-modal-target tanpa elemen DOM: {bad_targets}")
+                    f"{var_name} -> data-modal-target without a DOM element: {bad_targets}")
 
         if var_issues:
-            self._fail(f"Panggilan variabel getElementById tak terverifikasi: {'; '.join(var_issues)}")
+            self._fail(f"Unverified variable getElementById calls: {'; '.join(var_issues)}")
         else:
-            self._pass(f"Panggilan variabel getElementById({', '.join(unique_vars)}) terverifikasi: "
-                       f"argumen berasal dari {', '.join(owner_funcs)}('...') & data-modal-target "
-                       f"({len(data_targets)} target, {len(lit_calls)} literal call) - semuanya resolve ke DOM.")
+            self._pass(f"Variable getElementById({', '.join(unique_vars)}) calls verified: "
+                       f"arguments come from {', '.join(owner_funcs)}('...') & data-modal-target "
+                       f"({len(data_targets)} targets, {len(lit_calls)} literal calls) - all resolve to the DOM.")
 
-    # -- 10. Selector querySelector/All, closest, matches ('#id') -> DOM -----
+    # -- 10. querySelector/All, closest, matches ('#id') selectors -> DOM ----
     @register
     def _check_10_selectors(self):
         _, _, _, qs_selectors = self._dom_refs()
         qs_ids = set()
         for sel in qs_selectors:
-            # Buang attribute selector [attr=...] — id di dalamnya bukan id target
+            # Strip attribute selectors [attr=...] — ids inside them are not targets
             no_attrs = re.sub(r'\[[^\]]*\]', '', sel)
             for iid in re.findall(r'#([A-Za-z][\w-]*)', no_attrs):
                 qs_ids.add(iid)
 
         missing_qs_ids = sorted(qs_ids - set(self.dom_ids))
         if missing_qs_ids:
-            self._fail(f"Selector querySelector/closest/matches('#id') menunjuk elemen yang tidak ada di DOM: {missing_qs_ids}")
+            self._fail(f"querySelector/closest/matches('#id') selectors point to elements not in the DOM: {missing_qs_ids}")
         else:
-            self._pass(f"Semua {len(qs_ids)} ID querySelector/closest/matches('#...') unik resolve ke elemen DOM "
-                       f"(dari {len(set(qs_selectors))} selector).")
+            self._pass(f"All {len(qs_ids)} unique querySelector/closest/matches('#...') IDs resolve to DOM elements "
+                       f"(from {len(set(qs_selectors))} selectors).")
 
-    # -- 11. SEO meta dasar (Google & Bing SERP) ----------------------------
+    # -- 11. Basic SEO meta (Google & Bing SERP) ----------------------------
     @register
     def _check_11_seo_meta(self):
         issues = []
         title_len = None
         title_match = re.search(r'<title>([^<]*)</title>', self.content)
         if not title_match or not title_match.group(1).strip():
-            issues.append("Tag <title> tidak ditemukan atau kosong")
+            issues.append("Tag <title> not found or empty")
         else:
             title_len = len(unescape(title_match.group(1)))
             if title_len > 65:
-                issues.append(f"Tag <title> terlalu panjang ({title_len} char > 65 batas SERP)")
+                issues.append(f"Tag <title> too long ({title_len} char > 65 SERP limit)")
         if 'rel="canonical"' not in self.content:
-            issues.append("Link rel='canonical' tidak ditemukan")
+            issues.append("Link rel='canonical' not found")
         robots = re.search(r'name="robots"\s+content="([^"]+)"', self.content)
         if not robots:
-            issues.append("Meta robots tidak ditemukan")
+            issues.append("Meta robots not found")
         elif 'noindex' in robots.group(1):
-            issues.append("Meta robots memuat noindex (halaman tidak akan terindeks)")
+            issues.append("Meta robots contains noindex (page will not be indexed)")
         desc = re.search(r'name="description"\s+content="([^"]*)"', self.content)
         if not desc or not desc.group(1).strip():
-            issues.append("Meta description tidak ditemukan atau kosong")
+            issues.append("Meta description not found or empty")
         else:
             desc_len = len(unescape(desc.group(1)))
             if desc_len > 160:
-                issues.append(f"Meta description terlalu panjang ({desc_len} char > 160)")
+                issues.append(f"Meta description too long ({desc_len} char > 160)")
         for prop in ('og:title', 'og:description', 'og:image'):
             if f'property="{prop}"' not in self.content:
-                issues.append(f"Open Graph {prop} tidak ditemukan")
+                issues.append(f"Open Graph {prop} not found")
         if 'name="twitter:card"' not in self.content:
-            issues.append("Twitter Card (twitter:card) tidak ditemukan")
+            issues.append("Twitter Card (twitter:card) not found")
         if issues:
-            self._fail("SEO meta tidak sehat: " + "; ".join(issues))
+            self._fail("SEO meta unhealthy: " + "; ".join(issues))
         else:
             detail = f"title {title_len} char" if title_len else "title ok"
-            self._pass(f"SEO meta lengkap ({detail}, description, robots index, canonical, OG, Twitter).")
+            self._pass(f"SEO meta complete ({detail}, description, robots index, canonical, OG, Twitter).")
 
-    # -- 12. Structured data JSON-LD valid (schema.org) ---------------------
+    # -- 12. Valid JSON-LD structured data (schema.org) ---------------------
     @register
     def _check_12_jsonld(self):
         blocks = re.findall(r'<script type="application/ld\+json">(.*?)</script>', self.content, re.S)
         if not blocks:
-            self._fail("Tidak ditemukan blok structured data JSON-LD (schema.org).")
+            self._fail("No JSON-LD structured data block (schema.org) found.")
             return
         errors = []
         types = []
@@ -651,23 +651,23 @@ class PreflightAudit:
             try:
                 data = json.loads(body)
             except json.JSONDecodeError as e:
-                errors.append(f"blok {i} bukan JSON valid ({e})")
+                errors.append(f"block {i} is not valid JSON ({e})")
                 continue
             if isinstance(data, dict) and isinstance(data.get('@type'), str):
                 types.append(data['@type'])
         required_types = {'Person', 'WebSite'}
         missing_types = sorted(required_types - set(types))
         if missing_types:
-            errors.append(f"JSON-LD kekurangan tipe schema.org: {missing_types}")
+            errors.append(f"JSON-LD missing schema.org types: {missing_types}")
         if errors:
-            self._fail("Structured data JSON-LD tidak sehat: " + "; ".join(errors))
+            self._fail("JSON-LD structured data unhealthy: " + "; ".join(errors))
         else:
-            self._pass(f"Structured data JSON-LD valid ({len(blocks)} blok, tipe: {', '.join(types)}).")
+            self._pass(f"JSON-LD structured data valid ({len(blocks)} blocks, types: {', '.join(types)}).")
 
-    # -- Eksekusi -----------------------------------------------------------
+    # -- Execution ----------------------------------------------------------
     def run(self):
-        # Reset state agar run() idempotent (aman dipanggil berulang pada
-        # instance yang sama tanpa menggandakan hitungan referensi DOM).
+        # Reset state so run() is idempotent (safe to call repeatedly on the
+        # same instance without double-counting DOM reference hits).
         self.errors = 0
         self.pass_count = 0
         self.warn_count = 0
@@ -678,18 +678,18 @@ class PreflightAudit:
 
 
 def run_preflight_check(file_path, quick=False):
-    """Baca file, jalankan seluruh pemeriksaan terdaftar, cetak hasil akhir."""
-    print("[SYS_INIT] Memulai Audit Pre-Flight untuk Deployment GitHub...\n")
+    """Read the file, run every registered check, print the final result."""
+    print("[SYS_INIT] Starting Pre-Flight Audit for GitHub Deployment...\n")
 
     if not os.path.exists(file_path):
-        print(f"[ERROR] Fatal: File {file_path} tidak ditemukan di direktori saat ini.")
+        print(f"[ERROR] Fatal: File {file_path} not found in the current directory.")
         sys.exit(1)
 
     try:
         with open(file_path, 'r', encoding='utf-8') as file:
             content = file.read()
     except Exception as e:
-        print(f"[ERROR] Gagal membaca file: {e}")
+        print(f"[ERROR] Failed to read file: {e}")
         sys.exit(1)
 
     started = time.monotonic()
@@ -698,24 +698,24 @@ def run_preflight_check(file_path, quick=False):
     elapsed = time.monotonic() - started
 
     print("\n" + "=" * 30)
-    print("HASIL AUDIT PRE-FLIGHT")
+    print("PRE-FLIGHT AUDIT RESULTS")
     print("=" * 30)
-    print(f"Ringkasan: {audit.pass_count} PASS | {errors} FAIL | {audit.warn_count} WARN "
-          f"| {len(_CHECKS_REGISTRY)} pemeriksaan | {elapsed:.2f}s")
+    print(f"Summary: {audit.pass_count} PASS | {errors} FAIL | {audit.warn_count} WARN "
+          f"| {len(_CHECKS_REGISTRY)} checks | {elapsed:.2f}s")
     if errors == 0:
-        print("[STATUS]: 100% PRODUCTION READY. Silakan eksekusi Git Commit dan Push.")
+        print("[STATUS]: 100% PRODUCTION READY. Proceed with Git Commit and Push.")
     else:
-        print(f"[STATUS]: GAGAL. Ditemukan {errors} isu arsitektural. Perbaiki sebelum push ke GitHub.")
+        print(f"[STATUS]: FAILED. Found {errors} architectural issues. Fix them before pushing to GitHub.")
         sys.exit(1)
 
 
 def parse_cli_args(argv):
-    """Parse argumen CLI -> (target_file, quick).
+    """Parse CLI arguments -> (target_file, quick).
 
-    Argumen posisi pertama (bila ada) adalah file target; --quick menonaktifkan
-    node --check. Argumen yang diawali '-' (single atau double dash) tidak pernah
-    dianggap file target, jadi flag seperti --help/-q diabaikan dengan aman
-    (bukan menjadi nama file yang bingung "tidak ditemukan").
+    The first positional argument (if any) is the target file; --quick disables
+    node --check. Arguments starting with '-' (single or double dash) are never
+    treated as the target file, so flags like --help/-q are safely ignored
+    (rather than becoming a confusing "not found" filename).
     """
     quick = '--quick' in argv
     positional = [a for a in argv if not a.startswith('-')]
@@ -724,10 +724,10 @@ def parse_cli_args(argv):
 
 
 if __name__ == "__main__":
-    # Target file dapat dikonfigurasi sebagai argumen posisi pertama:
-    #   python audit.py                 -> audit index.html (default, 12 pemeriksaan)
-    #   python audit.py path/to/x.html  -> audit file lain
-    #   python audit.py --quick         -> tanpa node --check (untuk pre-commit)
-    #   python audit.py file.html --quick -> kombinasi keduanya
+    # The target file can be configured as the first positional argument:
+    #   python audit.py                 -> audit index.html (default, 13 checks)
+    #   python audit.py path/to/x.html  -> audit another file
+    #   python audit.py --quick         -> without node --check (for pre-commit)
+    #   python audit.py file.html --quick -> combination of both
     target_file, quick = parse_cli_args(sys.argv[1:])
     run_preflight_check(target_file, quick=quick)

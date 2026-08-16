@@ -82,7 +82,7 @@ function TowerScene() {
           </group>
         ))}
       </group>
-      {/* menara kontrol */}
+      {/* control tower */}
       <group position={[0, -1.4, -5.2]}>
         <mesh position={[0, 0.9, 0]}>
           <cylinderGeometry args={[0.18, 0.28, 1.8, 12]} />
@@ -92,7 +92,7 @@ function TowerScene() {
           <cylinderGeometry args={[0.42, 0.42, 0.5, 12]} />
           <meshBasicMaterial color="#0b1410" wireframe transparent opacity={0.7} />
         </mesh>
-        {/* antena radar berputar */}
+        {/* rotating radar antenna */}
         <group ref={radar} position={[0, 2.45, 0]}>
           <mesh>
             <boxGeometry args={[0.06, 0.02, 0.7]} />
@@ -122,22 +122,22 @@ function TowerPage() {
       scene={<TowerScene />}
     >
       <section className="hero">
-        <div className="kicker">Project control tower — mengatur beberapa proyek sekaligus</div>
+        <div className="kicker">Project control tower — managing multiple projects at once</div>
         <ScanTitle>TOWER</ScanTitle>
         <p className="sub">
-          Pernah memegang 4 proyek infrastruktur paralel (PUPR). Di sini, tiap proyek = penerbangan:
-          ada yang on approach, holding, atau sudah parkir. Semua punya slot, semua terkoordinasi.
+          I once managed 4 parallel infrastructure projects (PUPR). Here, every project = a flight:
+          some on approach, some holding, some already parked. All have slots, all coordinated.
         </p>
         <div className="actions">
-          <a className="btn solid" href="#board">LIHAT DEPARTURE BOARD ↓</a>
+          <a className="btn solid" href="#board">VIEW DEPARTURE BOARD ↓</a>
         </div>
-        <div className="scroll-hint">▾ scroll — pesawat bergerak di jalur approach-nya</div>
+        <div className="scroll-hint">▾ scroll — aircraft move along their approach paths</div>
       </section>
 
       <section id="board" className="section" style={{ paddingTop: 20 }}>
         <div className="mono">// DEPARTURE BOARD</div>
-        <h2>Lalu lintas proyek</h2>
-        <p className="lede">Status real-time dalam metafora ATC — tidak ada proyek yang saling menabrak.</p>
+        <h2>Project traffic</h2>
+        <p className="lede">Real-time status in an ATC metaphor — no project collides with another.</p>
         <div className="tile" style={{ padding: 0, overflow: 'hidden' }}>
           <div style={{ font: '11px ui-monospace, monospace', padding: '10px 16px', borderBottom: '1px solid #1a2d23', color: '#93a89c', letterSpacing: '0.08em', display: 'grid', gridTemplateColumns: '90px 1fr 60px 70px 110px', gap: 8 }}>
             <span>FLIGHT</span><span>DESTINATION</span><span>GATE</span><span>TIME</span><span>STATUS</span>
@@ -165,7 +165,7 @@ function TowerPage() {
               <div className="tile" style={{ borderTop: '3px solid ' + f.c }}>
                 <span className="meta" style={{ color: f.c }}>{f.id} · {f.status}</span>
                 <h3>{f.t}</h3>
-                <p>Proyek berjalan dengan slot & jalur approach sendiri — koordinasi lintas tim dan timezone.</p>
+                <p>Each project runs with its own slot & approach path — coordination across teams and timezones.</p>
               </div>
             </FadeUp>
           ))}
@@ -173,9 +173,9 @@ function TowerPage() {
       </section>
 
       <footer className="demo">
-        <span className="mono-up">TOWER · konsep 09/10</span>
-        <span>pesawat bergerak = proyek aktif; parkir = selesai</span>
-        <a href="#/">← kembali ke galeri</a>
+        <span className="mono-up">TOWER · concept 09/10</span>
+        <span>moving aircraft = active projects; parked = done</span>
+        <a href="#/">← back to gallery</a>
       </footer>
     </ConceptLayout>
   )

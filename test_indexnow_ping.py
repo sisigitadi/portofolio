@@ -1,17 +1,18 @@
 # -*- coding: utf-8 -*-
-"""Unit test indexnow-ping.py (pytest).
+"""Unit tests for indexnow-ping.py (pytest).
 
-Menguji fungsi-fungsi murni indexnow-ping.py tanpa mengirim ping jaringan:
-  - auto-discover file key `{KEY}.txt` (nama = isi, pola 8-128 alfanumerik/hyphen)
-  - pembangunan payload IndexNow (host, key, keyLocation, urlList)
-  - fallback CRLF -> LF pada deployed_content_hash (perilaku lintas-platform)
-  - logika wait_until_deployed (tanpa jaringan; _fetch_live_sha di-mock)
-  - parsing argumen CLI & exit code
+Tests the pure functions of indexnow-ping.py without sending network pings:
+  - auto-discovery of the `{KEY}.txt` key file (name = content, 8-128
+    alphanumeric/hyphen pattern)
+  - IndexNow payload construction (host, key, keyLocation, urlList)
+  - CRLF -> LF fallback in deployed_content_hash (cross-platform behavior)
+  - wait_until_deployed logic (no network; _fetch_live_sha is mocked)
+  - CLI argument parsing & exit codes
 
-Catatan: nama file ber-tanda hubung (indexnow-ping.py) tidak bisa di-import
-dengan `import` biasa, jadi dimuat lewat importlib.util.
+Note: the hyphenated filename (indexnow-ping.py) cannot be imported with a
+regular `import`, so it is loaded via importlib.util.
 
-Jalankan: python -m pytest test_indexnow_ping.py -v
+Run: python -m pytest test_indexnow_ping.py -v
 """
 
 import hashlib
@@ -21,20 +22,21 @@ from pathlib import Path
 
 import pytest
 
-# Subprocess di-import lokal di dalam deployed_content_hash(); mem-patch
-# subprocess.run global sama efektifnya karena keduanya objek modul yang sama.
-NO_GIT = lambda *a, **k: None  # noqa: E731 — menggagalkan `git show` di test
+# Subprocess is imported locally inside deployed_content_hash(); patching the
+# global subprocess.run is just as effective because both are the same module
+# object.
+NO_GIT = lambda *a, **k: None  # noqa: E731 — fails `git show` in tests
 
 ROOT = Path(__file__).resolve().parent
 MODULE_PATH = ROOT / "indexnow-ping.py"
 
 # ---------------------------------------------------------------------------
-# Load module (nama file ber-tanda hubung -> importlib)
+# Load module (hyphenated filename -> importlib)
 # ---------------------------------------------------------------------------
 @pytest.fixture(scope="module")
 def mod():
     if not MODULE_PATH.exists():
-        pytest.skip("indexnow-ping.py tidak ditemukan di root proyek")
+        pytest.skip("indexnow-ping.py not found in the project root")
     spec = importlib.util.spec_from_file_location("indexnow_ping_test", MODULE_PATH)
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
@@ -43,12 +45,12 @@ def mod():
 
 @pytest.fixture
 def no_sleep(monkeypatch, mod):
-    """Netralkan time.sleep agar test wait_until_deployed tidak melambat."""
+    """Neutralize time.sleep so wait_until_deployed tests do not slow down."""
     monkeypatch.setattr(mod.time, "sleep", lambda s: None)
 
 
 # ---------------------------------------------------------------------------
-# Auto-discover file key
+# Key file auto-discovery
 # ---------------------------------------------------------------------------
 def _write_key(tmp_path, name, content):
     p = tmp_path / name
@@ -57,7 +59,7 @@ def _write_key(tmp_path, name, content):
 
 
 def test_discover_key_finds_valid(tmp_path, mod):
-    """File `{KEY}.txt` dengan isi == nama ditemukan oleh auto-discover."""
+    """A `{KEY}.txt` file whose content == its name is found by auto-discovery."""
     _write_key(tmp_path, "6605868618dc4f34b628743b70f6d7c9.txt", "6605868618dc4f34b628743b70f6d7c9")
     found = mod.discover_key_file(tmp_path)
     assert found is not None
@@ -65,32 +67,32 @@ def test_discover_key_finds_valid(tmp_path, mod):
 
 
 def test_discover_key_ignores_content_mismatch(tmp_path, mod):
-    """Nama valid tapi isi != nama -> dilewati (bukan key IndexNow)."""
-    _write_key(tmp_path, "6605868618dc4f34b628743b70f6d7c9.txt", "beda-key")
+    """Valid name but content != name -> skipped (not an IndexNow key)."""
+    _write_key(tmp_path, "6605868618dc4f34b628743b70f6d7c9.txt", "different-key")
     assert mod.discover_key_file(tmp_path) is None
 
 
 def test_discover_key_ignores_short_name(tmp_path, mod):
-    """Nama < 8 karakter -> dilewati (di bawah batas spesifikasi)."""
+    """Name shorter than 8 chars -> skipped (below the spec limit)."""
     _write_key(tmp_path, "abc.txt", "abc")
     assert mod.discover_key_file(tmp_path) is None
 
 
 def test_discover_key_ignores_invalid_chars(tmp_path, mod):
-    """Nama dengan karakter di luar [A-Za-z0-9-] -> dilewati."""
+    """Names with characters outside [A-Za-z0-9-] -> skipped."""
     _write_key(tmp_path, "key_under_score_123.txt", "key_under_score_123")
     assert mod.discover_key_file(tmp_path) is None
 
 
 def test_discover_key_ignores_plain_txt(tmp_path, mod):
-    """File .txt biasa (README, notes) bukan key -> dilewati."""
-    _write_key(tmp_path, "catatan.txt", "ini bukan key")
+    """Plain .txt files (README, notes) are not keys -> skipped."""
+    _write_key(tmp_path, "notes.txt", "not a key")
     assert mod.discover_key_file(tmp_path) is None
 
 
 def test_discover_key_picks_among_multiple(tmp_path, mod):
-    """Satu key valid di antara banyak file -> hanya key valid yang dipilih."""
-    _write_key(tmp_path, "catatan.txt", "bukan key")
+    """One valid key among many files -> only the valid key is picked."""
+    _write_key(tmp_path, "notes.txt", "not a key")
     _write_key(tmp_path, "abc1234567890.txt", "abc1234567890")
     found = mod.discover_key_file(tmp_path)
     assert found is not None
@@ -98,7 +100,7 @@ def test_discover_key_picks_among_multiple(tmp_path, mod):
 
 
 def test_load_key_explicit(tmp_path, mod):
-    """--key-file eksplisit menang, auto-discover tidak diperlukan."""
+    """An explicit --key-file wins; auto-discovery is not needed."""
     p = _write_key(tmp_path, "abc1234567890.txt", "abc1234567890")
     loaded = mod.load_key(tmp_path, str(p))
     assert loaded is not None
@@ -108,22 +110,22 @@ def test_load_key_explicit(tmp_path, mod):
 
 
 def test_load_key_missing_file(tmp_path, mod, capsys):
-    """--key-file menunjuk file tak ada -> None + pesan error."""
-    loaded = mod.load_key(tmp_path, "tidak-ada.txt")
+    """--key-file points to a nonexistent file -> None + error message."""
+    loaded = mod.load_key(tmp_path, "missing.txt")
     assert loaded is None
-    assert "tidak ditemukan" in capsys.readouterr().out
+    assert "not found" in capsys.readouterr().out
 
 
 def test_load_key_invalid_name(tmp_path, mod, capsys):
-    """--key-file dengan nama tak valid -> None."""
+    """--key-file with an invalid name -> None."""
     p = _write_key(tmp_path, "key_under_score_123.txt", "key_under_score_123")
     loaded = mod.load_key(tmp_path, str(p))
     assert loaded is None
-    assert "tidak valid" in capsys.readouterr().out
+    assert "invalid" in capsys.readouterr().out
 
 
 def test_load_key_auto_discovers(tmp_path, mod):
-    """Tanpa --key-file: key ditemukan otomatis dari root."""
+    """Without --key-file: the key is discovered automatically from the root."""
     _write_key(tmp_path, "abc1234567890.txt", "abc1234567890")
     loaded = mod.load_key(tmp_path, None)
     assert loaded is not None
@@ -132,15 +134,15 @@ def test_load_key_auto_discovers(tmp_path, mod):
 
 
 def test_load_key_none_when_no_key(tmp_path, mod, capsys):
-    """Tanpa key sama sekali -> None + pesan error yang jelas."""
+    """No key at all -> None + a clear error message."""
     loaded = mod.load_key(tmp_path, None)
     assert loaded is None
     out = capsys.readouterr().out
-    assert "tidak ditemukan" in out
+    assert "key file found in the repo root" in out
 
 
 # ---------------------------------------------------------------------------
-# Payload IndexNow
+# IndexNow payload
 # ---------------------------------------------------------------------------
 def test_build_payload_shape(mod):
     payload = mod.build_payload(
@@ -162,12 +164,12 @@ def test_build_payload_json_serializable(mod):
     import json
 
     payload = mod.build_payload("h", "k", "l", ["u1", "u2"])
-    parsed = json.loads(json.dumps(payload))  # harus tidak error & round-trip
+    parsed = json.loads(json.dumps(payload))  # must not error & round-trip
     assert parsed == payload
 
 
 def test_ping_dry_run_returns_true(mod, capsys):
-    """--dry-run: tidak mengirim jaringan, selalu True + mencetak payload."""
+    """--dry-run: no network, always True + prints the payload."""
     payload = mod.build_payload("h", "k", "l", ["u1"])
     ok = mod.ping_indexnow(payload, dry_run=True, verbose=False)
     assert ok is True
@@ -175,7 +177,7 @@ def test_ping_dry_run_returns_true(mod, capsys):
 
 
 def test_ping_http_errors(mod, monkeypatch, capsys):
-    """Kode status HTTP tidak valid -> False (tanpa jaringan sungguhan)."""
+    """Invalid HTTP status codes -> False (no real network)."""
     import urllib.error
 
     class FakeResp:
@@ -201,7 +203,7 @@ def test_ping_http_errors(mod, monkeypatch, capsys):
 
 
 def test_ping_http_403_fails(mod, monkeypatch, capsys):
-    """HTTP 403 (key invalid) -> False + pesan jelas."""
+    """HTTP 403 (invalid key) -> False + a clear message."""
     import urllib.error
 
     def fake_urlopen(req, timeout=30):
@@ -214,7 +216,7 @@ def test_ping_http_403_fails(mod, monkeypatch, capsys):
 
 
 def test_ping_network_error_fails(mod, monkeypatch, capsys):
-    """Error jaringan -> False (tidak crash)."""
+    """Network error -> False (does not crash)."""
 
     def fake_urlopen(req, timeout=30):
         raise OSError("network down")
@@ -222,22 +224,22 @@ def test_ping_network_error_fails(mod, monkeypatch, capsys):
     monkeypatch.setattr(mod.urllib.request, "urlopen", fake_urlopen)
     ok = mod.ping_indexnow({"host": "h"}, dry_run=False, verbose=False)
     assert ok is False
-    assert "ERROR jaringan" in capsys.readouterr().out
+    assert "network ERROR" in capsys.readouterr().out
 
 
 # ---------------------------------------------------------------------------
-# deployed_content_hash — fallback CRLF (perilaku Windows checkout)
+# deployed_content_hash — CRLF fallback (Windows checkout behavior)
 # ---------------------------------------------------------------------------
 def _sha256_bytes(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
 
 
 def test_crlf_fallback_normalizes(tmp_path, mod, monkeypatch):
-    """Fallback (tanpa git) menormalkan CRLF -> LF sebelum hashing.
+    """The (git-less) fallback normalizes CRLF -> LF before hashing.
 
-    Simulasi repo non-git (tmp_path) sehingga git show gagal -> fallback.
-    File lokal ber-format CRLF harus menghasilkan hash yang SAMA dengan
-    konten LF murni — inilah inti perbaikan wait-sha di Windows.
+    Simulates a non-git repo (tmp_path) so git show fails -> fallback is used.
+    A CRLF-formatted local file must produce the SAME hash as pure LF content —
+    this is the core of the wait-sha fix on Windows.
     """
     lf_content = b"<html>\n<body>\nok\n</body>\n</html>\n"
     crlf_content = lf_content.replace(b"\n", b"\r\n")
@@ -245,16 +247,16 @@ def test_crlf_fallback_normalizes(tmp_path, mod, monkeypatch):
     target = tmp_path / "index.html"
     target.write_bytes(crlf_content)
 
-    # Pastikan fallback yang dipakai (bukan git): patok subprocess.run agar gagal.
+    # Make sure the fallback is used (not git): force subprocess.run to fail.
     monkeypatch.setattr(subprocess, "run", NO_GIT)
 
     result = mod.deployed_content_hash(tmp_path, "index.html")
     assert result == _sha256_bytes(lf_content)
-    assert result != _sha256_bytes(crlf_content)  # bukti CRLF benar-benar dinormalisasi
+    assert result != _sha256_bytes(crlf_content)  # proof CRLF was normalized
 
 
 def test_crlf_fallback_lf_unchanged(tmp_path, mod, monkeypatch):
-    """Konten LF murni tetap menghasilkan hash LF yang sama."""
+    """Pure LF content still produces the same LF hash."""
     lf_content = b"<html>\nok\n</html>\n"
     target = tmp_path / "index.html"
     target.write_bytes(lf_content)
@@ -263,16 +265,16 @@ def test_crlf_fallback_lf_unchanged(tmp_path, mod, monkeypatch):
 
 
 def test_deployed_content_hash_missing_file(tmp_path, mod, monkeypatch):
-    """File tidak ada -> None (tanpa crash)."""
+    """Missing file -> None (does not crash)."""
     monkeypatch.setattr(subprocess, "run", NO_GIT)
-    assert mod.deployed_content_hash(tmp_path, "tidak-ada.html") is None
+    assert mod.deployed_content_hash(tmp_path, "missing.html") is None
 
 
 # ---------------------------------------------------------------------------
-# wait_until_deployed — logika polling (tanpa jaringan)
+# wait_until_deployed — polling logic (no network)
 # ---------------------------------------------------------------------------
 def test_wait_until_deployed_match(tmp_path, mod, monkeypatch, no_sleep):
-    """Konten live cocok -> True segera (tanpa menunggu timeout)."""
+    """Live content matches -> True immediately (no timeout wait)."""
     target = tmp_path / "index.html"
     target.write_bytes(b"<html>\nok\n</html>\n")
     monkeypatch.setattr(subprocess, "run", NO_GIT)
@@ -282,18 +284,18 @@ def test_wait_until_deployed_match(tmp_path, mod, monkeypatch, no_sleep):
 
 
 def test_wait_until_deployed_timeout(tmp_path, mod, monkeypatch, no_sleep):
-    """Konten live tidak pernah cocok -> False (timeout, ping best-effort)."""
+    """Live content never matches -> False (timeout, best-effort ping)."""
     target = tmp_path / "index.html"
     target.write_bytes(b"<html>\nok\n</html>\n")
     monkeypatch.setattr(subprocess, "run", NO_GIT)
-    monkeypatch.setattr(mod, "_fetch_live_sha", lambda url: "hash-tak-cocok")
+    monkeypatch.setattr(mod, "_fetch_live_sha", lambda url: "hash-no-match")
     assert mod.wait_until_deployed(tmp_path, "index.html", timeout=0.01) is False
 
 
 def test_wait_until_deployed_missing_file(tmp_path, mod, monkeypatch, no_sleep):
-    """File --wait-sha tak ada -> dilewati (True, ping tetap dilanjutkan)."""
+    """Missing --wait-sha file -> skipped (True, ping continues anyway)."""
     monkeypatch.setattr(subprocess, "run", NO_GIT)
-    assert mod.wait_until_deployed(tmp_path, "tidak-ada.html", timeout=1) is True
+    assert mod.wait_until_deployed(tmp_path, "missing.html", timeout=1) is True
 
 
 # ---------------------------------------------------------------------------
@@ -320,13 +322,13 @@ def test_parse_args_flags(mod, argv, expected):
 
 
 def test_main_missing_key_returns_1(tmp_path, mod, capsys):
-    """main() tanpa file key -> exit code 1 (root disuntikkan ke dir kosong)."""
+    """main() without a key file -> exit code 1 (root injected to an empty dir)."""
     assert mod.main(["--dry-run"], root=tmp_path) == 1
-    assert "tidak ditemukan" in capsys.readouterr().out
+    assert "key file found in the repo root" in capsys.readouterr().out
 
 
 def test_main_dry_run_returns_0(tmp_path, mod, capsys):
-    """main() dengan key valid + --dry-run -> exit code 0, tanpa jaringan."""
+    """main() with a valid key + --dry-run -> exit code 0, no network."""
     p = tmp_path / "abc1234567890.txt"
     p.write_text("abc1234567890", encoding="utf-8")
     assert mod.main(["--dry-run"], root=tmp_path) == 0
@@ -336,7 +338,7 @@ def test_main_dry_run_returns_0(tmp_path, mod, capsys):
 
 
 def test_main_real_run_payload_paths(tmp_path, mod, capsys):
-    """main() --dry-run memakai base path & keyLocation subpath yang benar."""
+    """main() --dry-run uses the correct base path & keyLocation subpath."""
     p = tmp_path / "abc1234567890.txt"
     p.write_text("abc1234567890", encoding="utf-8")
     assert mod.main(["--dry-run"], root=tmp_path) == 0
@@ -347,7 +349,7 @@ def test_main_real_run_payload_paths(tmp_path, mod, capsys):
 
 
 def test_key_filename_re(mod):
-    """Pola nama file key: alfanumerik + hyphen, 8-128 karakter."""
+    """Key filename pattern: alphanumeric + hyphen, 8-128 characters."""
     ok = ["6605868618dc4f34b628743b70f6d7c9.txt", "abcd-1234.txt", "a" * 8 + ".txt", "A-Z0-123.txt"]
     bad = ["abc.txt", "a" * 7 + ".txt", "under_score.txt", "a" * 129 + ".txt", "key with space.txt"]
     for name in ok:

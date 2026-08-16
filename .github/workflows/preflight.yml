@@ -1,19 +1,19 @@
 # ---------------------------------------------------------------------------
 # Pre-Flight Audit & Unit Tests — CI Gate (GitHub Actions)
 #
-# Menjalankan tiga gerbang di setiap push ke main dan setiap pull request:
-#   1. audit.py lengkap (13 pemeriksaan, feature-conditional) — struktur/sanitasi
-#      index.html (SPA lama maupun Field Manual satu-bahasa).
-#   2. pytest penuh (62 test: test_audit.py 30 + test_indexnow_ping.py 32) —
-#      perilaku audit & script IndexNow.
-#   3. Route tests visitor worker (26 test, node --test worker-visitor/worker.test.js) —
+# Runs three gates on every push to main and every pull request:
+#   1. Full audit.py (13 checks, feature-conditional) — structure/sanitation of
+#      index.html (legacy SPA or single-language Field Manual).
+#   2. Full pytest (62 tests: test_audit.py 30 + test_indexnow_ping.py 32) —
+#      audit & IndexNow script behavior.
+#   3. Visitor worker route tests (26 tests, node --test worker-visitor/worker.test.js) —
 #      /count, /hit, /pixel, /api/stats, /api/export, /dashboard (auth, rate-limit,
-#      body guard 10 KB, fail-closed IP_HASH_SALT, CORS).
-# Jika salah satu gagal (exit != 0), workflow gagal dan push/PR diblokir.
+#      10 KB body guard, fail-closed IP_HASH_SALT, CORS).
+# If any of them fails (exit != 0), the workflow fails and the push/PR is blocked.
 #
-# Jalur lokal yang setara:
-#     python audit.py           # audit penuh (wajib 13/13 PASS)
-#     python audit.py --quick   # tanpa node --check (untuk pre-commit)
+# Local equivalent:
+#     python audit.py           # full audit (must be 13/13 PASS)
+#     python audit.py --quick   # skips node --check (for pre-commit)
 #     python -m pytest test_audit.py test_indexnow_ping.py -q
 #     node --test worker-visitor/worker.test.js
 # ---------------------------------------------------------------------------
@@ -24,7 +24,7 @@ on:
     branches: [main, master]
   pull_request:
     branches: [main, master]
-  workflow_dispatch: # izin trigger manual dari tab Actions
+  workflow_dispatch: # allow manual trigger from the Actions tab
 
 jobs:
   audit:

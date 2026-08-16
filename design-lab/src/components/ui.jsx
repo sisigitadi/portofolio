@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { motion, animate, useInView, useReducedMotion } from 'framer-motion'
 
-/* ---------- muncul dengan fade + naik saat masuk viewport ---------- */
+/* ---------- fades in + rises when entering the viewport ---------- */
 export function FadeUp({ children, delay = 0, y = 24, className = '' }) {
   return (
     <motion.div
@@ -16,7 +16,7 @@ export function FadeUp({ children, delay = 0, y = 24, className = '' }) {
   )
 }
 
-/* ---------- teks diketik per karakter ---------- */
+/* ---------- text typed character by character ---------- */
 export function TypeLine({ text, speed = 22, start = true, className = '', cursor = '▊' }) {
   const [n, setN] = useState(0)
   const reduced = useReducedMotion()
@@ -38,7 +38,7 @@ export function TypeLine({ text, speed = 22, start = true, className = '', curso
   )
 }
 
-/* ---------- angka count-up saat terlihat ---------- */
+/* ---------- number counts up when visible ---------- */
 export function CountUp({ to, prefix = '', suffix = '', duration = 1.4, className = '' }) {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-40px' })
@@ -57,7 +57,7 @@ export function CountUp({ to, prefix = '', suffix = '', duration = 1.4, classNam
   )
 }
 
-/* ---------- judul masuk dengan sapuan scan (clip-path) ---------- */
+/* ---------- heading reveals with a scan swipe (clip-path) ---------- */
 export function ScanTitle({ children, delay = 0, className = '' }) {
   return (
     <motion.h1
@@ -71,7 +71,7 @@ export function ScanTitle({ children, delay = 0, className = '' }) {
   )
 }
 
-/* ---------- anak-anak muncul berurutan (stagger) ---------- */
+/* ---------- children appear in sequence (stagger) ---------- */
 export function Stagger({ children, delay = 0, gap = 0.12, className = '' }) {
   return (
     <motion.div
@@ -90,7 +90,7 @@ export const item = {
   show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } },
 }
 
-/* ---------- huruf "di-dekripsi" satu per satu (konsep VERIFY) ---------- */
+/* ---------- letters "decrypt" one by one (VERIFY concept) ---------- */
 export function DecryptText({ text, speed = 30, start = true, delay = 0, className = '' }) {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-40px' })

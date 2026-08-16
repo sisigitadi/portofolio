@@ -2,11 +2,11 @@ import { Link } from './Link'
 import SceneShell from './SceneShell'
 
 /**
- * Kerangka halaman konsep:
- *  - Scene dibungkus SceneShell (Canvas + fallback WebGL), fixed di belakang (z-0)
- *  - Konten scroll di atasnya (z-5)
- *  - Topbar fixed (z-60)
- * CSS vars (--c-accent, --c-bg, ...) di-set per konsep lewat props.theme.
+ * Concept page frame:
+ *  - Scene wrapped in SceneShell (Canvas + WebGL fallback), fixed in the back (z-0)
+ *  - Scrollable content on top (z-5)
+ *  - Fixed topbar (z-60)
+ * CSS vars (--c-accent, --c-bg, ...) are set per concept via props.theme.
  */
 export default function ConceptLayout({ num, name, tag, status = 'PROTOTYPE', theme, scene, children }) {
   const vars = {
@@ -24,8 +24,8 @@ export default function ConceptLayout({ num, name, tag, status = 'PROTOTYPE', th
         <SceneShell camera={{ fov: 45, position: [0, 0, 8], near: 0.1, far: 200 }}>{scene}</SceneShell>
       </div>
       <div className="topbar">
-        <Link href="#/" className="back">← GALERI</Link>
-        <span className="id">KONSEP <b>{num}</b> — {name}</span>
+        <Link href="#/" className="back">← GALLERY</Link>
+        <span className="id">CONCEPT <b>{num}</b> — {name}</span>
         <span className="status"><span className="dot" /> {status}</span>
       </div>
       <div className="concept-scroll">{children}</div>

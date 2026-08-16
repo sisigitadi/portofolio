@@ -12,23 +12,23 @@ const DIM = '#5f6b7a'
 
 const SECTIONS = {
   intro: {
-    title: 'OPERATOR — résumé yang bisa di-prompt',
+    title: 'OPERATOR — a promptable résumé',
     lines: [
       'Sigit Adi Irianto · IT & SecOps · Applied AI.',
-      'Ketik perintah di bawah — ini portofolio yang merespons.',
+      'Type a command below — this portfolio responds.',
     ],
-    hints: ['coba: projects', 'coba: experience', 'coba: certifications', 'coba: contact'],
+    hints: ['try: projects', 'try: experience', 'try: certifications', 'try: contact'],
   },
   projects: {
     title: '// projects',
     lines: [
       'PromptMatrix 2.0 — prompt testing, BYOK (Next.js · Gemini).',
       'SCOPS Command — triage SIEM, MTTR −45% (Wazuh · NIST).',
-      'SmartExpenseML — klasifikasi 100% offline (UU PDP).',
+      'SmartExpenseML — 100% offline classification (UU PDP).',
       'A.R.Y.A. SOC Analytics — threat hunting (Streamlit).',
       'KantinKu ERP — POS serverless (Apps Script · WA).',
     ],
-    hints: ['ketik experience untuk lanjut', 'ketik help'],
+    hints: ['type experience to continue', 'type help'],
   },
   experience: {
     title: '// experience',
@@ -36,12 +36,12 @@ const SECTIONS = {
       '2026 — Web Administrator · BPDLH/MoE (Docker · Wazuh).',
       '2025 — SOC Analyst · Prospera (playbook NIST · ISO 27001).',
       '2024 — Incident Handling · Kemendagri (threat hunting).',
-      '2023 — IT & Ops Manager · ACE (tim 50+).',
-      '2020 — Project Office Manager · PUPR (4 proyek paralel).',
-      '2014 — IT Manager · Dipta Safari Jaya (6 tahun).',
-      '2002 — Akar: helpdesk & enterprise systems.',
+      '2023 — IT & Ops Manager · ACE (team of 50+).',
+      '2020 — Project Office Manager · PUPR (4 parallel projects).',
+      '2014 — IT Manager · Dipta Safari Jaya (6 years).',
+      '2002 — Roots: helpdesk & enterprise systems.',
     ],
-    hints: ['ketik certifications', 'ketik projects'],
+    hints: ['type certifications', 'type projects'],
   },
   certifications: {
     title: '// certifications',
@@ -53,7 +53,7 @@ const SECTIONS = {
       'Penetration Testing Professional — Cybrary.',
       'Ethical Hacking Foundations — LinkedIn Learning.',
     ],
-    hints: ['ketik contact', 'ketik help'],
+    hints: ['type contact', 'type help'],
   },
   contact: {
     title: '// contact',
@@ -62,14 +62,14 @@ const SECTIONS = {
       'LinkedIn: /in/sigitadi',
       'GitHub: /sisigitadi',
       'Medium: @si.sigitadi',
-      'Lokasi: Tangerang · UTC+7 · open to remote worldwide.',
+      'Location: Tangerang · UTC+7 · open to remote worldwide.',
     ],
-    hints: ['ketik projects', 'ketik help'],
+    hints: ['type projects', 'type help'],
   },
   help: {
     title: '// help',
-    lines: ['Perintah: projects · experience · certifications · contact · intro'],
-    hints: ['coba ketik salah satu di atas'],
+    lines: ['Commands: projects · experience · certifications · contact · intro'],
+    hints: ['try typing one of the above'],
   },
 }
 
@@ -157,7 +157,7 @@ function OperatorPage() {
       scene={<OperatorScene intensity={intensity} />}
     >
       <section className="hero" style={{ paddingBottom: 190 }}>
-        <div className="kicker">Promptable résumé — ketik, dan portofolio menjawab</div>
+        <div className="kicker">Promptable résumé — type, and the portfolio answers</div>
         <h1>
           <motion.span
             initial={{ opacity: 0, filter: 'blur(10px)' }}
@@ -168,10 +168,10 @@ function OperatorPage() {
           </motion.span>
         </h1>
         <p className="sub">
-          Saya melatih LLM dan mengevaluasi prompt setiap hari — jadi portofolio ini pun bisa di-prompt.
-          Inti 3D di layar bereaksi setiap kali Anda mengetik. Coba konsol di bawah.
+          I train LLMs and evaluate prompts every day — so this portfolio is promptable too.
+          The 3D core on screen reacts every time you type. Try the console below.
         </p>
-        <div className="scroll-hint">▾ scroll — lalu ketik di konsol OPERATOR</div>
+        <div className="scroll-hint">▾ scroll — then type in the OPERATOR console</div>
       </section>
 
       <section className="section" style={{ paddingTop: 10, paddingBottom: 260 }}>
@@ -207,7 +207,7 @@ function OperatorPage() {
         </AnimatePresence>
       </section>
 
-      {/* konsol fixed di bawah */}
+      {/* console fixed at the bottom */}
       <div className="console">
         <div className="head">
           <span>OPERATOR@SIGIT ~ bash</span>
@@ -215,7 +215,7 @@ function OperatorPage() {
         </div>
         <div className="resp">
           {log.map((l, i) => <div key={i}><span className="k">history&gt;</span> {l}</div>)}
-          {log.length === 0 && <div><span className="k">hint&gt;</span> portofolio ini merespons perintah Anda</div>}
+          {log.length === 0 && <div><span className="k">hint&gt;</span> this portfolio responds to your commands</div>}
         </div>
         <div className="line">
           <span className="prompt">$</span>
@@ -223,18 +223,18 @@ function OperatorPage() {
             value={typed}
             onChange={(e) => setTyped(e.target.value)}
             onKeyDown={onKey}
-            placeholder="ketik projects / experience / certifications / contact / help"
-            aria-label="Perintah konsol portofolio"
+            placeholder="type projects / experience / certifications / contact / help"
+            aria-label="Portfolio console commands"
           />
           <button className="btn" style={{ padding: '6px 12px', fontSize: 11 }} onClick={() => run(typed)}>RUN</button>
         </div>
-        <div className="hint">ENTER = jalankan · ESC = bersihkan</div>
+        <div className="hint">ENTER = run · ESC = clear</div>
       </div>
 
       <footer className="demo" style={{ paddingBottom: 30 }}>
-        <span className="mono-up">OPERATOR · konsep 10/10</span>
-        <span>inti 3D bereaksi terhadap ketikan Anda</span>
-        <a href="#/">← kembali ke galeri</a>
+        <span className="mono-up">OPERATOR · concept 10/10</span>
+        <span>the 3D core reacts to your typing</span>
+        <a href="#/">← back to gallery</a>
       </footer>
     </ConceptLayout>
   )

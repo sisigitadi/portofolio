@@ -10,16 +10,16 @@ function webglOK() {
 }
 
 /**
- * Wrapper r3f Canvas: fallback statis kalau WebGL tidak tersedia,
- * dpr dibatasi untuk performa. Semua scene memakainya.
+ * r3f Canvas wrapper: static fallback when WebGL is unavailable,
+ * dpr capped for performance. Every scene uses it.
  */
 export default function SceneShell({ children, camera, ...props }) {
   if (!webglOK()) {
     return (
       <div className="no-webgl">
-        WebGL tidak tersedia di browser ini — prototipe 3D dilewati.
+        WebGL is not available in this browser — the 3D prototype is skipped.
         <br />
-        (Konsep tetap bisa dilihat dari konten & motion di bawah.)
+        (The concept can still be explored through the content & motion below.)
       </div>
     )
   }

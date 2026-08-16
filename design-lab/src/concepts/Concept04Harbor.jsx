@@ -90,7 +90,7 @@ function HarborScene() {
       <pointLight position={[0, 4, 5]} intensity={40} color={AQUA} />
       <group ref={rack} position={[0, 0, 0]}>
         {CONTAINERS.map((c, i) => <ContainerUnit key={i} c={c} i={i} />)}
-        {/* rak & grid lantai */}
+        {/* racks & floor grid */}
         <Line points={rail} color={AQUA} lineWidth={1} transparent opacity={0.3} />
         <Line points={[[-2.6, 1.72, -1.2], [2.6, 1.72, -1.2]]} color={AQUA} lineWidth={1} transparent opacity={0.25} />
         <Line points={[[-2.6, 1.72, 1.2], [2.6, 1.72, 1.2]]} color={AQUA} lineWidth={1} transparent opacity={0.25} />
@@ -130,23 +130,23 @@ function HarborPage() {
       scene={<HarborScene />}
     >
       <section className="hero">
-        <div className="kicker">Container registry — digital twin infrastruktur yang saya kelola</div>
+        <div className="kicker">Container registry — the digital twin of the infrastructure I manage</div>
         <ScanTitle>HARBOR</ScanTitle>
         <p className="sub">
-          Tiap proyek = container image di rak produksi. LED hijau = berjalan. Hover container untuk
-          membuka layer image — persis `docker inspect` yang saya jalankan setiap hari di Ubuntu/WSL.
+          Each project = a container image on the production rack. Green LED = running. Hover a container to
+          open its image layers — just like `docker inspect`, which I run every day on Ubuntu/WSL.
         </p>
         <div className="actions">
           <a className="btn solid" href="#ps">docker ps ↓</a>
           <a className="btn" href="https://github.com/sisigitadi/scops" target="_blank" rel="noreferrer">GITHUB ↗</a>
         </div>
-        <div className="scroll-hint">▾ scroll — rak berputar, LED berdenyut</div>
+        <div className="scroll-hint">▾ scroll — the rack rotates, LEDs pulse</div>
       </section>
 
       <section id="ps" className="section" style={{ paddingTop: 20 }}>
         <div className="mono">// docker ps --format portofolio</div>
-        <h2>Registri kerja nyata</h2>
-        <p className="lede">Enam image yang saya build, deploy, dan pelihara. Bukan placeholder — semuanya link ke produksi.</p>
+        <h2>The real working registry</h2>
+        <p className="lede">Six images I build, deploy, and maintain. No placeholders — all of them link to production.</p>
         <div className="tile" style={{ padding: 0, overflow: 'hidden' }}>
           <div style={{ font: '11px ui-monospace, monospace', padding: '10px 16px', borderBottom: '1px solid #12252f', color: '#8fb3c4', letterSpacing: '0.08em', display: 'grid', gridTemplateColumns: '70px 1fr 1fr 60px 120px', gap: 8 }}>
             <span>CONTAINER</span><span>IMAGE</span><span>NAME</span><span>STATUS</span><span>PORTS</span>
@@ -178,9 +178,9 @@ function HarborPage() {
       </section>
 
       <footer className="demo">
-        <span className="mono-up">HARBOR · konsep 04/10</span>
-        <span>hover container 3D → inspect layer image</span>
-        <a href="#/">← kembali ke galeri</a>
+        <span className="mono-up">HARBOR · concept 04/10</span>
+        <span>hover 3D container → inspect image layers</span>
+        <a href="#/">← back to gallery</a>
       </footer>
     </ConceptLayout>
   )

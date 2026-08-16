@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-"""Unit test audit.py (pytest).
+"""Unit tests for audit.py (pytest).
 
-Strategi: setiap skenario rusak memakai index.html asli sebagai baseline lalu
-memutasinya pada satu titik saja, sehingga hanya pemeriksaan target yang gagal
-(delta errors = 1). Dengan begitu test menguji deteksi murni, bukan fixture
-sintetis yang mungkin memicu banyak FAIL sekaligus.
+Strategy: every broken scenario uses the real index.html as a baseline and
+mutates it at exactly one point, so only the targeted check fails (delta
+errors = 1). This way the tests verify pure detection, not synthetic fixtures
+that might trigger many FAILs at once.
 
-Jalankan: python -m pytest test_audit.py -v
+Run: python -m pytest test_audit.py -v
 """
 import io
 import contextlib
@@ -21,7 +21,7 @@ INDEX_HTML = ROOT / "index.html"
 
 
 def run_audit(content, quick=False):
-    """Jalankan PreflightAudit dan kembalikan (errors, output)."""
+    """Run PreflightAudit and return (errors, output)."""
     buf = io.StringIO()
     with contextlib.redirect_stdout(buf):
         instance = audit.PreflightAudit(content, quick=quick)
@@ -32,44 +32,44 @@ def run_audit(content, quick=False):
 @pytest.fixture(scope="module")
 def valid_html():
     if not INDEX_HTML.exists():
-        pytest.skip("index.html tidak ditemukan di root proyek")
+        pytest.skip("index.html not found in the project root")
     return INDEX_HTML.read_text(encoding="utf-8")
 
 
 # ---------------------------------------------------------------------------
-# Fixture valid
+# Valid fixture
 # ---------------------------------------------------------------------------
 def test_valid_index_production_ready(valid_html):
-    """index.html asli lolos semua pemeriksaan. Mode penuh (node --check): hasil
-    #6 bergantung environment (PASS / WARN node tidak ada / WARN tak dapat
-    diluncurkan) — ketiganya tidak menambah errors, jadi errors tetap 0."""
+    """The real index.html passes every check. Full mode (node --check): the
+    #6 result depends on the environment (PASS / WARN node missing / WARN
+    cannot launch) — none of them add errors, so errors stays 0."""
     errors, out, _ = run_audit(valid_html)
     assert errors == 0
     assert "[FAIL]" not in out
-    node_lines = ("Semua" in out, "Mode cepat" in out,
-                  "tidak dapat diluncurkan" in out,
-                  "node.js tidak ditemukan" in out)
-    assert any(node_lines)  # salah satu outcome node pasti muncul
+    node_lines = ("All" in out, "Quick mode" in out,
+                  "could not be launched" in out,
+                  "node.js not found" in out)
+    assert any(node_lines)  # one of the node outcomes must appear
 
 
 def test_summary_counts_present(valid_html):
-    """Ringkasan akhir memuat hitungan PASS/FAIL/WARN + timing."""
+    """The final summary includes PASS/FAIL/WARN counts + timing."""
     buf = io.StringIO()
     with contextlib.redirect_stdout(buf):
         audit.run_preflight_check(str(INDEX_HTML), quick=True)
     out = buf.getvalue()
-    assert "Ringkasan:" in out
+    assert "Summary:" in out
     assert "PASS" in out and "FAIL" in out and "WARN" in out
 
 
 # ---------------------------------------------------------------------------
-# 6 skenario rusak (mutasi terarah pada index.html)
+# 6 broken scenarios (targeted mutations of index.html)
 # ---------------------------------------------------------------------------
 def test_broken_getelementbyid_dead(valid_html):
-    """#9: getElementById menunjuk id yang tidak ada di DOM -> FAIL.
+    """#9: getElementById points to an id not in the DOM -> FAIL.
 
-    Ganti SEMUA kemunculan getElementById('visitor-badge') (id Field Manual)
-    dengan id palsu sehingga referensi mati terdeteksi.
+    Replace EVERY occurrence of getElementById('visitor-badge') (a Field Manual
+    id) with a fake id so the dead reference is detected.
     """
     content = valid_html.replace(
         "getElementById('visitor-badge')",
@@ -78,11 +78,11 @@ def test_broken_getelementbyid_dead(valid_html):
     errors, out, _ = run_audit(content, quick=True)
     assert errors >= 1
     assert "[FAIL]" in out
-    assert "tidak ada di DOM" in out
+    assert "not present in the DOM" in out
 
 
 def test_broken_queryselector_ghost(valid_html):
-    """#10: querySelector('#ghost') menunjuk elemen tak ada -> FAIL."""
+    """#10: querySelector('#ghost') points to a nonexistent element -> FAIL."""
     content = valid_html.replace(
         "</body>",
         "<script>document.querySelector('#ghost-selector');</script></body>", 1)
@@ -94,7 +94,7 @@ def test_broken_queryselector_ghost(valid_html):
 
 
 def test_broken_tag_unbalanced(valid_html):
-    """#5: tag <div> tanpa penutup -> FAIL keseimbangan tag."""
+    """#5: a <div> without a closing tag -> tag-balance FAIL."""
     content = valid_html.replace("</body>", "<div class=\"unclosed\"></body>", 1)
     assert content != valid_html
     errors, out, _ = run_audit(content, quick=True)
@@ -103,20 +103,22 @@ def test_broken_tag_unbalanced(valid_html):
 
 
 def test_broken_i18n_mismatch(valid_html):
-    """#8: kamus EN/ID tidak seimbang -> FAIL (kamus di-injeksi karena Field
-    Manual satu-bahasa; halaman dua-bahasa tetap wajib parity)."""
+    """#8: unbalanced EN/ID dictionary -> FAIL (the dictionary is injected
+    because the Field Manual is single-language; bilingual pages must still
+    keep parity)."""
     content = valid_html.replace(
         "</body>",
         '<script>var I18N = {en: {hello: "Hi"}, id: {}};</script></body>', 1)
     assert content != valid_html
     errors, out, _ = run_audit(content, quick=True)
     assert errors >= 1
-    assert "i18n" in out or "Kamus" in out
+    assert "i18n" in out or "dictionary" in out
 
 
 def test_broken_slide_count_mismatch(valid_html):
-    """#7: totalTestimonials ada tetapi jumlah komentar slide tidak cocok ->
-    FAIL (variabel di-injeksi karena Field Manual tidak punya carousel)."""
+    """#7: totalTestimonials exists but the number of slide comments does not
+    match -> FAIL (the variable is injected because the Field Manual has no
+    carousel)."""
     content = valid_html.replace(
         "</body>",
         "<script>var totalTestimonials = 2;</script></body>", 1)
@@ -127,7 +129,7 @@ def test_broken_slide_count_mismatch(valid_html):
 
 
 def test_broken_formspree_endpoint(valid_html):
-    """#1: endpoint Formspree salah -> FAIL."""
+    """#1: wrong Formspree endpoint -> FAIL."""
     content = valid_html.replace(
         'action="https://formspree.io/f/mkgknrqk"',
         'action="https://formspree.io/f/PALSU"', 1)
@@ -138,37 +140,38 @@ def test_broken_formspree_endpoint(valid_html):
 
 
 # ---------------------------------------------------------------------------
-# Fitur kondisional: Field Manual (tanpa SPA lama) tidak memicu FAIL
+# Conditional features: Field Manual (no legacy SPA) must not trigger FAIL
 # ---------------------------------------------------------------------------
 def test_single_language_page_passes_i18n(valid_html):
-    """#8: halaman satu-bahasa (tanpa kamus & tanpa data-i18n) -> PASS "tidak
-    berlaku", bukan WARN/FAIL — kompatibel dengan Field Manual."""
+    """#8: single-language page (no dictionary & no data-i18n) -> PASS "not
+    applicable", not WARN/FAIL — compatible with the Field Manual."""
     errors, out, _ = run_audit(valid_html, quick=True)
     assert errors == 0
-    assert "parity i18n tidak berlaku" in out
+    assert "i18n parity check not applicable" in out
 
 
 def test_data_i18n_without_dict_fails(valid_html):
-    """#8: data-i18n dipakai tetapi kamus en/id tidak ada -> FAIL."""
+    """#8: data-i18n used but the en/id dictionary is missing -> FAIL."""
     content = valid_html.replace(
         "</body>",
         '<span data-i18n="lang-switch">EN</span></body>', 1)
     assert content != valid_html
     errors, out, _ = run_audit(content, quick=True)
     assert errors >= 1
-    assert "data-i18n" in out and "kamus" in out
+    assert "data-i18n" in out and "dictionary" in out
 
 
 def test_no_testimonial_carousel_passes(valid_html):
-    """#7: tanpa totalTestimonials & tanpa komentar slide -> PASS "tidak
-    berlaku" (Field Manual tidak punya carousel testimonial)."""
+    """#7: no totalTestimonials & no slide comments -> PASS "not applicable"
+    (the Field Manual has no testimonial carousel)."""
     errors, out, _ = run_audit(valid_html, quick=True)
     assert errors == 0
-    assert "carousel testimonial" in out
+    assert "testimonial carousel" in out
 
 
 def test_testimonial_slides_mismatch_fails(valid_html):
-    """#7: totalTestimonials ada tapi jumlah komentar slide tidak cocok -> FAIL."""
+    """#7: totalTestimonials exists but the number of slide comments does not
+    match -> FAIL."""
     content = valid_html.replace(
         "</body>",
         "<!-- Slide 1: a --><!-- Slide 2: b --><script>var totalTestimonials = 3;</script></body>", 1)
@@ -182,15 +185,15 @@ def test_testimonial_slides_mismatch_fails(valid_html):
 # SEO meta & structured data (#11 & #12)
 # ---------------------------------------------------------------------------
 def test_seo_meta_passes(valid_html):
-    """#11: head SEO Field Manual lengkap (title ≤ 65, description ≤ 160, robots
-    index, canonical, OG, Twitter) -> PASS."""
+    """#11: complete Field Manual SEO head (title ≤ 65, description ≤ 160,
+    robots index, canonical, OG, Twitter) -> PASS."""
     errors, out, _ = run_audit(valid_html, quick=True)
     assert errors == 0
-    assert "SEO meta lengkap" in out
+    assert "SEO meta complete" in out
 
 
 def test_seo_noindex_fails(valid_html):
-    """#11: robots memuat noindex -> FAIL (halaman tidak akan terindeks)."""
+    """#11: robots contains noindex -> FAIL (page will not be indexed)."""
     content = valid_html.replace(
         'content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"',
         'content="noindex, nofollow"', 1)
@@ -201,7 +204,7 @@ def test_seo_noindex_fails(valid_html):
 
 
 def test_seo_missing_title_fails(valid_html):
-    """#11: <title> hilang -> FAIL."""
+    """#11: <title> missing -> FAIL."""
     content = valid_html.replace(
         "<title>Sigit Adi Irianto | IT &amp; SecOps | Applied AI Engineer</title>", "", 1)
     assert content != valid_html
@@ -211,15 +214,15 @@ def test_seo_missing_title_fails(valid_html):
 
 
 def test_jsonld_valid_passes(valid_html):
-    """#12: 2 blok JSON-LD (Person + WebSite) valid -> PASS."""
+    """#12: 2 valid JSON-LD blocks (Person + WebSite) -> PASS."""
     errors, out, _ = run_audit(valid_html, quick=True)
     assert errors == 0
-    assert "JSON-LD valid" in out
+    assert "JSON-LD structured data valid" in out
     assert "Person" in out and "WebSite" in out
 
 
 def test_jsonld_invalid_fails(valid_html):
-    """#12: blok JSON-LD bukan JSON valid -> FAIL."""
+    """#12: a JSON-LD block is not valid JSON -> FAIL."""
     content = valid_html.replace(
         '"@type": "Person",', '"@type": "Person", broken:', 1)
     assert content != valid_html
@@ -229,20 +232,20 @@ def test_jsonld_invalid_fails(valid_html):
 
 
 def test_jsonld_missing_type_fails(valid_html):
-    """#12: tipe Person/WebSite hilang dari JSON-LD -> FAIL."""
+    """#12: Person/WebSite type missing from JSON-LD -> FAIL."""
     content = valid_html.replace(
         '"@type": "Person",', '"@type": "Organization",', 1)
     assert content != valid_html
     errors, out, _ = run_audit(content, quick=True)
     assert errors >= 1
-    assert "kekurangan tipe" in out
+    assert "missing schema.org types" in out
 
 
 # ---------------------------------------------------------------------------
-# Idempotensi & mode cepat
+# Idempotency & quick mode
 # ---------------------------------------------------------------------------
 def test_run_idempotent(valid_html):
-    """run() dua kali pada instance sama: hasil & hitungan identik."""
+    """run() twice on the same instance: identical results & counts."""
     instance = audit.PreflightAudit(valid_html, quick=True)
     e1, p1, w1 = instance.run(), instance.pass_count, instance.warn_count
     e2, p2, w2 = instance.run(), instance.pass_count, instance.warn_count
@@ -251,18 +254,19 @@ def test_run_idempotent(valid_html):
 
 
 def test_quick_mode_skips_node(valid_html):
-    """--quick: node --check dilewati (WARN eksplisit), bukan FAIL."""
+    """--quick: node --check is skipped (explicit WARN), not FAIL."""
     errors, out, instance = run_audit(valid_html, quick=True)
     assert errors == 0
-    assert "Mode cepat" in out
+    assert "Quick mode" in out
     assert instance.warn_count >= 1
 
 
 def test_node_env_error_is_warn_not_crash(monkeypatch, valid_html):
-    """#6: OSError saat node --check diluncurkan -> WARN ketahanan, bukan crash.
+    """#6: OSError while launching node --check -> resilience WARN, not crash.
 
-    shutil.which di-patch agar path node "ada" (environment-independent), lalu
-    subprocess.run dipaksa OSError — audit harus WARN, bukan crash.
+    shutil.which is patched so a node path "exists" (environment-independent),
+    then subprocess.run is forced to raise OSError — the audit must WARN, not
+    crash.
     """
     monkeypatch.setattr(audit.shutil, "which", lambda name: "C:/fake/node.exe")
 
@@ -271,11 +275,11 @@ def test_node_env_error_is_warn_not_crash(monkeypatch, valid_html):
     monkeypatch.setattr(audit.subprocess, "run", boom)
     errors, out, _ = run_audit(valid_html)
     assert errors == 0
-    assert "tidak dapat diluncurkan" in out
+    assert "could not be launched" in out
 
 
 # ---------------------------------------------------------------------------
-# Parsing argumen CLI
+# CLI argument parsing
 # ---------------------------------------------------------------------------
 @pytest.mark.parametrize("argv,expected", [
     (["index.html"], ("index.html", False)),
@@ -290,16 +294,16 @@ def test_parse_cli_args(argv, expected):
 
 
 # ---------------------------------------------------------------------------
-# Integrasi run_preflight_check
+# run_preflight_check integration
 # ---------------------------------------------------------------------------
 def test_run_preflight_check_missing_file():
     with pytest.raises(SystemExit) as exc_info:
-        audit.run_preflight_check("file-yang-tidak-ada.html", quick=True)
+        audit.run_preflight_check("file-that-does-not-exist.html", quick=True)
     assert exc_info.value.code == 1
 
 
 def test_run_preflight_check_custom_target(tmp_path, valid_html):
-    """Target file non-default bisa diaudit (argumen posisi)."""
+    """A non-default target file can be audited (positional argument)."""
     target = tmp_path / "custom.html"
     target.write_text(valid_html, encoding="utf-8")
     buf = io.StringIO()
@@ -307,14 +311,14 @@ def test_run_preflight_check_custom_target(tmp_path, valid_html):
         audit.run_preflight_check(str(target), quick=True)
     out = buf.getvalue()
     assert "PRODUCTION READY" in out
-    assert "Ringkasan:" in out
+    assert "Summary:" in out
 
 
 def test_run_preflight_check_fail_exits(tmp_path):
-    """Audit gagal -> SystemExit(1) (untuk gerbang pre-push/CI)."""
+    """Failed audit -> SystemExit(1) (for the pre-push/CI gate)."""
     bad = tmp_path / "bad.html"
     bad.write_text(
-        "<html><body><script>document.getElementById('mati');</script></body></html>",
+        "<html><body><script>document.getElementById('dead-id');</script></body></html>",
         encoding="utf-8")
     with pytest.raises(SystemExit) as exc_info:
         audit.run_preflight_check(str(bad), quick=True)

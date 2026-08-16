@@ -1,119 +1,120 @@
 # 🛰️ worker-visitor — Hit Counter + Private Visitor Dashboard
 
-Cloudflare Worker backend untuk `index.html` (portfolio GitHub Pages):
+Cloudflare Worker backend for `index.html` (GitHub Pages portfolio):
 
-- **`POST /hit`** — mencatat kunjungan: IP (di-hash, tidak pernah disimpan mentah), kota/negara/timezone **+ perusahaan/ASN/region/continent** dari edge Cloudflare (`request.cf`), flag bot, user-agent, referrer, path. Body dibatasi 10 KB (payload lebih besar ditolak 413 `payload_too_large`); jika `IP_HASH_SALT` tidak dikonfigurasi, hit ditolak 500 fail-closed (tidak ada yang direkam).
-- **`GET /pixel?path=…`** — beacon 1×1 transparent GIF tanpa JavaScript (menangkap crawler/no-JS); mencatat hit sama seperti `/hit` (rate-limit + dedupe harian sama).
-- **`GET /count`** — total kunjungan & unik (badge publik di footer, cache KV 60 detik).
-- **`GET /dashboard?key=…`** — dashboard HTML privat (login key, kartu statistik, tabel filter 24h / 7d / 30d / all).
-- **`GET /api/stats?key=…&range=…`** — JSON mentah untuk integrasi/ekspor.
-- **`GET /api/export?key=…&range=…`** — CSV server-side (hingga 50.000 baris).
+- **`POST /hit`** — records a visit: IP (hashed, never stored raw), city/country/timezone **+ company/ASN/region/continent** from the Cloudflare edge (`request.cf`), bot flag, user-agent, referrer, path. Body limited to 10 KB (larger payloads are rejected 413 `payload_too_large`); if `IP_HASH_SALT` is not configured, the hit is rejected 500 fail-closed (nothing is recorded).
+- **`GET /pixel?path=…`** — 1×1 transparent GIF beacon without JavaScript (captures crawlers/no-JS); records a hit the same way as `/hit` (same rate-limit + daily dedupe).
+- **`GET /count`** — total & unique visits (public footer badge, 60s KV cache).
+- **`GET /dashboard?key=…`** — private HTML dashboard (login key, stat cards, table with 24h / 7d / 30d / all filters).
+- **`GET /api/stats?key=…&range=…`** — raw JSON for integration/export.
+- **`GET /api/export?key=…&range=…`** — server-side CSV (up to 50,000 rows).
 
-Tanpa API pihak ketiga: geolokasi **dan nama perusahaan/ASN** (`request.cf.asOrganization`, `request.cf.asn`, `request.cf.region`) berasal dari edge Cloudflare (semua plan, gratis). Privasi UU PDP: IP mentah **tidak pernah disimpan** — hanya `SHA-256(salt + IP)`; kolom `as_org`/`asn`/`region` adalah data publik geolokasi edge, bukan identitas pribadi.
+No third-party API: geolocation **and company/ASN name** (`request.cf.asOrganization`, `request.cf.asn`, `request.cf.region`) come from the Cloudflare edge (all plans, free). UU PDP privacy: raw IPs are **never stored** — only `SHA-256(salt + IP)`; the `as_org`/`asn`/`region` columns are public edge geolocation data, not personal identity.
 
 ---
 
-## 🚀 Deploy (sekali saja)
+## 🚀 Deploy (once)
 
-Dari folder ini (`worker-visitor/`):
+From this folder (`worker-visitor/`):
 
 ```bash
-# 1) Buat database D1 → salin database_id ke wrangler.toml
+# 1) Create the D1 database → copy database_id into wrangler.toml
 npx wrangler d1 create portofolio-visits
 
-# 2) Terapkan skema tabel
+# 2) Apply the table schema
 npx wrangler d1 execute portofolio-visits --remote --file=schema.sql
 
-# 3) Buat namespace KV → salin id ke wrangler.toml
+# 3) Create the KV namespace → copy the id into wrangler.toml
 npx wrangler kv namespace create VISITS
 
-# 4) Set secret (jangan pernah commit nilai asli)
-#    PAKAI printf ('%s' tanpa newline) ATAU mode interaktif — trailing newline dari
-#    `echo` membuat perbandingan key di worker gagal (safeEqual menolak panjang berbeda).
-printf '%s' 'RANDOM_STRING_PANJANG' | npx wrangler secret put DASHBOARD_KEY  # kunci dashboard
-printf '%s' 'RANDOM_SALT'           | npx wrangler secret put IP_HASH_SALT   # salt hash IP
+# 4) Set secrets (never commit the real values)
+#    USE printf ('%s' without a newline) OR interactive mode — a trailing newline
+#    from `echo` makes the key comparison in the worker fail (safeEqual rejects
+#    different lengths).
+printf '%s' 'LONG_RANDOM_STRING' | npx wrangler secret put DASHBOARD_KEY  # dashboard key
+printf '%s' 'RANDOM_SALT'        | npx wrangler secret put IP_HASH_SALT   # IP hash salt
 
 # 5) Deploy
 npx wrangler deploy
 ```
 
-> ⚠️ **JANGAN pakai `[vars]` di `wrangler.toml` untuk DASHBOARD_KEY/IP_HASH_SALT**: deploy dengan `[vars]` akan **menimpa secret** yang sama namanya (terkonfirmasi saat deploy pertama — worker `authorized()` menolak `DASHBOARD_KEY` yang missing/placeholder `CHANGE_ME_*`, dan `recordVisit` fail-closed (HTTP 500, tidak merekam apa pun) jika `IP_HASH_SALT` tidak dikonfigurasi). Secret adalah satu-satunya sumber nilai produksi.
+> ⚠️ **Do NOT use `[vars]` in `wrangler.toml` for DASHBOARD_KEY/IP_HASH_SALT**: deploying with `[vars]` **overwrites** secrets with the same name (confirmed on first deploy — the worker `authorized()` rejects a missing/placeholder `CHANGE_ME_*` `DASHBOARD_KEY`, and `recordVisit` fails closed (HTTP 500, records nothing) when `IP_HASH_SALT` is not configured). Secrets are the only source of production values.
 
-## 🔌 Hubungkan ke index.html
+## 🔌 Connect to index.html
 
-1. **Sudah terhubung**: `WORKER_URL` di `index.html` sudah diisi `https://portofolio-visitor-tracker.si-sigitadi.workers.dev`, CSP `connect-src`/`img-src` sudah mengizinkan origin worker, dan badge "Site Visits" muncul di footer setelah fetch pertama berhasil.
-2. Jika suatu saat URL worker berubah: buka `index.html`, isi `var WORKER_URL = '<url-baru>';` di blok `<!-- Visitor Tracker Client ... -->` (dekat `</body>`), perbarui juga CSP `connect-src`/`img-src` di meta, lalu commit & push.
+1. **Already connected**: `WORKER_URL` in `index.html` is set to `https://portofolio-visitor-tracker.si-sigitadi.workers.dev`, the CSP `connect-src`/`img-src` already allow the worker origin, and the "Site Visits" badge appears in the footer after the first fetch succeeds.
+2. If the worker URL ever changes: open `index.html`, set `var WORKER_URL = '<new-url>';` in the `<!-- Visitor Tracker Client ... -->` block (near `</body>`), also update the CSP `connect-src`/`img-src` in the meta tag, then commit & push.
 
-## 🔐 Akses dashboard privat
+## 🔐 Private dashboard access
 
-- `https://<worker-url>/dashboard?key=<DASHBOARD_KEY>` → halaman HTML.
+- `https://<worker-url>/dashboard?key=<DASHBOARD_KEY>` → HTML page.
 - `https://<worker-url>/api/stats?key=<DASHBOARD_KEY>&range=30d` → JSON.
-- Tanpa key (atau key salah) → 403 / halaman login. Perbandingan key memakai constant-time compare. **Anti-bocor key via referrer**: semua respons HTML dashboard/login mengirim header `Referrer-Policy: no-referrer` — jika Anda membuka link eksternal dari halaman dashboard (yang URL-nya memuat `?key=…`), key tidak pernah ikut terkirim sebagai `Referer`.
-- **Shortcut tersembunyi**: di footer portofolio, klik teks copyright **9×** (selang antar-klik ≤ 2 dtk) → langsung membuka `/dashboard`. Kunci **tidak pernah** tersemat di HTML portofolio; di halaman login centang *"Remember key in this browser"* sekali, dan kunjungan berikutnya **auto-unlock** (kunci tersimpan di localStorage browser pemilik, satu origin dengan dashboard). Tautan *"Forget saved key"* di footer dashboard menghapusnya.
+- Without a key (or a wrong key) → 403 / login page. Key comparison uses constant-time compare. **Key-leak protection via referrer**: all dashboard/login HTML responses send the `Referrer-Policy: no-referrer` header — if you open an external link from the dashboard page (whose URL carries `?key=…`), the key is never sent along as `Referer`.
+- **Hidden shortcut**: in the portfolio footer, click the copyright text **9×** (interval between clicks ≤ 2s) → opens `/dashboard` directly. The key is **never** embedded in the portfolio HTML; on the login page check *"Remember key in this browser"* once, and subsequent visits **auto-unlock** (the key lives in the owner's browser localStorage, same origin as the dashboard). The *"Forget saved key"* link in the dashboard footer removes it.
 
-## 🧪 Uji
+## 🧪 Test
 
 ```bash
-# Ping /count (tanpa auth)
+# Ping /count (no auth)
 curl "https://<worker-url>/count"
 
-# Simulasikan kunjungan (dari IP Anda; request.cf hanya terisi saat sudah deployed)
+# Simulate a visit (from your IP; request.cf only populates once deployed)
 curl -X POST "https://<worker-url>/hit" -H "Content-Type: application/json" \
      -d '{"path":"/","referrer":"https://example.com/"}'
 
-# JSON dashboard
+# Dashboard JSON
 curl "https://<worker-url>/api/stats?key=<DASHBOARD_KEY>&range=7d"
 
-# Body guard: payload > 10 KB ditolak 413 (tidak dicatat)
+# Body guard: payload > 10 KB rejected 413 (not recorded)
 python -c "print('{\"path\":\"' + 'x'*20000 + '\"}')" | curl -s -w "\n[HTTP %{http_code}]\n" -X POST -H "Content-Type: application/json" --data-binary @- "https://<worker-url>/hit"
 ```
 
-## 🧪 Route test suite (26 test, tanpa dependensi)
+## 🧪 Route test suite (26 tests, zero dependencies)
 
 ```bash
 node --test worker-visitor/worker.test.js
 ```
 
-Menutupi semua rute (`/count`, `/hit`, `/pixel`, `/api/stats`, `/api/export`, `/dashboard`): auth (403/200), rate-limit 429, body guard 413 (Content-Length & stream chunked), fail-closed `IP_HASH_SALT` (500), cache KV, quoting CSV, CORS. WAJIB hijau di setiap perubahan `worker.js` (gerbang CI preflight ketiga + Project_rules §1.9).
+Covers every route (`/count`, `/hit`, `/pixel`, `/api/stats`, `/api/export`, `/dashboard`): auth (403/200), rate-limit 429, body guard 413 (Content-Length & chunked stream), fail-closed `IP_HASH_SALT` (500), KV cache, CSV quoting, CORS. MUST stay green on every `worker.js` change (third preflight CI gate + Project_rules §1.9).
 
-## ⚠️ Catatan & batas free tier
+## ⚠️ Notes & free-tier limits
 
-- **`request.cf` tidak terisi di preview `wrangler dev`** — uji geolokasi terhadap URL deployed.
-- **KV**: TTL minimum 60 detik; tulis >1×/detik ke key yang sama dapat menolak — di sini cache `/count` 60s dan semua kegagalan KV di-swallow (tidak pernah memecah endpoint).
-- **Rate limit**: maks 20 hit/menit per IP (via D1) — anti-spam.
-- **Body guard `/hit` 10 KB**: payload lebih besar ditolak 413 sebelum parsing (via `Content-Length` maupun stream chunked) — anti-DoS body besar.
-- **Dedupe unik harian**: berbasis query D1 per-kunjungan; dua kunjungan pertama simultan dari IP sama bisa sama-sama terhitung unik (race kosmetik, dampak nol di skala portfolio).
-- **Free tier**: Worker 100k request/hari; D1 5 GB / 100k tulis & 5 juta baca per hari; KV 100k baca / 1k tulis per hari — jauh di atas kebutuhan portfolio.
-- **Reset data**: `npx wrangler d1 execute portofolio-visits --remote --command "DELETE FROM visits"` (hati-hati, permanen).
+- **`request.cf` is not populated in `wrangler dev` previews** — test geolocation against the deployed URL.
+- **KV**: minimum TTL 60s; writing >1×/second to the same key can be rejected — here the `/count` cache is 60s and all KV failures are swallowed (they never break an endpoint).
+- **Rate limit**: max 20 hits/minute per IP (via D1) — anti-spam.
+- **`/hit` 10 KB body guard**: larger payloads are rejected 413 before parsing (via `Content-Length` or chunked stream) — anti-DoS for large bodies.
+- **Daily unique dedupe**: based on a per-visit D1 query; two simultaneous first visits from the same IP can both count as unique (cosmetic race, zero impact at portfolio scale).
+- **Free tier**: Worker 100k requests/day; D1 5 GB / 100k writes & 5 million reads per day; KV 100k reads / 1k writes per day — far above portfolio needs.
+- **Reset data**: `npx wrangler d1 execute portofolio-visits --remote --command "DELETE FROM visits"` (careful, permanent).
 
-## 📊 Fitur dashboard (sudah aktif)
+## 📊 Dashboard features (live)
 
-Semua dirender sisi-klien tanpa CDN, dari 2.000 kunjungan terbaru:
+Everything renders client-side with no CDN, from the latest 2,000 visits:
 
-- **Kartu statistik** (total, unik, hari ini) + **tren harian 30 hari** & **distribusi per jam (UTC)** — bar chart SVG.
-- **Top 8 negara & kota** (flag emoji), **breakdown device/browser/OS** (parse UA), **peta dunia dot** (proyeksi equirectangular dari lat/lon edge).
-- **Tabel** dengan filter rentang, **filter path**, pagination 50 baris/halaman.
-- **Ekspor CSV**: tombol *Export CSV (view)* (hasil filter, sisi-klien) + `GET /api/export?key=…&range=…` (server-side, hingga 50.000 baris).
-- **Auto-refresh 60 detik** (default ON, toggle di toolbar; polling `/api/stats` tanpa reload, fallback reload jika key tidak ada di URL).
+- **Stat cards** (total, unique, today) + **30-day daily trend** & **per-hour (UTC) distribution** — SVG bar charts.
+- **Top 8 countries & cities** (emoji flags), **device/browser/OS breakdown** (UA parsing), **world dot map** (equirectangular projection from edge lat/lon).
+- **Table** with range filter, **path filter**, 50 rows/page pagination.
+- **CSV export**: *Export CSV (view)* button (filtered results, client-side) + `GET /api/export?key=…&range=…` (server-side, up to 50,000 rows).
+- **60s auto-refresh** (default ON, toolbar toggle; polls `/api/stats` without reload, falls back to reload if the key is not in the URL).
 
-## 🧩 Menambah fitur dashboard
+## 🧩 Adding dashboard features
 
-Dashboard 100% dikode di `worker.js` (fungsi `dashboardPage`/`loginPage` + query D1). Alur menambah fitur:
+The dashboard is 100% coded in `worker.js` (the `dashboardPage`/`loginPage` functions + D1 queries). Workflow for adding a feature:
 
 1. Edit `worker-visitor/worker.js`.
-2. Jalankan route test: `node --test worker-visitor/worker.test.js` (26 test — wajib hijau, Project_rules §1.9).
-3. `npx wrangler deploy` (dari folder ini).
-4. Muat ulang dashboard.
+2. Run the route tests: `node --test worker-visitor/worker.test.js` (26 tests — must be green, Project_rules §1.9).
+3. `npx wrangler deploy` (from this folder).
+4. Reload the dashboard.
 
-Data mentah per kunjungan sudah lengkap (ip_hash, city, country_code, lat, lon, timezone, asn, as_org, region, region_code, continent, is_bot, user_agent, referrer, path, is_unique, created_at) — sebagian besar fitur baru cukup agregasi sisi-klien.
+Raw per-visit data is already complete (ip_hash, city, country_code, lat, lon, timezone, asn, as_org, region, region_code, continent, is_bot, user_agent, referrer, path, is_unique, created_at) — most new features only need client-side aggregation.
 
-## 🧹 File
+## 🧹 Files
 
-| File | Fungsi |
+| File | Purpose |
 |---|---|
-| `worker.js` | Worker lengkap (rute, CORS, rate-limit, body guard 10 KB, hash IP, dashboard HTML) |
-| `worker.test.js` | 26 route test (node:test, tanpa dependensi) |
-| `package.json` | `type: module` + script `npm test` |
-| `schema.sql` | Skema tabel D1 `visits` + index (fresh install) |
-| `migration-org.sql` | Migrasi D1: tambah kolom asn/as_org/region/continent/is_bot ke tabel yang sudah ada |
-| `wrangler.toml` | Konfigurasi deploy (binding D1/KV; tanpa `[vars]` — secret via `wrangler secret put`) |
+| `worker.js` | Full worker (routes, CORS, rate-limit, 10 KB body guard, IP hashing, dashboard HTML) |
+| `worker.test.js` | 26 route tests (node:test, zero dependencies) |
+| `package.json` | `type: module` + `npm test` script |
+| `schema.sql` | D1 `visits` table schema + index (fresh install) |
+| `migration-org.sql` | D1 migration: add asn/as_org/region/continent/is_bot columns to an existing table |
+| `wrangler.toml` | Deploy configuration (D1/KV bindings; no `[vars]` — secrets via `wrangler secret put`) |

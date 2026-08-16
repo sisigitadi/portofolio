@@ -18,7 +18,7 @@ function circle(r, seg = 64, y = 0.02) {
   return pts
 }
 
-/* glow sprite texture dibuat sekali, di-cache per warna */
+/* glow sprite texture created once, cached per color */
 const glowCache = {}
 function makeGlow(color) {
   if (glowCache[color]) return glowCache[color]
@@ -41,9 +41,9 @@ const BLIPS = [
   { a: 0.4, r: 1.1, y: 0.35, label: 'WAZUH SIEM', s: 0.045, c: GREEN, kind: 'SecOps' },
   { a: 1.6, r: 1.9, y: 0.25, label: 'OLLAMA / LLM', s: 0.035, c: AMBER, kind: 'AI' },
   { a: 2.6, r: 1.4, y: 0.42, label: 'DOCKER / UBUNTU', s: 0.04, c: '#58a6ff', kind: 'Infra' },
-  { a: 3.7, r: 2.2, y: 0.2, label: 'PROMPTMATRIX 2.0', s: 0.03, c: '#d2a8ff', kind: 'Proyek' },
+  { a: 3.7, r: 2.2, y: 0.2, label: 'PROMPTMATRIX 2.0', s: 0.03, c: '#d2a8ff', kind: 'Project' },
   { a: 4.9, r: 0.9, y: 0.5, label: 'FORTIWEB WAF', s: 0.035, c: '#ff7b72', kind: 'SecOps' },
-  { a: 5.6, r: 1.7, y: 0.3, label: 'SCOPS · MTTR −45%', s: 0.04, c: GREEN, kind: 'Proyek' },
+  { a: 5.6, r: 1.7, y: 0.3, label: 'SCOPS · MTTR −45%', s: 0.04, c: GREEN, kind: 'Project' },
 ]
 
 function Blip({ b }) {
@@ -109,7 +109,7 @@ function PerimeterScene() {
         <Line points={ring3} color={AMBER} lineWidth={1} transparent opacity={0.28} />
         <Line points={[[-2.6, 0.02, 0], [2.6, 0.02, 0]]} color={AMBER} lineWidth={1} transparent opacity={0.25} />
         <Line points={[[0, 0.02, -2.6], [0, 0.02, 2.6]]} color={AMBER} lineWidth={1} transparent opacity={0.25} />
-        {/* sapuan radar */}
+        {/* radar sweep */}
         <group ref={sweep}>
           <mesh position={[0, 0.04, 0]} rotation={[-Math.PI / 2, 0, 0]}>
             <circleGeometry args={[2.6, 48, 0, Math.PI * 1.15]} />
@@ -137,11 +137,11 @@ function PerimeterPage() {
         <ScanTitle>PERIMETER</ScanTitle>
         <Stagger className="sub" gap={0.14}>
           <motion.p variants={item} className="sub">
-            Selama <CountUp to={24} suffix=" tahun" /> saya menjaga perimeter — sistem, SIEM, dan manusia di baliknya.
-            Portofolio ini adalah layar radar: setiap blip = proyek atau domain yang saya operasikan.
+            For <CountUp to={24} suffix=" years" /> I've guarded the perimeter — systems, SIEM, and the people behind them.
+            This portfolio is a radar screen: every blip = a project or domain I operate.
           </motion.p>
           <motion.div variants={item} className="actions">
-            <a className="btn solid" href="#scan">MULAI SCAN ↓</a>
+            <a className="btn solid" href="#scan">START SCAN ↓</a>
             <a className="btn" href="https://www.linkedin.com/in/sigitadi/" target="_blank" rel="noreferrer">LINKEDIN ↗</a>
           </motion.div>
         </Stagger>
@@ -150,21 +150,21 @@ function PerimeterPage() {
           <FadeUp delay={0.2}><div className="readout"><span>MTTR REDUCTION</span><b style={{ marginLeft: 'auto' }}>−45%</b></div></FadeUp>
           <FadeUp delay={0.3}><div className="readout"><span>STATUS</span><b style={{ marginLeft: 'auto' }}>OPEN FOR REMOTE ROLES</b></div></FadeUp>
         </div>
-        <div className="scroll-hint">▾ scroll — sapuan radar menandai tiap sektor</div>
+        <div className="scroll-hint">▾ scroll — the radar sweep marks each sector</div>
       </section>
 
       <section id="scan" className="section" style={{ paddingTop: 20 }}>
-        <div className="mono">// SEKTOR TERPANTAU</div>
-        <h2>Blip di layar radar</h2>
-        <p className="lede">Hover blip di layar di atas — atau telusuri sektor di bawah. Semua bernyawa: saya yang mengoperasikannya di produksi.</p>
+        <div className="mono">// MONITORED SECTORS</div>
+        <h2>Blips on the radar screen</h2>
+        <p className="lede">Hover the blips on the screen above — or browse the sectors below. All of them are alive: I operate them in production.</p>
         <div className="radar-grid">
           {[
-            { tag: 'SECOPS', t: 'SCOPS Command', d: 'Triage SIEM real-time, MTTR −45%.', m: 'Wazuh · NIST · FortiWeb' },
-            { tag: 'AI / LLM', t: 'PromptMatrix 2.0', d: 'Platform uji prompt multi-variabel, BYOK penuh.', m: 'Next.js · Gemini · LangChain' },
-            { tag: 'PRIVACY-FIRST', t: 'SmartExpenseML', d: 'Klasifikasi pengeluaran 100% offline, tanpa retensi data.', m: 'Rules + Regex · UU PDP' },
-            { tag: 'INFRA', t: 'Docker Harbor', d: 'Infrastruktur Ubuntu/WSL + Wazuh untuk platform pemerintah.', m: 'Docker · Ubuntu · DVWA' },
-            { tag: 'THREAT HUNTING', t: 'A.R.Y.A. SOC Analytics', d: 'Telemetri & penilaian keparahan insiden otomatis.', m: 'Python · Streamlit' },
-            { tag: 'TULISAN', t: 'Wazuh + Telegram', d: 'Alert real-time ke Telegram, data exfiltration, brute force.', m: 'Medium · SIEM' },
+            { tag: 'SECOPS', t: 'SCOPS Command', d: 'Real-time SIEM triage, MTTR −45%.', m: 'Wazuh · NIST · FortiWeb' },
+            { tag: 'AI / LLM', t: 'PromptMatrix 2.0', d: 'Multi-variable prompt testing platform, full BYOK.', m: 'Next.js · Gemini · LangChain' },
+            { tag: 'PRIVACY-FIRST', t: 'SmartExpenseML', d: '100% offline expense classification, no data retention.', m: 'Rules + Regex · UU PDP' },
+            { tag: 'INFRA', t: 'Docker Harbor', d: 'Ubuntu/WSL + Wazuh infrastructure for government platforms.', m: 'Docker · Ubuntu · DVWA' },
+            { tag: 'THREAT HUNTING', t: 'A.R.Y.A. SOC Analytics', d: 'Telemetry & automated incident severity scoring.', m: 'Python · Streamlit' },
+            { tag: 'WRITING', t: 'Wazuh + Telegram', d: 'Real-time alerts to Telegram, data exfiltration, brute force.', m: 'Medium · SIEM' },
           ].map((c, i) => (
             <FadeUp key={i} delay={i * 0.06}>
               <div className="radar-tile">
@@ -179,9 +179,9 @@ function PerimeterPage() {
       </section>
 
       <footer className="demo">
-        <span className="mono-up">PERIMETER · konsep 01/10</span>
-        <span>hover blip di radar — tooltip proyek</span>
-        <a href="#/">← kembali ke galeri</a>
+        <span className="mono-up">PERIMETER · concept 01/10</span>
+        <span>hover blips on the radar — project tooltip</span>
+        <a href="#/">← back to gallery</a>
       </footer>
     </ConceptLayout>
   )
