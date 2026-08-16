@@ -25,8 +25,8 @@
   .sheet.landing-active{animation:dossierLanding 1.15s cubic-bezier(0.22,1,0.36,1) forwards;transform-origin:50% 0%;will-change:transform,box-shadow,opacity}
   .status-underlined{position:relative;display:inline-block}
   .pen-stroke{position:absolute;left:0;bottom:-4px;width:100%;height:8px;overflow:visible;pointer-events:none}
-  .pen-stroke path{fill:none;stroke:var(--accent);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:100;stroke-dashoffset:100;filter:url(#inkBleed);animation:penLoop 4.4s ease-in-out infinite}
-  @keyframes penLoop{0%{stroke-dashoffset:100;opacity:0}8%{opacity:1}38%{stroke-dashoffset:0;opacity:1}80%{stroke-dashoffset:0;opacity:1}93%{stroke-dashoffset:0;opacity:0}100%{stroke-dashoffset:100;opacity:0}}
+  .pen-stroke path{fill:none;stroke:var(--accent);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:100;stroke-dashoffset:100;filter:url(#inkBleed);animation:penLoop 10s ease-in-out infinite}
+  @keyframes penLoop{0%{stroke-dashoffset:100;opacity:0}4%{opacity:1}22%{stroke-dashoffset:0;opacity:1}82%{stroke-dashoffset:0;opacity:1}94%{stroke-dashoffset:0;opacity:0}100%{stroke-dashoffset:100;opacity:0}}
   @media (prefers-reduced-motion:reduce){.sheet.landing-active{animation:none !important;transform:none !important}.pen-stroke path{animation:none !important;stroke-dashoffset:0 !important;opacity:1 !important}}
   .ink{height:1.25em;width:auto;margin-left:8px;vertical-align:-0.28em}
   .ink.star{height:1.25em;width:auto;margin-left:6px}
@@ -172,6 +172,17 @@
   /* ---------- footer / end ---------- */
   footer{border-top:2px solid var(--ink);margin-top:56px}
   footer .wrap{padding:28px 28px 64px}
+  .contact-grid{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:32px;margin:4px 0 26px}
+  .contact-grid .slip{flex:1 1 440px;max-width:540px;margin:0}
+  .stamp-wrapper{flex:1 1 280px;display:flex;align-items:center;justify-content:center;padding:10px}
+  .dossier-stamp{position:relative;display:inline-block;padding:14px 22px;border:3.5px double var(--accent);border-radius:6px;color:var(--accent);text-transform:uppercase;text-align:center;transform:rotate(-10deg);opacity:0;user-select:none;pointer-events:none}
+  .dossier-stamp.in-view{animation:stampSlam .6s cubic-bezier(0.175,0.885,0.32,1.275) forwards}
+  @keyframes stampSlam{0%{opacity:0;transform:scale(2.2) rotate(-24deg) translateY(-24px)}60%{opacity:1;transform:scale(0.96) rotate(-9deg) translateY(0)}80%{transform:scale(1.02) rotate(-10.5deg)}100%{opacity:.92;transform:scale(1) rotate(-10deg)}}
+  @media (prefers-reduced-motion:reduce){.dossier-stamp{animation:none !important;opacity:.92 !important;transform:rotate(-10deg) !important}}
+  .stamp-inner{border:1.5px dashed var(--accent);padding:10px 16px;border-radius:3px}
+  .stamp-top{font:10.5px ui-monospace,Consolas,monospace;letter-spacing:.2em;font-weight:700;margin-bottom:4px;color:var(--accent2)}
+  .stamp-main{font:800 23px/1.15 Georgia,"Times New Roman",serif;letter-spacing:.08em;margin:3px 0 5px;color:var(--accent)}
+  .stamp-foot{font:10px ui-monospace,Consolas,monospace;letter-spacing:.16em;color:var(--muted);border-top:1px solid var(--rule);padding-top:5px;font-weight:700}
   .slip{background:var(--paper2);border:1px solid var(--rule);border-top:2px solid var(--ink);padding:22px 24px;margin:4px 0 26px;max-width:560px}
   .slip .slip-head{font:12px ui-monospace,Consolas,monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
   .slip .slip-note{font-size:14px;color:var(--ink2);margin-bottom:16px}
@@ -318,7 +329,7 @@
     }
 
     /* Suppress non-ATS elements: Web masthead, TOC, Contact Form/Slip, Web footers, Testimonials (#reports), decorative numbering (.num), ink/scribble animations */
-    .mast, footer, #contact, .pg, .toc, #reports, .num, body > svg, .skip-link, .cta, .btn, noscript, .ref, .ink, .mnote, .cta-note, .ink-sign, svg.underline {
+    .mast, footer, #contact, .pg, .toc, #reports, .num, body > svg, .skip-link, .cta, .btn, noscript, .ref, .ink, .mnote, .cta-note, .ink-sign, svg.underline, .pen-stroke, .stamp-wrapper, .dossier-stamp {
       display: none !important;
       visibility: hidden !important;
       height: 0 !important;
@@ -807,21 +818,33 @@
 <footer id="contact"><div class="wrap">
   <div style="font:12px ui-monospace,Consolas,monospace;color:var(--accent);letter-spacing:.06em;margin-bottom:10px">Section 6 — CONTACT</div>
 
-  <div class="slip" id="resume-request">
-    <div class="slip-head">Request Resume (PDF)</div>
-    <p class="slip-note">Enter your email and the resume (PDF) will be sent to you.</p>
-    <form id="resume-request-form" action="https://formspree.io/f/mkgknrqk" method="POST" novalidate>
-      <div class="field">
-        <label for="slip-email">Email</label>
-        <input type="email" id="slip-email" name="email" placeholder="you@company.com" autocomplete="email" required />
+  <div class="contact-grid">
+    <div class="slip" id="resume-request">
+      <div class="slip-head">Request Resume (PDF)</div>
+      <p class="slip-note">Enter your email and the resume (PDF) will be sent to you.</p>
+      <form id="resume-request-form" action="https://formspree.io/f/mkgknrqk" method="POST" novalidate>
+        <div class="field">
+          <label for="slip-email">Email</label>
+          <input type="email" id="slip-email" name="email" placeholder="you@company.com" autocomplete="email" required />
+        </div>
+        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="display:none" aria-hidden="true" />
+        <input type="hidden" name="source" value="field-manual-preview" />
+        <input type="hidden" name="request" value="resume-pdf" />
+        <button type="submit" id="slip-submit" class="btn solid">Request Resume (PDF)</button>
+      </form>
+      <p id="slip-status" class="slip-status" role="status" aria-live="polite"></p>
+      <p class="slip-foot">Your email is used only to send the resume — never shared, never added to any list.</p>
+    </div>
+
+    <div class="stamp-wrapper">
+      <div class="dossier-stamp" aria-label="Recruitment Clearance: Proceed to Interview">
+        <div class="stamp-inner">
+          <div class="stamp-top">★ &nbsp; RECRUITMENT CLEARANCE &nbsp; ★</div>
+          <div class="stamp-main">PROCEED TO INTERVIEW</div>
+          <div class="stamp-foot">ADVANCE TO NEXT HIRING STAGE</div>
+        </div>
       </div>
-      <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="display:none" aria-hidden="true" />
-      <input type="hidden" name="source" value="field-manual-preview" />
-      <input type="hidden" name="request" value="resume-pdf" />
-      <button type="submit" id="slip-submit" class="btn solid">Request Resume (PDF)</button>
-    </form>
-    <p id="slip-status" class="slip-status" role="status" aria-live="polite"></p>
-    <p class="slip-foot">Your email is used only to send the resume — never shared, never added to any list.</p>
+    </div>
   </div>
 
   <div class="sig">
@@ -1007,7 +1030,7 @@
   })()
   ;(function () {
     var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    var els = document.querySelectorAll('.ink, .sec-head .dash, .mnote')
+    var els = document.querySelectorAll('.ink, .sec-head .dash, .mnote, .dossier-stamp')
     if (!('IntersectionObserver' in window) || reduce) {
       for (var i = 0; i < els.length; i++) els[i].classList.add('in-view')
       return

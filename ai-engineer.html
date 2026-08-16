@@ -142,8 +142,8 @@
   .sheet.landing-active{animation:dossierLanding 1.15s cubic-bezier(0.22,1,0.36,1) forwards;transform-origin:50% 0%;will-change:transform,box-shadow,opacity}
   .status-underlined{position:relative;display:inline-block}
   .pen-stroke{position:absolute;left:0;bottom:-4px;width:100%;height:8px;overflow:visible;pointer-events:none}
-  .pen-stroke path{fill:none;stroke:var(--accent);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:100;stroke-dashoffset:100;filter:url(#inkBleed);animation:penLoop 4.4s ease-in-out infinite}
-  @keyframes penLoop{0%{stroke-dashoffset:100;opacity:0}8%{opacity:1}38%{stroke-dashoffset:0;opacity:1}80%{stroke-dashoffset:0;opacity:1}93%{stroke-dashoffset:0;opacity:0}100%{stroke-dashoffset:100;opacity:0}}
+  .pen-stroke path{fill:none;stroke:var(--accent);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:100;stroke-dashoffset:100;filter:url(#inkBleed);animation:penLoop 10s ease-in-out infinite}
+  @keyframes penLoop{0%{stroke-dashoffset:100;opacity:0}4%{opacity:1}22%{stroke-dashoffset:0;opacity:1}82%{stroke-dashoffset:0;opacity:1}94%{stroke-dashoffset:0;opacity:0}100%{stroke-dashoffset:100;opacity:0}}
   @media (prefers-reduced-motion:reduce){.sheet.landing-active{animation:none !important;transform:none !important}.pen-stroke path{animation:none !important;stroke-dashoffset:0 !important;opacity:1 !important}}
   .ink{height:1.25em;width:auto;margin-left:8px;vertical-align:-0.28em}
   .ink.star{height:1.25em;width:auto;margin-left:6px}
@@ -313,6 +313,17 @@
   /* ---------- footer / end ---------- */
   footer{border-top:2px solid var(--ink);margin-top:56px;text-align:left}
   footer .wrap{padding:28px 28px 64px}
+  .contact-grid{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:32px;margin:4px 0 26px}
+  .contact-grid .slip{flex:1 1 440px;max-width:540px;margin:0}
+  .stamp-wrapper{flex:1 1 280px;display:flex;align-items:center;justify-content:center;padding:10px}
+  .dossier-stamp{position:relative;display:inline-block;padding:14px 22px;border:3.5px double var(--accent);border-radius:6px;color:var(--accent);text-transform:uppercase;text-align:center;transform:rotate(-10deg);opacity:0;user-select:none;pointer-events:none}
+  .dossier-stamp.in-view{animation:stampSlam .6s cubic-bezier(0.175,0.885,0.32,1.275) forwards}
+  @keyframes stampSlam{0%{opacity:0;transform:scale(2.2) rotate(-24deg) translateY(-24px)}60%{opacity:1;transform:scale(0.96) rotate(-9deg) translateY(0)}80%{transform:scale(1.02) rotate(-10.5deg)}100%{opacity:.92;transform:scale(1) rotate(-10deg)}}
+  @media (prefers-reduced-motion:reduce){.dossier-stamp{animation:none !important;opacity:.92 !important;transform:rotate(-10deg) !important}}
+  .stamp-inner{border:1.5px dashed var(--accent);padding:10px 16px;border-radius:3px}
+  .stamp-top{font:10.5px ui-monospace,Consolas,monospace;letter-spacing:.2em;font-weight:700;margin-bottom:4px;color:var(--accent2)}
+  .stamp-main{font:800 23px/1.15 Georgia,"Times New Roman",serif;letter-spacing:.08em;margin:3px 0 5px;color:var(--accent)}
+  .stamp-foot{font:10px ui-monospace,Consolas,monospace;letter-spacing:.16em;color:var(--muted);border-top:1px solid var(--rule);padding-top:5px;font-weight:700}
   .slip{background:var(--paper2);border:1px solid var(--rule);border-top:2px solid var(--ink);padding:22px 24px;margin:4px 0 26px;max-width:560px}
   .slip .slip-head{font:12px ui-monospace,Consolas,monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
   .slip .slip-note{font-size:14px;color:var(--ink2);margin-bottom:16px}
@@ -452,7 +463,7 @@
     }
 
     /* Suppress non-ATS elements: Web masthead, TOC, Contact Form/Slip, Web footers, Testimonials (#reports), decorative numbering (.num), ink/scribble animations */
-    .mast, footer, #contact, .pg, .toc, #reports, .num, body > svg, .skip-link, .cta, .btn, .visitor-badge, noscript, .ref, .ink, .mnote, .cta-note, .ink-sign, svg.underline, .pen-stroke {
+    .mast, footer, #contact, .pg, .toc, #reports, .num, body > svg, .skip-link, .cta, .btn, .visitor-badge, noscript, .ref, .ink, .mnote, .cta-note, .ink-sign, svg.underline, .pen-stroke, .stamp-wrapper, .dossier-stamp {
       display: none !important;
       visibility: hidden !important;
       height: 0 !important;
@@ -815,9 +826,9 @@
     <div class="row"><div class="k">CONTACT</div><div class="v"><a href="#contact">si.sigitadi@gmail.com</a></div></div>
     <div class="row"><div class="k">FIELD EXPERIENCE</div><div class="v">Feb 2002 → present · IT → Applied AI &amp; LLMs</div></div>
     <div class="row"><div class="k">TRACK RECORD</div><div class="v">1,000+ RLHF prompt evaluations · Zero data leakage via client-side BYOK NLP <svg class="ink" viewBox="0 0 28 26" aria-hidden="true"><path d="M3 15 Q6 19 9 21 Q12 23 15 19 L25 3" pathLength="120"/></svg></div></div>
-    <div class="row"><div class="k">AI STACK</div><div class="v">Ollama · Gemini API · LangChain · On-Device NLP · Semantic Similarity</div></div>
-    <div class="row"><div class="k">AGENTIC PIPELINES</div><div class="v">n8n Workflows · REST APIs · Prompt Evaluation Matrices · Model Benchmarking</div></div>
-    <div class="row"><div class="k">CORE TECH STACK</div><div class="v">Python · TypeScript · Docker on Ubuntu/WSL · Linux (Debian)</div></div>
+    <div class="row"><div class="k">AI STACK</div><div class="v">Ollama · Gemini API · LangChain · On-Device NLP · Semantic Similarity <svg class="ink" viewBox="0 0 28 26" aria-hidden="true"><path d="M3 15 Q6 19 9 21 Q12 23 15 19 L25 3" pathLength="120"/></svg></div></div>
+    <div class="row"><div class="k">AGENTIC PIPELINES</div><div class="v">n8n Workflows · REST APIs · Prompt Evaluation Matrices · Model Benchmarking <svg class="ink" viewBox="0 0 28 26" aria-hidden="true"><path d="M3 15 Q6 19 9 21 Q12 23 15 19 L25 3" pathLength="120"/></svg></div></div>
+    <div class="row"><div class="k">CORE TECH STACK</div><div class="v">Python · TypeScript · Docker on Ubuntu/WSL · Linux (Debian) <svg class="ink" viewBox="0 0 28 26" aria-hidden="true"><path d="M3 15 Q6 19 9 21 Q12 23 15 19 L25 3" pathLength="120"/></svg></div></div>
     <div class="row"><div class="k">PROJECTS</div><div class="v">4 production deployments (PromptMatrix &amp; SmartExpenseML flagship)</div></div>
     <div class="row"><div class="k">LANGUAGES</div><div class="v">Indonesian (native) · English (professional)</div></div>
   </div>
@@ -855,9 +866,9 @@
   <p class="lede">Four production deployments, all live.</p>
   <div class="proj">
     <div class="pc"><span class="num">2.01</span><span class="tag">AI · Evaluation Engine</span><h3>PromptMatrix — LLM Prompt Evaluation Engine <svg class="ink" viewBox="0 0 28 26" aria-hidden="true"><path d="M3 15 Q6 19 9 21 Q12 23 15 19 L25 3" pathLength="120"/></svg></h3><ul class="blist"><li>TypeScript, Next.js, LangChain and Gemini API; tests prompt stability across variants with semantic-similarity scoring for instruction-following, consistency, and format adherence.</li><li>Quantifies prompt variant stability, drift risks, and strict JSON/schema format adherence prior to production rollout.</li></ul><span class="status">Status: <b>In production</b></span><a class="url" href="https://sisigitadi.github.io/promptmatrix2" target="_blank" rel="noopener noreferrer">sisigitadi.github.io/promptmatrix2 ↗</a></div>
-    <div class="pc"><span class="num">2.02</span><span class="tag">AI · Privacy-First NLP</span><h3>SmartExpenseML — Client-Side Expense Classifier</h3><ul class="blist"><li>Privacy-first client-side Naive Bayes classifier that categorizes expenses from informal Indonesian currency inputs ("25rb", "5.5jt").</li><li>Zero telemetry, no server, no tracking — 100% in-browser machine learning.</li></ul><span class="status">Status: <b>In production</b></span><a class="url" href="https://sisigitadi.github.io/smartexpenseML" target="_blank" rel="noopener noreferrer">sisigitadi.github.io/smartexpenseML ↗</a></div>
-    <div class="pc"><span class="num">2.03</span><span class="tag">Data &amp; SecOps · Streamlit</span><h3>A.R.Y.A. — SOC Analytics &amp; Threat Hunting</h3><ul class="blist"><li>SOC analytics &amp; threat-hunting dashboard in Python/Streamlit with custom data pipelines and REST ingestion that parses and visualizes JSON/XML/CSV log payloads for Tier-1 analysts.</li><li>Built so an analyst can read threat telemetry without a data-science background.</li></ul><span class="status">Status: <b>In production</b></span><a class="url" href="https://arya-soc.streamlit.app" target="_blank" rel="noopener noreferrer">arya-soc.streamlit.app ↗</a></div>
-    <div class="pc"><span class="num">2.04</span><span class="tag">SecOps · Dashboard</span><h3>SCOPS — Security Operations Automation Platform</h3><ul class="blist"><li>SOC triage dashboard with High/Medium/Low risk classification logic and Wazuh telemetry integration — simulated MTTR cut 45% versus manual triage.</li><li>Turns raw telemetry into a queue an analyst can act on at a glance.</li></ul><span class="status">Status: <b>In production</b></span><a class="url" href="https://sisigitadi.github.io/scops" target="_blank" rel="noopener noreferrer">sisigitadi.github.io/scops ↗</a></div>
+    <div class="pc"><span class="num">2.02</span><span class="tag">AI · Privacy-First NLP</span><h3>SmartExpenseML — Client-Side Expense Classifier <svg class="ink" viewBox="0 0 28 26" aria-hidden="true"><path d="M3 15 Q6 19 9 21 Q12 23 15 19 L25 3" pathLength="120"/></svg></h3><ul class="blist"><li>Privacy-first client-side Naive Bayes classifier that categorizes expenses from informal Indonesian currency inputs ("25rb", "5.5jt").</li><li>Zero telemetry, no server, no tracking — 100% in-browser machine learning.</li></ul><span class="status">Status: <b>In production</b></span><a class="url" href="https://sisigitadi.github.io/smartexpenseML" target="_blank" rel="noopener noreferrer">sisigitadi.github.io/smartexpenseML ↗</a></div>
+    <div class="pc"><span class="num">2.03</span><span class="tag">Data &amp; SecOps · Streamlit</span><h3>A.R.Y.A. — SOC Analytics &amp; Threat Hunting <svg class="ink" viewBox="0 0 28 26" aria-hidden="true"><path d="M3 15 Q6 19 9 21 Q12 23 15 19 L25 3" pathLength="120"/></svg></h3><ul class="blist"><li>SOC analytics &amp; threat-hunting dashboard in Python/Streamlit with custom data pipelines and REST ingestion that parses and visualizes JSON/XML/CSV log payloads for Tier-1 analysts.</li><li>Built so an analyst can read threat telemetry without a data-science background.</li></ul><span class="status">Status: <b>In production</b></span><a class="url" href="https://arya-soc.streamlit.app" target="_blank" rel="noopener noreferrer">arya-soc.streamlit.app ↗</a></div>
+    <div class="pc"><span class="num">2.04</span><span class="tag">SecOps · Dashboard</span><h3>SCOPS — Security Operations Automation Platform <svg class="ink" viewBox="0 0 28 26" aria-hidden="true"><path d="M3 15 Q6 19 9 21 Q12 23 15 19 L25 3" pathLength="120"/></svg></h3><ul class="blist"><li>SOC triage dashboard with High/Medium/Low risk classification logic and Wazuh telemetry integration — simulated MTTR cut 45% versus manual triage.</li><li>Turns raw telemetry into a queue an analyst can act on at a glance.</li></ul><span class="status">Status: <b>In production</b></span><a class="url" href="https://sisigitadi.github.io/scops" target="_blank" rel="noopener noreferrer">sisigitadi.github.io/scops ↗</a></div>
   </div>
   <div class="mnote rot2"><span>good fit — live links verified</span><svg class="underline" viewBox="0 0 52 8" aria-hidden="true"><path d="M1 5 C8 2 17 6 27 3 C35 1 44 5 51 2" pathLength="120"/></svg></div>
 </div>
@@ -922,14 +933,14 @@
   <div class="cert-list">
     <div class="cert-cat">AI &amp; Automation</div>
     <div class="cert-row"><span class="c-title">Microsoft Azure AI Fundamentals (AI-900) <svg class="ink" viewBox="0 0 28 26" aria-hidden="true"><path d="M3 15 Q6 19 9 21 Q12 23 15 19 L25 3" pathLength="120"/></svg></span> <span class="c-dash">—</span> <span class="c-iss">Microsoft</span> <span class="c-dash">—</span> <span class="c-yr">2025</span></div>
-    <div class="cert-row"><span class="c-title">LLM-Based Tools &amp; Gemini API Integration for Data Scientists</span> <span class="c-dash">—</span> <span class="c-iss">Hacktiv8</span> <span class="c-dash">—</span> <span class="c-yr">2025</span></div>
+    <div class="cert-row"><span class="c-title">LLM-Based Tools &amp; Gemini API Integration for Data Scientists <svg class="ink" viewBox="0 0 28 26" aria-hidden="true"><path d="M3 15 Q6 19 9 21 Q12 23 15 19 L25 3" pathLength="120"/></svg></span> <span class="c-dash">—</span> <span class="c-iss">Hacktiv8</span> <span class="c-dash">—</span> <span class="c-yr">2025</span></div>
     <div class="cert-row"><span class="c-title">Business Automation with n8n</span> <span class="c-dash">—</span> <span class="c-iss">Kodeka Labs</span> <span class="c-dash">—</span> <span class="c-yr">2025</span></div>
 
     <div class="cert-cat">Cybersecurity, SecOps &amp; Infrastructure</div>
-    <div class="cert-row"><span class="c-title">Ubuntu Linux Professional Certification</span> <span class="c-dash">—</span> <span class="c-iss">Canonical</span> <span class="c-dash">—</span> <span class="c-yr">2025</span></div>
-    <div class="cert-row"><span class="c-title">Penetration Testing Professional</span> <span class="c-dash">—</span> <span class="c-iss">Cybrary</span> <span class="c-dash">—</span> <span class="c-yr">2025</span></div>
+    <div class="cert-row"><span class="c-title">Ubuntu Linux Professional Certification <svg class="ink" viewBox="0 0 28 26" aria-hidden="true"><path d="M3 15 Q6 19 9 21 Q12 23 15 19 L25 3" pathLength="120"/></svg></span> <span class="c-dash">—</span> <span class="c-iss">Canonical</span> <span class="c-dash">—</span> <span class="c-yr">2025</span></div>
+    <div class="cert-row"><span class="c-title">Penetration Testing Professional <svg class="ink" viewBox="0 0 28 26" aria-hidden="true"><path d="M3 15 Q6 19 9 21 Q12 23 15 19 L25 3" pathLength="120"/></svg></span> <span class="c-dash">—</span> <span class="c-iss">Cybrary</span> <span class="c-dash">—</span> <span class="c-yr">2025</span></div>
     <div class="cert-row"><span class="c-title">Certified Ethical Hacker Foundation</span> <span class="c-dash">—</span> <span class="c-iss">LinkedIn Learning</span> <span class="c-dash">—</span> <span class="c-yr">2025</span></div>
-    <div class="cert-row"><span class="c-title">Indonesia Cross-Sectoral Cyber Exercise #9</span> <span class="c-dash">—</span> <span class="c-iss">BSSN</span> <span class="c-dash">—</span> <span class="c-yr">2024</span></div>
+    <div class="cert-row"><span class="c-title">Indonesia Cross-Sectoral Cyber Exercise #9 <svg class="ink" viewBox="0 0 28 26" aria-hidden="true"><path d="M3 15 Q6 19 9 21 Q12 23 15 19 L25 3" pathLength="120"/></svg></span> <span class="c-dash">—</span> <span class="c-iss">BSSN</span> <span class="c-dash">—</span> <span class="c-yr">2024</span></div>
     <div class="cert-row"><span class="c-title">Certified SOC Analyst</span> <span class="c-dash">—</span> <span class="c-iss">Cyber Academy Indonesia</span> <span class="c-dash">—</span> <span class="c-yr">2024</span></div>
     <div class="cert-row"><span class="c-title">DevSecOps for Software Security &amp; IT Auditor</span> <span class="c-dash">—</span> <span class="c-iss">Kelas.work</span> <span class="c-dash">—</span> <span class="c-yr">2024</span></div>
   </div>
@@ -943,21 +954,33 @@
 <footer id="contact"><div class="wrap">
   <div style="font:12px ui-monospace,Consolas,monospace;color:var(--accent);letter-spacing:.06em;margin-bottom:10px">Section 6 — CONTACT</div>
 
-  <div class="slip" id="resume-request">
-    <div class="slip-head">Request Resume (PDF)</div>
-    <p class="slip-note">Enter your email and the Applied AI Engineer resume (PDF) will be sent to you.</p>
-    <form id="resume-request-form" action="https://formspree.io/f/mkgknrqk" method="POST" novalidate>
-      <div class="field">
-        <label for="slip-email">Email</label>
-        <input type="email" id="slip-email" name="email" placeholder="you@company.com" autocomplete="email" required />
+  <div class="contact-grid">
+    <div class="slip" id="resume-request">
+      <div class="slip-head">Request Resume (PDF)</div>
+      <p class="slip-note">Enter your email and the Applied AI Engineer resume (PDF) will be sent to you.</p>
+      <form id="resume-request-form" action="https://formspree.io/f/mkgknrqk" method="POST" novalidate>
+        <div class="field">
+          <label for="slip-email">Email</label>
+          <input type="email" id="slip-email" name="email" placeholder="you@company.com" autocomplete="email" required />
+        </div>
+        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="display:none" aria-hidden="true" />
+        <input type="hidden" name="source" value="ai-engineer" />
+        <input type="hidden" name="request" value="resume-pdf" />
+        <button type="submit" id="slip-submit" class="btn solid">Request Resume (PDF)</button>
+      </form>
+      <p id="slip-status" class="slip-status" role="status" aria-live="polite"></p>
+      <p class="slip-foot">Your email is used only to send the resume — never shared, never added to any list.</p>
+    </div>
+
+    <div class="stamp-wrapper">
+      <div class="dossier-stamp" aria-label="Recruitment Clearance: Proceed to Interview">
+        <div class="stamp-inner">
+          <div class="stamp-top">★ &nbsp; RECRUITMENT CLEARANCE &nbsp; ★</div>
+          <div class="stamp-main">PROCEED TO INTERVIEW</div>
+          <div class="stamp-foot">ADVANCE TO NEXT HIRING STAGE</div>
+        </div>
       </div>
-      <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="display:none" aria-hidden="true" />
-      <input type="hidden" name="source" value="ai-engineer" />
-      <input type="hidden" name="request" value="resume-pdf" />
-      <button type="submit" id="slip-submit" class="btn solid">Request Resume (PDF)</button>
-    </form>
-    <p id="slip-status" class="slip-status" role="status" aria-live="polite"></p>
-    <p class="slip-foot">Your email is used only to send the resume — never shared, never added to any list.</p>
+    </div>
   </div>
 
   <div class="sig">
@@ -1024,7 +1047,7 @@
   })()
   ;(function () {
     var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    var els = document.querySelectorAll('.ink, .sec-head .dash, .mnote')
+    var els = document.querySelectorAll('.ink, .sec-head .dash, .mnote, .dossier-stamp')
     if (!('IntersectionObserver' in window) || reduce) {
       for (var i = 0; i < els.length; i++) els[i].classList.add('in-view')
       return

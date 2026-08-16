@@ -4,6 +4,34 @@ All notable changes to the **Sigit Adi Irianto Portfolio SPA** project will be d
 
 The format is based on [Keep a Changelog](https://keepachamber.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.8.2] - 2026-08-17 — Field Dossier Clearance Rubber Stamp, Strategic Checkmarks & Slower Pen Loop
+
+> **Tactile Recruitment UI & Visual Affirmation**: Implemented Section 6 Recruitment Clearance Rubber Stamp (`PROCEED TO INTERVIEW`), strategic ink checkmarks across flagship achievements & credentials, and decelerated the handwritten status underline loop to 10.0s for a calm, organic reading rhythm across all documents (`index.html`, `ai-engineer.html`, `secops-specialist.html`, and `design-previews/02-field-manual.html`).
+
+### 📄 Added & Changed
+- **Section 6 Rubber Stamp Clearance (`.dossier-stamp`)**:
+  - Positioned beside the resume request slip in Section 6 inside a fluid 2-column flex layout (`.contact-grid`).
+  - Styled with authoritative double-border layout, -10° dossier angle, and `@keyframes stampSlam` impact landing animation triggered via `IntersectionObserver`.
+  - Authoritative copy selected by recruiter preference:
+    ```text
+    ★  RECRUITMENT CLEARANCE  ★
+    PROCEED TO INTERVIEW
+    ADVANCE TO NEXT HIRING STAGE
+    ```
+- **Strategic Checkmark Affirmations (`.ink` checkmarks)**:
+  - Added handwritten SVG checkmarks to key accomplishments across the Front Spec table (`AI STACK`, `SIEM & WAF`, `CORE TECH STACK`, `AGENTIC PIPELINES`), Flagship Projects (`SCOPS`, `A.R.Y.A.`, `PromptMatrix`, `SmartExpenseML`), and Certifications (`Azure AI`, `Gemini API`, `Ubuntu Linux`, `Cybrary Pentest`, `BSSN Cyber Exercise #9`).
+- **Decelerated Status Scribble Underline (`penLoop 10s`)**:
+  - Calibrated animation timing from 4.4s to 10.0s (~2.3x slower) with extended resting visibility for a calm, professional editorial experience.
+- **Security, Performance & Print Integrity**:
+  - Maintained zero CSP violations with exact inline script SHA-256 hash synchronisation.
+  - Full ATS-friendly print isolation: stamps and ink elements hidden on print, preserving strict 2-page PDF layout.
+  - Bumped Service Worker cache to `portofolio-v37`.
+- **Ecosystem Tri-Document Parity**:
+  - Synchronized across `index.html`, `ai-engineer.html`, `secops-specialist.html`, and `design-previews/02-field-manual.html`.
+  - Passed all 13/13 pre-flight audits on every document and 64/64 pytest assertions.
+
+---
+
 ## [2.8.1] - 2026-08-17 — The Floating Dossier Landing & Hand-Drawn Ink Pen Micro-Interactions
 
 > **Visual & UX Polish**: Implemented tactile 3D entry animation ("The Floating Dossier Landing") where the entire portfolio document floats and lands onto the desk surface with realistic aerodynamic easing. Added non-blocking instant-skip on interaction, tactile 3D hover physics on project cards, and a slow looping handwritten pen scribble underline (`.pen-stroke`) beneath the STATUS ketersediaan kerja across all 3 documents (`index.html`, `ai-engineer.html`, `secops-specialist.html`).
