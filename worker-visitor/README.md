@@ -5,7 +5,9 @@ Cloudflare Worker backend for `index.html` (GitHub Pages portfolio):
 - **`POST /hit`** — records a visit: IP (hashed, never stored raw), city/country/timezone **+ company/ASN/region/continent** from the Cloudflare edge (`request.cf`), bot flag, user-agent, referrer, path. Body limited to 10 KB (larger payloads are rejected 413 `payload_too_large`); if `IP_HASH_SALT` is not configured, the hit is rejected 500 fail-closed (nothing is recorded).
 - **`GET /pixel?path=…`** — 1×1 transparent GIF beacon without JavaScript (captures crawlers/no-JS); records a hit the same way as `/hit` (same rate-limit + daily dedupe).
 - **`GET /count`** — total & unique visits (public footer badge, 60s KV cache).
-- **`GET /dashboard?key=…`** — private HTML dashboard (login key, stat cards, table with 24h / 7d / 30d / all filters).
+- **`GET /dashboard?key=…`** — private HTML dashboard:
+  - **📄 Executive Resume Hub (ATS 2-Page · Print / PDF Export)**: direct 1-click preview and print launchers for Master CV, AI Engineer CV, and SecOps Specialist CV (auto-synced with `index.html` via query routing).
+  - **Analytics**: login key, stat cards, 30-day trend chart, hourly distribution, top countries & cities, device breakdown, and table with 24h / 7d / 30d / all filters.
 - **`GET /api/stats?key=…&range=…`** — raw JSON for integration/export.
 - **`GET /api/export?key=…&range=…`** — server-side CSV (up to 50,000 rows).
 

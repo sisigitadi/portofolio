@@ -557,6 +557,38 @@ function dashboardPage(stats, rows) {
     <div class="card"><div class="n" id="c-today">–</div><div class="l">Visits today</div></div>
     <div class="card"><div class="n" id="c-utoday">–</div><div class="l">Unique today</div></div>
   </div>
+  <div class="panel" style="margin-bottom:1.5rem; border-color:var(--primary); background:rgba(34,211,238,0.03);">
+    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; margin-bottom:0.75rem;">
+      <h2 style="margin:0; color:var(--primary); font-size:0.85rem;">📄 Executive Resume Hub (ATS 2-Page · Print / PDF Export)</h2>
+      <span style="font-size:0.7rem; color:var(--muted);">Single Source of Truth · Auto-Sync with Site</span>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:0.75rem;">
+      <div style="background:var(--bg); border:1px solid var(--border); border-radius:8px; padding:0.8rem 1rem;">
+        <div style="font-weight:700; font-size:0.85rem; color:var(--text); margin-bottom:0.2rem;">📑 Master CV</div>
+        <div style="font-size:0.72rem; color:var(--muted); margin-bottom:0.6rem;">IT &amp; SecOps Specialist · Applied AI Engineer (Balanced Profile · 9.2/10 ATS)</div>
+        <div style="display:flex; gap:0.4rem;">
+          <a class="btn" href="https://sisigitadi.github.io/portofolio/?cv=master" target="_blank" rel="noopener noreferrer" style="flex:1; text-align:center;">👁️ Preview</a>
+          <a class="btn" href="https://sisigitadi.github.io/portofolio/?cv=master&print=1" target="_blank" rel="noopener noreferrer" style="flex:1; text-align:center; color:var(--primary); border-color:var(--primary);">🖨️ Print PDF</a>
+        </div>
+      </div>
+      <div style="background:var(--bg); border:1px solid var(--border); border-radius:8px; padding:0.8rem 1rem;">
+        <div style="font-weight:700; font-size:0.85rem; color:var(--text); margin-bottom:0.2rem;">🤖 AI Engineer CV</div>
+        <div style="font-size:0.72rem; color:var(--muted); margin-bottom:0.6rem;">Applied AI Engineer &amp; LLM Specialist (PromptMatrix &amp; SmartExpenseML Priority)</div>
+        <div style="display:flex; gap:0.4rem;">
+          <a class="btn" href="https://sisigitadi.github.io/portofolio/?cv=ai" target="_blank" rel="noopener noreferrer" style="flex:1; text-align:center;">👁️ Preview</a>
+          <a class="btn" href="https://sisigitadi.github.io/portofolio/?cv=ai&print=1" target="_blank" rel="noopener noreferrer" style="flex:1; text-align:center; color:var(--primary); border-color:var(--primary);">🖨️ Print PDF</a>
+        </div>
+      </div>
+      <div style="background:var(--bg); border:1px solid var(--border); border-radius:8px; padding:0.8rem 1rem;">
+        <div style="font-weight:700; font-size:0.85rem; color:var(--text); margin-bottom:0.2rem;">🛡️ SecOps Specialist CV</div>
+        <div style="font-size:0.72rem; color:var(--muted); margin-bottom:0.6rem;">SecOps &amp; Threat Monitoring Specialist (Wazuh SIEM, NIST, SCOPS &amp; ARYA)</div>
+        <div style="display:flex; gap:0.4rem;">
+          <a class="btn" href="https://sisigitadi.github.io/portofolio/?cv=secops" target="_blank" rel="noopener noreferrer" style="flex:1; text-align:center;">👁️ Preview</a>
+          <a class="btn" href="https://sisigitadi.github.io/portofolio/?cv=secops&print=1" target="_blank" rel="noopener noreferrer" style="flex:1; text-align:center; color:var(--primary); border-color:var(--primary);">🖨️ Print PDF</a>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="charts">
     <div class="panel panel-wide"><h2>Daily visits — last 30 days (UTC)</h2><div id="chart-trend"></div></div>
     <div class="panel"><h2>Visits by hour (UTC)</h2><div id="chart-hour"></div></div>

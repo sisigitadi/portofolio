@@ -4,6 +4,49 @@ All notable changes to the **Sigit Adi Irianto Portfolio SPA** project will be d
 
 The format is based on [Keep a Changelog](https://keepachamber.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.7.20] - 2026-08-17 — Executive Resume Hub & Specialized CV System (Master / AI / SecOps)
+
+> **Major Feature & Optimization**: Introduced parameter-driven ATS-optimized 2-page CV variants (`?cv=ai`, `?cv=secops`, `?cv=master`), an automated print controller (`&print=1`), and direct launcher integration in the Private Owner Dashboard. Cleaned public web UI to preserve minimal Field Manual aesthetic, aligned copy ("Twenty-four years" consistency, corporate project lede, unpunctuated header name), and updated `FIELD EXPERIENCE` to `"Feb 2002 → present · IT → SecOps & AI"`.
+
+### 📄 Added & Changed
+- **Executive Resume Hub (Private Dashboard)**:
+  - Added dedicated launcher in `worker-visitor/worker.js` with 1-click **Preview** and **🖨️ Print PDF** for 3 specialized profiles:
+    1. **📑 Master CV**: Balanced 24-year Enterprise + SecOps + Applied AI profile (ATS 9.2/10).
+    2. **🤖 AI Engineer CV (`?cv=ai`)**: Tailored headline (`Applied AI Engineer & LLM Specialist`), specialized pitch, custom AI spec grid (`1,000+ RLHF prompt evaluations`), reorganized competencies (Applied AI & Pipeline Automation top), elevated AI flagship projects (`PromptMatrix` & `SmartExpenseML`), and AI certification priority (`Azure AI-900`, `Gemini API Hacktiv8`, `n8n`).
+    3. **🛡️ SecOps Specialist CV (`?cv=secops`)**: Tailored headline (`SecOps & Threat Monitoring Specialist`), specialized pitch, custom SecOps spec grid (`Simulated MTTR −45% & MTTA −55%`), reorganized competencies (SecOps & Incident Handling top), elevated SecOps flagship projects (`SCOPS` & `A.R.Y.A.`), and SecOps certification priority (`Ubuntu Linux`, `Cybrary Pentest`, `CEH`, `BSSN Cyber Exercise #9`, `Certified SOC Analyst`).
+- **Clean Public UI**:
+  - Excluded print switcher modals and buttons from public web views, maintaining a clean single CTA (*"Request Resume (PDF)"*).
+- **Copy & Formatting Polish**:
+  - **Header Name**: Formatted as `<h1>Sigit Adi Irianto</h1>` (unpunctuated clean formal heading).
+  - **Project Lede**: Streamlined to `Four production deployments, all live.` for enterprise recruiter standard.
+  - **Copy Consistency**: Unified all career span references to `"Twenty-four years"` across hero pitch and Section 1 lede.
+  - **Field Experience**: Refined to `Feb 2002 → present · IT → SecOps & AI`.
+- **Print Optimization**:
+  - Added `document.fonts.ready` promise listener to auto-print trigger (`&print=1`) ensuring 100% frozen layout before triggering `window.print()`.
+- **Service Worker (`sw.js`)**: Bumped cache name to `portofolio-v33`.
+- **Parity & Validation**: Synced `index.html` with `design-previews/02-field-manual.html`; audit **13 PASS** · pytest **62/62** · worker tests **26/26**.
+
+---
+
+## [2.7.18] - 2026-08-17 — Layout Polish & Section Copy Revisions
+
+> **Owner request**: copy refinement across Section 3 (renamed from "Field Log — Career History, 2002 — 2026" to "Career History"), Section 4 (renamed from "Field Reports" to "Testimony"), and Section 6 (header "Request Slip — Resume (PDF)" changed to "Request Resume (PDF)"). In addition, hero email now anchors directly to `#contact`, the direct email link was removed from Section 6 footer links, social links (LinkedIn, GitHub, Medium) were relocated beneath "END OF MANUAL", and mobile `.footer-links` was enhanced to a neat vertical column with terracotta bullet points.
+
+### 📄 Changed (index.html + design-previews/02-field-manual.html)
+- **Section 3 & 4 Titles**: TOC and section headings updated to `Career History` and `Testimony`.
+- **Section 6 Header**: Changed from `Request Slip — Resume (PDF)` to `Request Resume (PDF)`.
+- **Hero Email Anchor**: `si.sigitadi@gmail.com` in the spec table is now linked directly to `#contact`.
+- **Contact Footer Links**:
+  - Removed duplicate email link from `.footer-links`.
+  - Moved `.footer-links` (LinkedIn, GitHub, Medium) below `END OF MANUAL`.
+- **Field Experience Copy Refinement**:
+  - Updated `FIELD EXPERIENCE` description from `"Feb 2002 → present · infra & sysadmin · SecOps & AI since 2024"` to `"Feb 2002 → present · IT → SecOps & AI"`.
+  - Delivers a punchier, streamlined representation of the career evolution from core enterprise IT into SecOps & Applied AI.
+- **Service Worker (`sw.js`)**: Bumped cache name to `portofolio-v30` for instant global cache refresh.
+- **Parity & Validation**: Synced with `design-previews/02-field-manual.html`; audit **13 PASS** · pytest **62/62** · worker tests **26/26**.
+
+---
+
 ## [2.7.17] - 2026-08-16 — Contact Page Footer Standardized (p. 7 / 7)
 
 > **Owner observation**: page 7 (Contact) used a `<footer>` element without the standard `.pg` bar — the page number was embedded inline in the END OF MANUAL line, so it sat at a different position than every other page. Now the contact page carries the same footer bar as the rest (`SAI-2026 · Field Manual · ↑ back to contents · p. 7 / 7`), and the END OF MANUAL line no longer repeats the number.
