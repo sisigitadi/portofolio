@@ -879,13 +879,13 @@
   <div class="sec-head"><span class="no">3.</span><h2 id="log-h">Professional Experience</h2><div class="dash"></div></div>
   <p class="lede">Ten roles, newest first.</p>
   <div class="log">
-    <div class="row"><span class="num">3.01</span><div class="y">MAR 2026 — NOW</div><div class="r"><b>Web Administrator (Contract) — Ministry of Environment, BPDLH Project <svg class="ink" viewBox="0 0 28 26" aria-hidden="true"><path d="M3 15 Q6 19 9 21 Q12 23 15 19 L25 3" pathLength="120"/></svg></b><ul class="blist"><li>Docker-based infrastructure on Ubuntu/WSL for a government web platform, with Wazuh SIEM monitoring and DVWA sandboxing.</li><li>Streamlined telemetry analysis cut weekly manual log review time by 30%.</li></ul></div></div>
+    <div class="row"><span class="num">3.01</span><div class="y">MAR 2026 — NOW</div><div class="r"><b>Web Administrator (Contract) — Ministry of Environment <svg class="ink" viewBox="0 0 28 26" aria-hidden="true"><path d="M3 15 Q6 19 9 21 Q12 23 15 19 L25 3" pathLength="120"/></svg></b><ul class="blist"><li>Docker-based infrastructure on Ubuntu/WSL for a government web platform, with Wazuh SIEM monitoring and DVWA sandboxing.</li><li>Streamlined telemetry analysis cut weekly manual log review time by 30%.</li></ul></div></div>
     <div class="row"><span class="num">3.02</span><div class="y">OCT 2025 — DEC 2025</div><div class="r"><b>Senior Programmer (Short-Term Contract) — Ministry of Home Affairs <svg class="ink" viewBox="0 0 28 26" aria-hidden="true"><path d="M3 13 Q7 18 10 20 Q13 22 16 17 L24 3" pathLength="120"/></svg></b><ul class="blist"><li>Backend components for a high-volume digital governance transaction system; reliability risks identified and resolved.</li><li>Processing thousands of transactions a day, with UU PDP data minimization as a default.</li></ul></div></div>
     <div class="row"><span class="num">3.03</span><div class="y">JAN 2025 — SEP 2025</div><div class="r"><b>SOC Analyst (Part-Time) — PT. Prospera Consulting Engineers <svg class="ink" viewBox="0 0 28 26" aria-hidden="true"><path d="M3 15 Q6 19 9 21 Q12 23 15 19 L25 3" pathLength="120"/></svg></b><ul class="blist"><li>Incident Response playbooks for Tier-1 analysts based on NIST frameworks.</li><li>Wazuh-based pre-audit gap analyses for ISO 27001 readiness; MTTA down 55% after playbook rollout.</li></ul></div></div>
     <div class="row"><span class="num">3.04</span><div class="y">OCT 2024 — DEC 2024</div><div class="r"><b>Incident Handling Operational (Short-Term Contract) — Ministry of Home Affairs</b><ul class="blist"><li>Shift operations and real-time threat hunting with Wazuh SIEM and FortiWeb WAF — 500+ alerts a day.</li><li>Escalation pathways restructured to support the team's MTTR reduction targets — tested path from alert to containment.</li></ul></div></div>
     <div class="row"><span class="num">3.05</span><div class="y">JUN 2024 — NOW</div><div class="r"><b>AI Trainer &amp; LLM Evaluator (Freelance) — Multiple AI evaluation platforms</b><ul class="blist"><li>RLHF-style evaluation of model factuality, instruction-following, and safety; 1,000+ prompt-response pairs reviewed.</li><li>Concurrent with security roles above — prompt vulnerability and safety boundary assessment.</li></ul></div></div>
     <div class="row"><span class="num">3.06</span><div class="y">MAY 2023 — AUG 2024</div><div class="r"><b>IT &amp; Operations Manager (Full-Time) — ACE Ltd.</b><ul class="blist"><li>Owned IT infrastructure and technical operations for a 50+ person engineering team.</li><li>Automated SQL reporting pipelines, eliminating manual data entry from operational reporting.</li></ul></div></div>
-    <div class="row"><span class="num">3.07</span><div class="y">DEC 2020 — APR 2023</div><div class="r"><b>Project Office Manager (Contract) — Ministry of Public Works and Housing (PUPR)</b><ul class="blist"><li>IT support logistics across concurrent public-infrastructure projects.</li><li>One reporting standard across four concurrent sites.</li></ul></div></div>
+    <div class="row"><span class="num">3.07</span><div class="y">DEC 2020 — APR 2023</div><div class="r"><b>Project Office Manager (Contract) — Ministry of Public Works and Housing</b><ul class="blist"><li>IT support logistics across concurrent public-infrastructure projects.</li><li>One reporting standard across four concurrent sites.</li></ul></div></div>
     <div class="row"><span class="num">3.08</span><div class="y">JUN 2020 — NOV 2020</div><div class="r"><b>Assistant to Office Manager (Short-Term Contract) — Nippon Koei Co., Ltd.</b><ul class="blist"><li>Reporting and budget-tracking workflows for an irrigation modernization project; resource-allocation bottlenecks reduced across regional teams.</li><li>Implemented budget variance tracking and workflow audits to identify and resolve resource bottlenecks prior to milestone delivery.</li></ul></div></div>
     <div class="row"><span class="num">3.09</span><div class="y">JUN 2014 — APR 2020</div><div class="r"><b>IT Manager (Full-Time) — PT. Dipta Safari Jaya <svg class="ink" viewBox="0 0 28 26" aria-hidden="true"><path d="M3 12 Q6 17 9 19 Q12 21 15 17 L25 2" pathLength="120"/></svg></b><ul class="blist"><li>Enterprise network infrastructure and backup-recovery protocols over a 6-year tenure, with automated system monitoring keeping availability high.</li><li>Maintained high-availability SLA across on-premise server fleet and network infrastructure, executing rapid on-site incident remediation.</li></ul></div></div>
     <div class="row"><span class="num">3.10</span><div class="y">2002 — 2014</div><div class="r"><b>Early Career Experience (Full-Time) — PT. Laju Karunia Jaya · Arya Mobile</b><ul class="blist"><li>Foundational IT support roles across two companies.</li><li>Twelve years — networking, hardware, and end-user support.</li></ul></div></div>
@@ -1047,9 +1047,11 @@
   })()
   ;(function () {
     var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    var els = document.querySelectorAll('.ink, .sec-head .dash, .mnote, .dossier-stamp')
+    var els = document.querySelectorAll('.ink, .sec-head .dash, .mnote')
     if (!('IntersectionObserver' in window) || reduce) {
       for (var i = 0; i < els.length; i++) els[i].classList.add('in-view')
+      var fallbackStamp = document.querySelector('.dossier-stamp')
+      if (fallbackStamp) fallbackStamp.classList.add('in-view')
       return
     }
     var io = new IntersectionObserver(function (entries) {
@@ -1058,6 +1060,39 @@
       }
     }, { threshold: 0.3 })
     for (var k = 0; k < els.length; k++) io.observe(els[k])
+
+    var contactSec = document.getElementById('contact')
+    var stampEl = document.querySelector('.dossier-stamp')
+    if (contactSec && stampEl) {
+      var stampTimer = null
+      var stampFired = false
+      function triggerStamp() {
+        if (stampFired) return
+        stampFired = true
+        stampEl.classList.add('in-view')
+        if (stampTimer) { clearTimeout(stampTimer); stampTimer = null }
+      }
+      function startStampTimer() {
+        if (stampFired || stampTimer) return
+        stampTimer = setTimeout(triggerStamp, 5000)
+      }
+      function stopStampTimer() {
+        if (stampFired) return
+        if (stampTimer) { clearTimeout(stampTimer); stampTimer = null }
+      }
+      contactSec.addEventListener('mouseenter', startStampTimer)
+      contactSec.addEventListener('mouseleave', stopStampTimer)
+      var contactIo = new IntersectionObserver(function (entries) {
+        for (var n = 0; n < entries.length; n++) {
+          if (entries[n].isIntersecting) {
+            startStampTimer()
+          } else {
+            stopStampTimer()
+          }
+        }
+      }, { threshold: 0.25 })
+      contactIo.observe(contactSec)
+    }
   })()
   ;(function () {
     var form = document.getElementById('resume-request-form')

@@ -4,6 +4,26 @@ All notable changes to the **Sigit Adi Irianto Portfolio SPA** project will be d
 
 The format is based on [Keep a Changelog](https://keepachamber.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.8.3] - 2026-08-17 — Clean Institutional Branding & 5-Second Section 6 Stamp Dwell Trigger
+
+> **Editorial Polish & Focused Micro-Interactions**: Streamlined public sector institutional titles (removed redundant project acronyms `", BPDLH Project"` and `"(PUPR)"`) and refined the Section 6 Rubber Stamp interaction model to trigger precisely after a 5-second cursor/viewport dwell presence across all portfolio documents (`index.html`, `ai-engineer.html`, `secops-specialist.html`, and `design-previews/02-field-manual.html`).
+
+### 📄 Added & Changed
+- **Institutional Role Copy Refinement**:
+  - `Ministry of Environment, BPDLH Project` → **`Ministry of Environment`**
+  - `Ministry of Public Works and Housing (PUPR)` → **`Ministry of Public Works and Housing`**
+- **5-Second Section 6 Stamp Dwell Trigger**:
+  - Updated Section 6 stamp controller to initiate a 5000ms countdown upon cursor entry (`mouseenter` / viewport intersection on `#contact`).
+  - Implemented cancel-on-leave (`mouseleave` / out-of-view): if the recruiter leaves Section 6 before 5 seconds, the timer is cleared and resets for their next visit.
+  - Sits as a rewarding, high-impact surprise affirming candidacy after the recruiter has spent time reviewing the contact section.
+- **CSP & Cache Synchronization**:
+  - Synchronized CSP script hash (`sha256-y2Zt22noOrlCkwpC3G2gXr/XAPjMvAh7471co7MQs6E=`).
+  - Bumped Service Worker cache to `portofolio-v38` (`sw.js`).
+- **Tri-Document Ecosystem Parity**:
+  - Synchronized across `index.html`, `ai-engineer.html`, `secops-specialist.html`, `design-previews/02-field-manual.html`, and `Readme.md`.
+
+---
+
 ## [2.8.2] - 2026-08-17 — Field Dossier Clearance Rubber Stamp, Strategic Checkmarks & Slower Pen Loop
 
 > **Tactile Recruitment UI & Visual Affirmation**: Implemented Section 6 Recruitment Clearance Rubber Stamp (`PROCEED TO INTERVIEW`), strategic ink checkmarks across flagship achievements & credentials, and decelerated the handwritten status underline loop to 10.0s for a calm, organic reading rhythm across all documents (`index.html`, `ai-engineer.html`, `secops-specialist.html`, and `design-previews/02-field-manual.html`).

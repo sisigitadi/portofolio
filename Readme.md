@@ -10,7 +10,7 @@
 
 This repository contains the single-page application (SPA) portfolio showcasing 20+ years of operational experience across IT infrastructure management, Security Operations Center (SOC) threat triage, DevSecOps automation pipelines, and practical applied AI engineering.
 
-> **Current Role**: Web Administrator — *Ministry of Environment (BPDLH Project)* (Mar 2026 – Present), managing Docker-based infrastructure on Ubuntu/WSL for a government web platform with Wazuh SIEM monitoring and DVWA security sandboxing.
+> **Current Role**: Web Administrator — *Ministry of Environment* (Mar 2026 – Present), managing Docker-based infrastructure on Ubuntu/WSL for a government web platform with Wazuh SIEM monitoring and DVWA security sandboxing.
 
 ---
 
