@@ -4,6 +4,19 @@ All notable changes to the **Sigit Adi Irianto Portfolio SPA** project will be d
 
 The format is based on [Keep a Changelog](https://keepachamber.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.7.7] - 2026-08-16 — Offerings Lede Rewrite (CV-Style) + Drop n8n from 1.03
+
+> **Owner-directed copy changes**: the §1 lede replaced with a recruiter-scannable CV-style sentence, and n8n removed from the 1.03 offering because it is too recent to claim as a long-standing capability.
+
+### ✏️ Changed
+- **§1 Offerings lede**: `Four areas I operate, maintain, and improve — 24 years of infrastructure, with SecOps & applied AI the recent focus.` → `24 years of infrastructure operations, sharpened into SecOps and applied AI — offered as four service areas.`
+- **1.03 IT Infrastructure** bullet 1: removed `and n8n workflow automation` (n8n is a recent acquisition, not a long-standing offering); also dropped `n8n` from the card's REF tag for consistency. The `Business Automation with n8n` certification (2025, Kodeka Labs) remains in the certifications table as a factual record.
+
+### 🧪 Validation
+- `python audit.py` → **13 PASS | 0 FAIL | 0 WARN** · `pytest` → **62/62** · parity maintained.
+
+---
+
 ## [2.7.6] - 2026-08-16 — Shorten Offerings Lede
 
 > **Copy polish** per owner request: the §1 lede compressed from two sentences (~165 chars) to one tight line — same facts, same value proposition.
