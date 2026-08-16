@@ -4,6 +4,17 @@ All notable changes to the **Sigit Adi Irianto Portfolio SPA** project will be d
 
 The format is based on [Keep a Changelog](https://keepachamber.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.7.15] - 2026-08-16 — Seven-Page Layout: Each Section on Its Own Page
+
+> **Owner request**: every section now gets its own page instead of sharing. The manual is **7 pages**: title = p.1 (unnumbered), Offerings = p.2, Deployed Projects = p.3, Field Log = p.4, Field Reports = p.5, Certifications = p.6, Contact = p.7. TOC and every section footer updated to `p. x / 7`.
+
+### 📄 Changed (index.html + design-previews/02-field-manual.html)
+- TOC entries renumbered: Offerings p.2 → Contact p.7.
+- Section footers: `p. 2 / 7` … `p. 7 / 7` — Offerings and Projects no longer share a page.
+- Parity maintained across both files; audit **13 PASS** · pytest **62/62**.
+
+---
+
 ## [2.7.14] - 2026-08-16 — Worker Deploy Mandate Documented + Live Worker Redeployed
 
 > **Operational fix + rule**: the dashboard changes from v2.7.12/2.7.13 (map removal, 2×2 grid) were committed but **not deployed** — Cloudflare Workers are deployed independently of git, so the live dashboard still showed the old code. The worker was redeployed (`npx wrangler deploy`, version `5594c5eb-…`) and the rule is now documented so this cannot be missed again.
