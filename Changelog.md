@@ -4,6 +4,37 @@ All notable changes to the **Sigit Adi Irianto Portfolio SPA** project will be d
 
 The format is based on [Keep a Changelog](https://keepachamber.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.9.0] - 2026-08-17 — Ecosystem Harmonization, Strict Reverse Chronology & ATS Credibility Hardening
+
+> **Full Ecosystem Synchronization & ATS Hardening**: Synchronized all three CVs (`master_cv_v2.md`, `cv_applied_ai_engineer.md`, `cv_secops_engineer.md`) and all three live web portfolios (`index.html`, `ai-engineer.html`, `secops-specialist.html`). Enforced strict reverse-chronological experience ordering across all assets, standardized exact role target titles, eliminated decorative ink checkmarks/parafs in body sections, added a calm 10s looping handwritten status underline, sharpened technical keyword density (`REST API Integration`, `JSON/Schema Validation`), and streamlined conversion CTA hierarchy.
+
+### 📄 Added & Changed
+- **Strict Reverse-Chronological Order (CV ↔ Web)**:
+  - Enforced exact chronological alignment across all 6 assets: `Mar 2026` (MoE) → `Oct 2025` (MoHA) → `Jan 2025` (Prospera) → `Oct 2024` (MoHA) → `Jun 2024` (AI Trainer) → `May 2023` (ACE) → `Dec 2020` (PUPR) → `Jun 2020` (Nippon Koei) → `Jun 2014` (Dipta) → `2002–2014` (Early Career).
+- **Exact Role Title & Summary Harmonization**:
+  - AI Profile: **`Applied AI Engineer | LLM | AI Automation`**
+  - SecOps Profile: **`SecOps Specialist | SIEM | Threat Monitoring | Incident Response`**
+  - Master Profile: **`Applied AI Engineer · SecOps & IT Infrastructure Specialist`**
+  - Summaries unified across web and CV to present defensible 24+ years IT foundation paired with current specialization.
+- **UI & Decorative Ink Cleanup**:
+  - Removed all checkmarks and ink signature SVGs from Section 3 (Experience), Section 7 (Certifications), and Footer.
+  - Added subtle `.animated-underline` (10-second infinite loop) under `"Open to Worldwide Remote Work"` and `"(24+ Yrs)"` (auto-hidden in `@media print`).
+  - Simplified top masthead strictly to **`Portofolio`** (removed `"Updated August 2026"` and manual metadata).
+  - Replaced CTA note with contextual copy: `verified resume · request pdf`.
+  - Removed footer contact links paragraph to keep header and contact section as single clean sources of contact truth.
+- **Navigation & Anchor ID Integrity**:
+  - Assigned dedicated unique anchor IDs for all sections: `#offer` (1), `#projects` (2), `#log` (3), `#reports` (4), `#education` (5), `#languages` (6), `#certs` (7), `#contact` (8).
+  - Renamed Section 4 to **`Professional Recommendations`** to accurately reflect project-associated recommendations rather than unsolicited reference rosters.
+- **Conversion CTA Hierarchy**:
+  - Placed direct CV download buttons (`.btn.solid`) at the top of the Contact Slip for instant 1-click recruiter access before optional email forms.
+- **Keyword Architecture Hardening**:
+  - Replaced generic phrases with concrete searchable competencies: `REST API Integration · Data Pipelines · Git & GitHub · JSON/Schema Validation`.
+  - Flagship project standardized to: `PromptMatrix — LLM Evaluation & Prompt Stability Platform`.
+- **Pre-Flight Audit & Test Suite**:
+  - Passed all 14 registered pre-flight checks across all documents and 67/67 pytest test cases.
+
+---
+
 ## [2.8.3] - 2026-08-17 — Clean Institutional Branding & 3-Second Section 6 Stamp Dwell Trigger
 
 > **Editorial Polish & Focused Micro-Interactions**: Streamlined public sector institutional titles (removed redundant project acronyms `", BPDLH Project"` and `"(PUPR)"`) and refined the Section 6 Rubber Stamp interaction model to trigger precisely after a 3-second (3000ms) continuous cursor dwell presence across all portfolio documents (`index.html`, `ai-engineer.html`, `secops-specialist.html`, and `design-previews/02-field-manual.html`).

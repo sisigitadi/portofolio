@@ -9,9 +9,9 @@ Dokumen ini berfungsi sebagai **Master Repository of Facts, Claims, and Keywords
 | Unsur Profil | Klaim Lama / Berisiko | Framing Baru (Defensible & High-Impact) | Rasional & Justifikasi |
 | :--- | :--- | :--- | :--- |
 | **Total Pengalaman** | *"24 years of enterprise operations"* | **"24+ years in IT, systems infrastructure, and technology delivery with recent specialization in Applied AI and SecOps"** | Pengalaman 2002–2020 adalah fondasi IT Ops/Network/Sysadmin. Pengalaman ini adalah aset reliabilitas sistem, bukan sekadar *career switcher*. |
-| **Headline Master** | `IT & SecOps Specialist · Applied AI Engineer` | `IT Infrastructure Specialist · SecOps & Applied AI Engineer` *(Master)* | Menegaskan bahwa pondasi utamanya adalah IT Infrastructure yang telah berevolusi ke SecOps dan AI. |
-| **Headline Target AI** | `Applied AI Engineer` (ambigu) | `Applied AI Engineer · LLM Evaluation & AI Automation` | Mengklarifikasi domain praktis: membangun aplikasi LLM, evaluasi prompt/schema, dan otomasi workflow. |
-| **Headline Target SecOps** | `SecOps Specialist` (ambigu) | `SecOps Engineer · SOC, SIEM & Security Automation` | Mengklarifikasi domain teknis: triage Wazuh, response playbook, WAF, dan threat monitoring. |
+| **Headline Master** | `IT & SecOps Specialist · Applied AI Engineer` | `Applied AI Engineer · SecOps & IT Infrastructure Specialist` *(Master)* | Menegaskan bahwa pondasi utamanya adalah IT Infrastructure yang telah berevolusi ke SecOps dan AI. |
+| **Headline Target AI** | `Applied AI Engineer` (ambigu) | `Applied AI Engineer \| LLM \| AI Automation` | Mengklarifikasi domain praktis: membangun aplikasi LLM, evaluasi prompt/schema, dan otomasi workflow. |
+| **Headline Target SecOps** | `SecOps Specialist` (ambigu) | `SecOps Specialist \| SIEM \| Threat Monitoring \| Incident Response` | Mengklarifikasi domain teknis: triage Wazuh, response playbook, WAF, dan threat monitoring. |
 
 ---
 
