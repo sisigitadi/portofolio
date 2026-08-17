@@ -21,7 +21,7 @@ Banten, Indonesia (UTC+7) · Open to Worldwide Remote Work
 
 ## TECHNICAL PROJECTS
 
-### **PromptMatrix 2.0 — LLM Prompt Stability & Multi-Model Evaluation Suite**
+### **PromptMatrix — LLM Evaluation & Prompt Stability Platform**
 *Live Application:* [PromptMatrix](https://sisigitadi.github.io/promptmatrix2) | *Source:* [GitHub](https://github.com/sisigitadi) | *Stack:* TypeScript, Next.js, LangChain, Gemini API, Cosine Similarity, BYOK
 *   Architected a client-side prompt evaluation engine testing LLM output consistency, format adherence, and safety across systematic prompt variations.
 *   Quantified prompt variant stability, drift risks, and strict JSON/schema format adherence before deployment.

@@ -1,12 +1,12 @@
 # SIGIT ADI IRIANTO
-**SecOps & Threat Monitoring Specialist · IT Infrastructure Engineer**  
+**SecOps Specialist | SIEM | Threat Monitoring | Incident Response**  
 Banten, Indonesia (UTC+7) · Open to Worldwide Remote Work  
 [si.sigitadi@gmail.com](mailto:si.sigitadi@gmail.com) | [linkedin.com/in/sigitadi](https://www.linkedin.com/in/sigitadi/) | [github.com/sisigitadi](https://github.com/sisigitadi) | [sisigitadi.github.io/portofolio](https://sisigitadi.github.io/portofolio)
 
 ---
 
 ## PROFESSIONAL SUMMARY
-Security Operations (SecOps) and IT Infrastructure Specialist with 24+ years of enterprise systems background, specialized in Tier-1 SOC security monitoring, threat hunting, and incident response automation. Architect of SCOPS (SOC triage automation platform) and A.R.Y.A. (security telemetry dashboard). Proven experience managing 500+ daily alerts across Wazuh SIEM and FortiWeb WAF, reducing simulated MTTR by 45% and MTTA by 55% via standardized playbooks aligned with NIST SP 800-61 and ISO/IEC 27001.
+24+ years in IT infrastructure, systems operations, and technology delivery, with recent specialization in Security Operations, SIEM telemetry triage, and incident response automation. Hands-on experience developing NIST SP 800-61 playbooks, Wazuh pre-audit compliance analyses, and reducing SOC operational MTTR/MTTA.
 
 ---
 
@@ -32,7 +32,7 @@ Security Operations (SecOps) and IT Infrastructure Specialist with 24+ years of 
 *   Designed an automated telemetry ingestion pipeline that normalizes heterogeneous log streams (JSON, XML, CSV) into real-time threat hunting dashboards.
 *   Streamlined log ingestion and threat detection workflows, cutting manual log review time by **30%** for Tier-1 analysts.
 
-### **PromptMatrix 2.0 — LLM Prompt Stability & Multi-Model Evaluation Suite**
+### **PromptMatrix — LLM Evaluation & Prompt Stability Platform**
 *Live Application:* [PromptMatrix](https://sisigitadi.github.io/promptmatrix2) | *Source:* [GitHub](https://github.com/sisigitadi) | *Stack:* TypeScript, Next.js, LangChain, Gemini API, Cosine Similarity, BYOK
 *   Architected a client-side prompt evaluation engine testing LLM output consistency, format adherence, and safety across systematic prompt variations.
 *   Quantified prompt variant stability, drift risks, and strict JSON/schema format adherence before deployment.
@@ -46,17 +46,6 @@ Security Operations (SecOps) and IT Infrastructure Specialist with 24+ years of 
 
 ## PROFESSIONAL EXPERIENCE
 
-### **SOC Analyst (Part-Time)** | PT. Prospera Consulting Engineers
-*Jan 2025 – Sep 2025 | Jakarta, Indonesia*
-*   Developed incident response playbooks for Tier-1 analysts based on NIST SP 800-61 frameworks.
-*   Conducted Wazuh-based pre-audit reviews for ISO 27001 readiness.
-*   Reduced MTTA by **55%** after playbook rollout measured against baseline telemetry.
-
-### **Incident Handling Operational (Short-Term Contract)** | Ministry of Home Affairs
-*Oct 2024 – Dec 2024 | Jakarta, Indonesia*
-*   Conducted real-time threat hunting with Wazuh SIEM and FortiWeb WAF across 500+ daily alerts.
-*   Restructured escalation pathways to support incident response MTTR reduction targets.
-
 ### **Web Administrator (Contract)** | Ministry of Environment
 *Mar 2026 – Present | Jakarta, Indonesia*
 *   Administered Docker-based infrastructure on Ubuntu/WSL with Wazuh SIEM monitoring and DVWA sandboxing.
@@ -66,6 +55,16 @@ Security Operations (SecOps) and IT Infrastructure Specialist with 24+ years of 
 *Oct 2025 – Dec 2025 | Jakarta, Indonesia*
 *   Developed backend components for a high-volume digital governance transaction system processing thousands of transactions per day, while applying data minimization principles aligned with UU PDP.
 *   Identified and resolved reliability risks across critical data ingestion flows.
+
+### **SOC Analyst (Part-Time)** | PT. Prospera Consulting Engineers
+*Jan 2025 – Sep 2025 | Jakarta, Indonesia*
+*   Developed incident response playbooks for Tier-1 analysts based on NIST SP 800-61 frameworks.
+*   Conducted Wazuh-based pre-audit reviews for ISO 27001 readiness; reduced MTTA by **55%**.
+
+### **Incident Handling Operational (Short-Term Contract)** | Ministry of Home Affairs
+*Oct 2024 – Dec 2024 | Jakarta, Indonesia*
+*   Conducted real-time threat hunting with Wazuh SIEM and FortiWeb WAF across 500+ daily alerts.
+*   Restructured escalation pathways to support incident response MTTR reduction targets.
 
 ### **AI Trainer & LLM Evaluator (Freelance)** | Multiple AI Evaluation Platforms
 *Jun 2024 – Present | Remote*

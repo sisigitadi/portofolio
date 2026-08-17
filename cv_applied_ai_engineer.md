@@ -1,12 +1,12 @@
 # SIGIT ADI IRIANTO
-**Applied AI Engineer · LLM Evaluation & AI Automation Specialist**  
+**Applied AI Engineer | LLM | AI Automation**  
 Banten, Indonesia (UTC+7) · Open to Worldwide Remote Work  
 [si.sigitadi@gmail.com](mailto:si.sigitadi@gmail.com) | [linkedin.com/in/sigitadi](https://www.linkedin.com/in/sigitadi/) | [github.com/sisigitadi](https://github.com/sisigitadi) | [sisigitadi.github.io/portofolio](https://sisigitadi.github.io/portofolio)
 
 ---
 
 ## PROFESSIONAL SUMMARY
-Applied AI Engineer with 24+ years of enterprise systems and software delivery background, specialized in LLM application development, multi-model prompt stability benchmarking, and client-side NLP. Architect of publicly deployed AI applications including PromptMatrix (LLM evaluation engine) and SmartExpenseML (privacy-preserving classifier). Experienced in RLHF prompt evaluation (1,000+ pairs reviewed), workflow automation with n8n, and local inference tooling with Ollama, LangChain, and the Gemini API.
+24+ years in IT systems and technology delivery, with recent specialization in Applied AI engineering, LLM evaluation, and workflow automation. Hands-on experience developing LLM applications, prompt stability evaluation engines, semantic similarity scoring, and client-side privacy-first NLP architectures.
 
 ---
 
@@ -21,7 +21,7 @@ Applied AI Engineer with 24+ years of enterprise systems and software delivery b
 
 ## TECHNICAL PROJECTS
 
-### **PromptMatrix 2.0 — LLM Prompt Stability & Multi-Model Evaluation Suite**
+### **PromptMatrix — LLM Evaluation & Prompt Stability Platform**
 *Live Application:* [PromptMatrix](https://sisigitadi.github.io/promptmatrix2) | *Source:* [GitHub](https://github.com/sisigitadi) | *Stack:* TypeScript, Next.js, LangChain, Gemini API, Cosine Similarity, BYOK
 *   Architected a client-side prompt evaluation engine testing LLM output consistency, format adherence, and safety across systematic prompt variations.
 *   Quantified prompt variant stability, drift risks, and strict JSON/schema format adherence before deployment.
@@ -46,11 +46,6 @@ Applied AI Engineer with 24+ years of enterprise systems and software delivery b
 
 ## PROFESSIONAL EXPERIENCE
 
-### **AI Trainer & LLM Evaluator (Freelance)** | Multiple AI Evaluation Platforms
-*Jun 2024 – Present | Remote*
-*   Evaluated **1,000+ prompt-response pairs** for model factuality, instruction-following, and safety using RLHF criteria.
-*   Conducted multi-variable prompt testing and optimization via client-side BYOK workflows; benchmarked model hallucination rates and output stability.
-
 ### **Web Administrator (Contract)** | Ministry of Environment
 *Mar 2026 – Present | Jakarta, Indonesia*
 *   Administered Docker-based infrastructure on Ubuntu/WSL with Wazuh SIEM monitoring and DVWA sandboxing.
@@ -70,6 +65,11 @@ Applied AI Engineer with 24+ years of enterprise systems and software delivery b
 *Oct 2024 – Dec 2024 | Jakarta, Indonesia*
 *   Conducted real-time threat hunting with Wazuh SIEM and FortiWeb WAF across 500+ daily alerts.
 *   Restructured escalation pathways to support incident response MTTR reduction targets.
+
+### **AI Trainer & LLM Evaluator (Freelance)** | Multiple AI Evaluation Platforms
+*Jun 2024 – Present | Remote*
+*   Evaluated **1,000+ prompt-response pairs** for model factuality, instruction-following, and safety using RLHF criteria.
+*   Conducted multi-variable prompt testing and optimization via client-side BYOK workflows; benchmarked model hallucination rates and output stability.
 
 ### **IT & Operations Manager (Full-Time)** | ACE Ltd.
 *May 2023 – Aug 2024 | Indonesia*
