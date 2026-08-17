@@ -4,6 +4,22 @@ All notable changes to the **Sigit Adi Irianto Portfolio SPA** project will be d
 
 The format is based on [Keep a Changelog](https://keepachamber.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.9.1] - 2026-08-17 — Section Headers & TOC Harmonization, SEO & Metadata Polish
+
+> **Navigation, Typography & Meta Synchronization**: Streamlined Table of Contents and main section `<h2>` headings across all three web portfolios (`index.html`, `ai-engineer.html`, `secops-specialist.html`) to clean, direct labels: `1. Skills`, `2. Projects`, `3. Experiences`, and `4. Recommendations`. Refreshed OpenGraph, Twitter card, Schema microdata, and JSON-LD structured data preview versions (`?v=2.9.1`) for reliable social cache invalidation.
+
+### 📄 Added & Changed
+- **Section & TOC Heading Harmonization**:
+  - Standardized Table of Contents and corresponding `<h2>` section headings to: `Skills`, `Projects`, `Experiences`, and `Recommendations`.
+  - Maintained full anchor link compatibility (`#offer`, `#projects`, `#log`, `#reports`).
+- **SEO & Social Media Preview Refresh**:
+  - Synchronized OpenGraph (`og:image`), Twitter Card (`twitter:image`), Schema.org Microdata (`itemprop="image"`), and JSON-LD Structured Data image URLs to cache-busting version `?v=2.9.1`.
+  - Verified title length (53 chars ≤ 65 limit) and meta description (126 chars ≤ 160 limit) for high search engine CTR and snippet clarity.
+- **Pre-Flight Audit & Test Suite**:
+  - Passed 100% of pre-flight checks (14/14 PASS) and 67/67 pytest test cases.
+
+---
+
 ## [2.9.0] - 2026-08-17 — Ecosystem Harmonization, Strict Reverse Chronology & ATS Credibility Hardening
 
 > **Full Ecosystem Synchronization & ATS Hardening**: Synchronized all three CVs (`master_cv_v2.md`, `cv_applied_ai_engineer.md`, `cv_secops_engineer.md`) and all three live web portfolios (`index.html`, `ai-engineer.html`, `secops-specialist.html`). Enforced strict reverse-chronological experience ordering across all assets, standardized exact role target titles, eliminated decorative ink checkmarks/parafs in body sections, added a calm 10s looping handwritten status underline, sharpened technical keyword density (`REST API Integration`, `JSON/Schema Validation`), and streamlined conversion CTA hierarchy.
