@@ -14,8 +14,8 @@ Banten, Indonesia (UTC+7) · Open to Worldwide Remote Work
 
 *   **Applied AI & LLM Engineering:** Gemini API, LangChain, Ollama, Local LLM Inference, RLHF/Prompt Evaluation, Semantic Similarity Analysis, Multi-Model Prompt Benchmarking, Structured Output Validation (JSON Schema), Bring-Your-Own-Key (BYOK) Security Patterns.
 *   **Security Operations (SecOps) & Threat Monitoring:** Tier-1 SOC Security Monitoring, Threat Hunting, Incident Response Playbooks (NIST SP 800-61 Rev. 2, ISO/IEC 27001), Wazuh SIEM Configuration & Agent Telemetry, FortiWeb WAF Alert Triage, Alert Normalization.
-*   **Workflow Automation & Software Engineering:** n8n Workflow Automation, REST API Ingestion Pipelines, Python (Pandas, Streamlit), TypeScript, Next.js, Linux/Ubuntu Server Hardening, Docker Containerization, WSL Environments.
-*   **Enterprise IT Infrastructure & Systems:** Systems Administration, Enterprise Network Topologies (LAN/WAN, Routing/Switching, Firewalls), Automated Backup Protocols, SQL Data Pipelines, Multi-Stakeholder Collaboration.
+*   **Workflow Automation & Software Engineering:** n8n Workflow Automation, REST API Integration & Data Pipelines, Python (Pandas, Streamlit), TypeScript, Next.js, Linux/Ubuntu Server Hardening, Docker Containerization, WSL Environments.
+*   **Enterprise IT Infrastructure & Systems:** Systems Administration, Enterprise Network Topologies (LAN/WAN, Routing/Switching, Firewalls), Automated Backup Protocols, SQL Data Pipelines, Disaster Recovery Protocols.
 
 ---
 

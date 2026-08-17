@@ -14,8 +14,8 @@ Banten, Indonesia (UTC+7) · Open to Worldwide Remote Work
 
 *   **Applied AI & LLM Engineering:** Gemini API, LangChain, Ollama, Local LLM Inference, RLHF/Prompt Evaluation, Semantic Similarity (Cosine Scoring), Multi-Model Benchmarking, Prompt Drift Analysis, Bring-Your-Own-Key (BYOK) Security Patterns.
 *   **Machine Learning & NLP:** Client-Side Text Classification, Naive Bayes Algorithms, Regex Text Normalization, Privacy-Preserving In-Browser Processing.
-*   **Workflow Automation & Software Engineering:** n8n Workflow Automation, REST API Ingestion Pipelines, Python (Pandas, Streamlit), TypeScript, Next.js, FastAPI, Linux/Ubuntu Server Hardening, Docker Containerization, WSL Environments.
-*   **Enterprise Systems & Infrastructure:** Systems Administration, Linux (Ubuntu/Debian), Server Hardening, Automated SQL Data Pipelines, Multi-Stakeholder Collaboration.
+*   **Workflow Automation & Software Engineering:** n8n Workflow Automation, REST API Integration & Data Pipelines, Python (Pandas, Streamlit), TypeScript, Next.js, FastAPI, Linux/Ubuntu Server Hardening, Docker Containerization, WSL Environments.
+*   **Enterprise Systems & Infrastructure:** Systems Administration, Linux (Ubuntu/Debian), Server Hardening, Automated SQL Data Pipelines, Disaster Recovery Protocols.
 
 ---
 
