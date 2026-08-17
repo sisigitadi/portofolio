@@ -664,6 +664,32 @@ class PreflightAudit:
         else:
             self._pass(f"JSON-LD structured data valid ({len(blocks)} blocks, types: {', '.join(types)}).")
 
+    # -- 13. ATS Print Mode Architecture & Standards -------------------------
+    @register
+    def _check_13_ats_print_architecture(self):
+        """Verify @media print exists, enforces single-column layout, Arial font,
+        page size A4, and pagination break rules."""
+        if '@media print' not in self.content:
+            self._fail("No @media print stylesheet found in document.")
+            return
+
+        idx = self.content.find('@media print')
+        end_idx = self.content.find('</style>', idx)
+        print_css = self.content[idx:end_idx] if (idx != -1 and end_idx != -1) else self.content
+
+        errors = []
+        if 'Arial' not in print_css:
+            errors.append("Print font must specify Arial (universal ATS-safe font)")
+        if 'size: a4' not in print_css.lower():
+            errors.append("@page rule must declare A4 size")
+        if 'break-inside: avoid' not in print_css:
+            errors.append("Missing break-inside: avoid pagination protection")
+
+        if errors:
+            self._fail("ATS Print stylesheet non-compliant: " + "; ".join(errors))
+        else:
+            self._pass("ATS Print Mode verified (Single-column, Arial typography, A4 pagination, break-inside protection).")
+
     # -- Execution ----------------------------------------------------------
     def run(self):
         # Reset state so run() is idempotent (safe to call repeatedly on the

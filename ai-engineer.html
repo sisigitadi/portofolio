@@ -173,12 +173,15 @@
   header{padding:34px 0 26px;position:relative}
   h1{font-size:clamp(28px,6.5vw,72px);line-height:1.15;font-weight:700;letter-spacing:-1px;text-align:left;text-wrap:balance;margin-bottom:14px}
   h1 .thin{font-weight:400;color:var(--ink2)}
-  .role{font-size:clamp(17px,2.4vw,22px);color:var(--accent2);margin-bottom:20px}
-  .pitch{max-width:600px;color:var(--ink2);margin-bottom:6px;text-align:left;line-height:1.7}
+  .role{font-size:clamp(17px,2.4vw,22px);color:var(--accent2);margin-bottom:12px}
+  .summary-head{font:700 11px ui-monospace,Consolas,monospace;color:var(--accent);text-transform:uppercase;letter-spacing:.08em;margin-top:14px;margin-bottom:4px}
+  .pitch{max-width:640px;color:var(--ink2);margin-bottom:6px;text-align:left;line-height:1.7}
+  .lang-item{font-size:13px;padding:4px 0 10px;border-bottom:1px dotted var(--rule)}
 
   /* spec table — the manual's front-matter */
   .spec{border-top:2px solid var(--ink);margin:26px 0 0}
   .spec .row{display:flex;gap:20px;padding:11px 2px;border-bottom:1px solid var(--rule);font-size:15px}
+  .spec .row.cv-only{display:none}
   .spec .k{width:210px;flex-shrink:0;font:12.5px ui-monospace,Consolas,monospace;color:var(--accent);letter-spacing:.03em;padding-top:3px;white-space:nowrap}
   .spec .v{color:var(--ink)}
 
@@ -422,6 +425,10 @@
     @bottom-right { content: none !important; }
   }
   @media print {
+    @page {
+      size: A4 portrait;
+      margin: 10mm 12mm 10mm 12mm;
+    }
     *, *::before, *::after {
       animation: none !important;
       transition: none !important;
@@ -439,13 +446,13 @@
     html, body {
       background: #ffffff !important;
       color: #111827 !important;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+      font-family: Arial, Helvetica, sans-serif !important;
       margin: 0 !important;
       padding: 0 !important;
       overflow: visible !important;
       height: auto !important;
-      font-size: 10px !important;
-      line-height: 1.35 !important;
+      font-size: 9pt !important;
+      line-height: 1.3 !important;
       -webkit-font-smoothing: antialiased;
     }
     .sheet {
@@ -462,255 +469,250 @@
       display: none !important;
     }
 
-    /* Suppress non-ATS elements: Web masthead, TOC, Contact Form/Slip, Web footers, Testimonials (#reports), decorative numbering (.num), ink/scribble animations */
-    .mast, footer, #contact, .pg, .toc, #reports, .num, body > svg, .skip-link, .cta, .btn, .visitor-badge, noscript, .ref, .ink, .mnote, .cta-note, .ink-sign, svg.underline, .pen-stroke, .stamp-wrapper, .dossier-stamp {
+    /* Suppress non-ATS elements: Web masthead, TOC, Contact Form/Slip, Web footers, Testimonials, decorative numbering, ink/scribble animations, all SVGs */
+    .mast, footer, #contact, .pg, .toc, #reports, .num, body > svg, svg, svg *, path, defs, filter, .skip-link, .cta, .btn, .visitor-badge, noscript, .ref, .ink, .mnote, .cta-note, .ink-sign, .underline, .pen-stroke, .stamp-wrapper, .dossier-stamp, .cbadge {
       display: none !important;
       visibility: hidden !important;
       height: 0 !important;
+      width: 0 !important;
+      max-width: 0 !important;
+      max-height: 0 !important;
       margin: 0 !important;
       padding: 0 !important;
       border: none !important;
+      opacity: 0 !important;
+      overflow: hidden !important;
     }
 
-    /* Clean, high-contrast text & link formatting */
+    /* Suppress pseudo-element markers in print */
+    .blist li::before, .footer-links span::before {
+      display: none !important;
+      content: none !important;
+    }
+
+    /* Clean typography & link formatting (no lines or underlines) */
     a {
       color: #0f172a !important;
       border-bottom: none !important;
       text-decoration: none !important;
     }
-    .role, .sec-head .no, .pc .tag {
-      color: #0284c7 !important;
-    }
 
-    /* 2-Page Executive Architecture */
-    header {
-      break-before: auto !important;
-      page-break-before: auto !important;
-      break-inside: avoid !important;
-      page-break-inside: avoid !important;
-      padding: 0 0 8px !important;
-      margin: 0 0 10px !important;
-      border-bottom: 2px solid #0f172a !important;
-    }
-    /* Page 1: Header + Core Skills + Section 1 (Core Competencies) + Section 2 (Projects) */
-    #offer {
-      break-before: auto !important;
-      page-break-before: auto !important;
-      break-inside: avoid !important;
-      page-break-inside: avoid !important;
-      padding-top: 10px !important;
-      margin-top: 6px !important;
-    }
-    #projects {
-      break-before: auto !important;
-      page-break-before: auto !important;
-      break-inside: avoid !important;
-      page-break-inside: avoid !important;
-      padding-top: 12px !important;
-      margin-top: 8px !important;
-    }
-    /* Page 2: Section 3 (Professional Experience) + Section 5 (Certifications & Credentials) */
-    #log {
-      break-before: page !important;
-      page-break-before: always !important;
-      padding-top: 4px !important;
-    }
-    #certs {
-      break-before: auto !important;
-      page-break-before: auto !important;
-      padding-top: 14px !important;
-      margin-top: 10px !important;
-    }
-
+    /* Section structure */
     section {
       margin: 0 !important;
-      border-top: 1px solid #cbd5e1 !important;
-    }
-    .oc, .pc, .log .row, .spec {
-      break-inside: avoid !important;
-      page-break-inside: avoid !important;
+      padding: 0 !important;
+      border-top: none !important;
+      display: block !important;
     }
 
     /* ATS-Standard Section Headers */
     .sec-head {
       break-after: avoid !important;
       page-break-after: avoid !important;
-      display: flex !important;
-      align-items: baseline !important;
-      margin-bottom: 5px !important;
-      gap: 6px !important;
+      display: block !important;
+      margin: 8px 0 3px !important;
+      padding-bottom: 2px !important;
+      border-bottom: 1.5px solid #0f172a !important;
     }
     .sec-head h2 {
-      font-size: 13px !important;
-      font-weight: 700 !important;
-      text-transform: uppercase !important;
-      letter-spacing: 0.05em !important;
-      color: #0f172a !important;
-      margin: 0 !important;
-    }
-    .sec-head .no {
-      font-size: 10.5px !important;
-      font-weight: 700 !important;
-    }
-    .sec-head .dash {
-      flex: 1 !important;
-      height: 1px !important;
-      background: #e2e8f0 !important;
-      margin-left: 8px !important;
-    }
-    .lede {
-      margin-bottom: 4px !important;
-      font-size: 9.5px !important;
-      color: #475569 !important;
-      line-height: 1.3 !important;
-    }
-
-    /* ATS Rename: "Offerings" -> "Core Competencies" */
-    #offer .sec-head h2 {
-      font-size: 0 !important;
-    }
-    #offer .sec-head h2::before {
-      content: "Core Competencies & Technical Skills" !important;
-      font-size: 13px !important;
-      font-weight: 700 !important;
-      text-transform: uppercase !important;
-      letter-spacing: 0.05em !important;
-      color: #0f172a !important;
-    }
-
-    /* Page 1: Header / Candidate Scan Zone */
-    h1 {
-      font-size: 20px !important;
-      font-weight: 800 !important;
-      color: #0f172a !important;
-      margin: 0 0 2px !important;
-      letter-spacing: -0.02em !important;
-      line-height: 1.1 !important;
-    }
-    h1 .thin {
-      color: #0284c7 !important;
-    }
-    .role {
-      font-size: 11.5px !important;
-      font-weight: 600 !important;
-      color: #0284c7 !important;
-      margin-bottom: 3px !important;
-      letter-spacing: 0.02em !important;
-    }
-    .pitch {
-      font-size: 9.5px !important;
-      color: #334155 !important;
-      margin-bottom: 5px !important;
-      line-height: 1.32 !important;
-    }
-
-    /* ATS Key-Value Skills & Profile Matrix */
-    .spec {
-      display: grid !important;
-      grid-template-columns: 1fr 1fr !important;
-      gap: 1.5px 12px !important;
-      margin: 3px 0 0 !important;
-      background: #f8fafc !important;
-      padding: 5px 8px !important;
-      border: 1px solid #e2e8f0 !important;
-      border-radius: 4px !important;
-    }
-    .spec .row {
-      display: flex !important;
-      flex-direction: row !important;
-      padding: 1px 0 !important;
-      font-size: 9px !important;
-      gap: 6px !important;
-      border-bottom: 1px dotted #cbd5e1 !important;
-    }
-    .spec .k {
-      width: 105px !important;
-      font-size: 8.5px !important;
-      font-weight: 700 !important;
-      color: #0f172a !important;
-      text-transform: uppercase !important;
-      letter-spacing: 0.03em !important;
-      flex-shrink: 0 !important;
-    }
-    .spec .v {
-      color: #334155 !important;
-    }
-
-    /* Core Competencies & Selected Projects Grid */
-    .offer, .proj {
-      display: grid !important;
-      grid-template-columns: repeat(2, 1fr) !important;
-      gap: 5px !important;
-      margin-top: 2px !important;
-    }
-    .oc, .pc {
-      padding: 5px 7px !important;
-      background: #ffffff !important;
-      border: 1px solid #e2e8f0 !important;
-      border-radius: 3px !important;
-    }
-    .oc h3, .pc h3 {
-      font-size: 10.5px !important;
-      font-weight: 700 !important;
-      color: #0f172a !important;
-      margin: 0 0 2px !important;
-    }
-    .oc p, .oc .blist, .pc p, .pc .blist {
-      font-size: 9px !important;
-      color: #334155 !important;
-      line-height: 1.28 !important;
-    }
-
-    /* Standard ATS Native List Items */
-    .blist {
-      margin: 2px 0 0 !important;
-      padding-left: 14px !important;
-      list-style: disc !important;
-    }
-    .blist li {
-      display: list-item !important;
-      margin: 1px 0 !important;
-      padding-left: 0 !important;
-      position: static !important;
-    }
-    .blist li::before {
-      display: none !important;
-      content: none !important;
-    }
-
-    .pc .tag {
-      font-size: 8px !important;
+      font-size: 10.5pt !important;
       font-weight: 700 !important;
       text-transform: uppercase !important;
       letter-spacing: 0.04em !important;
+      color: #0f172a !important;
+      margin: 0 !important;
+      display: inline-block !important;
+    }
+    .sec-head .no, .sec-head .dash {
+      display: none !important;
+    }
+    .lede {
+      display: none !important;
+    }
+
+    /* Page 1: Header / Candidate Scan Zone */
+    header {
+      break-before: auto !important;
+      page-break-before: auto !important;
+      break-inside: avoid !important;
+      page-break-inside: avoid !important;
+      padding: 0 0 4px !important;
+      margin: 0 0 6px !important;
+      border-bottom: 2px solid #0f172a !important;
+      display: block !important;
+    }
+    h1 {
+      font-size: 16pt !important;
+      font-weight: 800 !important;
+      color: #0f172a !important;
+      margin: 0 0 1px !important;
+      letter-spacing: -0.01em !important;
+      line-height: 1.1 !important;
+      text-transform: uppercase !important;
+    }
+    h1 .thin {
+      color: #0f172a !important;
+    }
+    .role {
+      font-size: 10pt !important;
+      font-weight: 700 !important;
+      color: #0f172a !important;
+      margin-bottom: 3px !important;
+      letter-spacing: 0.01em !important;
+    }
+    .summary-head {
+      display: block !important;
+      font-size: 8pt !important;
+      font-weight: 700 !important;
+      color: #0f172a !important;
+      text-transform: uppercase !important;
+      letter-spacing: 0.04em !important;
+      margin: 3px 0 1px !important;
+      border-bottom: 1px solid #0f172a !important;
+      padding-bottom: 0.5px !important;
+    }
+    .pitch {
+      font-size: 8.5pt !important;
+      color: #1e293b !important;
+      margin-bottom: 3px !important;
+      line-height: 1.28 !important;
+    }
+
+    /* ATS Contact Information (Structured 2-Line Executive Header) */
+    .spec {
+      display: block !important;
+      margin: 3px 0 0 !important;
+      padding: 2px 0 0 !important;
+      border-top: 1px dotted #cbd5e1 !important;
+      background: transparent !important;
+      border-radius: 0 !important;
+      border-left: none !important;
+      border-right: none !important;
+      border-bottom: none !important;
+      line-height: 1.35 !important;
+    }
+    .spec .row {
+      display: none !important;
+    }
+    .spec .row.contact-line1 {
+      display: block !important;
+      font-size: 8.5pt !important;
+      color: #334155 !important;
+      padding: 0 !important;
+      margin-bottom: 1.5px !important;
+      border-bottom: none !important;
+    }
+    .spec .row.contact-line2 {
+      display: inline !important;
+      padding: 0 !important;
+      font-size: 8.5pt !important;
+      border-bottom: none !important;
+    }
+    .spec .row.contact-line2::after {
+      content: " · " !important;
+      color: #94a3b8 !important;
+      font-weight: 700 !important;
+      margin: 0 3px !important;
+    }
+    .spec .row.contact-line2:last-of-type::after {
+      content: "" !important;
+    }
+    .spec .k {
+      display: none !important;
+    }
+    .spec .v {
+      display: inline !important;
+      color: #0f172a !important;
+      font-size: 8.5pt !important;
+    }
+
+    /* Page 1: Single-Column Technical Skills */
+    #offer, #projects {
+      break-before: auto !important;
+      page-break-before: auto !important;
+      break-inside: avoid !important;
+      page-break-inside: avoid !important;
+      display: block !important;
+    }
+    .offer, .proj {
+      display: block !important;
+      margin-top: 2px !important;
+    }
+    .oc, .pc {
+      display: block !important;
+      padding: 0 !important;
+      margin-bottom: 4px !important;
+      background: transparent !important;
+      border: none !important;
+      border-radius: 0 !important;
+      break-inside: avoid !important;
+      page-break-inside: avoid !important;
+    }
+    .oc h3, .pc h3 {
+      font-size: 8.8pt !important;
+      font-weight: 700 !important;
+      color: #0f172a !important;
+      margin: 0 0 1px !important;
+      display: inline !important;
+    }
+    .oc .blist, .pc .blist {
+      margin: 1px 0 0 !important;
+      padding-left: 12px !important;
+      list-style: disc !important;
+    }
+    .oc .blist li, .pc .blist li {
+      font-size: 8pt !important;
+      color: #334155 !important;
+      line-height: 1.22 !important;
+      margin-bottom: 0 !important;
+    }
+    .pc .tag {
+      font-size: 7.5pt !important;
+      font-weight: 700 !important;
+      color: #0f172a !important;
+      text-transform: uppercase !important;
       margin-bottom: 1px !important;
       display: block !important;
     }
     .pc .status {
-      font-size: 8.5px !important;
-      color: #166534 !important;
-      margin-top: 2px !important;
-      display: inline-block !important;
-      margin-right: 6px !important;
+      font-size: 7.5pt !important;
+      color: #0f172a !important;
+      display: inline !important;
+      margin-right: 4px !important;
+      border: none !important;
+      border-top: none !important;
+      padding: 0 !important;
+      margin-top: 0 !important;
     }
     .pc .url {
-      font-size: 8.5px !important;
-      color: #0284c7 !important;
-      font-weight: 500 !important;
+      font-size: 7.5pt !important;
+      color: #0f172a !important;
+      display: inline !important;
+      border: none !important;
+      border-bottom: none !important;
+      text-decoration: none !important;
     }
 
-    /* Page 2: Career History (10 Roles ATS Chronological Format — Guaranteed Top-to-Bottom Sequential Stream) */
+    /* Page 2: Professional Experience (10 Roles Chronological Stream) */
+    #log {
+      break-before: page !important;
+      page-break-before: always !important;
+      display: block !important;
+    }
     .log {
       display: block !important;
+      margin-top: 2px !important;
     }
     .log .row {
       display: block !important;
-      padding: 2.5px 0 !important;
+      padding: 1.5px 0 !important;
       border-bottom: 1px solid #f1f5f9 !important;
+      break-inside: avoid !important;
+      page-break-inside: avoid !important;
     }
     .log .y {
       display: inline-block !important;
-      font-size: 8.5px !important;
+      font-size: 7.8pt !important;
       font-weight: 700 !important;
       color: #475569 !important;
       letter-spacing: 0.02em !important;
@@ -724,60 +726,72 @@
       display: inline !important;
     }
     .log .r > b {
-      font-size: 10px !important;
+      font-size: 8.5pt !important;
       font-weight: 700 !important;
       color: #0f172a !important;
       display: inline !important;
     }
-    .log .r span, .log .r .blist {
+    .log .r .blist {
       display: block !important;
-      font-size: 9px !important;
+      margin: 1px 0 0 !important;
+      padding-left: 12px !important;
+      list-style: disc !important;
+    }
+    .log .r .blist li {
+      font-size: 7.8pt !important;
       color: #334155 !important;
-      margin-top: 1.5px !important;
+      line-height: 1.2 !important;
+      margin: 0 !important;
     }
 
-    /* Page 2: Education Block */
-    .edu-wrap {
-      margin-bottom: 6px !important;
-      padding-bottom: 2px !important;
+    /* Page 2: Education, Languages & Certifications */
+    #certs {
+      break-before: auto !important;
+      page-break-before: auto !important;
+      break-inside: avoid !important;
+      page-break-inside: avoid !important;
+      display: block !important;
+      margin-top: 2px !important;
     }
-    .edu-wrap .sec-head {
+    .edu-wrap, .lang-wrap {
       margin-bottom: 2px !important;
+      padding-bottom: 0 !important;
+      display: block !important;
     }
-    .edu-item {
-      font-size: 9.5px !important;
+    .edu-item, .lang-item {
+      font-size: 8pt !important;
       color: #334155 !important;
-      padding: 0 !important;
+      padding: 0.5px 0 !important;
       border: none !important;
     }
-    .edu-item b {
+    .edu-item b, .lang-item b {
       color: #0f172a !important;
     }
-
-    /* Certifications Linear Text Layout (Clean ATS Single-Line Format: [Credential] — [Issuer] — [Year]) */
     .cert-list {
       display: block !important;
       width: 100% !important;
-      margin-top: 2px !important;
-      border-top: none !important;
+      margin-top: 1px !important;
     }
     .cert-cat {
       display: block !important;
       font-weight: 700 !important;
-      font-size: 8.5px !important;
-      color: #0284c7 !important;
+      font-size: 7.8pt !important;
+      color: #0f172a !important;
+      background: transparent !important;
+      border: none !important;
+      border-bottom: 1px solid #0f172a !important;
       text-transform: uppercase !important;
       letter-spacing: 0.04em !important;
-      margin: 4px 0 2px !important;
-      padding: 0 !important;
-      border: none !important;
-      background: none !important;
+      margin: 3px 0 1px !important;
+      padding: 1px 0 !important;
     }
     .cert-row {
       display: block !important;
-      padding: 1.5px 0 !important;
+      padding: 1px 0 !important;
       border-bottom: 1px solid #f1f5f9 !important;
-      font-size: 9px !important;
+      font-size: 7.8pt !important;
+      break-inside: avoid !important;
+      page-break-inside: avoid !important;
     }
     .cert-row .c-title {
       font-weight: 600 !important;
@@ -785,20 +799,18 @@
       display: inline !important;
     }
     .cert-row .c-dash {
-      color: #64748b !important;
+      color: #94a3b8 !important;
       display: inline !important;
-      margin: 0 3px !important;
+      margin: 0 2px !important;
     }
     .cert-row .c-iss {
       color: #475569 !important;
       display: inline !important;
-      width: auto !important;
     }
     .cert-row .c-yr {
       font-weight: 600 !important;
       color: #64748b !important;
       display: inline !important;
-      width: auto !important;
     }
   }
 </style>
@@ -810,92 +822,93 @@
 <div class="sheet">
 
 <div class="mast" id="top"><div class="wrap">
-  <span>Field Manual · Applied AI &amp; LLM Engineering</span>
-  <span class="meta">Manual No. SAI-2026-AI / Copy 01 · Current as of Aug 2026</span>
+  <span>Field Manual · IT · SecOps &amp; Applied AI</span>
+  <span class="meta">Manual No. SAI-2026 / Copy 01 · Current as of Aug 2026</span>
 </div></div>
 
 <header id="content"><div class="wrap">
   <h1>Sigit Adi Irianto</h1>
-  <div class="role">Applied AI Engineer &nbsp;·&nbsp; LLM Specialist</div>
+  <div class="role">Applied AI Engineer &nbsp;·&nbsp; LLM &amp; Automation Specialist</div>
+  <div class="summary-head">PROFESSIONAL SUMMARY</div>
   <p class="pitch">
-    Twenty-four years in technology systems, specializing in Applied AI engineering: production prompt evaluation pipelines, on-device NLP, RLHF evaluation, and local LLM workflows using Ollama, LangChain, and the Gemini API.
+    24+ years in IT systems and technology delivery, specialized in Applied AI engineering, LLM evaluation, and workflow automation. Hands-on experience developing LLM applications, prompt stability evaluation engines, semantic similarity scoring, and client-side privacy-first NLP architectures.
   </p>
   <div class="spec">
-    <div class="row"><div class="k">STATUS</div><div class="v"><span class="status-underlined">Open to remote AI/LLM roles worldwide<svg class="pen-stroke" viewBox="0 0 160 10" preserveAspectRatio="none" aria-hidden="true"><path d="M2 7 C35 2, 75 9, 115 4 C135 1, 150 7, 158 5" pathLength="100"/></svg></span></div></div>
-    <div class="row"><div class="k">BASE OF OPERATIONS</div><div class="v">Banten, Indonesia — WIB, UTC+7</div></div>
-    <div class="row"><div class="k">CONTACT</div><div class="v"><a href="#contact">si.sigitadi@gmail.com</a></div></div>
-    <div class="row"><div class="k">FIELD EXPERIENCE</div><div class="v">Feb 2002 → present · IT → Applied AI &amp; LLMs</div></div>
-    <div class="row"><div class="k">TRACK RECORD</div><div class="v">1,000+ RLHF prompt evaluations · Zero data leakage via client-side BYOK NLP <svg class="ink" viewBox="0 0 28 26" aria-hidden="true"><path d="M3 15 Q6 19 9 21 Q12 23 15 19 L25 3" pathLength="120"/></svg></div></div>
-    <div class="row"><div class="k">AI STACK</div><div class="v">Ollama · Gemini API · LangChain · On-Device NLP · Semantic Similarity <svg class="ink" viewBox="0 0 28 26" aria-hidden="true"><path d="M3 15 Q6 19 9 21 Q12 23 15 19 L25 3" pathLength="120"/></svg></div></div>
-    <div class="row"><div class="k">AGENTIC PIPELINES</div><div class="v">n8n Workflows · REST APIs · Prompt Evaluation Matrices · Model Benchmarking <svg class="ink" viewBox="0 0 28 26" aria-hidden="true"><path d="M3 15 Q6 19 9 21 Q12 23 15 19 L25 3" pathLength="120"/></svg></div></div>
-    <div class="row"><div class="k">CORE TECH STACK</div><div class="v">Python · TypeScript · Docker on Ubuntu/WSL · Linux (Debian) <svg class="ink" viewBox="0 0 28 26" aria-hidden="true"><path d="M3 15 Q6 19 9 21 Q12 23 15 19 L25 3" pathLength="120"/></svg></div></div>
-    <div class="row"><div class="k">PROJECTS</div><div class="v">4 production deployments (PromptMatrix &amp; SmartExpenseML flagship)</div></div>
-    <div class="row"><div class="k">LANGUAGES</div><div class="v">Indonesian (native) · English (professional)</div></div>
+    <div class="row contact-line1"><div class="k">LOCATION</div><div class="v">Banten, Indonesia (UTC+7) · Open to Worldwide Remote Work</div></div>
+    <div class="row contact-line2"><div class="k">EMAIL</div><div class="v"><a href="mailto:si.sigitadi@gmail.com">si.sigitadi@gmail.com</a></div></div>
+    <div class="row contact-line2"><div class="k">LINKEDIN</div><div class="v"><a href="https://www.linkedin.com/in/sigitadi/" target="_blank" rel="noopener noreferrer">linkedin.com/in/sigitadi</a></div></div>
+    <div class="row contact-line2"><div class="k">GITHUB</div><div class="v"><a href="https://github.com/sisigitadi" target="_blank" rel="noopener noreferrer">github.com/sisigitadi</a></div></div>
+    <div class="row contact-line2 cv-only"><div class="k">PORTFOLIO</div><div class="v"><a href="https://sisigitadi.github.io/portofolio" target="_blank" rel="noopener noreferrer">sisigitadi.github.io/portofolio</a></div></div>
+    <div class="row spec-meta"><div class="k">FIELD EXPERIENCE</div><div class="v">Feb 2002 – Present (24+ Yrs) · IT Infrastructure &amp; Systems → SecOps &amp; Applied AI</div></div>
+    <div class="row spec-meta"><div class="k">LANGUAGES</div><div class="v">Indonesian — Native · English — Professional Working Proficiency</div></div>
+    <div class="row spec-meta"><div class="k">TRACK RECORD</div><div class="v">1,000+ prompt-response pairs evaluated · Automated NLP pipelines &amp; LLM stability suites <svg class="ink" viewBox="0 0 28 26" aria-hidden="true"><path d="M3 15 Q6 19 9 21 Q12 23 15 19 L25 3" pathLength="120"/></svg></div></div>
+    <div class="row spec-meta"><div class="k">AI STACK</div><div class="v">Gemini API · LangChain · Ollama · on-device NLP · prompt evaluation · BYOK patterns <svg class="ink" viewBox="0 0 28 26" aria-hidden="true"><path d="M3 15 Q6 19 9 21 Q12 23 15 19 L25 3" pathLength="120"/></svg></div></div>
+    <div class="row spec-meta"><div class="k">AUTOMATION</div><div class="v">n8n · Python · Streamlit · TypeScript · Next.js · REST APIs <svg class="ink" viewBox="0 0 28 26" aria-hidden="true"><path d="M3 15 Q6 19 9 21 Q12 23 15 19 L25 3" pathLength="120"/></svg></div></div>
+    <div class="row spec-meta"><div class="k">PROJECTS</div><div class="v">4 publicly deployed technical projects</div></div>
   </div>
 
   <div class="toc">
     <div class="th">Table of Contents</div>
-    <div class="trow"><span class="no">1.</span><a href="#offer">Core Competencies</a><span class="dots"></span><span class="pg">p. 1</span></div>
-    <div class="trow"><span class="no">2.</span><a href="#projects">Deployed Projects</a><span class="dots"></span><span class="pg">p. 1</span></div>
+    <div class="trow"><span class="no">1.</span><a href="#offer">Technical Skills</a><span class="dots"></span><span class="pg">p. 1</span></div>
+    <div class="trow"><span class="no">2.</span><a href="#projects">Technical Projects</a><span class="dots"></span><span class="pg">p. 1</span></div>
     <div class="trow"><span class="no">3.</span><a href="#log">Professional Experience</a><span class="dots"></span><span class="pg">p. 2</span></div>
-    <div class="trow"><span class="no">4.</span><a href="#certs">Education &amp; Certifications</a><span class="dots"></span><span class="pg">p. 2</span></div>
+    <div class="trow"><span class="no">4.</span><a href="#certs">Education, Languages &amp; Certifications</a><span class="dots"></span><span class="pg">p. 2</span></div>
     <div class="trow"><span class="no">5.</span><a href="#contact">Contact</a><span class="dots"></span><span class="pg">p. 2</span></div>
   </div>
 
   <div class="cta">
-    <div class="cta-note"><span>strong candidate — proceed</span><svg class="ink paraf" viewBox="0 0 28 24" aria-hidden="true"><path d="M3 11 C5 5 7 19 10 10 C12 4 14 16 17 9 C19 4 21 13 24 8" pathLength="120"/></svg></div>
+    <div class="cta-note"><span>selected evidence — live apps</span><svg class="ink paraf" viewBox="0 0 28 24" aria-hidden="true"><path d="M3 11 C5 5 7 19 10 10 C12 4 14 16 17 9 C19 4 21 13 24 8" pathLength="120"/></svg></div>
     <a class="btn solid" href="#resume-request">Request Resume (PDF)</a>
   </div>
 </div></header>
 
 <section id="offer" aria-labelledby="offer-h"><div class="wrap">
-  <div class="sec-head"><span class="no">1.</span><h2 id="offer-h">Core Competencies &amp; Technical Skills</h2><div class="dash"></div></div>
-  <p class="lede">Twenty-four years of enterprise systems &amp; infrastructure, specialized in Applied AI engineering, prompt evaluation pipelines, and on-device NLP.</p>
+  <div class="sec-head"><span class="no">1.</span><h2 id="offer-h">Technical Skills</h2><div class="dash"></div></div>
+  <p class="lede">Specialized technical capabilities across Applied AI, LLM Evaluation, Automation, and Systems Delivery.</p>
   <div class="offer">
-    <div class="oc"><span class="num">1.01</span><h3>Applied AI &amp; LLM Engineering</h3><ul class="blist"><li><b>Keywords:</b> Ollama, On-Device NLP, Prompt Stability, RLHF Evaluation, Gemini API, LangChain, Semantic Similarity, Prompt Matrix.</li><li><b>Shipped:</b> PromptMatrix (LLM evaluation engine) &amp; SmartExpenseML (100% client-side privacy-first NLP) — engineered end to end.</li></ul><span class="ref">REF: promptmatrix · ollama · rlhf · text-classification</span></div>
-    <div class="oc"><span class="num">1.02</span><h3>Workflow Automation &amp; Pipeline Engineering</h3><ul class="blist"><li><b>Keywords:</b> n8n Workflow Automation, Python/Streamlit Pipelines, REST API Ingestion, Multi-Stakeholder Async Operations.</li><li><b>Operations:</b> Structured documentation, runbooks, and asynchronous collaboration across global time zones.</li></ul><span class="ref">REF: n8n · python · async · pipelines</span></div>
-    <div class="oc"><span class="num">1.03</span><h3>Client-Side ML &amp; Data Privacy</h3><ul class="blist"><li><b>Keywords:</b> Naive Bayes Classification, Indonesian NLP, Zero-Telemetry BYOK, Local LLM Inference, Model Quantization.</li><li><b>Scale:</b> Client-side offline inference with zero server data retention, ensuring total compliance with data privacy standards.</li></ul><span class="ref">REF: ml · client-side · byok · nlp</span></div>
-    <div class="oc"><span class="num">1.04</span><h3>Enterprise Systems &amp; Compute Infrastructure</h3><ul class="blist"><li><b>Keywords:</b> Docker on WSL, Linux (Ubuntu/Debian), GPU/CPU Compute Allocation, SQL Pipelines, Backup &amp; Disaster Recovery.</li><li><b>Scale:</b> Fleet management across enterprise environments; automated SQL reporting eliminating manual data entry.</li></ul><span class="ref">REF: docker · linux · sysadmin · sql</span></div>
+    <div class="oc"><span class="num">1.01</span><h3>Applied AI &amp; LLM</h3><ul class="blist"><li><b>Keywords:</b> LLM Application Development · Prompt Engineering · LLM Evaluation · Prompt Stability Benchmarking · Semantic Similarity (Cosine Scoring) · Gemini API · LangChain · Ollama · Local LLM Inference · BYOK Security Patterns · Client-Side NLP.</li><li><b>Capabilities:</b> Engineered prompt evaluation engines, token-safe privacy architectures, and multi-model benchmarking pipelines.</li></ul><span class="ref">REF: ai · llm · prompt-eval · nlp</span></div>
+    <div class="oc"><span class="num">1.02</span><h3>Automation &amp; Programming</h3><ul class="blist"><li><b>Keywords:</b> Python · TypeScript · Next.js · Streamlit · n8n Workflow Automation · REST API Ingestion · Fast Data Pipelines · Git &amp; GitHub · Asynchronous Global Collaboration.</li><li><b>Capabilities:</b> Automated end-to-end operational pipelines, eliminating manual data entry and accelerating data telemetry delivery.</li></ul><span class="ref">REF: automation · python · n8n</span></div>
+    <div class="oc"><span class="num">1.03</span><h3>SecOps &amp; Cybersecurity</h3><ul class="blist"><li><b>Keywords:</b> Tier-1 SOC Monitoring · SIEM · Threat Hunting · Incident Response Playbooks · Security Automation · Wazuh SIEM · FortiWeb WAF · NIST SP 800-61 Rev. 2 · ISO/IEC 27001 · Server Hardening · DVWA Sandboxing.</li><li><b>Capabilities:</b> Triaged 500+ daily alerts; achieved a 45% reduction in simulated MTTR and a 55% reduction in MTTA through automated playbooks.</li></ul><span class="ref">REF: secops · siem · wazuh · nist</span></div>
+    <div class="oc"><span class="num">1.04</span><h3>IT Infrastructure &amp; Systems</h3><ul class="blist"><li><b>Keywords:</b> Linux (Ubuntu, Debian) · Windows Server · Docker Containerization · WSL Environments · Systems Administration · Enterprise Network Topologies · Disaster Recovery · SQL Data Pipelines.</li><li><b>Capabilities:</b> High-availability SLA management across 50+ enterprise endpoints, automated backup protocols, and server fleet hardening.</li></ul><span class="ref">REF: linux · docker · infrastructure</span></div>
   </div>
-  <div class="mnote rot1"><span>scope matches the role exactly</span><svg class="underline" viewBox="0 0 52 8" aria-hidden="true"><path d="M1 5 C10 1 20 6 30 3 C38 1 45 5 51 2" pathLength="120"/></svg></div>
+  <div class="mnote rot1"><span>relevant core capabilities</span><svg class="underline" viewBox="0 0 52 8" aria-hidden="true"><path d="M1 5 C10 1 20 6 30 3 C38 1 45 5 51 2" pathLength="120"/></svg></div>
 </div>
 </section>
 
 <section id="projects" aria-labelledby="projects-h"><div class="wrap">
-  <div class="sec-head"><span class="no">2.</span><h2 id="projects-h">Selected Production Projects</h2><div class="dash"></div></div>
-  <p class="lede">Four production deployments, all live.</p>
+  <div class="sec-head"><span class="no">2.</span><h2 id="projects-h">Technical Projects</h2><div class="dash"></div></div>
+  <p class="lede">Four publicly deployed technical projects.</p>
   <div class="proj">
-    <div class="pc"><span class="num">2.01</span><span class="tag">AI · Evaluation Engine</span><h3>PromptMatrix — LLM Prompt Evaluation Engine</h3><ul class="blist"><li>TypeScript, Next.js, LangChain and Gemini API; tests prompt stability across variants with semantic-similarity scoring for instruction-following, consistency, and format adherence.</li><li>Quantifies prompt variant stability, drift risks, and strict JSON/schema format adherence prior to production rollout.</li></ul><span class="status">Status: <b>In production</b></span><a class="url" href="https://sisigitadi.github.io/promptmatrix2" target="_blank" rel="noopener noreferrer">sisigitadi.github.io/promptmatrix2 ↗</a></div>
-    <div class="pc"><span class="num">2.02</span><span class="tag">AI · Privacy-First NLP</span><h3>SmartExpenseML — Client-Side Expense Classifier <svg class="ink" viewBox="0 0 28 26" aria-hidden="true"><path d="M3 15 Q6 19 9 21 Q12 23 15 19 L25 3" pathLength="120"/></svg></h3><ul class="blist"><li>Privacy-first client-side Naive Bayes classifier that categorizes expenses from informal Indonesian currency inputs ("25rb", "5.5jt").</li><li>Zero telemetry, no server, no tracking — 100% in-browser machine learning.</li></ul><span class="status">Status: <b>In production</b></span><a class="url" href="https://sisigitadi.github.io/smartexpenseML" target="_blank" rel="noopener noreferrer">sisigitadi.github.io/smartexpenseML ↗</a></div>
-    <div class="pc"><span class="num">2.03</span><span class="tag">Data &amp; SecOps · Streamlit</span><h3>A.R.Y.A. — SOC Analytics &amp; Threat Hunting</h3><ul class="blist"><li>SOC analytics &amp; threat-hunting dashboard in Python/Streamlit with custom data pipelines and REST ingestion that parses and visualizes JSON/XML/CSV log payloads for Tier-1 analysts.</li><li>Built so an analyst can read threat telemetry without a data-science background.</li></ul><span class="status">Status: <b>In production</b></span><a class="url" href="https://arya-soc.streamlit.app" target="_blank" rel="noopener noreferrer">arya-soc.streamlit.app ↗</a></div>
-    <div class="pc"><span class="num">2.04</span><span class="tag">SecOps · Dashboard</span><h3>SCOPS — Security Operations Automation Platform <svg class="ink" viewBox="0 0 28 26" aria-hidden="true"><path d="M3 15 Q6 19 9 21 Q12 23 15 19 L25 3" pathLength="120"/></svg></h3><ul class="blist"><li>SOC triage dashboard with High/Medium/Low risk classification logic and Wazuh telemetry integration — simulated MTTR cut 45% versus manual triage.</li><li>Turns raw telemetry into a queue an analyst can act on at a glance.</li></ul><span class="status">Status: <b>In production</b></span><a class="url" href="https://sisigitadi.github.io/scops" target="_blank" rel="noopener noreferrer">sisigitadi.github.io/scops ↗</a></div>
+    <div class="pc"><span class="num">2.01</span><span class="tag">AI · Web</span><h3>PromptMatrix — LLM Prompt Evaluation <svg class="ink" viewBox="0 0 28 26" aria-hidden="true"><path d="M3 15 Q6 19 9 21 Q12 23 15 19 L25 3" pathLength="120"/></svg></h3><ul class="blist"><li>TypeScript, Next.js, LangChain and the Gemini API; tests prompt stability across variants with semantic-similarity scoring for instruction-following, consistency, and format adherence.</li><li>Quantifies prompt variant stability, drift risks, and strict JSON/schema format adherence before deployment.</li></ul><span class="status"><b>Live Deployment</b></span><a class="url" href="https://sisigitadi.github.io/promptmatrix2" target="_blank" rel="noopener noreferrer">Live Demo: sisigitadi.github.io/promptmatrix2 ↗</a></div>
+    <div class="pc"><span class="num">2.02</span><span class="tag">AI · Privacy-first</span><h3>SmartExpenseML — Client-Side Expense Classifier</h3><ul class="blist"><li>Privacy-first client-side Naive Bayes classifier that categorizes expenses from informal Indonesian currency inputs ("25rb", "5.5jt").</li><li>No signup, no server, no tracking.</li></ul><span class="status"><b>Live Deployment</b></span><a class="url" href="https://sisigitadi.github.io/smartexpenseML" target="_blank" rel="noopener noreferrer">Live Demo: sisigitadi.github.io/smartexpenseML ↗</a></div>
+    <div class="pc"><span class="num">2.03</span><span class="tag">SecOps · Dashboard</span><h3>SCOPS — Security Operations Automation Platform</h3><ul class="blist"><li>SOC triage dashboard with High/Medium/Low risk classification logic and Wazuh telemetry integration — reduced simulated MTTR by 45% versus manual triage.</li><li>Turns raw telemetry into a queue an analyst can act on at a glance.</li></ul><span class="status"><b>Live Deployment</b></span><a class="url" href="https://sisigitadi.github.io/scops" target="_blank" rel="noopener noreferrer">Live Demo: sisigitadi.github.io/scops ↗</a></div>
+    <div class="pc"><span class="num">2.04</span><span class="tag">SecOps · Streamlit</span><h3>A.R.Y.A. — SOC Analytics &amp; Threat Hunting <svg class="ink" viewBox="0 0 28 26" aria-hidden="true"><path d="M3 15 Q6 19 9 21 Q12 23 15 19 L25 3" pathLength="120"/></svg></h3><ul class="blist"><li>SOC analytics &amp; threat-hunting dashboard in Python/Streamlit with custom data pipelines and REST ingestion that parses and visualizes JSON/XML/CSV log payloads for Tier-1 analysts.</li><li>Built so a Tier-1 analyst can read threat telemetry without a data-science background.</li></ul><span class="status"><b>Live Deployment</b></span><a class="url" href="https://arya-soc.streamlit.app" target="_blank" rel="noopener noreferrer">Live Demo: arya-soc.streamlit.app ↗</a></div>
   </div>
-  <div class="mnote rot2"><span>good fit — live links verified</span><svg class="underline" viewBox="0 0 52 8" aria-hidden="true"><path d="M1 5 C8 2 17 6 27 3 C35 1 44 5 51 2" pathLength="120"/></svg></div>
+  <div class="mnote rot2"><span>live public deployments</span><svg class="underline" viewBox="0 0 52 8" aria-hidden="true"><path d="M1 5 C8 2 17 6 27 3 C35 1 44 5 51 2" pathLength="120"/></svg></div>
 </div>
-<div class="wrap"><div class="pg"><span>SAI-2026-AI · Field Manual</span><a href="#top">↑ back to contents</a><span>p. 1 / 2</span></div></div>
+<div class="wrap"><div class="pg"><span>SAI-2026 · Field Manual</span><a href="#top">↑ back to contents</a><span>p. 1 / 2</span></div></div>
 </section>
 
 <section id="log" aria-labelledby="log-h"><div class="wrap">
   <div class="sec-head"><span class="no">3.</span><h2 id="log-h">Professional Experience</h2><div class="dash"></div></div>
-  <p class="lede">Ten roles, newest first.</p>
   <div class="log">
-    <div class="row"><span class="num">3.01</span><div class="y">JUN 2024 — NOW</div><div class="r"><b>AI Trainer &amp; LLM Evaluator (Freelance) — Multiple AI evaluation platforms <svg class="ink" viewBox="0 0 28 26" aria-hidden="true"><path d="M3 14 Q6 18 9 20 Q12 22 15 18 L25 4" pathLength="120"/></svg></b><ul class="blist"><li>RLHF-style evaluation of model factuality, instruction-following, and safety; 1,000+ prompt-response pairs reviewed and rated against platform safety guidelines.</li><li>Multi-variable prompt testing and optimization via client-side BYOK workflows; benchmarked model hallucination rates and output stability.</li></ul></div></div>
-    <div class="row"><span class="num">3.02</span><div class="y">MAR 2026 — NOW</div><div class="r"><b>Web Administrator (Contract) — Ministry of Environment <svg class="ink" viewBox="0 0 28 26" aria-hidden="true"><path d="M3 15 Q6 19 9 21 Q12 23 15 19 L25 3" pathLength="120"/></svg></b><ul class="blist"><li>Docker-based infrastructure on Ubuntu/WSL for a government web platform, with Wazuh SIEM monitoring and DVWA sandboxing.</li><li>Streamlined telemetry analysis cut weekly manual log review time by 30%.</li></ul></div></div>
-    <div class="row"><span class="num">3.03</span><div class="y">OCT 2025 — DEC 2025</div><div class="r"><b>Senior Programmer (Short-Term Contract) — Ministry of Home Affairs <svg class="ink" viewBox="0 0 28 26" aria-hidden="true"><path d="M3 13 Q7 18 10 20 Q13 22 16 17 L24 3" pathLength="120"/></svg></b><ul class="blist"><li>Backend components for a high-volume digital governance transaction system; reliability risks identified and resolved.</li><li>Processing thousands of transactions a day, with UU PDP data minimization as a default.</li></ul></div></div>
-    <div class="row"><span class="num">3.04</span><div class="y">JAN 2025 — SEP 2025</div><div class="r"><b>SOC Analyst (Part-Time) — PT. Prospera Consulting Engineers</b><ul class="blist"><li>Incident Response playbooks for Tier-1 analysts based on NIST frameworks.</li><li>Wazuh-based pre-audit gap analyses for ISO 27001 readiness; MTTA down 55% after playbook rollout.</li></ul></div></div>
-    <div class="row"><span class="num">3.05</span><div class="y">OCT 2024 — DEC 2024</div><div class="r"><b>Incident Handling Operational (Short-Term Contract) — Ministry of Home Affairs</b><ul class="blist"><li>Shift operations and real-time threat hunting with Wazuh SIEM and FortiWeb WAF — 500+ alerts a day.</li><li>Escalation pathways restructured to support the team's MTTR reduction targets.</li></ul></div></div>
-    <div class="row"><span class="num">3.06</span><div class="y">MAY 2023 — AUG 2024</div><div class="r"><b>IT &amp; Operations Manager (Full-Time) — ACE Ltd.</b><ul class="blist"><li>Owned IT infrastructure and technical operations for a 50+ person engineering team.</li><li>Automated SQL reporting pipelines, eliminating manual data entry from operational reporting.</li></ul></div></div>
-    <div class="row"><span class="num">3.07</span><div class="y">DEC 2020 — APR 2023</div><div class="r"><b>Project Office Manager (Contract) — Ministry of Public Works and Housing</b><ul class="blist"><li>IT support logistics across concurrent public-infrastructure projects.</li><li>One reporting standard across four concurrent sites.</li></ul></div></div>
-    <div class="row"><span class="num">3.08</span><div class="y">JUN 2020 — NOV 2020</div><div class="r"><b>Assistant to Office Manager (Short-Term Contract) — Nippon Koei Co., Ltd.</b><ul class="blist"><li>Reporting and budget-tracking workflows for an irrigation modernization project; resource-allocation bottlenecks reduced across regional teams.</li><li>Implemented budget variance tracking and workflow audits to identify and resolve resource bottlenecks prior to milestone delivery.</li></ul></div></div>
-    <div class="row"><span class="num">3.09</span><div class="y">JUN 2014 — APR 2020</div><div class="r"><b>IT Manager (Full-Time) — PT. Dipta Safari Jaya <svg class="ink" viewBox="0 0 28 26" aria-hidden="true"><path d="M3 12 Q6 17 9 19 Q12 21 15 17 L25 2" pathLength="120"/></svg></b><ul class="blist"><li>Enterprise network infrastructure and backup-recovery protocols over a 6-year tenure, with automated system monitoring keeping availability high.</li><li>Maintained high-availability SLA across on-premise server fleet and network infrastructure, executing rapid on-site incident remediation.</li></ul></div></div>
-    <div class="row"><span class="num">3.10</span><div class="y">2002 — 2014</div><div class="r"><b>Early Career Experience (Full-Time) — PT. Laju Karunia Jaya · Arya Mobile</b><ul class="blist"><li>Foundational IT support roles across two companies.</li><li>Twelve years — networking, hardware, and end-user support.</li></ul></div></div>
+    <div class="row"><span class="num">3.01</span><div class="y">Jun 2024 – Present</div><div class="r"><b>AI Trainer &amp; LLM Evaluator (Freelance) — Multiple AI evaluation platforms <svg class="ink" viewBox="0 0 28 26" aria-hidden="true"><path d="M3 14 Q6 18 9 20 Q12 22 15 18 L25 4" pathLength="120"/></svg></b><ul class="blist"><li>RLHF-style evaluation of model factuality, instruction-following, and safety; 1,000+ prompt-response pairs reviewed and rated against platform safety guidelines.</li><li>Multi-variable prompt testing, edge-case jailbreak robustness checks, and optimization via client-side BYOK workflows.</li></ul></div></div>
+    <div class="row"><span class="num">3.02</span><div class="y">Oct 2025 – Dec 2025</div><div class="r"><b>Senior Programmer (Short-Term Contract) — Ministry of Home Affairs <svg class="ink" viewBox="0 0 28 26" aria-hidden="true"><path d="M3 13 Q7 18 10 20 Q13 22 16 17 L24 3" pathLength="120"/></svg></b><ul class="blist"><li>Developed backend components for a high-volume digital governance transaction system processing thousands of transactions per day, while applying data minimization principles aligned with UU PDP.</li><li>Reliability risks identified and resolved across critical data ingestion flows.</li></ul></div></div>
+    <div class="row"><span class="num">3.03</span><div class="y">Mar 2026 – Present</div><div class="r"><b>Web Administrator (Contract) — Ministry of Environment <svg class="ink" viewBox="0 0 28 26" aria-hidden="true"><path d="M3 15 Q6 19 9 21 Q12 23 15 19 L25 3" pathLength="120"/></svg></b><ul class="blist"><li>Docker-based infrastructure on Ubuntu/WSL for a government web platform, with Wazuh SIEM monitoring and DVWA sandboxing.</li><li>Streamlined telemetry analysis cut weekly manual log review time by 30%.</li></ul></div></div>
+    <div class="row"><span class="num">3.04</span><div class="y">Jan 2025 – Sep 2025</div><div class="r"><b>SOC Analyst (Part-Time) — PT. Prospera Consulting Engineers</b><ul class="blist"><li>Developed Incident Response playbooks for Tier-1 analysts based on NIST SP 800-61 frameworks.</li><li>Conducted Wazuh-based pre-audit gap analyses for ISO 27001 readiness.</li><li>Reduced MTTA by 55% after playbook rollout, measured against the new baseline.</li></ul></div></div>
+    <div class="row"><span class="num">3.05</span><div class="y">Oct 2024 – Dec 2024</div><div class="r"><b>Incident Handling Operational (Short-Term Contract) — Ministry of Home Affairs</b><ul class="blist"><li>Shift operations and real-time threat hunting with Wazuh SIEM and FortiWeb WAF — 500+ alerts a day.</li><li>Escalation pathways restructured to support the team's MTTR reduction targets — a single, tested path from alert to containment.</li></ul></div></div>
+    <div class="row"><span class="num">3.06</span><div class="y">May 2023 – Aug 2024</div><div class="r"><b>IT &amp; Operations Manager (Full-Time) — ACE Ltd.</b><ul class="blist"><li>Owned IT infrastructure and technical operations for a 50+ person engineering team.</li><li>Automated SQL reporting pipelines, eliminating manual data entry from operational reporting.</li></ul></div></div>
+    <div class="row"><span class="num">3.07</span><div class="y">Dec 2020 – Apr 2023</div><div class="r"><b>Project Office Manager (Contract) — Ministry of Public Works and Housing</b><ul class="blist"><li>IT support logistics across concurrent public-infrastructure projects.</li><li>One reporting standard across four concurrent sites.</li></ul></div></div>
+    <div class="row"><span class="num">3.08</span><div class="y">Jun 2020 – Nov 2020</div><div class="r"><b>Assistant to Office Manager (Short-Term Contract) — Nippon Koei Co., Ltd.</b><ul class="blist"><li>Reporting and budget-tracking workflows for an irrigation modernization project; resource-allocation bottlenecks reduced across regional teams.</li><li>Implemented budget variance tracking and workflow audits to identify and resolve resource bottlenecks prior to milestone delivery.</li></ul></div></div>
+    <div class="row"><span class="num">3.09</span><div class="y">Jun 2014 – Apr 2020</div><div class="r"><b>IT Manager (Full-Time) — PT. Dipta Safari Jaya <svg class="ink" viewBox="0 0 28 26" aria-hidden="true"><path d="M3 12 Q6 17 9 19 Q12 21 15 17 L25 2" pathLength="120"/></svg></b><ul class="blist"><li>Enterprise network infrastructure and backup-recovery protocols over a 6-year tenure, with automated system monitoring keeping availability high.</li><li>Maintained high-availability SLA across on-premise server fleet and network infrastructure, executing rapid on-site incident remediation.</li></ul></div></div>
+    <div class="row"><span class="num">3.10</span><div class="y">2002 – 2014</div><div class="r"><b>Early Career Experience (Full-Time) — PT. Laju Karunia Jaya · Arya Mobile</b><ul class="blist"><li>Foundational IT support roles across two companies.</li><li>Twelve years — networking, hardware, and end-user support.</li></ul></div></div>
   </div>
   <div class="ink-sign"><svg class="ink paraf" viewBox="0 0 28 24" aria-hidden="true"><path d="M2 10 C4 6 6 18 9 11 C11 5 13 15 16 8 C18 4 20 12 23 7 L26 5" pathLength="120"/></svg></div>
 </div>
 </section>
 
 <section id="reports" aria-labelledby="reports-h"><div class="wrap">
-  <div class="sec-head"><span class="no">4.</span><h2 id="reports-h">Testimony</h2><div class="dash"></div></div>
+  <div class="sec-head"><span class="no">4.</span><h2 id="reports-h">Recommendations</h2><div class="dash"></div></div>
   <p class="lede">Four notes from people who worked with me.</p>
   <div class="report"><span class="num">4.01</span>
     <span class="tag">Recommendation</span>
@@ -917,18 +930,22 @@
     <blockquote>"Sigit managed our company servers, local network, and hardware for 6 years. Whenever there was a network outage or hardware failure, Sigit was always there to fix it quickly."</blockquote>
     <p class="who"><b>General Manager — Sudjari</b> — <span class="proj">Dipta Safari Jaya</span></p>
   </div>
-  <div class="mnote rot1"><span>good fit — references checked</span><svg class="underline" viewBox="0 0 52 8" aria-hidden="true"><path d="M1 5 C10 1 20 6 30 3 C38 1 45 5 51 2" pathLength="120"/></svg></div>
+  <div class="mnote rot1"><span>career timeline &amp; milestones</span><svg class="underline" viewBox="0 0 52 8" aria-hidden="true"><path d="M1 5 C10 1 20 6 30 3 C38 1 45 5 51 2" pathLength="120"/></svg></div>
 </div>
 </section>
 
 <section id="certs" aria-labelledby="certs-h"><div class="wrap">
   <div class="edu-wrap">
     <div class="sec-head"><span class="no">4.</span><h2>Education</h2><div class="dash"></div></div>
-    <div class="edu-item" style="font-size:13px;padding:4px 0 14px;border-bottom:1px dotted var(--rule)"><b>Bachelor of Computer Science (S.Kom.)</b> — Universitas Budi Luhur, Jakarta, Indonesia</div>
+    <div class="edu-item"><b>Bachelor of Computer Science (S.Kom.)</b> — Universitas Budi Luhur, Jakarta, Indonesia</div>
   </div>
 
-  <div class="sec-head" style="margin-top:14px"><span class="no">5.</span><h2 id="certs-h">Certifications &amp; Credentials</h2><div class="dash"></div></div>
-  <p class="lede">Credentials relevant to the current scope — Applied AI and automation. Nine credentials, earned across 2024–2025, listed newest first.</p>
+  <div class="lang-wrap" style="margin-top:14px">
+    <div class="sec-head"><span class="no">5.</span><h2>Languages</h2><div class="dash"></div></div>
+    <div class="lang-item"><b>Indonesian:</b> Native &nbsp;·&nbsp; <b>English:</b> Professional Working Proficiency</div>
+  </div>
+
+  <div class="sec-head" style="margin-top:14px"><span class="no">6.</span><h2 id="certs-h">Certifications</h2><div class="dash"></div></div>
   
   <div class="cert-list">
     <div class="cert-cat">AI &amp; Automation</div>
@@ -973,11 +990,11 @@
     </div>
 
     <div class="stamp-wrapper">
-      <div class="dossier-stamp" aria-label="Recruitment Clearance: Proceed to Interview">
+      <div class="dossier-stamp" aria-label="Technical Dossier: Verified Evidence">
         <div class="stamp-inner">
-          <div class="stamp-top">★ &nbsp; RECRUITMENT CLEARANCE &nbsp; ★</div>
-          <div class="stamp-main">PROCEED TO INTERVIEW</div>
-          <div class="stamp-foot">ADVANCE TO NEXT HIRING STAGE</div>
+          <div class="stamp-top">★ &nbsp; TECHNICAL DOSSIER &nbsp; ★</div>
+          <div class="stamp-main">VERIFIED EVIDENCE</div>
+          <div class="stamp-foot">PORTFOLIO &amp; LIVE DEMOS</div>
         </div>
       </div>
     </div>

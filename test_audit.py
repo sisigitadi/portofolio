@@ -261,6 +261,31 @@ def test_jsonld_missing_type_fails(valid_html):
     assert "missing schema.org types" in out
 
 
+def test_ats_print_passes(valid_html):
+    """#13: Standard ATS print stylesheet -> PASS."""
+    errors, out, _ = run_audit(valid_html, quick=True)
+    assert errors == 0
+    assert "ATS Print Mode verified" in out
+
+
+def test_ats_print_missing_media_fails(valid_html):
+    """#13: Missing @media print -> FAIL."""
+    content = valid_html.replace("@media print", "@media screen-only")
+    assert content != valid_html
+    errors, out, _ = run_audit(content, quick=True)
+    assert errors >= 1
+    assert "No @media print stylesheet found" in out
+
+
+def test_ats_print_missing_arial_fails(valid_html):
+    """#13: Print font without Arial -> FAIL."""
+    content = valid_html.replace("font-family: Arial", "font-family: ComicSans")
+    assert content != valid_html
+    errors, out, _ = run_audit(content, quick=True)
+    assert errors >= 1
+    assert "must specify Arial" in out
+
+
 # ---------------------------------------------------------------------------
 # Idempotency & quick mode
 # ---------------------------------------------------------------------------
