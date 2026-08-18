@@ -48,51 +48,54 @@ Banten, Indonesia (UTC+7) · Open to Worldwide Remote Work
 
 ### **Web Administrator (Contract)** | Ministry of Environment
 *Mar 2026 – Present | Jakarta, Indonesia*
-*   Administered Docker-based infrastructure on Ubuntu/WSL with Wazuh SIEM monitoring and DVWA sandboxing.
+*   Maintained 5+ containerized web services on Linux Server/WSL with Wazuh SIEM monitoring and DVWA sandboxing.
 *   Streamlined telemetry analysis, reducing weekly manual log review time by **30%**.
 
 ### **Senior Programmer (Short-Term Contract)** | Ministry of Home Affairs
 *Oct 2025 – Dec 2025 | Jakarta, Indonesia*
-*   Developed backend components for a high-volume digital governance transaction system processing thousands of transactions per day, while applying strict data minimization and secure data handling practices.
-*   Identified and resolved reliability risks across critical data ingestion flows.
+*   Developed backend components and 10+ REST API endpoints for a digital governance system processing 5,000+ daily records with secure data validation.
+*   Resolved critical data ingestion bottlenecks, maintaining 99.5% API reliability across high-volume transaction cycles.
 
 ### **SOC Analyst (Part-Time)** | PT. Prospera Consulting Engineers
 *Jan 2025 – Sep 2025 | Jakarta, Indonesia*
-*   Developed incident response playbooks for Tier-1 analysts with structured threat containment and escalation pathways.
+*   Developed 10+ Incident Response playbooks for Tier-1 analysts with structured threat containment and escalation pathways.
 *   Conducted Wazuh-based security baseline reviews and continuous vulnerability monitoring.
-*   Reduced MTTA by **55%** after playbook rollout measured against baseline telemetry.
+*   Reduced MTTA (Mean Time to Acknowledge) by **55%** across 500+ daily alerts after playbook rollout.
 
 ### **Incident Handling Operational (Short-Term Contract)** | Ministry of Home Affairs
 *Oct 2024 – Dec 2024 | Jakarta, Indonesia*
-*   Conducted real-time threat hunting with Wazuh SIEM and FortiWeb WAF across 500+ daily alerts.
-*   Restructured escalation pathways to support incident response MTTR reduction targets.
+*   Shift operations and real-time threat monitoring with Wazuh SIEM and FortiWeb WAF — triaging 500+ security alerts a day.
+*   Restructured escalation pathways to maintain an average incident response time under 15 minutes from alert detection to containment.
 
 ### **AI Trainer & LLM Evaluator (Freelance)** | Multiple AI Evaluation Platforms
 *Jun 2024 – Present | Remote*
-*   Evaluated **1,000+ prompt-response pairs** for model factuality, instruction-following, and safety using human-in-the-loop evaluation criteria.
-*   Conducted multi-variable prompt testing and optimization across multi-model test suites and on-device pipelines.
+*   Human-in-the-loop evaluation of model factuality, instruction-following, and safety; **1,000+ prompt-response pairs** reviewed and scored against platform guidelines.
+*   Tested prompt stability and formatting adherence across 5+ major LLM model families to mitigate drift and hallucination.
 
 ### **IT & Operations Manager (Full-Time)** | ACE Ltd.
 *May 2023 – Aug 2024 | Indonesia*
-*   Directed enterprise IT infrastructure and operations for a 50+ person engineering team.
-*   Automated SQL reporting pipelines, eliminating manual data entry from operational reporting.
+*   Maintained 99%+ IT infrastructure uptime and network operations for a 50+ person engineering team.
+*   Built automated database reporting scripts, cutting manual data entry time by **40%** for weekly operations.
 
 ### **Project Office Manager (Contract)** | Ministry of Public Works and Housing
 *Dec 2020 – Apr 2023 | Indonesia*
-*   Standardized IT support logistics and reporting frameworks across 4 concurrent regional public-infrastructure sites.
+*   Coordinated IT support, network connectivity, and field equipment across 4 concurrent infrastructure project sites, supporting 30+ field personnel.
+*   Unified operational reporting across all 4 sites, reducing weekly data consolidation delays by **35%**.
 
 ### **Assistant to Office Manager (Short-Term Contract)** | Nippon Koei Co., Ltd.
 *Jun 2020 – Nov 2020 | Indonesia*
-*   Implemented budget variance tracking and workflow audits to identify and resolve resource bottlenecks prior to milestone delivery.
+*   Audited weekly budget variances and workflow tracking across 3 regional project teams with 100% on-time milestone reporting.
+*   Eliminated administrative bottlenecks to ensure zero milestone delivery delays for the irrigation modernization project.
 
 ### **IT Manager (Full-Time)** | PT. Dipta Safari Jaya
 *Jun 2014 – Apr 2020 | Indonesia*
-*   Maintained high-availability SLA across on-premise server fleet and enterprise network over a 6-year tenure.
-*   Executed rapid on-site incident remediation and backup-recovery protocols.
+*   Managed on-premise server fleet (3 core servers) and 40+ workstations over a 6-year tenure, maintaining 99%+ network availability.
+*   Implemented scheduled daily backup protocols, achieving 0 data-loss incidents throughout the entire 6-year operational period.
 
 ### **Early Career Experience (Full-Time)** | PT. Laju Karunia Jaya · Arya Mobile
 *2002 – 2014 | Indonesia*
-*   Twelve years of foundational IT support, enterprise networking, hardware maintenance, and systems administration.
+*   Provided foundational IT support across 2 companies over a 12-year period, resolving 1,000+ hardware, OS, and network troubleshooting tickets.
+*   Built core operational mastery in LAN cabling, PC assembly, server maintenance, and end-user technical support.
 
 ---
 

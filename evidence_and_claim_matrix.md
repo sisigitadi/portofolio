@@ -29,6 +29,9 @@ Semua metrik kuantitatif dan klaim teknis diklasifikasikan berdasarkan tingkat p
 | **C-06** | **Status Proyek Live** | Personal / Public | 4 Live Public Web Deployments | ★★★ | ★★★ | *"Engineered and deployed 4 live, publicly accessible technical applications with zero-backend or containerized architectures."* |
 | **C-07** | **Client-Side Privacy** | Arsitektur Teknis | SmartExpenseML (Browser-only execution) | ★★☆ | ★☆☆ | *"Implemented 100% client-side text classification and Indonesian currency parsing without external server dependencies."* |
 | **C-08** | **Pola Kontrak Kemendagri** | Kontrak Pengadaan | Proyek Pemerintah Berbasis Siklus Tender | ★★☆ | ★★☆ | *"Delivered technical milestones across fixed-term government IT modernization contracts (Senior Programmer & Incident Handling)."* |
+| **C-09** | **50+ Endpoints & 99%+ Uptime** | Operasional IT Lead | ACE Ltd. & PT. Dipta Safari Jaya | ★★☆ | ★★★ | *"Maintained 99%+ operational availability across 50+ workstations and server fleet with zero data-loss incidents."* |
+| **C-10** | **40% Manual Time Cut** | Otomasi Internal | Reporting Automation (SQL Scripts & REST APIs) | ★★★ | ★★☆ | *"Automated recurring operational reporting workflows, reducing weekly manual data entry overhead by up to 40%."* |
+| **C-11** | **1,000+ IT Tickets** | Fondasi Karir (12 Yrs) | PT. Laju Karunia Jaya · Arya Mobile | ★☆☆ | ★★★ | *"Resolved 1,000+ hardware, OS, and network troubleshooting tickets over a 12-year foundational IT support tenure."* |
 
 ---
 

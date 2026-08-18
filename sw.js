@@ -1,4 +1,4 @@
-var CACHE = 'portofolio-v48';
+var CACHE = 'portofolio-v49';
 var CORE = [
     './',
     './index.html',

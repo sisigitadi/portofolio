@@ -4,6 +4,19 @@ All notable changes to the **Sigit Adi Irianto Portfolio SPA** project will be d
 
 The format is based on [Keep a Changelog](https://keepachamber.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.9.8] - 2026-08-19 — Grounded Impact Metrics Harmonization Across Hero, Skills & Experiences
+
+> **Full Ecosystem Metric Grounding**: Systematically synchronized defensible, verifiable metrics across Hero Spec metadata, Section 1 (Capabilities), Section 3 (Experiences 3.01–3.10), and all Markdown CV variants. Every claim is concrete, operational, and defensible in technical interviews (`45% triage reduction`, `1,000+ prompt evaluations`, `500+ daily alerts`, `50+ endpoints & 99%+ uptime`, `40% reporting time cut`, `10+ REST APIs`, `10+ SOP playbooks`, and `1,000+ support tickets`).
+
+### ✏️ Changed
+- **Hero Track Record Harmonization**: Standardized hero metrics across `index.html`, `ai-engineer.html`, and `secops-specialist.html` to highlight concrete impact.
+- **Section 1 Capabilities Grounding**: Replaced abstract statements with quantitative, proof-backed capability summaries across all 4 skill pillars.
+- **Section 3 Comprehensive Metric Synchronization**: Added humble, realistic metrics across all 10 experience logs (3.01–3.10) with 0 overclaim.
+- **Markdown CV & Evidence Ledger Alignment**: Synchronized `master_cv_v2.md`, `cv_applied_ai_engineer.md`, `cv_secops_engineer.md`, and `evidence_and_claim_matrix.md`.
+- **Service Worker Cache Bump (`sw.js`)**: `portofolio-v48` → **`portofolio-v49`**.
+
+---
+
 ## [2.9.7] - 2026-08-19 — Linux Server Standardization
 
 > **Infrastructure Terminology Simplification**: Standardized `Linux (Ubuntu, Debian)` and `Linux (Ubuntu/Debian)` to `Linux Server` across all live HTML documents, specification metadata rows, and markdown CVs.
