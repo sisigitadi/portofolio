@@ -9,7 +9,7 @@
       --paper:#1A1D23; --paper2:#22262E; --ink:#E8E6E1; --ink2:#B0ADA6;
       --accent:#D4824A; --accent2:#E09A5E; --muted:#8A877F; --rule:#3A3D44;
     }
-    body{background:#111318}
+    body{background:#111318 !important}
     .sheet{border-color:#2E3138;box-shadow:0 24px 60px -18px rgba(0,0,0,0.6)}
     a{color:var(--accent)}
     a:hover{color:var(--accent2)}
@@ -48,12 +48,12 @@
     .visitor-badge .vb-count{color:var(--accent)}
     .slip .field label{color:var(--accent)}
     .pg a:hover{color:var(--accent)}
-    /* ink scribbles & handwritten text — visible on dark background */
-    .ink path{stroke:var(--ink)}
-    .mnote span{color:var(--ink);text-shadow:0 0 2px rgba(232,230,225,.4),0 0 6px rgba(232,230,225,.2),0 0 14px rgba(232,230,225,.12),0 0 24px rgba(232,230,225,.06)}
-    .mnote svg.underline path{stroke:var(--ink)}
-    .cta-note span{color:var(--ink);text-shadow:0 0 2px rgba(232,230,225,.4),0 0 6px rgba(232,230,225,.2),0 0 14px rgba(232,230,225,.12),0 0 24px rgba(232,230,225,.06)}
-    .animated-underline svg.pen-stroke path{stroke:var(--ink)}
+    /* ink scribbles & handwritten text — visible on dark background (!important to override later base rules) */
+    .ink path{stroke:var(--ink) !important}
+    .mnote span{color:var(--ink) !important;text-shadow:0 0 2px rgba(232,230,225,.4),0 0 6px rgba(232,230,225,.2),0 0 14px rgba(232,230,225,.12),0 0 24px rgba(232,230,225,.06) !important}
+    .mnote svg.underline path{stroke:var(--ink) !important}
+    .cta-note span{color:var(--ink) !important;text-shadow:0 0 2px rgba(232,230,225,.4),0 0 6px rgba(232,230,225,.2),0 0 14px rgba(232,230,225,.12),0 0 24px rgba(232,230,225,.06) !important}
+    .animated-underline svg.pen-stroke path{stroke:var(--ink) !important}
   }
   *{margin:0;padding:0;box-sizing:border-box}
   html{scroll-behavior:smooth}
