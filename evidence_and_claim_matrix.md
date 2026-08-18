@@ -24,7 +24,7 @@ Semua metrik kuantitatif dan klaim teknis diklasifikasikan berdasarkan tingkat p
 | **C-01** | **MTTR −45%** | Benchmark / Sim. Lab | Simulated SOC Environment (SCOPS + Wazuh) | ★☆☆ | ★★★ | *"Reduced simulated SOC triage MTTR by 45% through automated Tier-1 response playbooks and structured priority queues."* |
 | **C-02** | **MTTA −55%** | Project Operasional | SOC Analyst (PT. Prospera / Ops) | ★☆☆ | ★★★ | *"Reduced Mean Time to Acknowledge (MTTA) by 55% across 500+ daily alerts by standardizing alert triage workflows."* |
 | **C-03** | **500+ alerts/day** | Operasional Riil | Wazuh SIEM & FortiWeb WAF Monitoring | ☆☆☆ | ★★★ | *"Monitored and triaged 500+ daily security alerts from Wazuh SIEM and FortiWeb WAF, escalating confirmed incidents per SOP incident playbooks."* |
-| **C-04** | **1,000+ Prompt Pairs** | Freelance / Project | Outlier.ai / AI Training & Evaluation | ★★★ | ☆☆☆ | *"Evaluated and optimized 1,000+ prompt-response pairs for factuality, instruction following, safety, and output consistency."* |
+| **C-04** | **1,000+ Prompt Pairs** | Freelance / Project | Outlier.ai / AI Training & Evaluation | ★★★ | ☆☆☆ | *"Evaluated and optimized 1,000+ prompt-response pairs for factuality, instruction following, safety, and prompt stability."* |
 | **C-05** | **30% Log Review Time** | Kontrak Pemerintah | Web Administrator (Ministry of Environment) | ★☆☆ | ★★☆ | *"Decreased weekly manual log review overhead by 30% by containerizing environments on Linux Server/WSL and standardizing Wazuh agents."* |
 | **C-06** | **Status Proyek Live** | Personal / Public | 4 Live Public Web Deployments | ★★★ | ★★★ | *"Engineered and deployed 4 live, publicly accessible technical applications with zero-backend or containerized architectures."* |
 | **C-07** | **Client-Side Privacy** | Arsitektur Teknis | SmartExpenseML (Browser-only execution) | ★★☆ | ★☆☆ | *"Implemented 100% client-side text classification and Indonesian currency parsing without external server dependencies."* |
@@ -40,7 +40,7 @@ Semua metrik kuantitatif dan klaim teknis diklasifikasikan berdasarkan tingkat p
 ### Track A: Applied AI Engineer & AI Automation
 ```
 ├── Core Concepts: LLM Application Development, Prompt Engineering, Prompt Stability Testing,
-│                  LLM Evaluation, Output Consistency, Structured Output Validation,
+│                  LLM Evaluation, Structured Output Validation,
 │                  Client-Side NLP, Privacy-First Architecture, Text Classification Engine
 ├── Frameworks & APIs: Gemini API, LangChain, Ollama (Local LLM Inference), Next.js, TypeScript, Python, Streamlit
 ├── Automation & Web: n8n Workflows, REST APIs, Web Development, Git & GitHub
@@ -53,7 +53,7 @@ Semua metrik kuantitatif dan klaim teknis diklasifikasikan berdasarkan tingkat p
 │                  Log Ingestion, SOP Incident Playbooks, Vulnerability Assessment, Server Hardening
 ├── Systems & Infrastructure: Linux Server, Windows Server, Docker, WSL, Systems Administration,
 │                             Local Network (LAN/WAN), Backup & Recovery, Database SQL
-├── Tools & Technologies: Wazuh SIEM, FortiWeb WAF, DVWA Sandboxing, Docker, Linux Server,
+├── Tools & Technologies: Wazuh SIEM, FortiWeb WAF, Docker, Linux Server,
 │                         Streamlit Security Dashboards, REST APIs, Python, Git & GitHub
 └── Metrics & KPIs: MTTA (Mean Time to Acknowledge), Simulated MTTR, False Positive Reduction, Daily Alert Throughput
 ```
@@ -79,7 +79,7 @@ Semua metrik kuantitatif dan klaim teknis diklasifikasikan berdasarkan tingkat p
 ### Project 3: PromptMatrix 2.0 (LLM Prompt Stability & Evaluation Suite)
 *   **Target Domain**: Applied AI / LLM Engineering (Tier 1 Flagship)
 *   **Problem Statement**: Pipeline AI rentan terhadap kegagalan output format (*JSON schema breakage*) dan variasi jawaban antar model.
-*   **Architecture**: User Prompt Input $\rightarrow$ Systematic Variant Generation $\rightarrow$ Multi-Model LLM Execution (Gemini API) $\rightarrow$ Output Consistency & Stability Testing $\rightarrow$ Strict Schema & JSON Adherence Check.
+*   **Architecture**: User Prompt Input $\rightarrow$ Systematic Variant Generation $\rightarrow$ Multi-Model LLM Execution (Gemini API) $\rightarrow$ Prompt Stability & Robustness Testing $\rightarrow$ Strict Schema & JSON Adherence Check.
 *   **Stack**: Next.js, TypeScript, LangChain, Google Gemini API, Tailwind CSS.
 *   **Security Model**: Client-Side Privacy — Kunci API hanya berada di memori lokal browser.
 *   **Deployment Status**: Live Deployment.

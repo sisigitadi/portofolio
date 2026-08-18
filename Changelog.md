@@ -4,6 +4,19 @@ All notable changes to the **Sigit Adi Irianto Portfolio SPA** project will be d
 
 The format is based on [Keep a Changelog](https://keepachamber.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.9.9] - 2026-08-19 — Track Record Checkmark Removal, Terminology Pruning & Language Typography Alignment
+
+> **Visual & Semantic Refinement**: Removed the visual checkmark badge from the Hero TRACK RECORD row to maintain a clean aesthetic; purged composite terms (`Output Consistency` and `DVWA Sandboxing`) from Section 1 (Skills), Section 3 (Experiences), and markdown CVs; unified Section 6 (Languages) typography with Section 5 (Education) at 15px.
+
+### ✏️ Changed
+- **Track Record Checkmark Removed**: Cleaned Hero spec-meta `TRACK RECORD` row across `index.html`, `ai-engineer.html`, and `secops-specialist.html`.
+- **Terminology Pruning**: Removed `Output Consistency` and `DVWA Sandboxing` across Section 1 (Skills 1.01 & 1.02) and Section 3 (Experience 3.01), replacing them with standard terms (`Prompt Stability`, `Server Hardening`, `Vulnerability Assessment`).
+- **Section 6 (Languages) Typography**: Raised `.lang-item` font-size from `13px` to `15px` (`.edu-item, .lang-item { font-size: 15px; }`), harmonizing typography across Education, Languages, and Spec rows.
+- **Markdown CV & Evidence Ledger Synchronization**: Aligned `master_cv_v2.md`, `cv_applied_ai_engineer.md`, `cv_secops_engineer.md`, and `evidence_and_claim_matrix.md`.
+- **Service Worker Cache Bump (`sw.js`)**: `portofolio-v49` → **`portofolio-v50`**.
+
+---
+
 ## [2.9.8] - 2026-08-19 — Grounded Impact Metrics Harmonization Across Hero, Skills & Experiences
 
 > **Full Ecosystem Metric Grounding**: Systematically synchronized defensible, verifiable metrics across Hero Spec metadata, Section 1 (Capabilities), Section 3 (Experiences 3.01–3.10), and all Markdown CV variants. Every claim is concrete, operational, and defensible in technical interviews (`45% triage reduction`, `1,000+ prompt evaluations`, `500+ daily alerts`, `50+ endpoints & 99%+ uptime`, `40% reporting time cut`, `10+ REST APIs`, `10+ SOP playbooks`, and `1,000+ support tickets`).

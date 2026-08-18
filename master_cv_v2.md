@@ -12,8 +12,8 @@ Banten, Indonesia (UTC+7) · Open to Worldwide Remote Work
 
 ## TECHNICAL SKILLS
 
-*   **Applied AI & LLM Engineering:** Gemini API, LangChain, Ollama, Local LLM Inference, Human-in-the-Loop Evaluation, Prompt Stability Testing, Output Consistency, Multi-Model Benchmarking, Structured Output Validation (JSON Schema), n8n AI Automation.
-*   **Security Operations (SecOps) & Threat Monitoring:** Tier-1 SOC Security Monitoring, Threat Hunting, SOP Incident Playbooks, Vulnerability Assessment, Wazuh SIEM Configuration & Agent Telemetry, FortiWeb WAF Alert Triage, Alert Normalization.
+*   **Applied AI & LLM Engineering:** Gemini API, LangChain, Ollama, Local LLM Inference, Human-in-the-Loop Evaluation, Prompt Stability Testing, Multi-Model Benchmarking, Structured Output Validation (JSON Schema), n8n AI Automation.
+*   **Security Operations (SecOps) & Threat Monitoring:** Tier-1 SOC Security Monitoring, Threat Hunting, SOP Incident Playbooks, Vulnerability Assessment, Server Hardening, Wazuh SIEM Configuration & Agent Telemetry, FortiWeb WAF Alert Triage, Alert Normalization.
 *   **Workflow Automation & Software Engineering:** Python, TypeScript, Next.js, Streamlit, n8n Workflows, REST APIs, Web Development, Git & GitHub.
 *   **Enterprise IT Infrastructure & Systems:** Linux Server, Windows Server, Docker, WSL, Systems Administration, Local Network (LAN/WAN), Backup & Recovery, Database SQL.
 
@@ -22,8 +22,8 @@ Banten, Indonesia (UTC+7) · Open to Worldwide Remote Work
 ## TECHNICAL PROJECTS
 
 ### **PromptMatrix — LLM Evaluation & Prompt Stability Platform**
-*Live Application:* [PromptMatrix](https://sisigitadi.github.io/promptmatrix2) | *Source:* [GitHub](https://github.com/sisigitadi) | *Stack:* TypeScript, Next.js, LangChain, Gemini API, Output Consistency Testing
-*   Architected a client-side prompt evaluation engine testing LLM output consistency, format adherence, and safety across systematic prompt variations.
+*Live Application:* [PromptMatrix](https://sisigitadi.github.io/promptmatrix2) | *Source:* [GitHub](https://github.com/sisigitadi) | *Stack:* TypeScript, Next.js, LangChain, Gemini API, Prompt Stability Testing
+*   Architected a client-side prompt evaluation engine testing LLM prompt stability, format adherence, and safety across systematic prompt variations.
 *   Quantified prompt variant stability, drift risks, and strict JSON/schema format adherence before deployment.
 *   Implemented client-side privacy architecture, ensuring API tokens remain purely in transient browser memory.
 
@@ -48,7 +48,7 @@ Banten, Indonesia (UTC+7) · Open to Worldwide Remote Work
 
 ### **Web Administrator (Contract)** | Ministry of Environment
 *Mar 2026 – Present | Jakarta, Indonesia*
-*   Maintained 5+ containerized web services on Linux Server/WSL with Wazuh SIEM monitoring and DVWA sandboxing.
+*   Maintained 5+ containerized web services on Linux Server/WSL with Wazuh SIEM monitoring and server hardening.
 *   Streamlined telemetry analysis, reducing weekly manual log review time by **30%**.
 
 ### **Senior Programmer (Short-Term Contract)** | Ministry of Home Affairs

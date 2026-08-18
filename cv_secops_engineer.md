@@ -12,7 +12,7 @@ Banten, Indonesia (UTC+7) · Open to Worldwide Remote Work
 
 ## TECHNICAL SKILLS
 
-*   **Security Operations & Threat Defense:** Tier-1 SOC Security Monitoring, Threat Hunting, Incident Triage, SOP Playbooks, Vulnerability Assessment, Wazuh SIEM Telemetry & Agent Configuration, FortiWeb WAF Alert Triage, DVWA Sandboxing.
+*   **Security Operations & Threat Defense:** Tier-1 SOC Security Monitoring, Threat Hunting, Incident Triage, SOP Playbooks, Vulnerability Assessment, Wazuh SIEM Telemetry & Agent Configuration, FortiWeb WAF Alert Triage.
 *   **Infrastructure Defense & Hardening:** Linux Server Hardening, Docker Container Security on WSL, Kali Linux, Windows 11 Enterprise, High-Availability SLAs, Data Backup & Recovery.
 *   **Security Automation & Analytics:** Python (Streamlit, Pandas), n8n Workflows, REST APIs, JSON Log Parsing, Incident Response Playbook Engineering, Git & GitHub.
 *   **Enterprise IT Infrastructure:** Linux Server, Windows Server, Docker, WSL, Systems Administration, Local Network (LAN/WAN), Backup & Recovery, Database SQL.
@@ -33,8 +33,8 @@ Banten, Indonesia (UTC+7) · Open to Worldwide Remote Work
 *   Streamlined log ingestion and threat detection workflows, cutting manual log review time by **30%** for Tier-1 analysts.
 
 ### **PromptMatrix — LLM Evaluation & Prompt Stability Platform**
-*Live Application:* [PromptMatrix](https://sisigitadi.github.io/promptmatrix2) | *Source:* [GitHub](https://github.com/sisigitadi) | *Stack:* TypeScript, Next.js, LangChain, Gemini API, Output Consistency Testing
-*   Architected a client-side prompt evaluation engine testing LLM output consistency, format adherence, and safety across systematic prompt variations.
+*Live Application:* [PromptMatrix](https://sisigitadi.github.io/promptmatrix2) | *Source:* [GitHub](https://github.com/sisigitadi) | *Stack:* TypeScript, Next.js, LangChain, Gemini API, Prompt Stability Testing
+*   Architected a client-side prompt evaluation engine testing LLM prompt stability, format adherence, and safety across systematic prompt variations.
 *   Quantified prompt variant stability, drift risks, and strict JSON/schema format adherence before deployment.
 
 ### **SmartExpenseML — Client-Side NLP Expense Classifier**
@@ -48,7 +48,7 @@ Banten, Indonesia (UTC+7) · Open to Worldwide Remote Work
 
 ### **Web Administrator (Contract)** | Ministry of Environment
 *Mar 2026 – Present | Jakarta, Indonesia*
-*   Maintained 5+ containerized web services on Linux Server/WSL with Wazuh SIEM monitoring and DVWA sandboxing.
+*   Maintained 5+ containerized web services on Linux Server/WSL with Wazuh SIEM monitoring and server hardening.
 *   Streamlined telemetry analysis, reducing weekly manual log review time by **30%**.
 
 ### **Senior Programmer (Short-Term Contract)** | Ministry of Home Affairs
