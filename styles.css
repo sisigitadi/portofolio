@@ -48,6 +48,12 @@
     .visitor-badge .vb-count{color:var(--accent)}
     .slip .field label{color:var(--accent)}
     .pg a:hover{color:var(--accent)}
+    /* ink scribbles & handwritten text — visible on dark background */
+    .ink path{stroke:var(--ink)}
+    .mnote span{color:var(--ink);text-shadow:0 0 2px rgba(232,230,225,.4),0 0 6px rgba(232,230,225,.2),0 0 14px rgba(232,230,225,.12),0 0 24px rgba(232,230,225,.06)}
+    .mnote svg.underline path{stroke:var(--ink)}
+    .cta-note span{color:var(--ink);text-shadow:0 0 2px rgba(232,230,225,.4),0 0 6px rgba(232,230,225,.2),0 0 14px rgba(232,230,225,.12),0 0 24px rgba(232,230,225,.06)}
+    .animated-underline svg.pen-stroke path{stroke:var(--ink)}
   }
   *{margin:0;padding:0;box-sizing:border-box}
   html{scroll-behavior:smooth}
