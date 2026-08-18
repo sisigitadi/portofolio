@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Offline — Sigit Adi Irianto Portfolio</title>
+<style>
+  :root{--paper:#F3EEDF;--ink:#20242B;--ink2:#3C434E;--accent:#B4552D;--accent2:#8A4A26;--muted:#6E6A5E;--rule:#C9C2AC}
+  @media(prefers-color-scheme:dark){
+    :root{--paper:#1A1D23;--ink:#E8E6E1;--ink2:#B0ADA6;--accent:#D4824A;--accent2:#E09A5E;--muted:#8A877F;--rule:#3A3D44}
+    body{background:#111318 !important}
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:#D6CDB4;color:var(--ink);font:16px/1.75 Georgia,"Times New Roman",serif;display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px}
+  .card{max-width:480px;width:100%;background:var(--paper);border:1px solid var(--rule);padding:40px 36px;text-align:center}
+  .icon{font-size:48px;margin-bottom:16px;opacity:.7}
+  h1{font-size:22px;font-weight:700;margin-bottom:8px}
+  .sub{color:var(--ink2);font-size:15px;margin-bottom:24px;line-height:1.6}
+  .divider{border:none;border-top:1px solid var(--rule);margin:20px 0}
+  .contact{font-size:14px;color:var(--ink2);line-height:2}
+  .contact a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent2)}
+  .contact a:hover{color:var(--accent2)}
+  .note{font-size:12px;color:var(--muted);margin-top:20px;font-style:italic}
+  .btn{display:inline-block;margin-top:20px;padding:10px 20px;font:12px ui-monospace,Consolas,monospace;letter-spacing:.06em;text-transform:uppercase;border:1.5px solid var(--ink);color:var(--ink);background:transparent;cursor:pointer;text-decoration:none}
+  .btn:hover{background:var(--accent);border-color:var(--accent);color:#fff}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="icon" aria-hidden="true">📡</div>
+  <h1>You're Offline</h1>
+  <p class="sub">This page requires an internet connection.<br>The portfolio's core content is cached — try reloading or navigate to a cached page.</p>
+  <hr class="divider">
+  <div class="contact">
+    <strong>Sigit Adi Irianto</strong><br>
+    <a href="mailto:si.sigitadi@gmail.com">si.sigitadi@gmail.com</a><br>
+    <a href="https://www.linkedin.com/in/sigitadi/" target="_blank" rel="noopener noreferrer">linkedin.com/in/sigitadi</a><br>
+    <a href="https://github.com/sisigitadi" target="_blank" rel="noopener noreferrer">github.com/sisigitadi</a>
+  </div>
+  <a class="btn" href="./">Reload Portfolio</a>
+  <p class="note">Cached pages may still be available offline.</p>
+</div>
+</body>
+</html>

@@ -1,9 +1,10 @@
-var CACHE = 'portofolio-v43';
+var CACHE = 'portofolio-v44';
 var CORE = [
     './',
     './index.html',
     './ai-engineer.html',
     './secops-specialist.html',
+    './offline.html',
     './styles.css',
     './manifest.json',
     './favicon.ico',
@@ -55,7 +56,7 @@ self.addEventListener('fetch', function(e) {
         return;
     }
 
-    // Navigations: network-first, fall back to cached index for offline
+    // Navigations: network-first, fall back to offline page for offline
     if (req.mode === 'navigate') {
         e.respondWith(
             fetch(req)
@@ -64,7 +65,7 @@ self.addEventListener('fetch', function(e) {
                     caches.open(CACHE).then(function(c) { c.put(req, clone); });
                     return res;
                 })
-                .catch(function() { return caches.match('./index.html'); })
+                .catch(function() { return caches.match('./offline.html'); })
         );
         return;
     }
