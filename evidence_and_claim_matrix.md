@@ -23,9 +23,9 @@ Semua metrik kuantitatif dan klaim teknis diklasifikasikan berdasarkan tingkat p
 | :- | :--- | :--- | :--- | :---: | :---: | :--- |
 | **C-01** | **MTTR −45%** | Benchmark / Sim. Lab | Simulated SOC Environment (SCOPS + Wazuh) | ★☆☆ | ★★★ | *"Reduced simulated SOC triage MTTR by 45% through automated Tier-1 response playbooks and structured priority queues."* |
 | **C-02** | **MTTA −55%** | Project Operasional | SOC Analyst (PT. Prospera / Ops) | ★☆☆ | ★★★ | *"Reduced Mean Time to Acknowledge (MTTA) by 55% across 500+ daily alerts by standardizing alert triage workflows."* |
-| **C-03** | **500+ alerts/day** | Operasional Riil | Wazuh SIEM & FortiWeb WAF Monitoring | ☆☆☆ | ★★★ | *"Monitored and triaged 500+ daily security alerts from Wazuh SIEM and FortiWeb WAF, escalating confirmed incidents per NIST SP 800-61."* |
-| **C-04** | **1,000+ Prompt Pairs** | Freelance / Project | Outlier.ai / AI Training & Evaluation | ★★★ | ☆☆☆ | *"Evaluated and optimized 1,000+ prompt-response pairs for factuality, instruction following, safety, and JSON schema consistency."* |
-| **C-05** | **30% Log Review Time** | Kontrak Pemerintah | Web Administrator (Ministry of Environment) | ★☆☆ | ★★☆ | *"Decreased weekly manual log review overhead by 30% by containerizing environments on Ubuntu/WSL and standardizing Wazuh agents."* |
+| **C-03** | **500+ alerts/day** | Operasional Riil | Wazuh SIEM & FortiWeb WAF Monitoring | ☆☆☆ | ★★★ | *"Monitored and triaged 500+ daily security alerts from Wazuh SIEM and FortiWeb WAF, escalating confirmed incidents per SOP incident playbooks."* |
+| **C-04** | **1,000+ Prompt Pairs** | Freelance / Project | Outlier.ai / AI Training & Evaluation | ★★★ | ☆☆☆ | *"Evaluated and optimized 1,000+ prompt-response pairs for factuality, instruction following, safety, and output consistency."* |
+| **C-05** | **30% Log Review Time** | Kontrak Pemerintah | Web Administrator (Ministry of Environment) | ★☆☆ | ★★☆ | *"Decreased weekly manual log review overhead by 30% by containerizing environments on Linux Server/WSL and standardizing Wazuh agents."* |
 | **C-06** | **Status Proyek Live** | Personal / Public | 4 Live Public Web Deployments | ★★★ | ★★★ | *"Engineered and deployed 4 live, publicly accessible technical applications with zero-backend or containerized architectures."* |
 | **C-07** | **Client-Side Privacy** | Arsitektur Teknis | SmartExpenseML (Browser-only execution) | ★★☆ | ★☆☆ | *"Implemented 100% client-side text classification and Indonesian currency parsing without external server dependencies."* |
 | **C-08** | **Pola Kontrak Kemendagri** | Kontrak Pengadaan | Proyek Pemerintah Berbasis Siklus Tender | ★★☆ | ★★☆ | *"Delivered technical milestones across fixed-term government IT modernization contracts (Senior Programmer & Incident Handling)."* |
@@ -37,20 +37,21 @@ Semua metrik kuantitatif dan klaim teknis diklasifikasikan berdasarkan tingkat p
 ### Track A: Applied AI Engineer & AI Automation
 ```
 ├── Core Concepts: LLM Application Development, Prompt Engineering, Prompt Stability Testing,
-│                  LLM Evaluation, Semantic Similarity, Structured Output (JSON Schema Validation),
-│                  Client-Side NLP, Privacy-Preserving ML, Heuristic Classification
+│                  LLM Evaluation, Output Consistency, Structured Output Validation,
+│                  Client-Side NLP, Privacy-First Architecture, Text Classification Engine
 ├── Frameworks & APIs: Gemini API, LangChain, Ollama (Local LLM Inference), Next.js, TypeScript, Python, Streamlit
-├── Automation & Data: n8n Workflow Automation, REST APIs, JSON/XML Data Pipelines, Webhooks
-└── Evaluation Metrics: Instruction-Following Adherence, Factuality, Hallucination Mitigation, Prompt Drift Detection
+├── Automation & Web: n8n Workflows, REST APIs, Web Development, Git & GitHub
+└── Evaluation Metrics: Instruction-Following Adherence, Factuality, Safety, Prompt Drift Detection
 ```
 
 ### Track B: SecOps, SOC & Cybersecurity
 ```
-├── Core Concepts: SOC Tier-1 Triage, Incident Response Lifecycle, Threat Hunting, Alert Prioritization,
-│                  Log Ingestion & Normalization, SIEM Rule Hardening, Web Application Security
-├── Frameworks & Standards: NIST SP 800-61, ISO/IEC 27001, MITRE ATT&CK Framework
-├── Tools & Technologies: Wazuh SIEM, FortiWeb WAF, Proxmox VE Sandbox, Docker, Ubuntu/Linux,
-│                         Streamlit Security Dashboards, REST Telemetry Ingestion, Python
+├── Core Concepts: SOC Tier-1 Triage, Incident Triage, Threat Hunting, Alert Prioritization,
+│                  Log Ingestion, SOP Incident Playbooks, Vulnerability Assessment, Server Hardening
+├── Systems & Infrastructure: Linux Server, Windows Server, Docker, WSL, Systems Administration,
+│                             Local Network (LAN/WAN), Backup & Recovery, Database SQL
+├── Tools & Technologies: Wazuh SIEM, FortiWeb WAF, DVWA Sandboxing, Docker, Linux Server,
+│                         Streamlit Security Dashboards, REST APIs, Python, Git & GitHub
 └── Metrics & KPIs: MTTA (Mean Time to Acknowledge), Simulated MTTR, False Positive Reduction, Daily Alert Throughput
 ```
 
@@ -109,10 +110,10 @@ Semua metrik kuantitatif dan klaim teknis diklasifikasikan berdasarkan tingkat p
 
 | Periode | Entitas / Lembaga | Jabatan Resmi | Konteks & Justifikasi Durasi Singkat |
 | :--- | :--- | :--- | :--- |
-| **Mar 2026 – Now** | Ministry of Environment | Web Administrator | *Fixed-term government IT modernization contract.* Fokus pada Docker, Ubuntu/WSL, hardening & Wazuh. |
-| **Jun 2024 – Now** | Outlier.ai / Tech Platforms | AI Trainer & LLM Evaluator *(Concurrent)* | *Continuous remote project.* Evaluasi RLHF-style, prompt optimization, factuality & JSON schema. |
+| **Mar 2026 – Now** | Ministry of Environment | Web Administrator | *Fixed-term government IT modernization contract.* Fokus pada Docker, Linux Server/WSL, hardening & Wazuh. |
+| **Jun 2024 – Now** | Outlier.ai / Tech Platforms | AI Trainer & LLM Evaluator *(Concurrent)* | *Continuous remote project.* Evaluasi factuality, safety, instruction-following & prompt stability. |
 | **Okt 2025 – Des 2025** | Ministry of Home Affairs | Senior Programmer | *3-month fixed-term procurement contract.* Backend transaction platform & API integration. |
 | **Jan 2025 – Sep 2025** | PT. Prospera Global Solusi | SOC Analyst (Part-Time) | *Operational security engagement.* 500+ daily alerts, Wazuh SIEM, FortiWeb WAF, MTTA −55%. |
-| **Okt 2024 – Des 2024** | Ministry of Home Affairs | Incident Handling Operational | *3-month critical infrastructure audit & triage project.* NIST SP 800-61 incident response. |
+| **Okt 2024 – Des 2024** | Ministry of Home Affairs | Incident Handling Operational | *3-month critical infrastructure audit & triage project.* SOP incident playbooks & security baseline reviews. |
 | **2021 – 2023** | PT. Bintang Abadi Express | IT & Operations Manager | End-to-end logistics infrastructure, 50+ staff, ERP uptime, network infrastructure. |
 | **2002 – 2020** | Various Enterprises | Project Office Manager, IT Support & Sysadmin | 18+ tahun fondasi sistem, jaringan LAN/WAN, hardware troubleshooting, dan manajemen operasional. |
