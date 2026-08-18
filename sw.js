@@ -5,7 +5,6 @@ var CORE = [
     './ai-engineer.html',
     './secops-specialist.html',
     './offline.html',
-    './styles.css',
     './manifest.json',
     './favicon.ico',
     './og-preview.jpg',
