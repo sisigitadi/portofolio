@@ -4,6 +4,18 @@ All notable changes to the **Sigit Adi Irianto Portfolio SPA** project will be d
 
 The format is based on [Keep a Changelog](https://keepachamber.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.9.6] - 2026-08-19 — Plain-Language Skill Taxonomy & Infrastructure Terminology Refresh
+
+> **Natural Language Competency Refresh**: Cleaned up the Automation & Programming and IT Infrastructure & Systems skill taxonomies across all three live documents and markdown CVs. Removed artificial composite buzzwords in favor of natural, universal industry terms (`Python · TypeScript · Next.js · Streamlit · n8n Workflows · REST APIs · Web Development · Git & GitHub` and `Linux · Windows Server · Docker · WSL · Systems Administration · Local Network (LAN/WAN) · Backup & Recovery · Database SQL`).
+
+### ✏️ Changed
+- **Section 1.03/1.04 Skills Refinement**: Simplified Automation & Programming and IT Infrastructure entries to universally recognized tools, frameworks, and sysadmin practices.
+- **Full Markdown CV Alignment**: Mirrored clean terminology across `master_cv_v2.md`, `cv_applied_ai_engineer.md`, and `cv_secops_engineer.md`.
+- **Tri-Document Synchronization**: Updated `index.html`, `ai-engineer.html`, and `secops-specialist.html`.
+- **Service Worker Cache Bump (`sw.js`)**: `portofolio-v46` → **`portofolio-v47`**.
+
+---
+
 ## [2.9.5] - 2026-08-19 — Role Header Typewriter Effect & PWA Opening Focus
 
 > **Role Header Typewriter Effect**: Added a responsive, accessible typewriter typing animation (~2.0s duration) with blinking accent cursor to the `.role` header across all three document variants. When the page/PWA opens, the visitor's attention is immediately drawn to reading and absorbing the role subtitle letter-by-letter before the cursor vanishes gracefully. Fully protected with `prefers-reduced-motion` and `beforeprint` restoration.
