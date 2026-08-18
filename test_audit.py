@@ -9,6 +9,7 @@ that might trigger many FAILs at once.
 Run: python -m pytest test_audit.py -v
 """
 import io
+import re
 import contextlib
 from pathlib import Path
 
@@ -384,9 +385,9 @@ def test_csp_hash_mismatch_fails(valid_html):
     """#14: a CSP hash does not match the inline script -> FAIL with the
     correct hash to paste."""
     # Replace one CSP hash with a fake value
-    content = valid_html.replace(
-        "sha256-414fiFHNqF/qBWVFvll1l1uXkQWMVfZe2VCowPfPFG4=",
-        "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=", 1)
+    content = re.sub(
+        r"sha256-[A-Za-z0-9+/=]+",
+        "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=", valid_html, count=1)
     assert content != valid_html
     errors, out, _ = run_audit(content, quick=True)
     assert errors >= 1

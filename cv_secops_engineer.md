@@ -6,23 +6,23 @@ Banten, Indonesia (UTC+7) · Open to Worldwide Remote Work
 ---
 
 ## PROFESSIONAL SUMMARY
-24+ years in IT infrastructure, systems operations, and technology delivery, with recent specialization in Security Operations, SIEM telemetry triage, and incident response automation. Hands-on experience developing NIST SP 800-61 playbooks, Wazuh pre-audit compliance analyses, and reducing SOC operational MTTR/MTTA.
+24+ years in IT infrastructure, systems operations, and technology delivery, with recent specialization in Security Operations, SIEM telemetry triage, and incident response automation. Hands-on experience developing incident response playbooks, Wazuh security baseline analyses, and reducing SOC operational MTTR/MTTA.
 
 ---
 
 ## TECHNICAL SKILLS
 
-*   **Security Operations & Threat Defense:** Tier-1 SOC Security Monitoring, Threat Hunting, Incident Handling (NIST SP 800-61, ISO 27001), Wazuh SIEM Telemetry & Agent Configuration, FortiWeb WAF Alert Triage, DVWA Sandboxing, CVE Triage.
+*   **Security Operations & Threat Defense:** Tier-1 SOC Security Monitoring, Threat Hunting, Incident Triage, SOP Playbooks, Vulnerability Assessment, Wazuh SIEM Telemetry & Agent Configuration, FortiWeb WAF Alert Triage, DVWA Sandboxing.
 *   **Infrastructure Defense & Hardening:** Linux (Ubuntu/Debian) Server Hardening, Docker Container Security on WSL, Kali Linux, Windows 11 Enterprise, High-Availability SLAs, Disaster Recovery Protocols.
 *   **Security Automation & Analytics:** Python (Streamlit, Pandas), n8n Workflows, REST API Webhook Ingestion, JSON/XML/CSV Log Parsing, Incident Response Playbook Engineering.
-*   **Enterprise IT Infrastructure:** Systems Administration, Enterprise Network Topologies (LAN/WAN, Routing/Switching, Firewalls), Automated Backup Protocols, SQL Data Pipelines.
+*   **Enterprise IT Infrastructure:** Systems Administration, Enterprise Network Topologies (LAN/WAN, Routing/Switching, Firewalls), Automated Backup Protocols, SQL Database Administration.
 
 ---
 
 ## TECHNICAL PROJECTS
 
 ### **SCOPS — Security Operations Automation Platform**
-*Live Application:* [SCOPS](https://sisigitadi.github.io/scops) | *Source:* [GitHub](https://github.com/sisigitadi) | *Stack:* Python, Streamlit, Wazuh SIEM REST API, NIST SP 800-61 Playbooks
+*Live Application:* [SCOPS](https://sisigitadi.github.io/scops) | *Source:* [GitHub](https://github.com/sisigitadi) | *Stack:* Python, Streamlit, Wazuh SIEM REST API, SOP Incident Playbooks
 *   Engineered a centralized SOC triage dashboard that digests raw telemetry from Wazuh SIEM agents and classifies incidents into actionable High/Medium/Low priority queues.
 *   Automated Tier-1 alert triage, reducing simulated MTTR by **45%** and MTTA by **55%** across 500+ daily telemetry events.
 *   Turns raw telemetry into a prioritized queue an analyst can act on at a glance.
@@ -33,12 +33,12 @@ Banten, Indonesia (UTC+7) · Open to Worldwide Remote Work
 *   Streamlined log ingestion and threat detection workflows, cutting manual log review time by **30%** for Tier-1 analysts.
 
 ### **PromptMatrix — LLM Evaluation & Prompt Stability Platform**
-*Live Application:* [PromptMatrix](https://sisigitadi.github.io/promptmatrix2) | *Source:* [GitHub](https://github.com/sisigitadi) | *Stack:* TypeScript, Next.js, LangChain, Gemini API, Cosine Similarity, BYOK
+*Live Application:* [PromptMatrix](https://sisigitadi.github.io/promptmatrix2) | *Source:* [GitHub](https://github.com/sisigitadi) | *Stack:* TypeScript, Next.js, LangChain, Gemini API, Output Consistency Testing
 *   Architected a client-side prompt evaluation engine testing LLM output consistency, format adherence, and safety across systematic prompt variations.
 *   Quantified prompt variant stability, drift risks, and strict JSON/schema format adherence before deployment.
 
 ### **SmartExpenseML — Client-Side NLP Expense Classifier**
-*Live Application:* [SmartExpenseML](https://sisigitadi.github.io/smartexpenseML) | *Source:* [GitHub](https://github.com/sisigitadi) | *Stack:* JavaScript, Naive Bayes Classifier, Regex Normalization, BYOK
+*Live Application:* [SmartExpenseML](https://sisigitadi.github.io/smartexpenseML) | *Source:* [GitHub](https://github.com/sisigitadi) | *Stack:* JavaScript, Text Classification Engine, Regex Normalization
 *   Built a browser-based NLP classifier parsing informal Indonesian transaction texts (`25rb`, `5.5jt`) with zero server data retention.
 *   Engineered for privacy-first operations with no signup, no backend database, and no third-party tracking.
 
@@ -53,13 +53,13 @@ Banten, Indonesia (UTC+7) · Open to Worldwide Remote Work
 
 ### **Senior Programmer (Short-Term Contract)** | Ministry of Home Affairs
 *Oct 2025 – Dec 2025 | Jakarta, Indonesia*
-*   Developed backend components for a high-volume digital governance transaction system processing thousands of transactions per day, while applying data minimization principles aligned with UU PDP.
+*   Developed backend components for a high-volume digital governance transaction system processing thousands of transactions per day, while applying strict data minimization and secure data handling practices.
 *   Identified and resolved reliability risks across critical data ingestion flows.
 
 ### **SOC Analyst (Part-Time)** | PT. Prospera Consulting Engineers
 *Jan 2025 – Sep 2025 | Jakarta, Indonesia*
-*   Developed incident response playbooks for Tier-1 analysts based on NIST SP 800-61 frameworks.
-*   Conducted Wazuh-based pre-audit reviews for ISO 27001 readiness; reduced MTTA by **55%**.
+*   Developed incident response playbooks for Tier-1 analysts with structured threat containment and escalation pathways.
+*   Conducted Wazuh-based security baseline reviews and continuous vulnerability monitoring; reduced MTTA by **55%**.
 
 ### **Incident Handling Operational (Short-Term Contract)** | Ministry of Home Affairs
 *Oct 2024 – Dec 2024 | Jakarta, Indonesia*
@@ -68,7 +68,7 @@ Banten, Indonesia (UTC+7) · Open to Worldwide Remote Work
 
 ### **AI Trainer & LLM Evaluator (Freelance)** | Multiple AI Evaluation Platforms
 *Jun 2024 – Present | Remote*
-*   Evaluated **1,000+ prompt-response pairs** for model factuality, instruction-following, and safety using RLHF criteria.
+*   Evaluated **1,000+ prompt-response pairs** for model factuality, instruction-following, and safety using human-in-the-loop evaluation criteria.
 
 ### **IT & Operations Manager (Full-Time)** | ACE Ltd.
 *May 2023 – Aug 2024 | Indonesia*

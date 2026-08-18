@@ -75,15 +75,15 @@ Semua metrik kuantitatif dan klaim teknis diklasifikasikan berdasarkan tingkat p
 ### Project 3: PromptMatrix 2.0 (LLM Prompt Stability & Evaluation Suite)
 *   **Target Domain**: Applied AI / LLM Engineering (Tier 1 Flagship)
 *   **Problem Statement**: Pipeline AI rentan terhadap kegagalan output format (*JSON schema breakage*) dan variasi jawaban antar model.
-*   **Architecture**: User Prompt Input $\rightarrow$ Systematic Variant Generation $\rightarrow$ Multi-Model LLM Execution (Gemini API) $\rightarrow$ Semantic Similarity & Cosine Scoring $\rightarrow$ Strict Schema & JSON Adherence Check.
+*   **Architecture**: User Prompt Input $\rightarrow$ Systematic Variant Generation $\rightarrow$ Multi-Model LLM Execution (Gemini API) $\rightarrow$ Output Consistency & Stability Testing $\rightarrow$ Strict Schema & JSON Adherence Check.
 *   **Stack**: Next.js, TypeScript, LangChain, Google Gemini API, Tailwind CSS.
-*   **Security Model**: Bring-Your-Own-Key (BYOK) — Kunci API hanya berada di memori lokal browser.
+*   **Security Model**: Client-Side Privacy — Kunci API hanya berada di memori lokal browser.
 *   **Deployment Status**: Live Deployment.
 
 ### Project 4: SmartExpenseML (Client-Side NLP Expense Classifier)
 *   **Target Domain**: Applied AI / Privacy Engineering (Tier 2 Supporting)
 *   **Problem Statement**: Pengguna enggan mengunggah catatan keuangan pribadi ke server cloud pihak ketiga.
-*   **Architecture**: Browser-only Naive Bayes Classifier + Indonesian Informal Currency Regex Parser (`25rb`, `5.5jt`).
+*   **Architecture**: Browser-only Text Classification Engine + Indonesian Informal Currency Regex Parser (`25rb`, `5.5jt`).
 *   **Stack**: Vanilla JavaScript, HTML5 LocalStorage, Zero Backend / Zero Tracking.
 *   **Deployment Status**: Live Deployment.
 

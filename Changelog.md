@@ -4,6 +4,26 @@ All notable changes to the **Sigit Adi Irianto Portfolio SPA** project will be d
 
 The format is based on [Keep a Changelog](https://keepachamber.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.9.4] - 2026-08-19 — Reading Progress Bar, Mobile Language Formatting, Scroll In-View Animations & Terminology Grounding
+
+> **Reading Progress Bar, Mobile Layout Polish, In-View Ink Animations, and Interview Terminology De-Risking**: Added a fixed 3px accent reading progress bar across all documents. Enhanced mobile formatting in Section 6 (Languages). Tied all SVG ink and pen stroke animations strictly to viewport entry (`.in-view`). Thoroughly sanitized all high-risk theoretical buzzwords (Cosine Similarity, BYOK, NIST SP 800-61, ISO 27001, UU PDP, RLHF, SQL Data Pipelines) into grounded, verifiable operational practices across all three HTML variants and markdown CVs.
+
+### ✏️ Changed
+- **Reading Progress Bar (`#read-progress`)**: Fixed 3px progress indicator at `top: 0` using CSS accent color (`#B45309` / dark `#D4824A`) that smoothly updates with document scroll percentage. Suppressed in `@media print` to maintain clean ATS layout.
+- **Section 6 Mobile 2-Line Format**: Wrapped Indonesian and English language entries in `.lang-entry` spans to cleanly wrap into 2 vertical lines on mobile devices ($\le 620\text{px}$).
+- **Scroll-Triggered In-View Animations**: All ink underlines, checks, and handwriting spans now only animate when scrolled into the active viewport via `IntersectionObserver` (`.in-view`).
+- **Terminology De-Risking & Grounding**:
+  - Replaced `Semantic Similarity (Cosine Scoring)` with `Prompt Stability Testing · Output Consistency`.
+  - Replaced `BYOK (Bring-Your-Own-Key)` with `n8n AI Automation` and client-side privacy architecture.
+  - Replaced `NIST SP 800-61` and `ISO/IEC 27001` with `Incident Triage`, `SOP Incident Playbooks`, and `Security Baseline Reviews`.
+  - Replaced `UU PDP` with `strict data minimization and secure data handling practices`.
+  - Replaced `RLHF-style evaluation` with `Human-in-the-loop evaluation of model factuality, instruction-following, and safety`.
+  - Replaced `SQL Data Pipelines` with `SQL Database Administration & Automated Reporting`.
+- **Tri-Document Synchronization**: All changes mirrored perfectly across `index.html`, `ai-engineer.html`, `secops-specialist.html`, `master_cv_v2.md`, `cv_applied_ai_engineer.md`, `cv_secops_engineer.md`, and `evidence_and_claim_matrix.md`.
+- **Service Worker Cache Bump (`sw.js`)**: `portofolio-v44` → **`portofolio-v45`**.
+
+---
+
 ## [2.9.3] - 2026-08-18 — Dark Mode, CSS Refactor, CSP Hardening & Role OG Images
 
 > **System-Preference Dark Mode, CSS Modularization, Security Hardening & Social Preview Personalization**: Implemented automatic dark/light theme following OS `prefers-color-scheme` (no toggle needed). Extracted 347 lines of shared CSS to external `styles.css` (HTML files reduced ~32%). Added CSP `report-uri` endpoint for violation monitoring, CSP hash sync audit check (#14), role-specific OG images for AI Engineer and SecOps Specialist pages.
