@@ -2,12 +2,49 @@
   "name": "Sigit Adi Irianto | IT & SecOps Specialist | Applied AI Engineer",
   "short_name": "Sigit Portfolio",
   "description": "Official portfolio of Sigit Adi Irianto: Applied AI Engineer & IT Security Operations Specialist.",
+  "id": "./",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait-primary",
   "background_color": "#F3EEDF",
   "theme_color": "#D6CDB4",
+  "categories": ["portfolio", "business"],
+  "screenshots": [
+    {
+      "src": "og-preview.jpg",
+      "sizes": "1200x630",
+      "type": "image/jpeg",
+      "form_factor": "wide",
+      "label": "Sigit Adi Irianto — IT & SecOps Specialist | Applied AI Engineer Portfolio"
+    },
+    {
+      "src": "og-preview-ai.jpg",
+      "sizes": "1200x630",
+      "type": "image/jpeg",
+      "form_factor": "wide",
+      "label": "Applied AI Engineer — LLM Evaluation · Prompt Engineering · Ollama"
+    },
+    {
+      "src": "og-preview-secops.jpg",
+      "sizes": "1200x630",
+      "type": "image/jpeg",
+      "form_factor": "wide",
+      "label": "SecOps Specialist — Wazuh SIEM · Threat Monitoring · Incident Response"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Projects",
+      "url": "./#projects",
+      "description": "View deployed technical projects"
+    },
+    {
+      "name": "Contact",
+      "url": "./#contact",
+      "description": "Get in touch"
+    }
+  ],
   "icons": [
     {
       "src": "icons/icon-192.png",
