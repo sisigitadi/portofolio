@@ -4,6 +4,19 @@ All notable changes to the **Sigit Adi Irianto Portfolio SPA** project will be d
 
 The format is based on [Keep a Changelog](https://keepachamber.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.9.5] - 2026-08-19 — Role Header Typewriter Effect & PWA Opening Focus
+
+> **Role Header Typewriter Effect**: Added a responsive, accessible typewriter typing animation (~2.0s duration) with blinking accent cursor to the `.role` header across all three document variants. When the page/PWA opens, the visitor's attention is immediately drawn to reading and absorbing the role subtitle letter-by-letter before the cursor vanishes gracefully. Fully protected with `prefers-reduced-motion` and `beforeprint` restoration.
+
+### ✏️ Changed
+- **Typewriter Effect (`.role`)**: Smooth character-by-character typing reveal over ~2.0s with blinking accent cursor (`.typing-cursor`). Cursor blinks and cleanly fades after typing finishes.
+- **ATS Print Protection**: Attached `beforeprint` listener to instantly restore full static text for zero-delay printing/PDF export. Suppressed `.typing-cursor` in `@media print`.
+- **Accessibility**: Bypassed for users requesting `prefers-reduced-motion: reduce`.
+- **Tri-Document Parity & CSP Update**: Applied across `index.html`, `ai-engineer.html`, and `secops-specialist.html`. Synchronized CSP SHA-256 script hash in `index.html`.
+- **Service Worker Cache Bump (`sw.js`)**: `portofolio-v45` → **`portofolio-v46`**.
+
+---
+
 ## [2.9.4] - 2026-08-19 — Reading Progress Bar, Mobile Language Formatting, Scroll In-View Animations & Terminology Grounding
 
 > **Reading Progress Bar, Mobile Layout Polish, In-View Ink Animations, and Interview Terminology De-Risking**: Added a fixed 3px accent reading progress bar across all documents. Enhanced mobile formatting in Section 6 (Languages). Tied all SVG ink and pen stroke animations strictly to viewport entry (`.in-view`). Thoroughly sanitized all high-risk theoretical buzzwords (Cosine Similarity, BYOK, NIST SP 800-61, ISO 27001, UU PDP, RLHF, SQL Data Pipelines) into grounded, verifiable operational practices across all three HTML variants and markdown CVs.

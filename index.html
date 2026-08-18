@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#D6CDB4">
 
 <!-- Security Hardening & CSP Meta Tags (script-src via sha256 hash, no 'unsafe-inline' script; connect/img restricted to trusted origins) -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self' https:; script-src 'self' 'sha256-sK4WiiUpoyAFZlWbTe45iwr4fNMh2Ph2LwbIq8UKe0s=' 'sha256-u86bYsMwO71wBLrZtpK99d81VjwgfFiFsf5wljgOhxc=' 'sha256-KcJib6eYC2MXOCVUDt5ErXibLp+IBrF/Pt4Keyox/Qg='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com data:; img-src 'self' data: https://portofolio-visitor-tracker.si-sigitadi.workers.dev; connect-src 'self' https://formspree.io https://portofolio-visitor-tracker.si-sigitadi.workers.dev; object-src 'none'; frame-src 'none'; base-uri 'self'; form-action 'self' https://formspree.io; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' https:; script-src 'self' 'sha256-hiFHgMA7AYVfHJkKw6M5uQsR4x3A5l7Q/9UIiHL2phE=' 'sha256-u86bYsMwO71wBLrZtpK99d81VjwgfFiFsf5wljgOhxc=' 'sha256-KcJib6eYC2MXOCVUDt5ErXibLp+IBrF/Pt4Keyox/Qg='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com data:; img-src 'self' data: https://portofolio-visitor-tracker.si-sigitadi.workers.dev; connect-src 'self' https://formspree.io https://portofolio-visitor-tracker.si-sigitadi.workers.dev; object-src 'none'; frame-src 'none'; base-uri 'self'; form-action 'self' https://formspree.io; upgrade-insecure-requests">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=(), usb=(), autoplay=()">
@@ -239,7 +239,10 @@
   header{padding:34px 0 26px;position:relative}
   h1{font-size:clamp(28px,6.5vw,72px);line-height:1.15;font-weight:700;letter-spacing:-1px;text-align:left;text-wrap:balance;margin-bottom:14px}
   h1 .thin{font-weight:400;color:var(--ink2)}
-  .role{font-size:clamp(17px,2.4vw,22px);color:var(--accent2);margin-bottom:12px}
+  .role{font-size:clamp(17px,2.4vw,22px);color:var(--accent2);margin-bottom:12px;min-height:1.4em}
+  .typing-cursor{display:inline-block;color:var(--accent);font-weight:300;margin-left:2px;animation:blinkCursor .6s step-end infinite}
+  .typing-cursor.done{display:none}
+  @keyframes blinkCursor{from,to{opacity:0}50%{opacity:1}}
   .summary-head{font:700 11px ui-monospace,Consolas,monospace;color:var(--accent);text-transform:uppercase;letter-spacing:.08em;margin-top:14px;margin-bottom:4px}
   .pitch{max-width:640px;color:var(--ink2);margin-bottom:6px;text-align:left;line-height:1.7}
   .lang-item{font-size:13px;padding:4px 0 10px;border-bottom:1px dotted var(--rule)}
@@ -547,7 +550,7 @@
     }
 
     /* Suppress non-ATS elements: Web masthead, TOC, Contact Form/Slip, Web footers, Testimonials, decorative numbering, ink/scribble animations, all SVGs */
-    .read-progress, .mast, footer, #contact, .pg, .toc, #reports, .num, body > svg, svg, svg *, path, defs, filter, .skip-link, .cta, .btn, .visitor-badge, noscript, .ref, .ink, .mnote, .cta-note, .ink-sign, .underline, .pen-stroke, .stamp-wrapper, .dossier-stamp, .cbadge {
+    .read-progress, .mast, footer, #contact, .pg, .toc, #reports, .num, body > svg, svg, svg *, path, defs, filter, .skip-link, .cta, .btn, .visitor-badge, noscript, .ref, .ink, .mnote, .cta-note, .ink-sign, .underline, .pen-stroke, .stamp-wrapper, .dossier-stamp, .cbadge, .typing-cursor {
       display: none !important;
       visibility: hidden !important;
       height: 0 !important;
@@ -1229,6 +1232,36 @@
     window.addEventListener('scroll', updateProgress, { passive: true })
     window.addEventListener('resize', updateProgress, { passive: true })
     updateProgress()
+  })()
+  ;(function () {
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    var role = document.querySelector('.role')
+    if (!role || reduce) return
+    var text = role.getAttribute('data-role') || role.textContent.trim()
+    role.setAttribute('data-role', text)
+    role.innerHTML = '<span class="role-text"></span><span class="typing-cursor" aria-hidden="true">|</span>'
+    var textSpan = role.querySelector('.role-text')
+    var cursor = role.querySelector('.typing-cursor')
+    var i = 0
+    var dur = 2000
+    var interval = Math.max(25, Math.floor(dur / text.length))
+    var timer = null
+    function type() {
+      if (i <= text.length) {
+        textSpan.textContent = text.slice(0, i)
+        i++
+        timer = setTimeout(type, interval)
+      } else if (cursor) {
+        setTimeout(function () {
+          cursor.classList.add('done')
+        }, 1000)
+      }
+    }
+    window.addEventListener('beforeprint', function () {
+      clearTimeout(timer)
+      role.textContent = text
+    })
+    setTimeout(type, 350)
   })()
   ;(function () {
     if ('serviceWorker' in navigator) {
