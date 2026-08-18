@@ -4,6 +4,16 @@ All notable changes to the **Sigit Adi Irianto Portfolio SPA** project will be d
 
 The format is based on [Keep a Changelog](https://keepachamber.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.9.7] - 2026-08-19 — Linux Server Standardization
+
+> **Infrastructure Terminology Simplification**: Standardized `Linux (Ubuntu, Debian)` and `Linux (Ubuntu/Debian)` to `Linux Server` across all live HTML documents, specification metadata rows, and markdown CVs.
+
+### ✏️ Changed
+- **Linux Server Standardization**: Replaced `Linux (Ubuntu, Debian)` with `Linux Server` across Section 1 (Skills), Spec table metadata, and all Markdown CV files.
+- **Service Worker Cache Bump (`sw.js`)**: `portofolio-v47` → **`portofolio-v48`**.
+
+---
+
 ## [2.9.6] - 2026-08-19 — Plain-Language Skill Taxonomy & Infrastructure Terminology Refresh
 
 > **Natural Language Competency Refresh**: Cleaned up the Automation & Programming and IT Infrastructure & Systems skill taxonomies across all three live documents and markdown CVs. Removed artificial composite buzzwords in favor of natural, universal industry terms (`Python · TypeScript · Next.js · Streamlit · n8n Workflows · REST APIs · Web Development · Git & GitHub` and `Linux · Windows Server · Docker · WSL · Systems Administration · Local Network (LAN/WAN) · Backup & Recovery · Database SQL`).

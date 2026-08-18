@@ -13,9 +13,9 @@ Banten, Indonesia (UTC+7) · Open to Worldwide Remote Work
 ## TECHNICAL SKILLS
 
 *   **Security Operations & Threat Defense:** Tier-1 SOC Security Monitoring, Threat Hunting, Incident Triage, SOP Playbooks, Vulnerability Assessment, Wazuh SIEM Telemetry & Agent Configuration, FortiWeb WAF Alert Triage, DVWA Sandboxing.
-*   **Infrastructure Defense & Hardening:** Linux (Ubuntu/Debian) Server Hardening, Docker Container Security on WSL, Kali Linux, Windows 11 Enterprise, High-Availability SLAs, Data Backup & Recovery.
+*   **Infrastructure Defense & Hardening:** Linux Server Hardening, Docker Container Security on WSL, Kali Linux, Windows 11 Enterprise, High-Availability SLAs, Data Backup & Recovery.
 *   **Security Automation & Analytics:** Python (Streamlit, Pandas), n8n Workflows, REST APIs, JSON Log Parsing, Incident Response Playbook Engineering, Git & GitHub.
-*   **Enterprise IT Infrastructure:** Linux (Ubuntu/Debian), Windows Server, Docker, WSL, Systems Administration, Local Network (LAN/WAN), Backup & Recovery, Database SQL.
+*   **Enterprise IT Infrastructure:** Linux Server, Windows Server, Docker, WSL, Systems Administration, Local Network (LAN/WAN), Backup & Recovery, Database SQL.
 
 ---
 
