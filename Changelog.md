@@ -4,6 +4,22 @@ All notable changes to the **Sigit Adi Irianto Portfolio SPA** project will be d
 
 The format is based on [Keep a Changelog](https://keepachamber.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.9.2] - 2026-08-18 — Project Card Links: "Live Demo" Label Removed
+
+> **UI copy cleanup**: Removed the redundant `Live Demo: ` text prefix from every project card link in Section 2 (Projects) across all three web portfolios (`index.html`, `ai-engineer.html`, `secops-specialist.html`). Links now display only the clean destination URL (e.g. `sisigitadi.github.io/scops ↗`); no markup, hrefs, or behavior changed.
+
+### ✏️ Changed
+- **Project Card Links (Section 2 — Projects)**:
+  - Stripped the `Live Demo: ` prefix from all 12 project card links (4 per document × 3 documents): `SCOPS`, `A.R.Y.A.`, `PromptMatrix`, and `SmartExpenseML`.
+  - Anchor text now shows the bare URL only; `href`, `target="_blank"`, and `rel="noopener noreferrer"` untouched.
+  - Scope check: `design-previews/02-field-manual.html` already used the bare-URL format (no `Live Demo` text) and `index_asli.html` uses `Open App` buttons — both already consistent, no changes needed.
+- **Social Preview Cache-Buster Sync (`og-preview.jpg?v=2.9.1` → `?v=2.9.2`)**:
+  - Bumped in all 6 locations per document × 3 documents (18 total): `itemprop="image"`, `image_src`, `og:image`, `og:image:secure_url`, `twitter:image`, and JSON-LD `image` — forcing social platforms (LinkedIn, WhatsApp, X, etc.) to re-fetch the updated preview.
+- **Service Worker Cache Bump (`sw.js`)**: `portofolio-v40` → **`portofolio-v41`** so returning visitors (whose service worker precached the previous page versions) receive the updated `index.html`, `ai-engineer.html`, and `secops-specialist.html` on next deploy; `activate` purges the old cache.
+- **Validation**: repo-wide search confirms **0 occurrences** of `Live Demo` remain in any HTML file, and **0 occurrences** of the stale `?v=2.9.1` cache-buster remain.
+
+---
+
 ## [2.9.1] - 2026-08-17 — Section Headers & TOC Harmonization, SEO & Metadata Polish
 
 > **Navigation, Typography & Meta Synchronization**: Streamlined Table of Contents and main section `<h2>` headings across all three web portfolios (`index.html`, `ai-engineer.html`, `secops-specialist.html`) to clean, direct labels: `1. Skills`, `2. Projects`, `3. Experiences`, and `4. Recommendations`. Refreshed OpenGraph, Twitter card, Schema microdata, and JSON-LD structured data preview versions (`?v=2.9.1`) for reliable social cache invalidation.

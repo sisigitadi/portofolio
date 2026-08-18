@@ -290,12 +290,12 @@ def register(fn):
 
 
 class PreflightAudit:
-    """Modular pre-flight audit (13 checks).
+    """Modular pre-flight audit (14 checks).
 
     Shared state is computed once in __init__ (scripts, dom_ids) and in check
     #9 (DOM references) — then reused by #9b and #10.
     quick=True skips node --check (#6) for fast gates (pre-commit); the full
-    gate (pre-push / CI) still runs all 13 checks.
+    gate (pre-push / CI) still runs all 14 checks.
 
     Some checks are conditional on features present on the page (CLI gimmick
     #4, testimonial carousel #7, i18n dictionary #8, variable getElementById
@@ -751,7 +751,7 @@ def parse_cli_args(argv):
 
 if __name__ == "__main__":
     # The target file can be configured as the first positional argument:
-    #   python audit.py                 -> audit index.html (default, 13 checks)
+    #   python audit.py                 -> audit index.html (default, 14 checks)
     #   python audit.py path/to/x.html  -> audit another file
     #   python audit.py --quick         -> without node --check (for pre-commit)
     #   python audit.py file.html --quick -> combination of both

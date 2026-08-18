@@ -4,7 +4,7 @@
 #
 # Runs audit.py in quick mode (without node --check) so structural errors are
 # caught before commit. The final gate remains pre-push / CI, which runs the
-# full audit (13 checks).
+# full audit (14 checks).
 #
 # How to enable (once, from the repo root):
 #     git config core.hooksPath .githooks

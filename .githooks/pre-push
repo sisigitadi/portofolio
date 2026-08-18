@@ -1,6 +1,6 @@
 #!/bin/sh
 # ---------------------------------------------------------------------------
-# Git pre-push hook — Pre-Flight Audit gate (13/13 PASS required).
+# Git pre-push hook — Pre-Flight Audit gate (14/14 PASS required).
 #
 # Rejects the push if audit.py finds issues (exit code != 0). Applies to every
 # push to any remote (any branch).
@@ -17,7 +17,7 @@ set -e
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT"
 
-echo "[pre-push] Running pre-flight audit (must be 13/13 PASS)..."
+echo "[pre-push] Running pre-flight audit (must be 14/14 PASS)..."
 # Prefer python3 (audit.py uses Python 3 syntax; 'python' on some older
 # systems still points to Python 2, which would fail with a misleading error).
 if command -v python3 >/dev/null 2>&1; then
