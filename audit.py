@@ -290,12 +290,12 @@ def register(fn):
 
 
 class PreflightAudit:
-    """Modular pre-flight audit (14 checks).
+    """Modular pre-flight audit (15 checks).
 
     Shared state is computed once in __init__ (scripts, dom_ids) and in check
     #9 (DOM references) — then reused by #9b and #10.
     quick=True skips node --check (#6) for fast gates (pre-commit); the full
-    gate (pre-push / CI) still runs all 14 checks.
+    gate (pre-push / CI) still runs all 15 checks.
 
     Some checks are conditional on features present on the page (CLI gimmick
     #4, testimonial carousel #7, i18n dictionary #8, variable getElementById
@@ -690,6 +690,75 @@ class PreflightAudit:
         else:
             self._pass("ATS Print Mode verified (Single-column, Arial typography, A4 pagination, break-inside protection).")
 
+    # -- 14. CSP script-src hash ↔ inline script sync -----------------------
+    @register
+    def _check_14_csp_hash_sync(self):
+        """Verify every inline <script> has a matching sha256 hash in the CSP
+        script-src directive, and vice versa.
+
+        When CSP is absent (e.g. ai-engineer.html, secops-specialist.html),
+        the check passes as WARN (CSP is best-practice, not mandatory for
+        every page). When CSP exists but hashes are missing or mismatched,
+        it FAILs with the exact hashes to paste into the meta tag.
+        """
+        csp_match = re.search(
+            r'<meta\s+http-equiv="Content-Security-Policy"\s+content="([^"]+)"',
+            self.content, re.I)
+        if not csp_match:
+            self._warn("No CSP meta tag found — CSP script-src hash sync check not applicable.")
+            return
+
+        csp_content = csp_match.group(1)
+
+        # Extract script-src directive value (up to the next directive or end)
+        script_src_match = re.search(r"script-src\s+([^;]+)", csp_content)
+        if not script_src_match:
+            self._warn("CSP exists but script-src directive not found — hash sync check skipped.")
+            return
+
+        script_src = script_src_match.group(1)
+        csp_hashes = re.findall(r"sha256-([A-Za-z0-9+/=]+)", script_src)
+
+        if not csp_hashes:
+            self._warn("script-src has no sha256 hashes (uses 'unsafe-inline' or only sources) — "
+                       "hash sync check skipped.")
+            return
+
+        # Compute SHA-256 hashes for each inline script
+        import hashlib, base64
+        computed_hashes = []
+        for script_body in self.scripts:
+            h = hashlib.sha256(script_body.encode('utf-8')).digest()
+            computed_hashes.append(base64.b64encode(h).decode('ascii'))
+
+        csp_set = set(csp_hashes)
+        computed_set = set(computed_hashes)
+
+        # Scripts without a matching CSP hash
+        unmatched_scripts = []
+        for idx, ch in enumerate(computed_hashes):
+            if ch not in csp_set:
+                unmatched_scripts.append((idx, ch))
+
+        # CSP hashes without a matching inline script (orphaned / stale)
+        orphaned_hashes = sorted(csp_set - computed_set)
+
+        if not unmatched_scripts and not orphaned_hashes:
+            self._pass(f"CSP script-src hashes in sync ({len(computed_hashes)} inline scripts, "
+                       f"{len(csp_hashes)} CSP hashes — all match).")
+            return
+
+        issues = []
+        if unmatched_scripts:
+            for idx, ch in unmatched_scripts:
+                issues.append(f"inline script #{idx + 1}: computed sha256-{ch}")
+        if orphaned_hashes:
+            issues.append(f"{len(orphaned_hashes)} orphaned CSP hash(es) with no matching script: "
+                         f"{', '.join('sha256-' + h for h in orphaned_hashes)}")
+
+        self._fail("CSP script-src hash mismatch — inline script will be SILENTLY BLOCKED! "
+                   f"Update the CSP meta with the correct hashes: {'; '.join(issues)}")
+
     # -- Execution ----------------------------------------------------------
     def run(self):
         # Reset state so run() is idempotent (safe to call repeatedly on the
@@ -751,7 +820,7 @@ def parse_cli_args(argv):
 
 if __name__ == "__main__":
     # The target file can be configured as the first positional argument:
-    #   python audit.py                 -> audit index.html (default, 14 checks)
+    #   python audit.py                 -> audit index.html (default, 15 checks)
     #   python audit.py path/to/x.html  -> audit another file
     #   python audit.py --quick         -> without node --check (for pre-commit)
     #   python audit.py file.html --quick -> combination of both

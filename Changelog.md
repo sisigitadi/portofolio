@@ -4,6 +4,26 @@ All notable changes to the **Sigit Adi Irianto Portfolio SPA** project will be d
 
 The format is based on [Keep a Changelog](https://keepachamber.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.9.3] - 2026-08-18 — Dark Mode, CSS Refactor, CSP Hardening & Role OG Images
+
+> **System-Preference Dark Mode, CSS Modularization, Security Hardening & Social Preview Personalization**: Implemented automatic dark/light theme following OS `prefers-color-scheme` (no toggle needed). Extracted 347 lines of shared CSS to external `styles.css` (HTML files reduced ~32%). Added CSP `report-uri` endpoint for violation monitoring, CSP hash sync audit check (#14), role-specific OG images for AI Engineer and SecOps Specialist pages.
+
+### ✏️ Changed
+- **System-Preference Dark Mode**: Implemented automatic dark/light theme via `@media (prefers-color-scheme: dark)` CSS media query across all 3 HTML files. No manual toggle — theme follows OS setting. Dark palette: navy background `#111318`, paper `#1A1D23`, warm white text `#E8E6E1`, bright rust accent `#D4824A`. Dynamic `<meta name="theme-color">` updated via inline script (new CSP hash added). Print stylesheet unaffected (`@media print` overrides to white).
+- **CSS Modularization**: Extracted 346 lines of shared CSS (variables, layout, typography, animations, dark mode, responsive) to `styles.css` at repo root. All 3 HTML files now load `styles.css` via `<link rel="stylesheet">` and retain only `@media print` inline (~390 lines) for ATS audit check #13 compliance. HTML files reduced ~32% each (76K→52K, 75K→50K, 75K→50K). Service worker caches `styles.css` in CORE array.
+- **Role-Specific OG Images**:
+  - `ai-engineer.html` now references `og-preview-ai.jpg` (banner: "APPLIED AI ENGINEER — LLM Evaluation · Prompt Engineering · Ollama") across all 6 social/meta locations (itemprop, image_src, og:image, og:image:secure_url, twitter:image, JSON-LD).
+  - `secops-specialist.html` now references `og-preview-secops.jpg` (banner: "SECOPS SPECIALIST — Wazuh SIEM · Threat Monitoring · Incident Response") across all 6 locations.
+  - `index.html` retains `og-preview.jpg` (master/general role) — all bumped to `?v=2.9.3`.
+- **Service Worker Cache Bump**: `portofolio-v41` → **`portofolio-v43`** — added `styles.css`, `og-preview.jpg`, `og-preview-ai.jpg`, and `og-preview-secops.jpg` to the CORE precache array.
+- **CSP Hash Audit (#14)**: New check in `audit.py` computes SHA-256 of every inline `<script>` and verifies it matches a hash in the CSP `script-src` directive. Mismatch → FAIL with the correct hash to paste. No CSP → WARN.
+- **CSP Violation Monitoring (`report-uri`)**: Added `report-uri https://portofolio-visitor-tracker.si-sigitadi.workers.dev/csp-report` to the CSP meta in `index.html`. New `/csp-report` endpoint on the Cloudflare Worker stores violations in a `csp_reports` D1 table (supports both `application/csp-report` and `application/reports+json` formats, rate-limited to 10/min per IP). Schema migration: re-apply `schema.sql` to D1.
+- **Worker Route Tests Expansion**: 26 → **31 worker tests** (5 new: CSP report store, reports+json format, rate limit, malformed JSON, empty payload).
+- **Test Suite Expansion**: 67 → **72 pytest tests** (5 new: hash sync, mismatch, no-CSP, no-hashes, orphaned hash).
+- **Quality Gate Sync**: All docs, hooks, and workflows updated from 14 checks / 67 tests to **15 checks / 72 tests** (audit + pytest) and **31 worker tests**.
+
+---
+
 ## [2.9.2] - 2026-08-18 — Project Card Links: "Live Demo" Label Removed
 
 > **UI copy cleanup**: Removed the redundant `Live Demo: ` text prefix from every project card link in Section 2 (Projects) across all three web portfolios (`index.html`, `ai-engineer.html`, `secops-specialist.html`). Links now display only the clean destination URL (e.g. `sisigitadi.github.io/scops ↗`); no markup, hrefs, or behavior changed.

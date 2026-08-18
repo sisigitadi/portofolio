@@ -27,3 +27,25 @@ CREATE TABLE IF NOT EXISTS visits (
 
 CREATE INDEX IF NOT EXISTS idx_visits_created ON visits(created_at);
 CREATE INDEX IF NOT EXISTS idx_visits_hash    ON visits(ip_hash);
+
+-- ============================================================
+-- CSP violation reports (report-uri endpoint)
+-- Browser sends a POST when a Content Security Policy rule is violated.
+-- Useful for detecting stale CSP hashes, unexpected script sources,
+-- or injection attempts.
+-- ============================================================
+
+CREATE TABLE IF NOT EXISTS csp_reports (
+  id             INTEGER PRIMARY KEY AUTOINCREMENT,
+  document_url   TEXT NOT NULL,            -- page where the violation occurred
+  violated_directive TEXT NOT NULL,         -- e.g. "script-src 'self' 'sha256-...'"
+  blocked_uri    TEXT,                      -- the resource that was blocked
+  source_file    TEXT,                      -- JS file that triggered the violation
+  line_number    INTEGER,
+  column_number  INTEGER,
+  user_agent     TEXT,                      -- browser UA string
+  referrer       TEXT,
+  created_at     INTEGER NOT NULL           -- Unix epoch milliseconds (UTC)
+);
+
+CREATE INDEX IF NOT EXISTS idx_csp_created ON csp_reports(created_at);

@@ -38,6 +38,8 @@ const COUNT_CACHE_TTL_SECONDS = 60;    // KV minimum TTL for the /count cache
 const DASHBOARD_ROWS = 2000;           // rows embedded in the dashboard page / fetched on refresh
 const EXPORT_MAX_ROWS = 50000;         // hard cap for the server-side CSV export
 const MAX_BODY_BYTES = 10 * 1024;      // POST /hit payload is tiny (path/referrer/lang/w/h) — reject anything bigger up front
+const MAX_CSP_BODY_BYTES = 64 * 1024;   // CSP report payloads can be large (embedded JSON)
+const MAX_CSP_REPORTS_PER_MINUTE = 10;  // anti-abuse ceiling for CSP reports
 
 export default {
   async fetch(request, env) {
@@ -55,6 +57,7 @@ export default {
     try {
       if (route === '/count' && request.method === 'GET') return await handleCount(env);
       if (route === '/hit' && request.method === 'POST') return await handleHit(request, env);
+      if (route === '/csp-report' && request.method === 'POST') return await handleCspReport(request, env);
       if (route === '/pixel' && request.method === 'GET') return await handlePixel(request, env, url);
       if (route === '/api/stats' && request.method === 'GET') return await handleStats(request, env, url);
       if (route === '/api/export' && request.method === 'GET') return await handleExport(request, env, url);
@@ -346,6 +349,83 @@ async function handleHit(request, env) {
   const rec = await recordVisit(request, env, { path: body.value.path, referrer: body.value.referrer });
   if (rec.rateLimited) return json({ error: 'rate_limited' }, 429);
   return json({ ok: true, ...rec });
+}
+
+/**
+ * POST /csp-report — receives Content Security Policy violation reports.
+
+ * Browsers send this when a CSP rule is blocked (e.g. stale hash, injected
+ * script, unexpected external resource). Supports both the legacy
+ * `application/csp-report` format and the newer `application/reports+json`
+ * (Reporting API Level 2) format.
+ *
+ * Rate-limited to MAX_CSP_REPORTS_PER_MINUTE per IP to prevent abuse.
+ * Stores violations in the csp_reports D1 table for owner review.
+ */
+async function handleCspReport(request, env) {
+  // Rate limit: use the same IP-based mechanism as /hit
+  const ip = request.headers.get('CF-Connecting-IP') || request.headers.get('X-Forwarded-For') || 'unknown';
+  const rateKey = 'csp:' + ip;
+  const now = Date.now();
+  const rateRecord = await env.VISITS.get(rateKey, 'json');
+  if (rateRecord && (now - rateRecord.ts) < 60000 && rateRecord.n >= MAX_CSP_REPORTS_PER_MINUTE) {
+    return json({ ok: true, rate_limited: true }, 429);
+  }
+  await env.VISITS.put(rateKey, JSON.stringify({ ts: now, n: (rateRecord && (now - rateRecord.ts) < 60000 ? rateRecord.n : 0) + 1 }), { expirationTtl: 120 });
+
+  let reports = [];
+  const contentType = request.headers.get('Content-Type') || '';
+
+  try {
+    const body = await readJsonBody(request, MAX_CSP_BODY_BYTES);
+    if (body.tooLarge) return json({ ok: true, skipped: 'too_large' });
+    const data = body.value;
+
+    if (contentType.includes('application/csp-report')) {
+      // Legacy format: { 'csp-report': { ... } }
+      const report = data['csp-report'] || data;
+      if (report && report['violated-directive']) {
+        reports.push(report);
+      }
+    } else if (contentType.includes('application/reports+json')) {
+      // Reporting API Level 2: [{ type: 'csp-violation', ... }]
+      reports = Array.isArray(data) ? data.filter(r => r.type === 'csp-violation') : [];
+    } else {
+      // Fallback: try to extract from either format
+      const report = data['csp-report'] || data;
+      if (report && report['violated-directive']) {
+        reports.push(report);
+      }
+    }
+  } catch {
+    return json({ ok: true, skipped: 'parse_error' });
+  }
+
+  if (reports.length === 0) return json({ ok: true, skipped: 'no_reports' });
+
+  // Store up to 5 reports per request (browsers can batch)
+  const toStore = reports.slice(0, 5);
+  const nowMs = Date.now();
+  for (const r of toStore) {
+    try {
+      await env.DB.prepare(
+        'INSERT INTO csp_reports (document_url, violated_directive, blocked_uri, source_file, line_number, column_number, user_agent, referrer, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)'
+      ).bind(
+        (r['document-uri'] || r.document_url || '').substring(0, 2048),
+        (r['violated-directive'] || r.violated_directive || '').substring(0, 512),
+        (r['blocked-uri'] || r.blocked_uri || '').substring(0, 2048),
+        (r['source-file'] || r.source_file || '').substring(0, 2048),
+        parseInt(r['line-number'] || r.line_number) || null,
+        parseInt(r['column-number'] || r.column_number) || null,
+        (request.headers.get('User-Agent') || '').substring(0, 512),
+        (request.headers.get('Referer') || '').substring(0, 2048),
+        nowMs
+      ).run();
+    } catch {
+      // Best-effort: don't fail the response on DB errors
+    }
+  }
+  return json({ ok: true, stored: toStore.length });
 }
 
 /** 1×1 transparent GIF (base64) — served by GET /pixel. */

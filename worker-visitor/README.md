@@ -10,6 +10,7 @@ Cloudflare Worker backend for `index.html` (GitHub Pages portfolio):
   - **Analytics**: login key, stat cards, 30-day trend chart, hourly distribution, top countries & cities, device breakdown, and table with 24h / 7d / 30d / all filters.
 - **`GET /api/stats?key=…&range=…`** — raw JSON for integration/export.
 - **`GET /api/export?key=…&range=…`** — server-side CSV (up to 50,000 rows).
+- **`POST /csp-report`** — receives Content Security Policy violation reports from the browser (triggered by `report-uri` in the CSP meta tag). Supports both `application/csp-report` (legacy) and `application/reports+json` (Reporting API L2) formats. Stores violations in the `csp_reports` D1 table for owner review. Rate-limited to 10 reports/min per IP.
 
 No third-party API: geolocation **and company/ASN name** (`request.cf.asOrganization`, `request.cf.asn`, `request.cf.region`) come from the Cloudflare edge (all plans, free). UU PDP privacy: raw IPs are **never stored** — only `SHA-256(salt + IP)`; the `as_org`/`asn`/`region` columns are public edge geolocation data, not personal identity.
 
@@ -38,13 +39,16 @@ printf '%s' 'RANDOM_SALT'        | npx wrangler secret put IP_HASH_SALT   # IP h
 
 # 5) Deploy
 npx wrangler deploy
+
+# 6) (If upgrading) Re-apply schema for new tables (e.g. csp_reports)
+npx wrangler d1 execute portofolio-visits --remote --file=schema.sql
 ```
 
 > ⚠️ **Do NOT use `[vars]` in `wrangler.toml` for DASHBOARD_KEY/IP_HASH_SALT**: deploying with `[vars]` **overwrites** secrets with the same name (confirmed on first deploy — the worker `authorized()` rejects a missing/placeholder `CHANGE_ME_*` `DASHBOARD_KEY`, and `recordVisit` fails closed (HTTP 500, records nothing) when `IP_HASH_SALT` is not configured). Secrets are the only source of production values.
 
 ## 🔌 Connect to index.html
 
-1. **Already connected**: `WORKER_URL` in `index.html` is set to `https://portofolio-visitor-tracker.si-sigitadi.workers.dev`, the CSP `connect-src`/`img-src` already allow the worker origin, and the "Site Visits" badge appears in the footer after the first fetch succeeds.
+1. **Already connected**: `WORKER_URL` in `index.html` is set to `https://portofolio-visitor-tracker.si-sigitadi.workers.dev`, the CSP `connect-src`/`img-src` already allow the worker origin, the CSP `report-uri` points to `/csp-report` on the worker, and the "Site Visits" badge appears in the footer after the first fetch succeeds.
 2. If the worker URL ever changes: open `index.html`, set `var WORKER_URL = '<new-url>';` in the `<!-- Visitor Tracker Client ... -->` block (near `</body>`), also update the CSP `connect-src`/`img-src` in the meta tag, then commit & push.
 
 ## 🔐 Private dashboard access

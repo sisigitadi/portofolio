@@ -59,8 +59,12 @@ function makeDB(overrides = {}) {
 function makeKV(initial = {}) {
   const store = new Map(Object.entries(initial));
   return {
-    async get(k) {
-      return store.has(k) ? store.get(k) : null;
+    async get(k, type) {
+      const val = store.has(k) ? store.get(k) : null;
+      if (val && type === 'json') {
+        try { return JSON.parse(val); } catch { return null; }
+      }
+      return val;
     },
     async put(k, v) {
       store.set(k, v);
@@ -332,6 +336,100 @@ describe('GET /pixel', () => {
     const res = await request('GET', '/pixel?path=/x', { env: makeEnv(db, { ipHashSalt: undefined }) });
     assert.equal(res.status, 500);
     assert.equal(db.rows.length, 0);
+  });
+});
+
+/* ----------------------------- /csp-report ------------------------------ */
+
+describe('POST /csp-report', () => {
+  const cspReportPayload = {
+    'csp-report': {
+      'document-uri': 'https://sisigitadi.github.io/portofolio/',
+      'referrer': '',
+      'violated-directive': "script-src 'self' 'sha256-ABC123'",
+      'blocked-uri': 'inline',
+      'source-file': 'https://sisigitadi.github.io/portofolio/index.html',
+      'line-number': 42,
+      'column-number': 10,
+    },
+  };
+
+  test('stores a CSP report in D1', async () => {
+    const db = makeDB();
+    const res = await request('POST', '/csp-report', {
+      env: makeEnv(db),
+      headers: { 'Content-Type': 'application/csp-report' },
+      body: JSON.stringify(cspReportPayload),
+    });
+    assert.equal(res.status, 200);
+    const json = await res.json();
+    assert.equal(json.ok, true);
+    assert.equal(json.stored, 1);
+    assert.equal(db.rows.length, 1);
+    // INSERT order: document_url, violated_directive, blocked_uri, source_file, line_number, ...
+    assert.equal(db.rows[0][0], 'https://sisigitadi.github.io/portofolio/'); // document_url
+    assert.equal(db.rows[0][1], "script-src 'self' 'sha256-ABC123'"); // violated_directive
+    assert.equal(db.rows[0][4], 42); // line_number
+  });
+
+  test('accepts application/reports+json format', async () => {
+    const db = makeDB();
+    const payload = [{
+      type: 'csp-violation',
+      'document-url': 'https://sisigitadi.github.io/portofolio/',
+      'violated-directive': "style-src 'self'",
+      'blocked-uri': 'https://evil.com/style.css',
+    }];
+    const res = await request('POST', '/csp-report', {
+      env: makeEnv(db),
+      headers: { 'Content-Type': 'application/reports+json' },
+      body: JSON.stringify(payload),
+    });
+    assert.equal(res.status, 200);
+    const json = await res.json();
+    assert.equal(json.ok, true);
+    assert.equal(json.stored, 1);
+    assert.equal(db.rows.length, 1);
+  });
+
+  test('returns 429 when rate-limited', async () => {
+    const db = makeDB();
+    const env = makeEnv(db);
+    // Pre-fill the rate limit key for the default IP (no CF-Connecting-IP -> 'unknown')
+    await env.VISITS.put('csp:unknown', JSON.stringify({ ts: Date.now(), n: 10 }));
+    const res = await request('POST', '/csp-report', {
+      env,
+      headers: { 'Content-Type': 'application/csp-report' },
+      body: JSON.stringify(cspReportPayload),
+    });
+    assert.equal(res.status, 429);
+  });
+
+  test('handles malformed JSON gracefully', async () => {
+    const db = makeDB();
+    const res = await request('POST', '/csp-report', {
+      env: makeEnv(db),
+      headers: { 'Content-Type': 'application/csp-report' },
+      body: 'not valid json{{{',
+    });
+    assert.equal(res.status, 200);
+    const json = await res.json();
+    assert.equal(json.ok, true);
+    // readJsonBody returns {} for malformed JSON, so no valid reports are found
+    assert.equal(json.skipped, 'no_reports');
+  });
+
+  test('skips when no valid reports in payload', async () => {
+    const db = makeDB();
+    const res = await request('POST', '/csp-report', {
+      env: makeEnv(db),
+      headers: { 'Content-Type': 'application/csp-report' },
+      body: JSON.stringify({}),
+    });
+    assert.equal(res.status, 200);
+    const json = await res.json();
+    assert.equal(json.ok, true);
+    assert.equal(json.skipped, 'no_reports');
   });
 });
 

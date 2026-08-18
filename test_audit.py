@@ -368,3 +368,65 @@ def test_run_preflight_check_fail_exits(tmp_path):
     with pytest.raises(SystemExit) as exc_info:
         audit.run_preflight_check(str(bad), quick=True)
     assert exc_info.value.code == 1
+
+
+# ---------------------------------------------------------------------------
+# CSP script-src hash sync (#14)
+# ---------------------------------------------------------------------------
+def test_csp_hash_sync_passes(valid_html):
+    """#14: CSP script-src hashes match all inline scripts -> PASS."""
+    errors, out, _ = run_audit(valid_html, quick=True)
+    assert errors == 0
+    assert "CSP script-src hashes in sync" in out
+
+
+def test_csp_hash_mismatch_fails(valid_html):
+    """#14: a CSP hash does not match the inline script -> FAIL with the
+    correct hash to paste."""
+    # Replace one CSP hash with a fake value
+    content = valid_html.replace(
+        "sha256-414fiFHNqF/qBWVFvll1l1uXkQWMVfZe2VCowPfPFG4=",
+        "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=", 1)
+    assert content != valid_html
+    errors, out, _ = run_audit(content, quick=True)
+    assert errors >= 1
+    assert "CSP script-src hash mismatch" in out
+    assert "SHA-256" in out or "sha256-" in out
+
+
+def test_csp_no_meta_warns(valid_html):
+    """#14: no CSP meta tag (e.g. ai-engineer.html) -> WARN, not FAIL."""
+    # Remove the CSP meta tag entirely
+    csp_line = next(
+        line for line in valid_html.splitlines()
+        if 'Content-Security-Policy' in line)
+    content = valid_html.replace(csp_line, "")
+    assert content != valid_html
+    errors, out, _ = run_audit(content, quick=True)
+    assert errors == 0
+    assert "CSP script-src hash sync check not applicable" in out
+
+
+def test_csp_no_script_src_hashes_warns(valid_html):
+    """#14: CSP exists but script-src has no sha256 hashes -> WARN."""
+    import re as _re
+    content = _re.sub(
+        r"script-src 'self' 'sha256-[A-Za-z0-9+/=]+(?:' 'sha256-[A-Za-z0-9+/=]+)*",
+        "script-src 'self' 'unsafe-inline'",
+        valid_html, count=1)
+    assert content != valid_html
+    errors, out, _ = run_audit(content, quick=True)
+    assert errors == 0
+    assert "no sha256 hashes" in out
+
+
+def test_csp_orphaned_hash_fails(valid_html):
+    """#14: CSP has a hash that doesn't match any inline script -> FAIL."""
+    # Insert an extra fake hash into the CSP
+    content = valid_html.replace(
+        "script-src 'self' 'sha256-",
+        "script-src 'self' 'sha256-FAKEFAKEFAKEFAKEFAKEFAKEFAKEFAKE= 'sha256-", 1)
+    assert content != valid_html
+    errors, out, _ = run_audit(content, quick=True)
+    assert errors >= 1
+    assert "CSP script-src hash mismatch" in out

@@ -8,7 +8,7 @@
 ## Review Summary (Code & Content)
 
 ### Code — what's already strong
-- **Layered quality gates**: `audit.py` (14 checks), 67 pytest unit tests, pre-commit/pre-push hooks, CI Lighthouse (a11y/BP/SEO must be 100, perf ≥ 50 warn) — rare and highly professional.
+- **Layered quality gates**: `audit.py` (15 checks), 72 pytest unit tests, pre-commit/pre-push hooks, CI Lighthouse (a11y/BP/SEO must be 100, perf ≥ 50 warn) — rare and highly professional.
 - **100% client-side architecture**: statically compiled Tailwind, CSP, PWA + service worker, EN/ID i18n, FOUC-proof dark/light theme, credible BYOK & UU PDP privacy story.
 - **SEO**: JSON-LD Person + WebSite, OG/Twitter, sitemap, IndexNow, consistent canonical.
 
