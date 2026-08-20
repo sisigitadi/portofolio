@@ -346,7 +346,7 @@ def test_main_real_run_payload_paths(tmp_path, mod, capsys):
     assert "https://sisigitadi.github.io/portofolio/abc1234567890.txt" in out
     assert "https://sisigitadi.github.io/portofolio/" in out
     assert "https://sisigitadi.github.io/portofolio/ai-engineer.html" in out
-    assert "https://sisigitadi.github.io/portofolio/secops-specialist.html" in out
+    assert "https://sisigitadi.github.io/portofolio/secops-engineer.html" in out
     assert "https://sisigitadi.github.io/portofolio/sitemap.xml" in out
 
 

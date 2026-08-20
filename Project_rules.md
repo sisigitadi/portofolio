@@ -27,9 +27,9 @@ This document establishes the mandatory engineering standards, security protocol
    - *Extractive Summarization*: Describe as word-frequency statistical extraction.
    - *Skill Matching*: Describe as heuristic array matching.
    - *Password Strength*: Describe as mathematical entropy calculation.
-2. **EMPIRICAL PROFESSIONAL TITLES**: Maintain the empirical title `IT & SecOps Specialist | Applied AI Engineer` across headers, bio narratives, JSON-LD, and manifest.json. This matches the owner's CV wording exactly ("Applied AI Engineer" was the original hero title; it was briefly renamed to "Applied AI Practitioner" in v2.0.4, then restored in v2.5.5 per owner decision for CV alignment & better SEO). Do not use unanchored titles like "Applied AI Practitioner" or invented variants.
-   - **SERP-safe meta title (v2.5.15)**: the `<title>` + `meta name="title"` + `itemprop="name"` + `og:title` + `twitter:title` use the compact variant `Sigit Adi Irianto | IT & SecOps | Applied AI Engineer` (53 chars) — Bing/Google truncate titles past ~60-65 chars, so the long empirical title is reserved for on-page content & structured data where length is not truncated. Re-introducing `| Tangerang, Indonesia` or the full title into the meta `<title>` is prohibited unless the total stays ≤ 65 chars.
-3. **NON-MILITARY LANGUAGE**: Do not use the word "veteran". Use professional alternatives such as `"experienced IT & SecOps specialist"` or `"seasoned IT infrastructure manager"`.
+2. **EMPIRICAL PROFESSIONAL TITLES**: Maintain the empirical title `IT Infrastructure, SecOps, and Applied AI Engineer` across headers, bio narratives, JSON-LD, and manifest.json. This matches the owner's CV wording exactly. Do not use unanchored titles like "Applied AI Practitioner" or invented variants.
+   - **SERP-safe meta title**: the `<title>` + `meta name="title"` + `itemprop="name"` + `og:title` + `twitter:title` use compact variants within Bing/Google ~65 char limits (`Sigit Adi Irianto | IT Infrastructure, SecOps & AI Engineer`).
+3. **NON-MILITARY LANGUAGE**: Do not use the word "veteran". Use professional alternatives such as `"experienced IT & SecOps engineer"` or `"seasoned IT infrastructure manager"`.
 
 ---
 
@@ -62,22 +62,19 @@ This document establishes the mandatory engineering standards, security protocol
 
 ---
 
-## 📑 6. Tri-Document Portfolio, SEO & Social Media Mandate (v2.8.0)
-
-1. **TRI-DOCUMENT INTEGRITY & SYNCHRONIZATION**: The repository maintains three standalone static portfolio & ATS CV documents:
-   - `index.html` (Master Portfolio & Hybrid Database CV)
-   - `ai-engineer.html` (Applied AI Engineer & LLM Specialist Target Weapon)
-   - `secops-specialist.html` (SecOps & Threat Monitoring Specialist Target Weapon)
-   Any global architectural, typographic, print stylesheet (`@media print`), core career chronology (2002–2026), education, or script change applied to `index.html` MUST be immediately propagated to both `ai-engineer.html` and `secops-specialist.html`.
-2. **ROLE-SPECIFIC POSITIONING & SECTION PRIORITIZATION**:
-   - `ai-engineer.html`: Role title `Applied AI Engineer & LLM Specialist`, AI & Automation certifications first, PromptMatrix & SmartExpenseML at #2.01/#2.02, AI Trainer experience prioritized.
-   - `secops-specialist.html`: Role title `SecOps & Threat Monitoring Specialist`, Cybersecurity & SecOps certifications first, SCOPS & A.R.Y.A. at #2.01/#2.02, SecOps/SOC experience prioritized.
+## 3. TRI-DOCUMENT SYNCHRONIZATION ARCHITECTURE
+The portfolio maintains a primary master portal alongside two dedicated role-targeted weapon pages:
+   - `index.html` (Master Comprehensive Profile)
+   - `ai-engineer.html` (Applied AI & LLM Engineer Target Weapon)
+   - `secops-engineer.html` (SecOps & Threat Monitoring Engineer Target Weapon)
+   Any global architectural, typographic, print stylesheet (`@media print`), core career chronology (2002–2026), education, or script change applied to `index.html` MUST be immediately propagated to both `ai-engineer.html` and `secops-engineer.html`.
+   Role-specific adaptations:
+   - `ai-engineer.html`: Role title `Applied AI & LLM Engineer`, AI & Automation certifications first, PromptMatrix & SmartExpenseML at #2.01/#2.02, AI Trainer experience prioritized.
+   - `secops-engineer.html`: Role title `SecOps Engineer | SIEM | Threat Monitoring | Incident Response`, Cybersecurity & SecOps certifications first, SCOPS & A.R.Y.A. at #2.01/#2.02, SecOps/SOC experience prioritized.
    - `index.html`: Retains balanced master profile (ATS 9.2/10) with full chronological breadth.
 3. **STRICT 2-PAGE ATS PRINT PARITY**: The `@media print` rules in all three files must remain 100% mathematically and structurally identical (font-size 10px, line-height 1.35, linear single-line career rows, and single-line certifications) to ensure all three files produce a pristine 2-page A4 PDF output without page-spill.
 4. **SERP TITLE & META LENGTH LIMITS**:
    - Meta `<title>` must not exceed 65 characters to prevent SERP truncation across Google/Bing.
-   - Meta `description` must stay strictly between 120 and 160 characters with dense empirical keywords.
-5. **CANONICAL & SOCIAL GRAPH (OG / TWITTER / WHATSAPP)**:
    - Each page must define its exact unique canonical URL in `<link rel="canonical">`, `og:url`, `twitter:url`, and JSON-LD `url`.
    - Open Graph images must use high-resolution 1200×630 banners (`og-preview.jpg`) with matching `?v=X.Y.Z` cache-busters across all 3 pages.
    - Twitter card must specify `summary_large_image`. WhatsApp microdata fallback tags (`itemprop="image"`, `link rel="image_src"`) must remain present.

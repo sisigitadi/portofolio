@@ -6,7 +6,7 @@
 [![Accessibility: WCAG Standard](https://img.shields.io/badge/Accessibility-WCAG%20Compliant-green.svg)](#accessibility-a11y--wcag-compliance)
 
 > **Official Web Portfolio of Sigit Adi Irianto**  
-> *IT & SecOps Specialist | Applied AI Engineer*
+> *IT Infrastructure, SecOps & Applied AI Engineer*
 
 This repository contains the single-page application (SPA) portfolio showcasing 20+ years of operational experience across IT infrastructure management, Security Operations Center (SOC) threat triage, DevSecOps automation pipelines, and practical applied AI engineering.
 
@@ -58,7 +58,7 @@ This repository contains the single-page application (SPA) portfolio showcasing 
 - **🔎 SEO**: `sitemap.xml` and `robots.txt` published for search-engine discovery, with `rel="canonical"`, OpenGraph, Twitter Cards, and JSON-LD all consolidated on the GitHub Pages canonical domain (`https://sisigitadi.github.io/portofolio`).
 - **⚡ IndexNow (real-time crawl notification)**: after every push to `main`, GitHub Actions runs `indexnow-ping.py`, which waits until GitHub Pages has actually redeployed (sha256 of the live page vs local `index.html`), then POSTs an IndexNow ping to `https://api.indexnow.org/indexnow` so Bing & other participating engines crawl immediately. The ownership key lives in a `{KEY}.txt` file at the repo root (auto-discovered by the script; content must equal the filename, per the IndexNow spec). Manual: `python indexnow-ping.py` (or `--dry-run` to preview the payload; `--key-file` to point at a specific key file).
 - **🛰️ Visitor Tracker & Executive Resume Hub (active)**: hit-counter badge in the footer plus a private owner-only dashboard powered by `worker-visitor/` (Cloudflare Worker + D1). The private dashboard features:
-  - **📄 Executive Resume Hub**: 1-click preview & print triggers for 3 specialized ATS-optimized 2-page CV variants (**Master CV**, **AI Engineer CV**, and **SecOps Specialist CV**), dynamically driven from a single source of truth (`?cv=ai`, `?cv=secops`, `?cv=master`, `&print=1`).
+  - **📄 Executive Resume Hub**: 1-click preview & print triggers for 3 specialized ATS-optimized 2-page CV variants (**Master CV**, **AI Engineer CV**, and **SecOps Engineer CV**), dynamically driven from a single source of truth (`?cv=ai`, `?cv=secops`, `?cv=master`, `&print=1`).
   - **Analytics & Breakdown**: 30-day visit trends, hourly distribution, top countries/cities, devices/browsers/OS, CSV export, path filtering, pagination, and 60s auto-refresh — all client-side, no third-party cookies or CDNs. Raw IPs are never stored (salted SHA-256 hash). Owner access: click the footer copyright text **9×** to open the dashboard (auto-unlock via localStorage). **Deploying a worker change requires two steps**: push to `main` AND `npx wrangler deploy` from `worker-visitor/`.
 
 ---

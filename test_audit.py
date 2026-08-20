@@ -63,11 +63,11 @@ def test_valid_ai_engineer_production_ready():
     assert "[FAIL]" not in out
 
 
-def test_valid_secops_specialist_production_ready():
-    """secops-specialist.html passes every check with 0 errors."""
-    target = ROOT / "secops-specialist.html"
+def test_valid_secops_engineer_production_ready():
+    """secops-engineer.html passes every check with 0 errors."""
+    target = ROOT / "secops-engineer.html"
     if not target.exists():
-        pytest.skip("secops-specialist.html not found")
+        pytest.skip("secops-engineer.html not found")
     errors, out, _ = run_audit(target.read_text(encoding="utf-8"))
     assert errors == 0
     assert "[FAIL]" not in out
@@ -226,8 +226,7 @@ def test_seo_noindex_fails(valid_html):
 
 def test_seo_missing_title_fails(valid_html):
     """#11: <title> missing -> FAIL."""
-    content = valid_html.replace(
-        "<title>Sigit Adi Irianto | IT &amp; SecOps | Applied AI Engineer</title>", "", 1)
+    content = re.sub(r"<title>.*?</title>", "", valid_html, count=1)
     assert content != valid_html
     errors, out, _ = run_audit(content, quick=True)
     assert errors >= 1

@@ -9,9 +9,9 @@ Dokumen ini berfungsi sebagai **Master Repository of Facts, Claims, and Keywords
 | Unsur Profil | Klaim Lama / Berisiko | Framing Baru (Defensible & High-Impact) | Rasional & Justifikasi |
 | :--- | :--- | :--- | :--- |
 | **Total Pengalaman** | *"24 years of enterprise operations"* | **"24+ years in IT, systems infrastructure, and technology delivery with recent specialization in Applied AI and SecOps"** | Pengalaman 2002–2020 adalah fondasi IT Ops/Network/Sysadmin. Pengalaman ini adalah aset reliabilitas sistem, bukan sekadar *career switcher*. |
-| **Headline Master** | `IT & SecOps Specialist · Applied AI Engineer` | `Applied AI Engineer · SecOps & IT Infrastructure Specialist` *(Master)* | Menegaskan bahwa pondasi utamanya adalah IT Infrastructure yang telah berevolusi ke SecOps dan AI. |
+| **Headline Master** | `IT Infrastructure, SecOps & AI Engineer` | `IT Infrastructure, SecOps, and Applied AI Engineer` *(Master)* | Menegaskan bahwa pondasi utamanya adalah IT Infrastructure yang telah berevolusi ke SecOps dan AI. |
 | **Headline Target AI** | `Applied AI Engineer` (ambigu) | `Applied AI Engineer \| LLM \| AI Automation` | Mengklarifikasi domain praktis: membangun aplikasi LLM, evaluasi prompt/schema, dan otomasi workflow. |
-| **Headline Target SecOps** | `SecOps Specialist` (ambigu) | `SecOps Specialist \| SIEM \| Threat Monitoring \| Incident Response` | Mengklarifikasi domain teknis: triage Wazuh, response playbook, WAF, dan threat monitoring. |
+| **Headline Target SecOps** | `SecOps Engineer` (ambigu) | `SecOps Engineer \| SIEM \| Threat Monitoring \| Incident Response` | Mengklarifikasi domain teknis: triage Wazuh, response playbook, WAF, dan threat monitoring. |
 
 ---
 
@@ -20,7 +20,7 @@ Dokumen ini berfungsi sebagai **Master Repository of Facts, Claims, and Keywords
 Semua metrik kuantitatif dan klaim teknis diklasifikasikan berdasarkan tingkat pembuktian empiris (*Evidence Level*):
 
 | # | Klaim / Metrik | Klasifikasi Sumber | Evidence Lingkungan | Relevansi AI | Relevansi SecOps | Formula Redaksi Aman (*Safe Wording*) |
-| :- | :--- | :--- | :--- | :---: | :---: | :--- |
+| :- | :--- | :--- | :--- | :--- | :---: | :--- |
 | **C-01** | **MTTR −45%** | Benchmark / Sim. Lab | Simulated SOC Environment (SCOPS + Wazuh) | ★☆☆ | ★★★ | *"Reduced simulated SOC triage MTTR by 45% through automated Tier-1 response playbooks and structured priority queues."* |
 | **C-02** | **MTTA −55%** | Project Operasional | SOC Analyst (PT. Prospera / Ops) | ★☆☆ | ★★★ | *"Reduced Mean Time to Acknowledge (MTTA) by 55% across 500+ daily alerts by standardizing alert triage workflows."* |
 | **C-03** | **500+ alerts/day** | Operasional Riil | Wazuh SIEM & FortiWeb WAF Monitoring | ☆☆☆ | ★★★ | *"Monitored and triaged 500+ daily security alerts from Wazuh SIEM and FortiWeb WAF, escalating confirmed incidents per SOP incident playbooks."* |
@@ -31,7 +31,7 @@ Semua metrik kuantitatif dan klaim teknis diklasifikasikan berdasarkan tingkat p
 | **C-08** | **Pola Kontrak Kemendagri** | Kontrak Pengadaan | Proyek Pemerintah Berbasis Siklus Tender | ★★☆ | ★★☆ | *"Delivered technical milestones across fixed-term government IT modernization contracts (Senior Programmer & Incident Handling)."* |
 | **C-09** | **50+ Endpoints & 99%+ Uptime** | Operasional IT Lead | ACE Ltd. & PT. Dipta Safari Jaya | ★★☆ | ★★★ | *"Maintained 99%+ operational availability across 50+ workstations and server fleet with zero data-loss incidents."* |
 | **C-10** | **40% Manual Time Cut** | Otomasi Internal | Reporting Automation (SQL Scripts & REST APIs) | ★★★ | ★★☆ | *"Automated recurring operational reporting workflows, reducing weekly manual data entry overhead by up to 40%."* |
-| **C-11** | **1,000+ IT Tickets** | Fondasi Karir (12 Yrs) | PT. Laju Karunia Jaya · Arya Mobile | ★☆☆ | ★★★ | *"Resolved 1,000+ hardware, OS, and network troubleshooting tickets over a 12-year foundational IT support tenure."* |
+| **C-11** | **1,000+ IT Tickets** | Fondasi Karir (12 Yrs) | PT. Laju Karunia Jaya & Arya Mobile | ★☆☆ | ★★★ | *"Resolved 1,000+ hardware, OS, and network troubleshooting tickets over a 12-year foundational IT support and technician tenure."* |
 
 ---
 
@@ -98,11 +98,11 @@ Semua metrik kuantitatif dan klaim teknis diklasifikasikan berdasarkan tingkat p
 | Sertifikasi | Penerbit | Tahun | AI Track | SecOps Track | Status Master |
 | :--- | :--- | :---: | :---: | :---: | :---: |
 | **Microsoft Certified: Azure AI Fundamentals (AI-900)** | Microsoft | 2025 | ★★★ | ★☆☆ | Active |
-| **Certified SOC Analyst (CSA) / Triage Specialist** | Industry / Cyber Acad | 2024 | ★☆☆ | ★★★ | Active |
+| **Certified SOC Analyst (CSA) / Triage Engineer** | Industry / Cyber Acad | 2024 | ★☆☆ | ★★★ | Active |
 | **BSSN Cybersecurity Exercise / Incident Handling** | BSSN Indonesia | 2024 | ☆☆☆ | ★★★ | Active |
 | **LLM Application & Prompt Engineering with Gemini** | Hacktiv8 | 2025 | ★★★ | ★☆☆ | Active |
 | **Advanced Workflow Automation with n8n** | n8n Academy | 2025 | ★★★ | ★★☆ | Active |
-| **Certified Penetration Testing Specialist** | Cybrary | 2024 | ☆☆☆ | ★★☆ | Active |
+| **Certified Penetration Testing Professional** | Cybrary | 2024 | ☆☆☆ | ★★☆ | Active |
 | **Certified DevSecOps Practitioner** | DevOps Institute / Acad | 2024 | ★★☆ | ★★★ | Active |
 | **Enterprise Ubuntu Administration & Security** | Canonical Academy | 2024 | ★★☆ | ★★★ | Active |
 | **Certified Ethical Hacker (Foundation)** | EC-Council Associate | 2024 | ☆☆☆ | ★★☆ | Active |

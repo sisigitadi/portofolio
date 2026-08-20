@@ -696,7 +696,7 @@ class PreflightAudit:
         """Verify every inline <script> has a matching sha256 hash in the CSP
         script-src directive, and vice versa.
 
-        When CSP is absent (e.g. ai-engineer.html, secops-specialist.html),
+        When CSP is absent (e.g. ai-engineer.html, secops-engineer.html),
         the check passes as WARN (CSP is best-practice, not mandatory for
         every page). When CSP exists but hashes are missing or mismatched,
         it FAILs with the exact hashes to paste into the meta tag.

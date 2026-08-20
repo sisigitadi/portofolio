@@ -6,7 +6,7 @@ Cloudflare Worker backend for `index.html` (GitHub Pages portfolio):
 - **`GET /pixel?path=…`** — 1×1 transparent GIF beacon without JavaScript (captures crawlers/no-JS); records a hit the same way as `/hit` (same rate-limit + daily dedupe).
 - **`GET /count`** — total & unique visits (public footer badge, 60s KV cache).
 - **`GET /dashboard?key=…`** — private HTML dashboard:
-  - **📄 Executive Resume Hub (ATS 2-Page · Print / PDF Export)**: direct 1-click preview and print launchers for Master CV, AI Engineer CV, and SecOps Specialist CV (auto-synced with `index.html` via query routing).
+  - **📄 Executive Resume Hub (ATS 2-Page · Print / PDF Export)**: direct 1-click preview and print launchers for Master CV, AI Engineer CV, and SecOps Engineer CV (auto-synced with `index.html` via query routing).
   - **Analytics**: login key, stat cards, 30-day trend chart, hourly distribution, top countries & cities, device breakdown, and table with 24h / 7d / 30d / all filters.
 - **`GET /api/stats?key=…&range=…`** — raw JSON for integration/export.
 - **`GET /api/export?key=…&range=…`** — server-side CSV (up to 50,000 rows).

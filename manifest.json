@@ -1,7 +1,7 @@
 {
-  "name": "Sigit Adi Irianto | IT & SecOps Specialist | Applied AI Engineer",
+  "name": "Sigit Adi Irianto | IT Infrastructure, SecOps & AI Engineer",
   "short_name": "Sigit Portfolio",
-  "description": "Official portfolio of Sigit Adi Irianto: Applied AI Engineer & IT Security Operations Specialist.",
+  "description": "Official portfolio of Sigit Adi Irianto: Applied AI Engineer & IT Security Operations Engineer.",
   "id": "./",
   "start_url": "./",
   "scope": "./",
@@ -16,7 +16,7 @@
       "sizes": "1200x630",
       "type": "image/jpeg",
       "form_factor": "wide",
-      "label": "Sigit Adi Irianto — IT & SecOps Specialist | Applied AI Engineer Portfolio"
+      "label": "Sigit Adi Irianto — IT Infrastructure, SecOps and Applied AI Engineer Portfolio"
     },
     {
       "src": "og-preview-ai.jpg",
@@ -30,7 +30,7 @@
       "sizes": "1200x630",
       "type": "image/jpeg",
       "form_factor": "wide",
-      "label": "SecOps Specialist — Wazuh SIEM · Threat Monitoring · Incident Response"
+      "label": "SecOps Engineer — Wazuh SIEM · Threat Monitoring · Incident Response"
     }
   ],
   "shortcuts": [

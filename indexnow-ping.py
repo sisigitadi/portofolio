@@ -254,7 +254,7 @@ def main(argv: list[str] | None = None, root: Path | None = None) -> int:
     urls = args.urls or [
         base + "/",
         base + "/ai-engineer.html",
-        base + "/secops-specialist.html",
+        base + "/secops-engineer.html",
         base + "/sitemap.xml",
     ]
 

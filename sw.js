@@ -1,9 +1,9 @@
-var CACHE = 'portofolio-v50';
+var CACHE = 'portofolio-v52';
 var CORE = [
     './',
     './index.html',
     './ai-engineer.html',
-    './secops-specialist.html',
+    './secops-engineer.html',
     './offline.html',
     './manifest.json',
     './favicon.ico',

@@ -645,23 +645,23 @@ function dashboardPage(stats, rows) {
     <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:0.75rem;">
       <div style="background:var(--bg); border:1px solid var(--border); border-radius:8px; padding:0.8rem 1rem;">
         <div style="font-weight:700; font-size:0.85rem; color:var(--text); margin-bottom:0.2rem;">📑 Master CV</div>
-        <div style="font-size:0.72rem; color:var(--muted); margin-bottom:0.6rem;">IT &amp; SecOps Specialist · Applied AI Engineer (Balanced Profile · 9.2/10 ATS)</div>
+        <div style="font-size:0.72rem; color:var(--muted); margin-bottom:0.6rem;">IT Infrastructure, SecOps &amp; AI Engineer (Balanced Profile · 9.8/10 ATS)</div>
         <div style="display:flex; gap:0.4rem;">
           <a class="btn" href="https://sisigitadi.github.io/portofolio/" target="_blank" rel="noopener noreferrer" style="flex:1; text-align:center; color:var(--primary); border-color:var(--primary);">👁️ Open &amp; Print CV</a>
         </div>
       </div>
       <div style="background:var(--bg); border:1px solid var(--border); border-radius:8px; padding:0.8rem 1rem;">
         <div style="font-weight:700; font-size:0.85rem; color:var(--text); margin-bottom:0.2rem;">🤖 AI Engineer CV</div>
-        <div style="font-size:0.72rem; color:var(--muted); margin-bottom:0.6rem;">Applied AI Engineer &amp; LLM Specialist (PromptMatrix &amp; SmartExpenseML Priority)</div>
+        <div style="font-size:0.72rem; color:var(--muted); margin-bottom:0.6rem;">Applied AI &amp; LLM Engineer (PromptMatrix &amp; SmartExpenseML Priority)</div>
         <div style="display:flex; gap:0.4rem;">
           <a class="btn" href="https://sisigitadi.github.io/portofolio/ai-engineer.html" target="_blank" rel="noopener noreferrer" style="flex:1; text-align:center; color:var(--primary); border-color:var(--primary);">👁️ Open &amp; Print CV</a>
         </div>
       </div>
       <div style="background:var(--bg); border:1px solid var(--border); border-radius:8px; padding:0.8rem 1rem;">
-        <div style="font-weight:700; font-size:0.85rem; color:var(--text); margin-bottom:0.2rem;">🛡️ SecOps Specialist CV</div>
-        <div style="font-size:0.72rem; color:var(--muted); margin-bottom:0.6rem;">SecOps &amp; Threat Monitoring Specialist (Wazuh SIEM, NIST, SCOPS &amp; ARYA)</div>
+        <div style="font-weight:700; font-size:0.85rem; color:var(--text); margin-bottom:0.2rem;">🛡️ SecOps Engineer CV</div>
+        <div style="font-size:0.72rem; color:var(--muted); margin-bottom:0.6rem;">SecOps &amp; Threat Monitoring Engineer (Wazuh SIEM, NIST, SCOPS &amp; ARYA)</div>
         <div style="display:flex; gap:0.4rem;">
-          <a class="btn" href="https://sisigitadi.github.io/portofolio/secops-specialist.html" target="_blank" rel="noopener noreferrer" style="flex:1; text-align:center; color:var(--primary); border-color:var(--primary);">👁️ Open &amp; Print CV</a>
+          <a class="btn" href="https://sisigitadi.github.io/portofolio/secops-engineer.html" target="_blank" rel="noopener noreferrer" style="flex:1; text-align:center; color:var(--primary); border-color:var(--primary);">👁️ Open &amp; Print CV</a>
         </div>
       </div>
     </div>

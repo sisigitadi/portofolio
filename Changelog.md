@@ -4,6 +4,28 @@ All notable changes to the **Sigit Adi Irianto Portfolio SPA** project will be d
 
 The format is based on [Keep a Changelog](https://keepachamber.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.10.0] - 2026-08-20 — Universal "Engineer" Standardization, Standalone URL Sync & ATS 95+ Hardening
+
+> **Universal Title Standardization ("Engineer") & URL Alignment**: Systematically replaced all occurrences of the term `Specialist` with `Engineer` across the entire codebase, all CV variants, SEO metadata, JSON-LD, and documentation. Renamed `secops-specialist.html` → `secops-engineer.html`, synchronized all internal links, sitemap, Service Worker, and IndexNow targets. Hardened Master and child CVs to achieve 95+ ATS parse scores with clean standard ASCII characters (`-`, `,`, `|`).
+
+### 📄 Added & Changed
+- **Universal Title Standardization ("Engineer")**:
+  - Master Profile: **`IT Infrastructure, SecOps, and Applied AI Engineer`** (`index.html`, `master_cv_v2.md`).
+  - SecOps Profile: **`SecOps Engineer`** | `SIEM` | `Threat Monitoring` | `Incident Response` (`secops-engineer.html`, `cv_secops_engineer.md`).
+  - AI Profile: **`Applied AI & LLM Engineer`** (`ai-engineer.html`, `cv_applied_ai_engineer.md`).
+  - Early Career (2002–2014): **`IT Support Engineer & Hardware Technician`** across all CVs and web pages.
+- **Standalone URL Renaming**:
+  - Renamed `secops-specialist.html` → **`secops-engineer.html`**; synchronized `sw.js`, `sitemap.xml`, `indexnow-ping.py`, `manifest.json`, `audit.py`, and test suites.
+- **Clean ASCII Character Layout**:
+  - Replaced decorative symbols (`·`, `—`, `↗`) across `master_cv_v2.md`, `cv_applied_ai_engineer.md`, and `cv_secops_engineer.md` with standard ASCII punctuation (`-`, `,`, `|`).
+  - Streamlined Technical Projects metadata into linear ATS-scannable rows (`Stack: ... | Live: ... | Source: ...`).
+- **Skill Evidence Cross-Referencing**:
+  - Reinforced SQL Database Administration evidence in Kemendagri & ACE Ltd experience bullets.
+  - Reinforced NLP classification & regex tokenization evidence in SmartExpenseML and Skills sections.
+- **Service Worker Cache Bump (`sw.js`)**: `portofolio-v51` → **`portofolio-v52`**.
+
+---
+
 ## [2.9.9] - 2026-08-19 — Track Record Checkmark Removal, Terminology Pruning & Language Typography Alignment
 
 > **Visual & Semantic Refinement**: Removed the visual checkmark badge from the Hero TRACK RECORD row to maintain a clean aesthetic; purged composite terms (`Output Consistency` and `DVWA Sandboxing`) from Section 1 (Skills), Section 3 (Experiences), and markdown CVs; unified Section 6 (Languages) typography with Section 5 (Education) at 15px.
