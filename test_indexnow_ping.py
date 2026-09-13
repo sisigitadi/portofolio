@@ -146,17 +146,17 @@ def test_load_key_none_when_no_key(tmp_path, mod, capsys):
 # ---------------------------------------------------------------------------
 def test_build_payload_shape(mod):
     payload = mod.build_payload(
-        "sisigitadi.github.io",
+        "porto.sigitadi.id",
         "6605868618dc4f34b628743b70f6d7c9",
-        "https://sisigitadi.github.io/portofolio/6605868618dc4f34b628743b70f6d7c9.txt",
-        ["https://sisigitadi.github.io/portofolio/", "https://sisigitadi.github.io/portofolio/sitemap.xml"],
+        "https://porto.sigitadi.id/6605868618dc4f34b628743b70f6d7c9.txt",
+        ["https://porto.sigitadi.id/", "https://porto.sigitadi.id/sitemap.xml"],
     )
-    assert payload["host"] == "sisigitadi.github.io"
+    assert payload["host"] == "porto.sigitadi.id"
     assert payload["key"] == "6605868618dc4f34b628743b70f6d7c9"
-    assert payload["keyLocation"] == "https://sisigitadi.github.io/portofolio/6605868618dc4f34b628743b70f6d7c9.txt"
+    assert payload["keyLocation"] == "https://porto.sigitadi.id/6605868618dc4f34b628743b70f6d7c9.txt"
     assert payload["urlList"] == [
-        "https://sisigitadi.github.io/portofolio/",
-        "https://sisigitadi.github.io/portofolio/sitemap.xml",
+        "https://porto.sigitadi.id/",
+        "https://porto.sigitadi.id/sitemap.xml",
     ]
 
 
@@ -338,16 +338,16 @@ def test_main_dry_run_returns_0(tmp_path, mod, capsys):
 
 
 def test_main_real_run_payload_paths(tmp_path, mod, capsys):
-    """main() --dry-run uses the correct base path & keyLocation subpath."""
+    """main() --dry-run uses the porto base path & root keyLocation."""
     p = tmp_path / "abc1234567890.txt"
     p.write_text("abc1234567890", encoding="utf-8")
     assert mod.main(["--dry-run"], root=tmp_path) == 0
     out = capsys.readouterr().out
-    assert "https://sisigitadi.github.io/portofolio/abc1234567890.txt" in out
-    assert "https://sisigitadi.github.io/portofolio/" in out
-    assert "https://sisigitadi.github.io/portofolio/ai-engineer.html" in out
-    assert "https://sisigitadi.github.io/portofolio/secops-engineer.html" in out
-    assert "https://sisigitadi.github.io/portofolio/sitemap.xml" in out
+    assert "https://porto.sigitadi.id/abc1234567890.txt" in out
+    assert "https://porto.sigitadi.id/" in out
+    assert "https://porto.sigitadi.id/ai-engineer.html" in out
+    assert "https://porto.sigitadi.id/secops-engineer.html" in out
+    assert "https://porto.sigitadi.id/sitemap.xml" in out
 
 
 def test_key_filename_re(mod):

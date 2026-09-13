@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-indexnow-ping.py — Send an IndexNow ping after content goes live on GitHub Pages.
+indexnow-ping.py — Send an IndexNow ping after content goes live on the portfolio
+subdomain (https://porto.sigitadi.id, GitHub Pages via CNAME).
 
 IndexNow is an open protocol that tells search engines (Bing, Yandex,
 Seznam, Naver, Yep, etc.) that a URL changed, so it is crawled right away
@@ -38,8 +39,8 @@ from pathlib import Path
 # Constants
 # ---------------------------------------------------------------------------
 API_ENDPOINT = "https://api.indexnow.org/indexnow"
-DEFAULT_HOST = "sisigitadi.github.io"
-DEFAULT_BASE_PATH = "/portofolio"
+DEFAULT_HOST = "porto.sigitadi.id"
+DEFAULT_BASE_PATH = ""
 KEY_FILENAME_RE = re.compile(r"^[A-Za-z0-9-]{8,128}\.txt$")
 LIVE_URL = "https://{host}{base_path}/index.html"
 
@@ -147,10 +148,10 @@ def _fetch_live_sha(url: str) -> str | None:
 def wait_until_deployed(root: Path, wait_sha: str, timeout: int) -> bool:
     """Poll the live page until its sha256 matches the local file.
 
-    GitHub Pages takes ±1-3 minutes to rebuild after a push; pinging before it is live
-    just wastes the signal (Bing crawls the old content). Returns True when the
-    content is live before the timeout, False on timeout (the caller still runs
-    the ping best-effort).
+    GitHub Pages takes ±1-3 minutes to rebuild after a push (the porto subdomain
+    serves the repo via CNAME); pinging before the new content is live just wastes
+    the signal (Bing crawls the old content). Returns True when the content is live
+    before the timeout, False on timeout (the caller still runs the ping best-effort).
     """
     rel_path = wait_sha
     target = deployed_content_hash(root, rel_path)

@@ -2,8 +2,8 @@ name: indexnow-ping
 
 # Send an IndexNow ping every time content is pushed to main, so Bing & other
 # search engines participating in IndexNow know immediately that a URL changed (crawl soon,
-# not on schedule). The script waits for GitHub Pages to finish rebuilding
-# (compares sha256 of live content vs index.html) before sending the ping.
+# not on schedule). The script waits for the porto subdomain (GitHub Pages via CNAME) to
+# serve the fresh content (compares sha256 of live content vs index.html) before sending.
 #
 # Status 200/202 = success. Failures (invalid key, etc.) only affect
 # this workflow — they do NOT block the push (informational only).
