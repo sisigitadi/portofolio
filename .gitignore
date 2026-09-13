@@ -26,3 +26,6 @@ desktop.ini
 *.pdf
 projects-section.png
 googlecloudtools.datacloud_telemetry_asli/
+
+# Local deploy bundles (Vercel builds from git; DirectAdmin flow retired)
+portofolio-main.zip
