@@ -3,16 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
-<meta name="theme-color" content="#D6CDB4">
+<meta name="theme-color" content="#0F1115">
 
-<!-- Security Hardening & CSP Meta Tags (script-src via sha256 hash, no 'unsafe-inline' script; connect/img restricted to trusted origins) -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self' https:; script-src 'self' 'sha256-3iJVyGMg+cUlb7wWubSj15zcfRfuDBqhrvQBCLcACzM=' 'sha256-KcJib6eYC2MXOCVUDt5ErXibLp+IBrF/Pt4Keyox/Qg=' 'sha256-7sPcbshpkTfMNvW8I+Y/Mlh+C0XV59N/7mFzqxPeZrc='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com data:; img-src 'self' data: https://portofolio-visitor-tracker.si-sigitadi.workers.dev; connect-src 'self' https://formspree.io https://portofolio-visitor-tracker.si-sigitadi.workers.dev; object-src 'none'; frame-src 'none'; base-uri 'self'; form-action 'self' https://formspree.io; upgrade-insecure-requests">
+<!-- Security Hardening & Content Security Policy (CSP) -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' https:; script-src 'self' 'sha256-zHZkQ1SWpnZvpxbIyJrH6K2E/oyZqYpXAdvu2IU3bjk=' 'sha256-oA9I2FAbKt+M1zKGYHoEQP1QX77w2RawOe/i+dG8UPU=' 'sha256-ZQI4BvwXVNnz47UBVuTmcIMGIy3FHL9Xwyc/f6z5jwg='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com data:; img-src 'self' data: https: https://portofolio-visitor-tracker.si-sigitadi.workers.dev; connect-src 'self' https://formspree.io https://portofolio-visitor-tracker.si-sigitadi.workers.dev; object-src 'none'; frame-src 'none'; base-uri 'self'; form-action 'self' https://formspree.io; upgrade-insecure-requests">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=(), usb=(), autoplay=()">
 
 <!-- Canonical URL -->
-<link rel="canonical" href="https://sisigitadi.github.io/portofolio/">
+<link rel="canonical" href="https://porto.sigitadi.id/">
 
 <!-- Performance Preconnect & DNS-Prefetch -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,49 +20,50 @@
 <link rel="dns-prefetch" href="https://fonts.googleapis.com">
 
 <!-- Primary Search Engine SEO Meta Tags -->
-<title>Sigit Adi Irianto | IT Infrastructure, SecOps &amp; AI Engineer</title>
-<meta name="title" content="Sigit Adi Irianto | IT Infrastructure, SecOps &amp; AI Engineer">
-<meta name="description" content="Remote IT SecOps and Applied AI Engineer in Tangerang, Banten, Indonesia. SOC, Wazuh SIEM, DevSecOps and AI. View portfolio.">
+<title>Sigit Adi Irianto | IT &amp; SecOps Specialist · Applied AI</title>
+<meta name="title" content="Sigit Adi Irianto | IT &amp; SecOps Specialist · Applied AI">
+<meta name="description" content="Sigit Adi Irianto personal digital platform. IT Infrastructure, SecOps Specialist, Wazuh SIEM, and Applied AI Engineer with 24+ years of systems reliability.">
 <meta name="author" content="Sigit Adi Irianto">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
 <meta name="geo.region" content="ID-BT">
 <meta name="geo.placename" content="Tangerang">
 
-<!-- Schema.org Microdata & WhatsApp Thumbnail Fallback -->
-<meta itemprop="name" content="Sigit Adi Irianto | IT Infrastructure, SecOps &amp; AI Engineer">
-<meta itemprop="description" content="Applied AI Engineer &amp; IT Security Operations Engineer specializing in practical AI integration, local privacy-first ML workflows, threat triage, and DevSecOps automations.">
-<meta itemprop="image" content="https://sisigitadi.github.io/portofolio/og-preview.jpg?v=2.9.3">
-<link rel="image_src" href="https://sisigitadi.github.io/portofolio/og-preview.jpg?v=2.9.3">
+<!-- Schema.org Microdata -->
+<meta itemprop="name" content="Sigit Adi Irianto | IT &amp; SecOps Specialist · Applied AI">
+<meta itemprop="description" content="Sigit Adi Irianto personal digital platform. IT Infrastructure, SecOps Specialist, Wazuh SIEM, and Applied AI Engineer with 24+ years of systems reliability.">
+<meta itemprop="image" content="https://porto.sigitadi.id/og-preview.jpg?v=2.9.3">
+<link rel="image_src" href="https://porto.sigitadi.id/og-preview.jpg?v=2.9.3">
 
-<!-- Open Graph / Social Media (LinkedIn, WhatsApp, Facebook, Telegram) Meta Tags -->
-<meta property="og:site_name" content="Sigit Adi Irianto Portfolio">
-<meta property="og:title" content="Sigit Adi Irianto | IT Infrastructure, SecOps &amp; AI Engineer">
-<meta property="og:description" content="Remote IT SecOps and Applied AI Engineer in Tangerang, Banten, Indonesia. SOC, Wazuh SIEM, DevSecOps and AI. View portfolio.">
+<!-- Open Graph Meta Tags -->
+<meta property="og:site_name" content="Sigit Adi Irianto Platform">
+<meta property="og:title" content="Sigit Adi Irianto | IT &amp; SecOps Specialist · Applied AI">
+<meta property="og:description" content="Sigit Adi Irianto personal digital platform. IT Infrastructure, SecOps Specialist, Wazuh SIEM, and Applied AI Engineer with 24+ years of systems reliability.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://sisigitadi.github.io/portofolio/">
-<meta property="og:image" content="https://sisigitadi.github.io/portofolio/og-preview.jpg?v=2.9.3">
-<meta property="og:image:secure_url" content="https://sisigitadi.github.io/portofolio/og-preview.jpg?v=2.9.3">
+<meta property="og:url" content="https://porto.sigitadi.id/">
+<meta property="og:image" content="https://porto.sigitadi.id/og-preview.jpg?v=2.9.3">
+<meta property="og:image:secure_url" content="https://porto.sigitadi.id/og-preview.jpg?v=2.9.3">
 <meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Sigit Adi Irianto - IT Infrastructure, SecOps and Applied AI Engineer Portfolio Preview">
+<meta property="og:image:alt" content="Sigit Adi Irianto - IT &amp; SecOps Specialist · Applied AI Engineer Portfolio Preview">
 <meta property="og:locale" content="en_US">
 
 <!-- Twitter Card Meta Tags -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:url" content="https://sisigitadi.github.io/portofolio/">
-<meta name="twitter:title" content="Sigit Adi Irianto | IT Infrastructure, SecOps &amp; AI Engineer">
-<meta name="twitter:description" content="Remote IT SecOps and Applied AI Engineer in Tangerang, Banten, Indonesia. SOC, Wazuh SIEM, DevSecOps and AI. View portfolio."><meta name="twitter:image" content="https://sisigitadi.github.io/portofolio/og-preview.jpg?v=2.9.3">
+<meta name="twitter:url" content="https://porto.sigitadi.id/">
+<meta name="twitter:title" content="Sigit Adi Irianto | IT &amp; SecOps Specialist · Applied AI">
+<meta name="twitter:description" content="Sigit Adi Irianto personal digital platform. IT Infrastructure, SecOps Specialist, Wazuh SIEM, and Applied AI Engineer with 24+ years of systems reliability.">
+<meta name="twitter:image" content="https://porto.sigitadi.id/og-preview.jpg?v=2.9.3">
 
-<!-- Schema.org JSON-LD Structured Data for Google Rich Snippets -->
+<!-- Schema.org JSON-LD Structured Data -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "Person",
   "name": "Sigit Adi Irianto",
-  "jobTitle": "IT Infrastructure, SecOps, and Applied AI Engineer",
-  "url": "https://sisigitadi.github.io/portofolio/",
-  "image": "https://sisigitadi.github.io/portofolio/og-preview.jpg?v=2.9.3",
+  "jobTitle": "IT & SecOps Specialist · Applied AI Engineer",
+  "url": "https://porto.sigitadi.id/",
+  "image": "https://porto.sigitadi.id/og-preview.jpg?v=2.9.3",
   "sameAs": [
     "https://github.com/sisigitadi",
     "https://www.linkedin.com/in/sigitadi/",
@@ -70,16 +71,17 @@
     "mailto:si.sigitadi@gmail.com"
   ],
   "knowsAbout": [
-    "Applied Artificial Intelligence",
-    "Machine Learning",
-    "Natural Language Processing",
-    "LLM Evaluation",
-    "Cybersecurity",
-    "DevSecOps",
+    "IT Infrastructure",
+    "Security Operations",
     "Wazuh SIEM",
-    "Docker",
+    "Threat Hunting",
+    "Incident Response",
+    "Applied AI",
     "Prompt Engineering",
-    "Python"
+    "LLM Evaluation",
+    "Automation",
+    "Linux Systems Administration",
+    "Docker"
   ],
   "worksFor": {
     "@type": "Organization",
@@ -92,7 +94,7 @@
     "addressCountry": "Indonesia"
   },
   "knowsLanguage": ["en", "id"],
-  "description": "IT SecOps Engineer & Applied AI Engineer in Tangerang, Banten, Indonesia - remote-ready worldwide. SOC monitoring, Wazuh SIEM, DevSecOps & applied AI. 24+ years of IT experience."
+  "description": "IT & SecOps Specialist and Applied AI Engineer with 24+ years of enterprise experience in systems engineering, Wazuh SOC telemetry, prompt evaluation, and automation."
 }
 </script>
 
@@ -100,1247 +102,1868 @@
 {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  "name": "Sigit Adi Irianto | IT Infrastructure, SecOps & AI Engineer",
-  "url": "https://sisigitadi.github.io/portofolio/",
-  "description": "IT Infrastructure, SecOps & Applied AI Engineer portfolio in Tangerang, Banten, Indonesia - open to remote work worldwide.",
+  "name": "Sigit Adi Irianto Platform",
+  "url": "https://porto.sigitadi.id/",
+  "description": "Sigit Adi Irianto personal digital platform in Tangerang, Banten, Indonesia - open to worldwide remote work and consulting.",
   "inLanguage": ["en", "id"],
   "author": {
     "@type": "Person",
     "name": "Sigit Adi Irianto",
-    "url": "https://sisigitadi.github.io/portofolio/"
+    "url": "https://porto.sigitadi.id/"
   }
 }
 </script>
 
-<!-- PWA (Installable & Offline) Metadata -->
-<link rel="manifest" href="manifest.json">
-<link rel="apple-touch-icon" href="icons/icon-192.png">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Sigit Portfolio">
+<!-- Fonts -->
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
 
-<!-- Google Fonts: single stylesheet per Project_rules §4.3 (Caveat appended to existing family list, no new <link>) -->
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Caveat:wght@500;600&display=swap">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Caveat:wght@500;600&display=swap">
-
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23F3EEDF'/%3E%3Crect x='7' y='7' width='50' height='50' fill='none' stroke='%23B4552D' stroke-width='5'/%3E%3Ctext x='32' y='45' font-family='Georgia,serif' font-size='36' font-weight='bold' fill='%2320242B' text-anchor='middle'%3ES%3C/text%3E%3C/svg%3E">
-<link rel="icon" href="favicon.ico" sizes="16x16 32x32">
 <style>
-
-  :root{
-    --paper:#F3EEDF; --paper2:#EAE4D2; --ink:#20242B; --ink2:#3C434E;
-    --accent:#B4552D; --accent2:#8A4A26; --muted:#6E6A5E; --rule:#C9C2AC;
-    --hand:"Caveat","Segoe Script","Bradley Hand",cursive;
-  }
-  @media(prefers-color-scheme:dark){
-    :root{
-      --paper:#1A1D23; --paper2:#22262E; --ink:#E8E6E1; --ink2:#B0ADA6;
-      --accent:#D4824A; --accent2:#E09A5E; --muted:#8A877F; --rule:#3A3D44;
-    }
-    body{background:#111318 !important}
-    .sheet{border-color:#2E3138;box-shadow:0 24px 60px -18px rgba(0,0,0,0.6)}
-    a{color:var(--accent)}
-    a:hover{color:var(--accent2)}
-    .mast{border-color:#3A3D44}
-    .skip-link:focus{background:var(--ink);color:var(--paper);border-color:var(--paper)}
-    .sec-head .dash{border-color:var(--rule)}
-    .oc,.pc,.report{background:var(--paper2);border-color:var(--rule)}
-    .spec{border-color:#3A3D44}
-    .spec .row{border-color:var(--rule)}
-    .toc{border-color:#3A3D44}
-    .toc .trow{border-color:var(--rule)}
-    .toc .dots{border-color:var(--muted)}
-    .log{border-color:#3A3D44}
-    .log .row{border-color:var(--rule)}
-    .cert-list{border-color:#3A3D44}
-    .cert-cat{background:var(--paper2);border-color:#3A3D44}
-    .cert-row{border-color:var(--rule)}
-    .slip{background:var(--paper2);border-color:var(--rule);border-color:#3A3D44}
-    .slip input{background:var(--paper);border-color:var(--ink);color:var(--ink)}
-    .btn{border-color:var(--ink);color:var(--ink)}
-    .btn.solid{background:var(--ink);color:var(--paper)}
-    .btn:hover{background:var(--accent);border-color:var(--accent);color:#fff}
-    footer{border-color:#3A3D44}
-    footer .end{border-color:var(--rule)}
-    .pc .url{color:var(--accent2);border-color:var(--accent)}
-    .pc:hover .url{color:var(--accent)}
-    .dossier-stamp{border-color:var(--accent);color:var(--accent)}
-    .stamp-inner{border-color:var(--accent)}
-    .stamp-top{color:var(--accent2)}
-    .stamp-main{color:var(--accent)}
-    .stamp-foot{color:var(--muted);border-color:var(--rule)}
-    .slip .slip-head{color:var(--accent)}
-    .slip .slip-foot{color:var(--muted)}
-    .visitor-badge{color:var(--muted)}
-    .visitor-badge .vb-sep{color:var(--accent)}
-    .visitor-badge .vb-count{color:var(--accent)}
-    .slip .field label{color:var(--accent)}
-    .pg a:hover{color:var(--accent)}
-    /* ink scribbles & handwritten text - visible on dark background (!important to override later base rules) */
-    .ink path{stroke:var(--ink) !important}
-    .mnote span{color:var(--ink) !important;text-shadow:0 0 2px rgba(232,230,225,.4),0 0 6px rgba(232,230,225,.2),0 0 14px rgba(232,230,225,.12),0 0 24px rgba(232,230,225,.06) !important}
-    .mnote svg.underline path{stroke:var(--ink) !important}
-    .cta-note span{color:var(--ink) !important;text-shadow:0 0 2px rgba(232,230,225,.4),0 0 6px rgba(232,230,225,.2),0 0 14px rgba(232,230,225,.12),0 0 24px rgba(232,230,225,.06) !important}
-    .animated-underline svg.pen-stroke path{stroke:var(--ink) !important}
-  }
-  *{margin:0;padding:0;box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  html,body{overflow-x:hidden} /* guard: never allow horizontal scroll at the page level */
-  body{background:#D6CDB4;color:var(--ink);font:16px/1.75 Georgia,"Times New Roman",serif;text-align:left;padding:40px 14px 56px}
-  .read-progress{position:fixed;top:0;left:0;height:3px;background:var(--accent);width:0%;z-index:999;transition:width .08s ease-out;pointer-events:none}
-  .sheet{position:relative;max-width:1000px;margin:0 auto;background:var(--paper);border:1px solid #C9C1A8;box-shadow:0 24px 60px -18px rgba(58,48,28,0.4);overflow:hidden}
-  .sheet::after{content:'';position:absolute;inset:0;pointer-events:none;z-index:2;opacity:.05;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
-  @keyframes dossierLanding{0%{opacity:0;transform:perspective(1200px) translateY(-75px) rotateX(14deg) rotateY(-3.5deg) scale(0.96);box-shadow:0 45px 70px -15px rgba(32,36,43,0.38),0 25px 35px -20px rgba(32,36,43,0.25)}45%{opacity:1;transform:perspective(1200px) translateY(-18px) rotateX(7deg) rotateY(-1.5deg) scale(0.985);box-shadow:0 35px 50px -10px rgba(32,36,43,0.28)}78%{transform:perspective(1200px) translateY(3px) rotateX(-1deg) rotateY(0.5deg) scale(1.002);box-shadow:0 16px 28px -6px rgba(32,36,43,0.16)}100%{opacity:1;transform:perspective(1200px) translateY(0) rotateX(0deg) rotateY(0deg) scale(1);box-shadow:0 24px 60px -18px rgba(58,48,28,0.4)}}
-  .sheet.landing-active{animation:dossierLanding 1.15s cubic-bezier(0.22,1,0.36,1) forwards;transform-origin:50% 0%;will-change:transform,box-shadow,opacity}
-  .status-underlined{position:relative;display:inline-block}
-  .pen-stroke{position:absolute;left:0;bottom:-4px;width:100%;height:8px;overflow:visible;pointer-events:none}
-  .pen-stroke path{fill:none;stroke:var(--accent);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:100;stroke-dashoffset:100;filter:url(#inkBleed)}
-  .js .status-underlined.in-view .pen-stroke path,.js .pen-stroke.in-view path{animation:penLoop 10s ease-in-out infinite}
-  @keyframes penLoop{0%{stroke-dashoffset:100;opacity:0}4%{opacity:1}22%{stroke-dashoffset:0;opacity:1}82%{stroke-dashoffset:0;opacity:1}94%{stroke-dashoffset:0;opacity:0}100%{stroke-dashoffset:100;opacity:0}}
-  @media (prefers-reduced-motion:reduce){.sheet.landing-active{animation:none !important;transform:none !important}.pen-stroke path,.js .ink path,.js .ink.in-view path,.js .mnote svg.underline path,.js .mnote.in-view svg.underline path,.animated-underline svg.pen-stroke path,.cta-note span,.mnote span{animation:none !important;stroke-dashoffset:0 !important;clip-path:none !important;opacity:1 !important;transform:none !important}}
-  .ink{height:1.25em;width:auto;margin-left:8px;vertical-align:-0.28em}
-  .ink.star{height:1.25em;width:auto;margin-left:6px}
-  .ink.paraf{width:54px;height:36px;margin-left:16px;transform:rotate(-8deg)}
-  .ink-sign{text-align:right;margin-top:12px}
-  .ink-sign .ink.paraf{width:50px;height:32px;margin-left:0;opacity:.9}
-  .ink path{fill:none;stroke:#000;stroke-width:3.6;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:120;stroke-dashoffset:0;filter:url(#inkBleed)}
-  @media screen {
-    .js .ink path{stroke-dashoffset:120}
-    .js .ink.in-view path{animation:checkLoop 11s ease-in-out infinite}
-    .spec .row:nth-child(7) .ink.in-view path{animation-delay:0.8s}
-    .spec .row:nth-child(8) .ink.in-view path{animation-delay:2.0s}
-    .spec .row:nth-child(9) .ink.in-view path{animation-delay:3.2s}
-    .pc h3 .ink.in-view path{animation-delay:1.4s}
-    .cta-note .ink.paraf.in-view path{animation:parafLoop 12s ease-in-out 2.8s infinite}
-    .ink-sign .ink.paraf.in-view path{animation:parafLoop 12s ease-in-out 3.6s infinite}
-    .cta-note span{display:inline-block;clip-path:inset(0 100% 0 0);opacity:0;will-change:clip-path,opacity}
-    .mnote span{display:inline-block;clip-path:inset(0 100% 0 0);opacity:0;will-change:clip-path,opacity}
-    .js .cta-note.in-view span{animation:handwritingWriteLoop 11s cubic-bezier(0.25,1,0.5,1) 0.5s infinite}
-    .js .mnote.in-view span{animation:handwritingWriteLoop 12s cubic-bezier(0.25,1,0.5,1) 2.4s infinite}
-    @keyframes checkLoop{0%{stroke-dashoffset:120;opacity:0}3%{stroke-dashoffset:120;opacity:1}15%{stroke-dashoffset:0;opacity:1}85%{stroke-dashoffset:0;opacity:1}92%{stroke-dashoffset:0;opacity:0}93%{stroke-dashoffset:120;opacity:0}100%{stroke-dashoffset:120;opacity:0}}
-    @keyframes parafLoop{0%{stroke-dashoffset:120;opacity:0}4%{stroke-dashoffset:120;opacity:1}18%{stroke-dashoffset:0;opacity:1}82%{stroke-dashoffset:0;opacity:1}90%{stroke-dashoffset:0;opacity:0}91%{stroke-dashoffset:120;opacity:0}100%{stroke-dashoffset:120;opacity:0}}
-    @keyframes handwritingWriteLoop{0%{clip-path:inset(0 100% 0 0);opacity:0}3%{opacity:1}24%{clip-path:inset(0 0 0 0);opacity:1}84%{clip-path:inset(0 0 0 0);opacity:1}91%{clip-path:inset(0 0 0 0);opacity:0}92%{clip-path:inset(0 100% 0 0);opacity:0}100%{clip-path:inset(0 100% 0 0);opacity:0}}
-  }
-  .skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
-  .skip-link:focus{position:fixed;left:16px;top:16px;width:auto;height:auto;z-index:200;background:var(--ink);color:var(--paper);padding:10px 16px;font:12px ui-monospace,Consolas,monospace;letter-spacing:.06em;text-transform:uppercase;border:1px solid var(--paper);box-shadow:0 4px 14px rgba(0,0,0,.3)}
-  ::selection{background:rgba(180,85,45,.22)}
-  a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent2)}
-  a:hover{color:var(--accent2)}
-  a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
-  .wrap{max-width:960px;margin:0 auto;padding:0 28px}
-
-  /* ---------- mast: top of every manual page ---------- */
-  .mast{border-bottom:2px solid var(--ink);padding:14px 0;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink2)}
-  .mast .wrap{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
-  .mast .meta{font:12px ui-monospace,Consolas,monospace;letter-spacing:.06em;color:var(--accent)}
-
-  /* ---------- title page ---------- */
-  header{padding:34px 0 26px;position:relative}
-  h1{font-size:clamp(28px,6.5vw,72px);line-height:1.15;font-weight:700;letter-spacing:-1px;text-align:left;text-wrap:balance;margin-bottom:14px}
-  h1 .thin{font-weight:400;color:var(--ink2)}
-  .role{font-size:clamp(17px,2.4vw,22px);color:var(--accent2);margin-bottom:12px;min-height:1.4em}
-  .typing-cursor{display:inline-block;color:var(--accent);font-weight:300;margin-left:2px;animation:blinkCursor .6s step-end infinite}
-  .typing-cursor.done{display:none}
-  @keyframes blinkCursor{from,to{opacity:0}50%{opacity:1}}
-  .summary-head{font:700 11px ui-monospace,Consolas,monospace;color:var(--accent);text-transform:uppercase;letter-spacing:.08em;margin-top:14px;margin-bottom:4px}
-  .pitch{max-width:640px;color:var(--ink2);margin-bottom:6px;text-align:left;line-height:1.7}
-  .edu-item, .lang-item{font-size:15px;padding:4px 0 10px;border-bottom:1px dotted var(--rule)}
-
-  /* spec table - the manual's front-matter */
-  .spec{border-top:2px solid var(--ink);margin:26px 0 0}
-  .spec .row{display:flex;gap:20px;padding:11px 2px;border-bottom:1px solid var(--rule);font-size:15px}
-  .spec .row.cv-only{display:none}
-  .spec .k{width:210px;flex-shrink:0;font:12.5px ui-monospace,Consolas,monospace;color:var(--accent);letter-spacing:.03em;padding-top:3px;white-space:nowrap}
-  .spec .v{color:var(--ink)}
-
-  /* table of contents */
-  .toc{border-top:2px solid var(--ink);margin:30px 0 4px}
-  .toc .th{font:11.5px ui-monospace,Consolas,monospace;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;padding:10px 2px 4px}
-  .toc .trow{display:flex;align-items:baseline;gap:8px 10px;padding:7px 2px;border-bottom:1px solid var(--rule);font-size:15px;flex-wrap:wrap}
-  .toc .trow a{border-bottom:none;color:var(--ink)}
-  .toc .trow a:hover{color:var(--accent)}
-  .toc .no{font:12px ui-monospace,Consolas,monospace;color:var(--accent);min-width:34px}
-  .toc .dots{flex:1;min-width:12px;border-bottom:1px dotted var(--muted);transform:translateY(-4px)}
-  .toc .pg{font:12px ui-monospace,Consolas,monospace;color:var(--muted)}
-
-  .cta{display:flex;gap:14px;flex-wrap:wrap;margin:32px 0 8px;align-items:center}
-  .cta-note{display:flex;align-items:center;gap:6px;margin:2px 0 0 26px;transform:rotate(-1.6deg)}
-  .cta-note span{font:500 24px/1.25 var(--hand);color:#000;letter-spacing:.005em;text-shadow:0 0 2px rgba(0,0,0,.55),0 0 6px rgba(0,0,0,.3),0 0 14px rgba(0,0,0,.18),0 0 24px rgba(0,0,0,.09)}
-  .cta-note .ink.paraf{width:40px;height:28px;margin-left:2px;transform:rotate(-14deg)}
-
-  .mnote{display:flex;align-items:center;gap:7px;max-width:400px;margin:20px 0 2px auto;text-align:left}
-  .mnote span{font:500 23px/1.25 var(--hand);color:#000;letter-spacing:.005em;text-shadow:0 0 2px rgba(0,0,0,.55),0 0 6px rgba(0,0,0,.3),0 0 14px rgba(0,0,0,.18),0 0 24px rgba(0,0,0,.09)}
-  .mnote svg.underline{width:72px;height:11px;flex-shrink:0}
-  .mnote svg.underline path{fill:none;stroke:#000;stroke-width:2.5;stroke-linecap:round;stroke-dasharray:120;stroke-dashoffset:0;filter:url(#inkBleed)}
-  @media screen {
-    .js .mnote svg.underline path{stroke-dashoffset:120}
-    .js .mnote.in-view svg.underline path{animation:mnoteStrokeLoop 11s ease-in-out 2.8s infinite}
-    .animated-underline{position:relative;display:inline-block}
-    .animated-underline svg.pen-stroke{position:absolute;left:0;bottom:-4px;width:100%;height:8px;pointer-events:none;overflow:visible}
-    .animated-underline svg.pen-stroke path{fill:none;stroke:#000;stroke-width:2.2;stroke-linecap:round;stroke-dasharray:100;stroke-dashoffset:100;filter:url(#inkBleed)}
-    .js .animated-underline.in-view svg.pen-stroke path{animation:strokeLoop 10s ease-in-out infinite}
-    .row.spec-meta .animated-underline.in-view svg.pen-stroke path{animation-delay:1.5s}
-    @keyframes strokeLoop{0%{stroke-dashoffset:100;opacity:0}3%{stroke-dashoffset:100;opacity:1}15%{stroke-dashoffset:0;opacity:1}85%{stroke-dashoffset:0;opacity:1}92%{stroke-dashoffset:0;opacity:0}93%{stroke-dashoffset:100;opacity:0}100%{stroke-dashoffset:100;opacity:0}}
-    @keyframes mnoteStrokeLoop{0%{stroke-dashoffset:120;opacity:0}3%{stroke-dashoffset:120;opacity:1}16%{stroke-dashoffset:0;opacity:1}84%{stroke-dashoffset:0;opacity:1}91%{stroke-dashoffset:0;opacity:0}92%{stroke-dashoffset:120;opacity:0}100%{stroke-dashoffset:120;opacity:0}}
-  }
-  .mnote.rot1{transform:rotate(1.6deg)}
-  .mnote.rot2{transform:rotate(-1.5deg)}
-  /* per-letter jitter: each letter tilts/rises slightly - a handwritten feel */
-  .mnote span i,.cta-note span i{font-style:normal;display:inline-block}
-  .mnote span i:nth-child(3n){transform:rotate(-3deg) translateY(1px)}
-  .mnote span i:nth-child(4n){transform:rotate(2.5deg) translateY(-1px)}
-  .mnote span i:nth-child(5n){transform:rotate(-2deg) translateY(0.5px)}
-  .cta-note span i:nth-child(3n){transform:rotate(-2.5deg) translateY(1px)}
-  .cta-note span i:nth-child(4n){transform:rotate(2deg) translateY(-1px)}
-  .btn{display:inline-block;padding:12px 22px;font:13px ui-monospace,Consolas,monospace;letter-spacing:.06em;text-transform:uppercase;border:1.5px solid var(--ink);color:var(--ink);background:transparent;cursor:pointer}
-  .btn.solid{background:var(--ink);color:var(--paper)}
-  .btn:hover{background:var(--accent);border-color:var(--accent);color:#fff;text-decoration:none}
-
-  /* ---------- sections ---------- */
-  section{padding:52px 0 0;border-top:1px solid var(--rule)}
-  .sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:26px}
-  .sec-head .no{font:15px ui-monospace,Consolas,monospace;color:var(--accent)}
-  .sec-head h2{font-size:26px;font-weight:700;text-wrap:balance}
-  .sec-head .dash{flex:1;border-bottom:1px dotted var(--rule)}
-  .lede{color:var(--ink2);max-width:640px;margin-bottom:26px;font-size:15px;text-align:left;line-height:1.7}
-  /* bulleted descriptions - accent dot markers, manual style */
-  .blist{list-style:none;margin:0;padding:0}
-  .blist li{position:relative;padding-left:18px;margin:4px 0}
-  .blist li::before{content:'';position:absolute;left:2px;top:0.65em;width:5px;height:5px;border-radius:50%;background:var(--accent)}
-
-  .offer,.proj{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:8px}
-  .proj{margin-top:4px}
-  .oc{background:var(--paper2);border:1px solid var(--rule);padding:22px;position:relative}
-  .num{position:absolute;top:-12px;right:14px;background:var(--paper);padding:0 8px;font:12px ui-monospace,Consolas,monospace;color:var(--accent)}
-  @media (max-width:620px){
-    body{padding:10px 6px 24px}
-    .sheet{box-shadow:none}
-    .wrap{padding:0 16px}
-    section{padding:38px 0 0}
-    footer .wrap{padding:24px 16px 48px}
-    .offer,.proj{grid-template-columns:1fr}
-    .spec .row{flex-direction:column;gap:2px}
-    .spec .k{width:auto;white-space:normal}
-    .log .row{flex-direction:column;gap:4px}
-    .log .y{width:auto;white-space:normal;text-align:left}
-    /* CTA note left-aligned when it wraps below the button on narrow screens */
-    .cta-note{margin:8px 0 0 0}
-    .cta-note span{font-size:22px}
-    .cta-note .ink.paraf{width:34px;height:24px}
-    .mnote{flex-wrap:wrap;justify-content:flex-end}
-    .mnote span{font-size:19px}
-    .mnote svg.underline{width:36px;height:7px}
-    .footer-links{flex-direction:column;align-items:flex-start;gap:8px;margin:18px 0 14px}
-    .footer-links .sep{display:none}
-    .footer-links span:not(.sep){position:relative;padding-left:16px}
-    .footer-links span:not(.sep)::before{content:'';position:absolute;left:2px;top:0.65em;width:5px;height:5px;border-radius:50%;background:var(--accent)}
-    .lang-item .lang-entry{display:block}
-    .lang-item .lang-entry + .lang-entry{margin-top:4px}
-    .lang-item .lang-sep{display:none}
-  }
-  .oc h3{font-size:18px;margin-bottom:8px}
-  .oc p,.oc .blist{font-size:14.5px;color:var(--ink2);line-height:1.65}
-  .oc .ref{display:block;margin-top:14px;font:12px ui-monospace,Consolas,monospace;color:var(--muted);letter-spacing:.04em}
-
-  .pc{background:var(--paper2);border:1px solid var(--rule);padding:20px;display:flex;flex-direction:column;position:relative;transition:transform .22s cubic-bezier(0.2,0.8,0.2,1),box-shadow .22s cubic-bezier(0.2,0.8,0.2,1),border-color .22s ease}
-  .pc:hover{transform:translateY(-3px);box-shadow:0 12px 24px -8px rgba(32,36,43,.18);border-color:var(--accent)}
-  .pc .tag{font:11.5px ui-monospace,Consolas,monospace;color:var(--accent);letter-spacing:.06em;text-transform:uppercase}
-  .pc h3{font-size:18px;margin:6px 0 6px}
-  .pc p,.pc .blist{font-size:14px;color:var(--ink2);flex:1}
-  .pc .status{margin-top:12px;font:11px ui-monospace,Consolas,monospace;letter-spacing:.06em;text-transform:uppercase;border-top:1px solid var(--rule);padding-top:8px;color:var(--muted)}
-  .pc .status b{color:var(--accent);font-weight:700}
-  .pc .url{display:block;margin-top:7px;font:11.5px ui-monospace,Consolas,monospace;color:var(--accent2);border-bottom:1px dotted var(--accent);word-break:break-all;width:fit-content;transition:transform .18s ease,color .18s ease}
-  .pc:hover .url{transform:translate(2px,-2px);color:var(--accent)}
-
-  /* field log - the career, as dated entries */
-  .log{border-top:2px solid var(--ink)}
-  .log .row{display:flex;gap:22px;padding:13px 2px;border-bottom:1px solid var(--rule);position:relative}
-  .log .y{width:170px;flex-shrink:0;font:12.5px ui-monospace,Consolas,monospace;color:var(--accent);padding-top:3px;letter-spacing:.02em;white-space:nowrap;text-align:right}
-  .log .r > b{font-size:16px}
-  .log .r span,.log .r .blist{display:block;font-size:14px;color:var(--ink2);margin-top:2px}
-
-  /* certifications table - scrollable on very narrow screens (e.g. foldable 280px) */
-  .table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;max-width:100%}
-  .table-scroll table{margin-top:0}
-
-  /* field reports - quoted notes */
-  .report{background:var(--paper2);border:1px solid var(--rule);padding:22px 24px;margin-bottom:16px;position:relative}
-  .report .tag{font:11px ui-monospace,Consolas,monospace;color:var(--accent);letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:10px}
-  .report blockquote{font-style:italic;font-size:16px;color:var(--ink);line-height:1.7}
-  .report .who{margin-top:12px;font-size:13px;color:var(--ink2)}
-  .report .who b{color:var(--ink)}
-  .report .who .proj{font:12px ui-monospace,Consolas,monospace;color:var(--muted)}
-
-  /* certifications list - native ATS single-line layout */
-  .cert-list{border-top:2px solid var(--ink);margin-top:10px}
-  .cert-cat{font:700 11px ui-monospace,Consolas,monospace;color:var(--accent);text-transform:uppercase;letter-spacing:.08em;padding:10px 4px 4px;margin-top:6px;border-bottom:1.5px solid var(--ink);background:var(--paper2)}
-  .cert-row{display:flex;align-items:baseline;justify-content:space-between;padding:10px 4px;border-bottom:1px solid var(--rule);font-size:14.5px;gap:12px}
-  .cert-row .c-title{font-weight:600;color:var(--ink);flex:1}
-  .cert-row .c-dash{color:var(--muted);margin:0 4px}
-  .cert-row .c-iss{color:var(--ink2);width:200px;text-align:left}
-  .cert-row .c-yr{font:12.5px ui-monospace,Consolas,monospace;color:var(--accent);width:45px;text-align:right;white-space:nowrap}
-  @media(max-width:620px){
-    .cert-row{flex-direction:column;gap:3px;padding:8px 2px}
-    .cert-row .c-dash{display:none}
-    .cert-row .c-iss{width:auto;font-size:13px}
-    .cert-row .c-yr{width:auto;text-align:left;font-size:12px}
+  :root {
+    --bg-page: #0B0D11;
+    --bg-surface: rgba(21, 25, 33, 0.85);
+    --bg-surface-alt: rgba(28, 33, 44, 0.8);
+    --text-primary: #F3F4F6;
+    --text-secondary: #9CA3AF;
+    --text-muted: #6B7280;
+    --border-main: rgba(255, 255, 255, 0.08);
+    --border-hover: rgba(251, 146, 60, 0.4);
+    --accent: #FB923C;
+    --accent-hover: #FDBA74;
+    --accent-pine: #34D399;
+    --accent-blue: #60A5FA;
+    --card-shadow: 0 12px 32px -8px rgba(0, 0, 0, 0.5);
+    --card-shadow-hover: 0 20px 40px -10px rgba(0, 0, 0, 0.7);
+    --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-mono: 'Space Mono', ui-monospace, Menlo, Monaco, Consolas, monospace;
+    --max-w: 960px;
   }
 
-  /* page footer strip */
-  .pg{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;padding:26px 2px 0;font:11px ui-monospace,Consolas,monospace;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
-  .pg a{color:var(--muted);border-bottom:none;text-transform:none;letter-spacing:.06em}
-  .pg a:hover{color:var(--accent);border-bottom:1px solid var(--accent)}
-
-  /* ---------- footer / end ---------- */
-  footer{border-top:2px solid var(--ink);margin-top:56px;text-align:left}
-  footer .wrap{padding:28px 28px 64px}
-  .contact-grid{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:32px;margin:4px 0 26px}
-  .contact-grid .slip{flex:1 1 440px;max-width:540px;margin:0}
-  .stamp-wrapper{flex:1 1 280px;display:flex;align-items:center;justify-content:center;padding:10px}
-  .dossier-stamp{position:relative;display:inline-block;padding:14px 22px;border:3.5px double var(--accent);border-radius:6px;color:var(--accent);text-transform:uppercase;text-align:center;transform:rotate(-10deg);opacity:0;user-select:none;pointer-events:none}
-  .dossier-stamp.in-view{animation:stampSlam .6s cubic-bezier(0.175,0.885,0.32,1.275) forwards}
-  @keyframes stampSlam{0%{opacity:0;transform:scale(2.2) rotate(-24deg) translateY(-24px)}60%{opacity:1;transform:scale(0.96) rotate(-9deg) translateY(0)}80%{transform:scale(1.02) rotate(-10.5deg)}100%{opacity:.92;transform:scale(1) rotate(-10deg)}}
-  @media (prefers-reduced-motion:reduce){.dossier-stamp{animation:none !important;opacity:.92 !important;transform:rotate(-10deg) !important}}
-  .stamp-inner{border:1.5px dashed var(--accent);padding:10px 16px;border-radius:3px}
-  .stamp-top{font:10.5px ui-monospace,Consolas,monospace;letter-spacing:.2em;font-weight:700;margin-bottom:4px;color:var(--accent2)}
-  .stamp-main{font:800 23px/1.15 Georgia,"Times New Roman",serif;letter-spacing:.08em;margin:3px 0 5px;color:var(--accent)}
-  .stamp-foot{font:10px ui-monospace,Consolas,monospace;letter-spacing:.16em;color:var(--muted);border-top:1px solid var(--rule);padding-top:5px;font-weight:700}
-  .slip{background:var(--paper2);border:1px solid var(--rule);border-top:2px solid var(--ink);padding:22px 24px;margin:4px 0 26px;max-width:560px}
-  .slip .slip-head{font:12px ui-monospace,Consolas,monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
-  .slip .slip-note{font-size:14px;color:var(--ink2);margin-bottom:16px}
-  .slip form{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end}
-  .slip .field{flex:1;min-width:220px}
-  .slip label{display:block;font:11px ui-monospace,Consolas,monospace;color:var(--accent);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
-  .slip input{width:100%;background:var(--paper);border:1.5px solid var(--ink);padding:12px 14px;font:14px ui-monospace,Consolas,monospace;color:var(--ink);outline:none}
-  .slip input:focus{border-color:var(--accent)}
-  .slip .btn{padding:12px 20px}
-  .slip .slip-status{font:13px ui-monospace,Consolas,monospace;margin-top:12px;min-height:1.2em}
-  .slip .slip-status.ok{color:#1E7A3C}
-  .slip .slip-status.err{color:var(--accent)}
-  .slip .slip-foot{margin-top:12px;font-size:12.5px;color:var(--muted);font-style:italic}
-  .footer-links{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;margin:18px 0 14px;font-size:15px;line-height:1.6}
-  .footer-links span{display:inline-flex;align-items:baseline;gap:4px}
-  .footer-links a{color:var(--accent)}
-  .footer-links a:hover{color:var(--accent2)}
-  .footer-links .sep{color:var(--muted)}
-  footer .sig{margin:26px 0 0;font-size:15px}
-
-  footer .end{margin-top:34px;border-top:1px solid var(--rule);padding-top:16px;font-size:13px;color:var(--muted)}
-  footer .end a{color:var(--ink2)}
-
-  /* visitor hit counter - manual colophon style; revealed once the tracker backend responds (see worker-visitor/) */
-  .visitor-badge{display:none;margin-top:16px;font:11px ui-monospace,Consolas,monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
-  .visitor-badge .vb-sep{color:var(--accent);margin:0 5px}
-  .visitor-badge .vb-count{color:var(--accent);font-weight:700}
-
-  /* ---------- screen animations (strictly excluded on print) ---------- */
-  @media screen and (prefers-reduced-motion: no-preference) {
-    @keyframes pageIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
-    @keyframes drawRule{from{transform:scaleX(0)}to{transform:scaleX(1)}}
-    .mast{animation:pageIn .5s ease both}
-    h1{animation:pageIn .6s ease .05s both}
-    .role{animation:pageIn .6s ease .12s both}
-    .pitch{animation:pageIn .6s ease .2s both}
-    .spec .row{animation:pageIn .45s ease both}
-    .spec .row:nth-child(1){animation-delay:.25s}
-    .spec .row:nth-child(2){animation-delay:.32s}
-    .spec .row:nth-child(3){animation-delay:.39s}
-    .spec .row:nth-child(4){animation-delay:.46s}
-    .spec .row:nth-child(5){animation-delay:.53s}
-    .spec .row:nth-child(6){animation-delay:.6s}
-    .spec .row:nth-child(7){animation-delay:.67s}
-    .spec .row:nth-child(8){animation-delay:.74s}
-    .spec .row:nth-child(9){animation-delay:.81s}
-    .spec .row:nth-child(10){animation-delay:.88s}
-    .spec .row:nth-child(11){animation-delay:.95s}
-    .sec-head .dash{transform-origin:left}
-    .js .sec-head .dash{transform:scaleX(0)}
-    .js .sec-head .dash.in-view{animation:drawRule .8s ease both}
-    .oc,.pc,.report{animation:pageIn .5s ease both}
-    .oc:nth-child(1),.pc:nth-child(1){animation-delay:.1s}
-    .oc:nth-child(2),.pc:nth-child(2){animation-delay:.18s}
-    .oc:nth-child(3),.pc:nth-child(3){animation-delay:.26s}
-    .oc:nth-child(4),.pc:nth-child(4){animation-delay:.34s}
-    .pc:nth-child(5){animation-delay:.42s}
-    .pc:nth-child(6){animation-delay:.5s}
-    .log .row{animation:pageIn .45s ease both}
-    .log .row:nth-child(1){animation-delay:.08s}
-    .log .row:nth-child(2){animation-delay:.16s}
-    .log .row:nth-child(3){animation-delay:.24s}
-    .log .row:nth-child(4){animation-delay:.32s}
-    .log .row:nth-child(5){animation-delay:.4s}
-    .log .row:nth-child(6){animation-delay:.48s}
-    .log .row:nth-child(7){animation-delay:.56s}
-    .log .row:nth-child(8){animation-delay:.64s}
-    .log .row:nth-child(9){animation-delay:.72s}
-    .log .row:nth-child(10){animation-delay:.8s}
-    .report:nth-child(3){animation-delay:.12s}
-    .report:nth-child(4){animation-delay:.2s}
-  }
-  @media (prefers-reduced-motion: reduce){
-    *,*::before,*::after{animation:none!important;transition:none!important}
-    html{scroll-behavior:auto}
-    .sec-head .dash{transform:none}
-    .ink path{stroke-dashoffset:0}
+  @media (prefers-color-scheme: light) {
+    :root {
+      --bg-page: #F8F9FB;
+      --bg-surface: rgba(255, 255, 255, 0.9);
+      --bg-surface-alt: rgba(243, 244, 246, 0.9);
+      --text-primary: #111827;
+      --text-secondary: #4B5563;
+      --text-muted: #6B7280;
+      --border-main: rgba(0, 0, 0, 0.08);
+      --border-hover: rgba(234, 88, 12, 0.4);
+      --accent: #EA580C;
+      --accent-hover: #C2410C;
+      --accent-pine: #059669;
+      --accent-blue: #2563EB;
+      --card-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.06);
+      --card-shadow-hover: 0 16px 32px -6px rgba(0, 0, 0, 0.12);
+    }
   }
 
-  /* tactile: cards lift like paper (only on devices with hover) */
-  .oc,.pc,.report{transition:transform .22s ease,box-shadow .22s ease}
-  @media (hover:hover){
-    .oc:hover,.pc:hover,.report:hover{transform:translateY(-3px) rotate(-.4deg);box-shadow:0 12px 26px -14px rgba(58,48,28,.5)}
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  html, body { overflow-x: hidden; }
+  body {
+    background-color: var(--bg-page);
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    line-height: 1.7;
+    font-size: 15px;
+    -webkit-font-smoothing: antialiased;
+    background-image:
+      radial-gradient(ellipse 70% 40% at 50% -10%, rgba(96, 165, 250, 0.08), transparent 70%),
+      radial-gradient(ellipse 50% 30% at 100% 25%, rgba(251, 146, 60, 0.05), transparent 60%),
+      radial-gradient(var(--border-main) 1px, transparent 1px);
+    background-size: 100% 100%, 100% 100%, 28px 28px;
+    background-attachment: fixed;
   }
 
-  /* ---------- 100% ATS & RECRUITER-OPTIMIZED 2-PAGE EXECUTIVE RESUME ---------- */
-  @page {
-    size: A4 portrait;
-    margin: 10mm 12mm;
-    /* Suppress browser default headers & footers (URL, title, date, page numbers) */
-    @top-left { content: none !important; }
-    @top-center { content: none !important; }
-    @top-right { content: none !important; }
-    @bottom-left { content: none !important; }
-    @bottom-center { content: none !important; }
-    @bottom-right { content: none !important; }
+  .read-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    background: var(--accent);
+    width: 0%;
+    z-index: 1000;
+  }
+  .skip-link {
+    position: absolute;
+    left: -9999px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+  .skip-link:focus {
+    position: fixed;
+    left: 16px;
+    top: 16px;
+    z-index: 1100;
+    background: var(--text-primary);
+    color: var(--bg-page);
+    padding: 10px 16px;
+    font-family: var(--font-mono);
   }
 
-@media print {
-    @page {
-      size: A4 portrait;
-      margin: 10mm 12mm 10mm 12mm;
-    }
-    *, *::before, *::after {
-      animation: none !important;
-      transition: none !important;
-      -webkit-print-color-adjust: exact !important;
-      print-color-adjust: exact !important;
-      box-shadow: none !important;
-      text-shadow: none !important;
-      position: static !important;
-      float: none !important;
-      clear: none !important;
-      transform: none !important;
-      opacity: 1 !important;
-      z-index: auto !important;
-    }
-    html, body {
-      background: #ffffff !important;
-      color: #111827 !important;
-      font-family: Arial, Helvetica, sans-serif !important;
-      margin: 0 !important;
-      padding: 0 !important;
-      overflow: visible !important;
-      height: auto !important;
-      font-size: 9pt !important;
-      line-height: 1.3 !important;
-      -webkit-font-smoothing: antialiased;
-    }
-    .sheet {
-      max-width: 100% !important;
-      margin: 0 !important;
-      padding: 0 !important;
-      border: none !important;
-      background: transparent !important;
-      box-shadow: none !important;
-      overflow: visible !important;
-      height: auto !important;
-    }
-    .sheet::after {
-      display: none !important;
-    }
+  .container {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    padding: 0 24px;
+  }
 
-    /* Suppress non-ATS elements: Web masthead, TOC, Contact Form/Slip, Web footers, Testimonials, decorative numbering, ink/scribble animations, all SVGs */
-    .read-progress, .mast, footer, #contact, .pg, .toc, #reports, .num, body > svg, svg, svg *, path, defs, filter, .skip-link, .cta, .btn, .visitor-badge, noscript, .ref, .ink, .mnote, .cta-note, .ink-sign, .underline, .pen-stroke, .stamp-wrapper, .dossier-stamp, .cbadge, .typing-cursor {
-      display: none !important;
-      visibility: hidden !important;
-      height: 0 !important;
-      width: 0 !important;
-      max-width: 0 !important;
-      max-height: 0 !important;
-      margin: 0 !important;
-      padding: 0 !important;
-      border: none !important;
-      opacity: 0 !important;
-      overflow: hidden !important;
-    }
+  /* Refined Navigation */
+  .header-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 0;
+    border-bottom: 1px solid var(--border-main);
+    margin-bottom: 56px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  .brand-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--text-primary);
+    text-decoration: none;
+    letter-spacing: -0.01em;
+  }
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent-pine);
+    display: inline-block;
+    position: relative;
+    box-shadow: 0 0 10px rgba(52, 211, 153, 0.6);
+  }
+  .status-dot::after {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: 50%;
+    border: 1px solid var(--accent-pine);
+    opacity: 0.6;
+    animation: radarPulse 2.5s infinite;
+  }
+  @keyframes radarPulse {
+    0% { transform: scale(1); opacity: 0.8; }
+    100% { transform: scale(2.3); opacity: 0; }
+  }
+  .nav-right-cluster {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .nav-links {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+  }
+  .nav-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+  .nav-links a:hover {
+    color: var(--accent);
+  }
+  .lang-btn {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-main);
+    color: var(--text-primary);
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    padding: 4px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  .lang-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
 
-    /* Suppress pseudo-element markers in print */
-    .blist li::before, .footer-links span::before {
-      display: none !important;
-      content: none !important;
-    }
+  /* Hero Section */
+  .hero-block {
+    margin-bottom: 48px;
+  }
+  .hero-greeting {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--accent);
+    margin-bottom: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .hero-title {
+    font-size: clamp(32px, 4.5vw, 46px);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+    margin-bottom: 18px;
+    color: var(--text-primary);
+  }
+  .hero-lead {
+    font-size: 17px;
+    line-height: 1.75;
+    color: var(--text-secondary);
+    margin-bottom: 26px;
+  }
+  .hero-status-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-bottom: 32px;
+  }
+  .creed-tagline {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--bg-surface-alt);
+    border: 1px solid var(--border-main);
+    padding: 8px 20px;
+    border-radius: 100px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--text-primary);
+    font-weight: 700;
+    margin-bottom: 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+  .creed-tagline span { color: var(--accent); }
+  .remote-badge-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(52, 211, 153, 0.1);
+    border: 1px solid rgba(52, 211, 153, 0.3);
+    padding: 7px 16px;
+    border-radius: 100px;
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    color: var(--accent-pine);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
 
-    /* Clean typography & link formatting (no lines or underlines) */
-    a {
-      color: #0f172a !important;
-      border-bottom: none !important;
-      text-decoration: none !important;
+  /* Refined Stats Bar (Horizontal Dividers) */
+  .stats-bar-strip {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    background: var(--bg-surface);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--border-main);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: var(--card-shadow);
+  }
+  @media (max-width: 680px) {
+    .stats-bar-strip {
+      grid-template-columns: repeat(2, 1fr);
     }
+  }
+  .stat-unit {
+    padding: 20px 22px;
+    border-right: 1px solid var(--border-main);
+    transition: background 0.2s ease;
+  }
+  .stat-unit:hover {
+    background: var(--bg-surface-alt);
+  }
+  .stat-unit:last-child {
+    border-right: none;
+  }
+  @media (max-width: 680px) {
+    .stat-unit:nth-child(2) { border-right: none; }
+    .stat-unit:nth-child(3) { border-top: 1px solid var(--border-main); }
+    .stat-unit:nth-child(4) { border-top: 1px solid var(--border-main); }
+  }
+  .stat-num {
+    font-family: var(--font-mono);
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+  }
+  .stat-label {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 4px;
+    line-height: 1.4;
+  }
 
-    /* Section structure */
-    section {
-      margin: 0 !important;
-      padding: 0 !important;
-      border-top: none !important;
-      display: block !important;
-    }
+  /* Section Styles */
+  .section-divider {
+    border: none;
+    border-top: 1px solid var(--border-main);
+    margin: 64px 0;
+  }
+  .sec-header-wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 32px;
+  }
+  .sec-heading {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+  }
+  .sec-sublabel {
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    color: var(--text-muted);
+  }
 
-    /* ATS-Standard Section Headers */
-    .sec-head {
-      break-after: avoid !important;
-      page-break-after: avoid !important;
-      display: block !important;
-      margin: 8px 0 3px !important;
-      padding-bottom: 2px !important;
-      border-bottom: 1.5px solid #0f172a !important;
+  /* Featured Systems (Proportional 2x2 Grid) */
+  .project-showcase-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+  @media (max-width: 768px) {
+    .project-showcase-list {
+      grid-template-columns: 1fr;
+      gap: 20px;
     }
-    .sec-head h2 {
-      font-size: 10.5pt !important;
-      font-weight: 700 !important;
-      text-transform: uppercase !important;
-      letter-spacing: 0.04em !important;
-      color: #0f172a !important;
-      margin: 0 !important;
-      display: inline-block !important;
-    }
-    .sec-head .no, .sec-head .dash {
-      display: none !important;
-    }
-    .lede {
-      display: none !important;
-    }
+  }
+  .project-entry-card {
+    background: var(--bg-surface);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--border-main);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: var(--card-shadow);
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  .project-entry-card:hover {
+    border-color: var(--border-hover);
+    transform: translateY(-4px);
+    box-shadow: var(--card-shadow-hover);
+  }
+  .project-viewport {
+    background: var(--bg-surface-alt);
+    border-bottom: 1px solid var(--border-main);
+    position: relative;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+  }
+  .project-screenshot {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    object-position: top center;
+    transition: transform 0.4s ease;
+  }
+  .project-entry-card:hover .project-screenshot {
+    transform: scale(1.025);
+  }
+  .project-details {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+  .project-top-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .badge-field {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    font-weight: 700;
+    color: var(--accent-pine);
+    background: rgba(52, 211, 153, 0.1);
+    padding: 3px 8px;
+    border-radius: 4px;
+    border: 1px solid rgba(52, 211, 153, 0.25);
+  }
+  .badge-category {
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    color: var(--text-muted);
+  }
+  .project-headline {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 4px;
+    color: var(--text-primary);
+  }
+  .project-subtitle {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--accent);
+    margin-bottom: 12px;
+    line-height: 1.4;
+  }
+  .project-story {
+    font-size: 13.5px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 16px;
+    flex-grow: 1;
+  }
+  .arch-pipeline-box {
+    background: var(--bg-surface-alt);
+    border: 1px solid var(--border-main);
+    border-left: 3px solid var(--accent);
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    line-height: 1.5;
+    color: var(--text-primary);
+    margin-bottom: 18px;
+  }
+  .tech-pills-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 20px;
+    margin-top: auto;
+  }
+  .tech-tag-pill {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    padding: 3px 8px;
+    background: var(--bg-surface-alt);
+    border: 1px solid var(--border-main);
+    border-radius: 4px;
+    color: var(--text-secondary);
+  }
+  .project-links-row {
+    display: flex;
+    gap: 12px;
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+  }
+  .btn-link-solid {
+    background: var(--text-primary);
+    color: var(--bg-page);
+    padding: 8px 16px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.15s ease;
+  }
+  .btn-link-solid:hover {
+    background: var(--accent);
+    color: #FFF;
+  }
+  .btn-link-ghost {
+    background: transparent;
+    color: var(--text-primary);
+    border: 1px solid var(--border-main);
+    padding: 8px 16px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.15s ease;
+  }
+  .btn-link-ghost:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
 
-    /* Page 1: Header / Candidate Scan Zone */
-    header {
-      break-before: auto !important;
-      page-break-before: auto !important;
-      break-inside: avoid !important;
-      page-break-inside: avoid !important;
-      padding: 0 0 4px !important;
-      margin: 0 0 6px !important;
-      border-bottom: 2px solid #0f172a !important;
-      display: block !important;
+  /* Split Core Section (Capabilities × Stack) */
+  .split-core-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  @media (max-width: 768px) {
+    .split-core-grid {
+      grid-template-columns: 1fr;
     }
-    h1 {
-      font-size: 16pt !important;
-      font-weight: 800 !important;
-      color: #0f172a !important;
-      margin: 0 0 1px !important;
-      letter-spacing: -0.01em !important;
-      line-height: 1.1 !important;
-      text-transform: uppercase !important;
-    }
-    h1 .thin {
-      color: #0f172a !important;
-    }
-    .role {
-      font-size: 10pt !important;
-      font-weight: 700 !important;
-      color: #0f172a !important;
-      margin-bottom: 3px !important;
-      letter-spacing: 0.01em !important;
-    }
-    .summary-head {
-      display: block !important;
-      font-size: 8pt !important;
-      font-weight: 700 !important;
-      color: #0f172a !important;
-      text-transform: uppercase !important;
-      letter-spacing: 0.04em !important;
-      margin: 3px 0 1px !important;
-      border-bottom: 1px solid #0f172a !important;
-      padding-bottom: 0.5px !important;
-    }
-    .pitch {
-      font-size: 8.5pt !important;
-      color: #1e293b !important;
-      margin-bottom: 3px !important;
-      line-height: 1.28 !important;
-    }
+  }
 
-    /* ATS Contact Information (Structured 2-Line Executive Header) */
-    .spec {
-      display: block !important;
-      margin: 3px 0 0 !important;
-      padding: 2px 0 0 !important;
-      border-top: 1px dotted #cbd5e1 !important;
-      background: transparent !important;
-      border-radius: 0 !important;
-      border-left: none !important;
-      border-right: none !important;
-      border-bottom: none !important;
-      line-height: 1.35 !important;
-    }
-    .spec .row {
-      display: none !important;
-    }
-    .spec .row.contact-line1 {
-      display: block !important;
-      font-size: 8.5pt !important;
-      color: #334155 !important;
-      padding: 0 !important;
-      margin-bottom: 1.5px !important;
-      border-bottom: none !important;
-    }
-    .spec .row.contact-line2 {
-      display: inline !important;
-      padding: 0 !important;
-      font-size: 8.5pt !important;
-      border-bottom: none !important;
-    }
-    .spec .row.contact-line2::after {
-      content: " | " !important;
-      color: #94a3b8 !important;
-      font-weight: 700 !important;
-      margin: 0 3px !important;
-    }
-    .spec .row.contact-line2:last-of-type::after {
-      content: "" !important;
-    }
-    .spec .k {
-      display: none !important;
-    }
-    .spec .v {
-      display: inline !important;
-      color: #0f172a !important;
-      font-size: 8.5pt !important;
-    }
+  .core-card-block {
+    background: var(--bg-surface);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--border-main);
+    padding: 26px;
+    border-radius: 10px;
+    box-shadow: var(--card-shadow);
+  }
+  .core-card-title {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .capability-item {
+    margin-bottom: 16px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border-main);
+  }
+  .capability-item:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+  .cap-head {
+    font-weight: 700;
+    font-size: 14.5px;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+  }
+  .cap-desc {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
 
-    /* Page 1: Single-Column Technical Skills */
-    #offer, #projects {
-      break-before: auto !important;
-      page-break-before: auto !important;
-      break-inside: avoid !important;
-      page-break-inside: avoid !important;
-      display: block !important;
-    }
-    .offer, .proj {
-      display: block !important;
-      margin-top: 2px !important;
-    }
-    .oc, .pc {
-      display: block !important;
-      padding: 0 !important;
-      margin-bottom: 4px !important;
-      background: transparent !important;
-      border: none !important;
-      border-radius: 0 !important;
-      break-inside: avoid !important;
-      page-break-inside: avoid !important;
-    }
-    .oc h3, .pc h3 {
-      font-size: 8.8pt !important;
-      font-weight: 700 !important;
-      color: #0f172a !important;
-      margin: 0 0 1px !important;
-      display: inline !important;
-    }
-    .oc .blist, .pc .blist {
-      margin: 1px 0 0 !important;
-      padding-left: 12px !important;
-      list-style: disc !important;
-    }
-    .oc .blist li, .pc .blist li {
-      font-size: 8pt !important;
-      color: #334155 !important;
-      line-height: 1.22 !important;
-      margin-bottom: 0 !important;
-    }
-    .pc .tag {
-      font-size: 7.5pt !important;
-      font-weight: 700 !important;
-      color: #0f172a !important;
-      text-transform: uppercase !important;
-      margin-bottom: 1px !important;
-      display: block !important;
-    }
-    .pc .status {
-      font-size: 7.5pt !important;
-      color: #0f172a !important;
-      display: inline !important;
-      margin-right: 4px !important;
-      border: none !important;
-      border-top: none !important;
-      padding: 0 !important;
-      margin-top: 0 !important;
-    }
-    .pc .url {
-      font-size: 7.5pt !important;
-      color: #0f172a !important;
-      display: inline !important;
-      border: none !important;
-      border-bottom: none !important;
-      text-decoration: none !important;
-    }
+  .toolbox-list {
+    list-style: none;
+    font-size: 13.5px;
+    color: var(--text-secondary);
+    line-height: 1.9;
+  }
+  .toolbox-list li strong {
+    color: var(--text-primary);
+  }
 
-    /* Page 2: Professional Experience (10 Roles Chronological Stream) */
-    #log {
-      break-before: page !important;
-      page-break-before: always !important;
-      display: block !important;
+  /* Interactive Animated Testimonials Carousel */
+  .testimonial-carousel-wrap {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+  }
+  .testimonial-progress-track {
+    width: 100%;
+    height: 3px;
+    background: var(--border-main);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+  .testimonial-progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--accent), var(--accent-pine));
+    transition: width 0.1s linear;
+  }
+  .testimonial-slider-viewport {
+    overflow: hidden;
+    position: relative;
+    border-radius: 10px;
+  }
+  .testimonial-slider-track {
+    display: flex;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform;
+  }
+  .testimonial-slide-item {
+    width: 100%;
+    flex-shrink: 0;
+    padding: 0 2px;
+  }
+  .testimonial-card-hero {
+    background: var(--bg-surface);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--border-main);
+    padding: 32px 36px;
+    border-radius: 10px;
+    box-shadow: var(--card-shadow);
+    position: relative;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  }
+  @media (max-width: 600px) {
+    .testimonial-card-hero {
+      padding: 24px 20px;
     }
-    .log {
-      display: block !important;
-      margin-top: 2px !important;
-    }
-    .log .row {
-      display: block !important;
-      padding: 1.5px 0 !important;
-      border-bottom: 1px solid #f1f5f9 !important;
-      break-inside: avoid !important;
-      page-break-inside: avoid !important;
-    }
-    .log .y {
-      display: inline-block !important;
-      font-size: 7.8pt !important;
-      font-weight: 700 !important;
-      color: #475569 !important;
-      letter-spacing: 0.02em !important;
-      margin-right: 4px !important;
-    }
-    .log .y::after {
-      content: " - " !important;
-      color: #94a3b8 !important;
-    }
-    .log .r {
-      display: inline !important;
-    }
-    .log .r > b {
-      font-size: 8.5pt !important;
-      font-weight: 700 !important;
-      color: #0f172a !important;
-      display: inline !important;
-    }
-    .log .r .blist {
-      display: block !important;
-      margin: 1px 0 0 !important;
-      padding-left: 12px !important;
-      list-style: disc !important;
-    }
-    .log .r .blist li {
-      font-size: 7.8pt !important;
-      color: #334155 !important;
-      line-height: 1.2 !important;
-      margin: 0 !important;
-    }
+  }
+  .testimonial-card-hero:hover {
+    border-color: var(--border-hover);
+    box-shadow: var(--card-shadow-hover);
+  }
+  .testimonial-card-hero::before {
+    content: '“';
+    position: absolute;
+    top: 16px;
+    right: 28px;
+    font-size: 80px;
+    line-height: 1;
+    font-family: Georgia, serif;
+    color: var(--accent);
+    opacity: 0.12;
+    pointer-events: none;
+  }
+  .testimonial-badge {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--accent);
+    background: rgba(251, 146, 60, 0.1);
+    padding: 3px 10px;
+    border-radius: 4px;
+    display: inline-block;
+    margin-bottom: 18px;
+    border: 1px solid rgba(251, 146, 60, 0.25);
+  }
+  .testimonial-quote {
+    font-size: 15.5px;
+    font-style: italic;
+    color: var(--text-primary);
+    line-height: 1.75;
+    margin-bottom: 24px;
+    position: relative;
+    z-index: 1;
+  }
+  .testimonial-author-meta {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .testimonial-avatar-badge {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: var(--bg-surface-alt);
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .testimonial-author-name {
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--text-primary);
+  }
+  .testimonial-author-role {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+    margin-top: 2px;
+    line-height: 1.4;
+  }
+  .testimonial-nav-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .testimonial-dots {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  .testimonial-dots button {
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .testimonial-dots button .dot-inner {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--border-main);
+    transition: all 0.25s ease;
+  }
+  .testimonial-dots button.active .dot-inner {
+    width: 24px;
+    border-radius: 4px;
+    background: var(--accent);
+    box-shadow: 0 0 8px rgba(251, 146, 60, 0.5);
+  }
+  .testimonial-btn-group {
+    display: flex;
+    gap: 10px;
+  }
+  .testimonial-ctrl-btn {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-main);
+    color: var(--text-primary);
+    width: 38px;
+    height: 38px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 15px;
+    transition: all 0.15s ease;
+  }
+  .testimonial-ctrl-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-1px);
+  }
 
-    /* Page 2: Education, Languages & Certifications */
-    #certs {
-      break-before: auto !important;
-      page-break-before: auto !important;
-      break-inside: avoid !important;
-      page-break-inside: avoid !important;
-      display: block !important;
-      margin-top: 2px !important;
-    }
-    .edu-wrap, .lang-wrap {
-      margin-bottom: 2px !important;
-      padding-bottom: 0 !important;
-      display: block !important;
-    }
-    .edu-item, .lang-item {
-      font-size: 8pt !important;
-      color: #334155 !important;
-      padding: 0.5px 0 !important;
-      border: none !important;
-    }
-    .edu-item b, .lang-item b {
-      color: #0f172a !important;
-    }
-    .cert-list {
-      display: block !important;
-      width: 100% !important;
-      margin-top: 1px !important;
-    }
-    .cert-cat {
-      display: block !important;
-      font-weight: 700 !important;
-      font-size: 7.8pt !important;
-      color: #0f172a !important;
-      background: transparent !important;
-      border: none !important;
-      border-bottom: 1px solid #0f172a !important;
-      text-transform: uppercase !important;
-      letter-spacing: 0.04em !important;
-      margin: 3px 0 1px !important;
-      padding: 1px 0 !important;
-    }
-    .cert-row {
-      display: block !important;
-      padding: 1px 0 !important;
-      border-bottom: 1px solid #f1f5f9 !important;
-      font-size: 7.8pt !important;
-      break-inside: avoid !important;
-      page-break-inside: avoid !important;
-    }
-    .cert-row .c-title {
-      font-weight: 600 !important;
-      color: #0f172a !important;
-      display: inline !important;
-    }
-    .cert-row .c-dash {
-      color: #94a3b8 !important;
-      display: inline !important;
-      margin: 0 2px !important;
-    }
-    .cert-row .c-iss {
-      color: #475569 !important;
-      display: inline !important;
-    }
-    .cert-row .c-yr {
-      font-weight: 600 !important;
-      color: #64748b !important;
-      display: inline !important;
-    }
+  /* Timeline Stream */
+  .timeline-stream-retro {
+    border-left: 2px solid var(--border-main);
+    padding-left: 24px;
+    margin-left: 8px;
+  }
+  .timeline-node {
+    position: relative;
+    margin-bottom: 32px;
+  }
+  .timeline-node::before {
+    content: '';
+    position: absolute;
+    left: -31px;
+    top: 6px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--bg-page);
+    border: 2px solid var(--accent);
+  }
+  .timeline-period-badge {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .timeline-role {
+    font-size: 15.5px;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+  .timeline-company {
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+  .timeline-notes {
+    font-size: 13.5px;
+    color: var(--text-secondary);
+    margin-top: 5px;
+    line-height: 1.6;
+  }
+
+  /* Contact & Form */
+  .contact-box-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+    gap: 24px;
+    margin-top: 24px;
+  }
+  .slip {
+    background: var(--bg-surface);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--border-main);
+    padding: 26px;
+    border-radius: 10px;
+    box-shadow: var(--card-shadow);
+  }
+  .slip-head {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    letter-spacing: 0.04em;
+  }
+  .slip-note {
+    font-size: 13.5px;
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+  }
+  .form-group { margin-bottom: 16px; }
+  .form-label {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-secondary);
+    margin-bottom: 6px;
+  }
+  .form-control {
+    width: 100%;
+    padding: 11px 15px;
+    background: var(--bg-surface-alt);
+    border: 1px solid var(--border-main);
+    border-radius: 6px;
+    color: var(--text-primary);
+    font-size: 13.5px;
+    transition: all 0.15s ease;
+  }
+  .form-control:focus {
+    border-color: var(--accent);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(251, 146, 60, 0.15);
+  }
+  .slip-status {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    margin-top: 14px;
+    min-height: 1.2em;
+  }
+  .slip-status.ok { color: var(--accent-pine); font-weight: 600; }
+  .slip-status.err { color: var(--accent); font-weight: 600; }
+  .direct-channels-list {
+    list-style: none;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    margin-top: 16px;
+    line-height: 2.2;
+  }
+  .direct-channels-list a {
+    color: var(--accent);
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+  .direct-channels-list a:hover {
+    color: var(--accent-hover);
+    text-decoration: underline;
+  }
+
+  /* Footer */
+  .footer-retro {
+    margin-top: 80px;
+    padding: 32px 0 60px;
+    border-top: 1px solid var(--border-main);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--text-muted);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .visitor-badge { display: none; }
+  .visitor-badge .vb-count { font-weight: 700; color: var(--accent); }
+
+  /* ATS 2-Page Print Parity */
+  @page { size: A4 portrait; margin: 10mm 12mm; }
+  @media print {
+    @page { size: A4 portrait; margin: 10mm 12mm 10mm 12mm; }
+    *, *::before, *::after { animation: none !important; transition: none !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; box-shadow: none !important; text-shadow: none !important; position: static !important; float: none !important; clear: none !important; transform: none !important; opacity: 1 !important; z-index: auto !important; }
+    html, body { background: #ffffff !important; color: #111827 !important; font-family: Arial, Helvetica, sans-serif !important; margin: 0 !important; padding: 0 !important; overflow: visible !important; height: auto !important; font-size: 9pt !important; line-height: 1.3 !important; -webkit-font-smoothing: antialiased; background-image: none !important; }
+    .read-progress, .header-nav, .footer-retro, .hero-actions, .project-viewport, .btn-link-solid, .btn-link-ghost, .visitor-badge, noscript, .skip-link, .stats-bar-strip, .lang-btn { display: none !important; visibility: hidden !important; height: 0 !important; width: 0 !important; margin: 0 !important; padding: 0 !important; }
+    .container { max-width: 100% !important; padding: 0 !important; margin: 0 !important; }
+    .section-divider { display: none !important; }
+    a { color: #0f172a !important; text-decoration: none !important; }
+    .hero-title { font-size: 16pt !important; font-weight: 800 !important; color: #0f172a !important; text-transform: uppercase !important; margin-bottom: 2px !important; }
+    .creed-tagline { font-size: 9pt !important; font-weight: 700 !important; border: none !important; padding: 0 !important; margin-bottom: 4px !important; }
+    .hero-lead { font-size: 8pt !important; color: #334155 !important; line-height: 1.3 !important; margin-bottom: 6px !important; }
+    .sec-sublabel { display: none !important; }
+    .sec-heading { font-size: 10pt !important; font-weight: 700 !important; text-transform: uppercase !important; border-bottom: 1.5px solid #0f172a !important; padding-bottom: 2px !important; margin-top: 8px !important; margin-bottom: 4px !important; }
+    .project-showcase-list { display: block !important; }
+    .project-entry-card { background: transparent !important; border: none !important; border-bottom: 1px solid #e2e8f0 !important; padding: 3px 0 !important; break-inside: avoid !important; page-break-inside: avoid !important; box-shadow: none !important; transform: none !important; }
+    .project-headline { font-size: 8.5pt !important; font-weight: 700 !important; }
+    .project-story { font-size: 7.8pt !important; line-height: 1.2 !important; margin-bottom: 2px !important; }
+    .arch-pipeline-box { display: none !important; }
+    #chronology { break-before: page !important; page-break-before: always !important; display: block !important; }
+    .timeline-stream-retro { border: none !important; padding: 0 !important; margin: 0 !important; }
+    .timeline-node { margin-bottom: 4px !important; break-inside: avoid !important; page-break-inside: avoid !important; }
+    .timeline-node::before { display: none !important; }
+    .timeline-period-badge { display: inline-block !important; font-size: 7.8pt !important; font-weight: 700 !important; color: #475569 !important; margin-right: 4px !important; }
+    .timeline-period-badge::after { content: " - " !important; }
+    .timeline-role { display: inline !important; font-size: 8.5pt !important; font-weight: 700 !important; color: #0f172a !important; }
+    .timeline-notes { margin-top: 1px !important; font-size: 7.8pt !important; line-height: 1.2 !important; }
+    .split-core-grid { display: block !important; }
+    .core-card-block { background: transparent !important; border: none !important; padding: 2px 0 !important; font-size: 7.8pt !important; }
   }
 </style>
 </head>
 <body>
 <div id="read-progress" class="read-progress" aria-hidden="true"></div>
-<!-- Ink-bleed filter (feGaussianBlur under the original stroke) - used by .ink path & underline squiggles -->
-<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><filter id="inkBleed" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="2.2" result="bleed"/><feMerge><feMergeNode in="bleed"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs></svg>
 <a class="skip-link" href="#content">Skip to content</a>
-<div class="sheet">
 
-<div class="mast" id="top"><div class="wrap">
-  <span>Portofolio</span>
-</div></div>
-
-<header id="content"><div class="wrap">
-  <h1>Sigit Adi Irianto</h1>
-  <div class="role">IT Infrastructure, SecOps, and Applied AI Engineer</div>
-  <div class="summary-head">PROFESSIONAL SUMMARY</div>
-  <p class="pitch">
-    24+ years in IT infrastructure, systems, operations, and technology delivery, with recent specialization in Applied AI engineering and Security Operations. Hands-on experience spans LLM evaluation, AI workflow automation, Wazuh-based SOC monitoring, incident response, and security automation.
-  </p>
-  <div class="spec">
-    <div class="row contact-line1"><div class="k">LOCATION</div><div class="v">Banten, Indonesia (UTC+7) | <span class="animated-underline">Open to Worldwide Remote Work<svg class="pen-stroke" viewBox="0 0 180 12" preserveAspectRatio="none" aria-hidden="true"><path d="M2 8 Q 45 2, 90 8 T 178 6" pathLength="100"/></svg></span></div></div>
-    <div class="row contact-line2"><div class="k">EMAIL</div><div class="v"><a href="mailto:si.sigitadi@gmail.com">si.sigitadi@gmail.com</a></div></div>
-    <div class="row contact-line2"><div class="k">LINKEDIN</div><div class="v"><a href="https://www.linkedin.com/in/sigitadi/" target="_blank" rel="noopener noreferrer">linkedin.com/in/sigitadi</a></div></div>
-    <div class="row contact-line2"><div class="k">GITHUB</div><div class="v"><a href="https://github.com/sisigitadi" target="_blank" rel="noopener noreferrer">github.com/sisigitadi</a></div></div>
-    <div class="row contact-line2 cv-only"><div class="k">PORTFOLIO</div><div class="v"><a href="https://sisigitadi.github.io/portofolio" target="_blank" rel="noopener noreferrer">sisigitadi.github.io/portofolio</a></div></div>
-    <div class="row spec-meta"><div class="k">FIELD EXPERIENCE</div><div class="v">Feb 2002 - Present <span class="animated-underline">(24+ Yrs)<svg class="pen-stroke" viewBox="0 0 70 12" preserveAspectRatio="none" aria-hidden="true"><path d="M2 8 Q 20 2, 40 8 T 68 6" pathLength="100"/></svg></span> | IT Infrastructure &amp; Systems → SecOps &amp; Applied AI</div></div>
-    <div class="row spec-meta"><div class="k">TRACK RECORD</div><div class="v">45% simulated triage reduction | 1,000+ prompt evaluations | 99%+ uptime across 50+ endpoints</div></div>
-    <div class="row spec-meta"><div class="k">AI STACK</div><div class="v">Gemini API | Ollama | Prompt Engineering &amp; Evaluation | n8n AI Workflows <svg class="ink" viewBox="0 0 28 26" aria-hidden="true"><path d="M3 15 Q6 19 9 21 Q12 23 15 19 L25 3" pathLength="120"/></svg></div></div>
-    <div class="row spec-meta"><div class="k">SECOPS STACK</div><div class="v">Wazuh (SIEM) | FortiWeb (WAF) | Threat Hunting | Incident Triage <svg class="ink" viewBox="0 0 28 26" aria-hidden="true"><path d="M3 15 Q6 19 9 21 Q12 23 15 19 L25 3" pathLength="120"/></svg></div></div>
-    <div class="row spec-meta"><div class="k">PROJECTS</div><div class="v">4 publicly deployed technical projects</div></div>
-  </div>
-
-  <div class="toc">
-    <div class="th">Table of Contents</div>
-    <div class="trow"><span class="no">1.</span><a href="#offer">Skills</a><span class="dots"></span><span class="pg">p. 1</span></div>
-    <div class="trow"><span class="no">2.</span><a href="#projects">Projects</a><span class="dots"></span><span class="pg">p. 1</span></div>
-    <div class="trow"><span class="no">3.</span><a href="#log">Experiences</a><span class="dots"></span><span class="pg">p. 2</span></div>
-    <div class="trow"><span class="no">4.</span><a href="#reports">Recommendations</a><span class="dots"></span><span class="pg">p. 2</span></div>
-    <div class="trow"><span class="no">5.</span><a href="#education">Education</a><span class="dots"></span><span class="pg">p. 2</span></div>
-    <div class="trow"><span class="no">6.</span><a href="#languages">Languages</a><span class="dots"></span><span class="pg">p. 2</span></div>
-    <div class="trow"><span class="no">7.</span><a href="#certs">Certifications</a><span class="dots"></span><span class="pg">p. 2</span></div>
-    <div class="trow"><span class="no">8.</span><a href="#contact">Contact</a><span class="dots"></span><span class="pg">p. 2</span></div>
-  </div>
-
-  <div class="cta">
-    <div class="cta-note"><span>verified resume | request pdf</span><svg class="ink paraf" viewBox="0 0 28 24" aria-hidden="true"><path d="M3 11 C5 5 7 19 10 10 C12 4 14 16 17 9 C19 4 21 13 24 8" pathLength="120"/></svg></div>
-    <a class="btn solid" href="#resume-request">Request Resume (PDF)</a>
-  </div>
-</div></header>
-
-<main>
-<section id="offer" aria-labelledby="offer-h"><div class="wrap">
-  <div class="sec-head"><span class="no">1.</span><h2 id="offer-h">Skills</h2><div class="dash"></div></div>
-  <p class="lede">Core technical capabilities across Applied AI, Security Operations, Enterprise Infrastructure, and Automation.</p>
-  <div class="offer">
-    <div class="oc"><span class="num">1.01</span><h3>Applied AI &amp; LLM</h3><ul class="blist"><li><b>Core Skills:</b> LLM Application Development | Prompt Engineering | LLM Evaluation | Prompt Stability Testing | Gemini API | LangChain | Ollama | Local LLM Inference | n8n AI Automation | Client-Side NLP.</li><li><b>Capabilities:</b> Evaluated 1,000+ prompt-response pairs for factuality and safety; deployed 2 live AI web apps testing model prompt stability and privacy-first workflows.</li></ul></div>
-    <div class="oc"><span class="num">1.02</span><h3>SecOps &amp; Cybersecurity</h3><ul class="blist"><li><b>Core Skills:</b> Tier-1 SOC Monitoring | SIEM | Threat Hunting | Incident Triage | Security Automation | Wazuh SIEM | FortiWeb WAF | SOP Incident Playbooks | Vulnerability Assessment | Server Hardening.</li><li><b>Capabilities:</b> Triaged 500+ daily security alerts across Wazuh SIEM and FortiWeb WAF; reduced simulated incident triage time by 45% using standardized SOP playbooks.</li></ul></div>
-    <div class="oc"><span class="num">1.03</span><h3>IT Infrastructure &amp; Systems</h3><ul class="blist"><li><b>Core Skills:</b> Linux Server | Windows Server | Docker | WSL | Systems Administration | Local Network (LAN/WAN) | Backup &amp; Recovery | Database SQL.</li><li><b>Capabilities:</b> Maintained 99%+ operational uptime across 50+ enterprise endpoints, managing daily Linux/Windows server administration, network routing, and routine backup schedules.</li></ul></div>
-    <div class="oc"><span class="num">1.04</span><h3>Automation &amp; Programming</h3><ul class="blist"><li><b>Core Skills:</b> Python | TypeScript | Next.js | Streamlit | n8n Workflows | REST APIs | Web Development | Git &amp; GitHub.</li><li><b>Capabilities:</b> Built and deployed 4 full-stack web applications and automated workflows, cutting recurring manual reporting time by up to 30% through REST API integrations.</li></ul></div>
-  </div>
-  <div class="mnote rot1"><span>relevant core capabilities</span><svg class="underline" viewBox="0 0 52 8" aria-hidden="true"><path d="M1 5 C10 1 20 6 30 3 C38 1 45 5 51 2" pathLength="120"/></svg></div>
-</div>
-</section>
-
-<section id="projects" aria-labelledby="projects-h"><div class="wrap">
-  <div class="sec-head"><span class="no">2.</span><h2 id="projects-h">Projects</h2><div class="dash"></div></div>
-  <p class="lede">Four publicly deployed technical projects.</p>
-  <div class="proj">
-    <div class="pc"><span class="num">2.01</span><span class="tag">SecOps | Dashboard</span><h3>SCOPS - Security Operations Automation Platform <svg class="ink" viewBox="0 0 28 26" aria-hidden="true"><path d="M3 15 Q6 19 9 21 Q12 23 15 19 L25 3" pathLength="120"/></svg></h3><ul class="blist"><li>SOC triage dashboard with High/Medium/Low risk classification logic and Wazuh telemetry integration - reduced simulated MTTR by 45% versus manual triage.</li><li>Turns raw telemetry into a queue an analyst can act on at a glance.</li></ul><span class="status"><b>Live Deployment</b></span><a class="url" href="https://sisigitadi.github.io/scops" target="_blank" rel="noopener noreferrer">sisigitadi.github.io/scops</a></div>
-    <div class="pc"><span class="num">2.02</span><span class="tag">SecOps | Streamlit</span><h3>A.R.Y.A. - SOC Analytics &amp; Threat Hunting</h3><ul class="blist"><li>SOC analytics &amp; threat-hunting dashboard in Python/Streamlit with custom data pipelines and REST ingestion that parses and visualizes JSON/XML/CSV log payloads for Tier-1 analysts.</li><li>Built so a Tier-1 analyst can read threat telemetry without a data-science background.</li></ul><span class="status"><b>Live Deployment</b></span><a class="url" href="https://arya-soc.streamlit.app" target="_blank" rel="noopener noreferrer">arya-soc.streamlit.app</a></div>
-    <div class="pc"><span class="num">2.03</span><span class="tag">AI | Web</span><h3>PromptMatrix - LLM Evaluation &amp; Prompt Stability Platform</h3><ul class="blist"><li>TypeScript, Next.js, LangChain and the Gemini API; tests prompt stability and output consistency across variants for instruction-following and strict JSON/schema format adherence.</li><li>Quantifies prompt variant stability, drift risks, and strict JSON/schema format adherence before deployment.</li></ul><span class="status"><b>Live Deployment</b></span><a class="url" href="https://sisigitadi.github.io/promptmatrix2" target="_blank" rel="noopener noreferrer">sisigitadi.github.io/promptmatrix2</a></div>
-    <div class="pc"><span class="num">2.04</span><span class="tag">AI | Privacy-first</span><h3>SmartExpenseML - Client-Side Expense Classifier <svg class="ink" viewBox="0 0 28 26" aria-hidden="true"><path d="M3 15 Q6 19 9 21 Q12 23 15 19 L25 3" pathLength="120"/></svg></h3><ul class="blist"><li>Privacy-first client-side text classification engine that categorizes expenses from informal Indonesian currency inputs ("25rb", "5.5jt").</li><li>No signup, no server, no tracking.</li></ul><span class="status"><b>Live Deployment</b></span><a class="url" href="https://sisigitadi.github.io/smartexpenseML" target="_blank" rel="noopener noreferrer">sisigitadi.github.io/smartexpenseML</a></div>
-  </div>
-  <div class="mnote rot2"><span>live public deployments</span><svg class="underline" viewBox="0 0 52 8" aria-hidden="true"><path d="M1 5 C8 2 17 6 27 3 C35 1 44 5 51 2" pathLength="120"/></svg></div>
-</div>
-<div class="wrap"><div class="pg"><span>Portofolio</span><a href="#top">↑ back to contents</a><span>p. 1 / 2</span></div></div>
-</section>
-
-<section id="log" aria-labelledby="log-h"><div class="wrap">
-  <div class="sec-head"><span class="no">3.</span><h2 id="log-h">Experiences</h2><div class="dash"></div></div>
-  <div class="log">
-    <div class="row"><span class="num">3.01</span><div class="y">Mar 2026 - Present</div><div class="r"><b>Web Administrator (Contract) - Ministry of Environment</b><ul class="blist"><li>Maintained 5+ containerized web services on Linux Server/WSL with Wazuh SIEM monitoring and server hardening.</li><li>Streamlined telemetry analysis cut weekly manual log review time by 30%.</li></ul></div></div>
-    <div class="row"><span class="num">3.02</span><div class="y">Oct 2025 - Dec 2025</div><div class="r"><b>Senior Programmer (Short-Term Contract) - Ministry of Home Affairs</b><ul class="blist"><li>Developed backend components and 10+ REST API endpoints for a digital governance system processing 5,000+ daily records with secure data validation.</li><li>Resolved critical data ingestion bottlenecks, maintaining 99.5% API reliability across high-volume transaction cycles.</li></ul></div></div>
-    <div class="row"><span class="num">3.03</span><div class="y">Jan 2025 - Sep 2025</div><div class="r"><b>SOC Analyst (Part-Time) - PT. Prospera Consulting Engineers</b><ul class="blist"><li>Developed 10+ Incident Response playbooks for Tier-1 analysts with structured threat containment and escalation pathways.</li><li>Conducted Wazuh-based security baseline reviews and continuous vulnerability monitoring.</li><li>Reduced MTTA (Mean Time to Acknowledge) by 55% across 500+ daily alerts after playbook rollout.</li></ul></div></div>
-    <div class="row"><span class="num">3.04</span><div class="y">Oct 2024 - Dec 2024</div><div class="r"><b>Incident Handling Operational (Short-Term Contract) - Ministry of Home Affairs</b><ul class="blist"><li>Shift operations and real-time threat monitoring with Wazuh SIEM and FortiWeb WAF - triaging 500+ security alerts a day.</li><li>Restructured escalation pathways to maintain an average incident response time under 15 minutes from alert detection to containment.</li></ul></div></div>
-    <div class="row"><span class="num">3.05</span><div class="y">Jun 2024 - Present</div><div class="r"><b>AI Trainer &amp; LLM Evaluator (Freelance) - Multiple AI evaluation platforms</b><ul class="blist"><li>Human-in-the-loop evaluation of model factuality, instruction-following, and safety; 1,000+ prompt-response pairs reviewed and scored against platform guidelines.</li><li>Tested prompt stability and formatting adherence across 5+ major LLM model families to mitigate drift and hallucination.</li></ul></div></div>
-    <div class="row"><span class="num">3.06</span><div class="y">May 2023 - Aug 2024</div><div class="r"><b>IT &amp; Operations Manager (Full-Time) - ACE Ltd.</b><ul class="blist"><li>Maintained 99%+ IT infrastructure uptime and network operations for a 50+ person engineering team.</li><li>Built automated database reporting scripts, cutting manual data entry time by 40% for weekly operations.</li></ul></div></div>
-    <div class="row"><span class="num">3.07</span><div class="y">Dec 2020 - Apr 2023</div><div class="r"><b>Project Office Manager (Contract) - Ministry of Public Works and Housing</b><ul class="blist"><li>Coordinated IT support, network connectivity, and field equipment across 4 concurrent infrastructure project sites, supporting 30+ field personnel.</li><li>Unified operational reporting across all 4 sites, reducing weekly data consolidation delays by 35%.</li></ul></div></div>
-    <div class="row"><span class="num">3.08</span><div class="y">Jun 2020 - Nov 2020</div><div class="r"><b>Assistant to Office Manager (Short-Term Contract) - Nippon Koei Co., Ltd.</b><ul class="blist"><li>Audited weekly budget variances and workflow tracking across 3 regional project teams with 100% on-time milestone reporting.</li><li>Eliminated administrative bottlenecks to ensure zero milestone delivery delays for the irrigation modernization project.</li></ul></div></div>
-    <div class="row"><span class="num">3.09</span><div class="y">Jun 2014 - Apr 2020</div><div class="r"><b>IT Manager (Full-Time) - PT. Dipta Safari Jaya</b><ul class="blist"><li>Managed on-premise server fleet (3 core servers) and 40+ workstations over a 6-year tenure, maintaining 99%+ network availability.</li><li>Implemented scheduled daily backup protocols, achieving 0 data-loss incidents throughout the entire 6-year operational period.</li></ul></div></div>
-    <div class="row"><span class="num">3.10</span><div class="y">2002 - 2014</div><div class="r"><b>IT Support Engineer &amp; Hardware Technician (Full-Time) - PT. Laju Karunia Jaya &amp; Arya Mobile</b><ul class="blist"><li>Managed technical support and infrastructure maintenance across 2 organizations over a 12-year foundation period, resolving 1,000+ hardware, OS, and network troubleshooting tickets.</li><li>Performed LAN cabling, PC assembly, server maintenance, hardware diagnostics, and end-user technical support.</li></ul></div></div>
-  </div>
-</div>
-</section>
-
-<section id="reports" aria-labelledby="reports-h"><div class="wrap">
-  <div class="sec-head"><span class="no">4.</span><h2 id="reports-h">Recommendations</h2><div class="dash"></div></div>
-  <p class="lede">Four professional recommendations from prior projects and leadership tenures.</p>
-  <div class="report"><span class="num">4.01</span>
-    <span class="tag">Recommendation</span>
-    <blockquote>"Sigit handled our Docker server environments and Wazuh monitoring setup with great care. He is very reliable, quick to respond when telemetry alerts come in, and keeps everything running smoothly."</blockquote>
-    <p class="who"><b>Project Team Leader - Jaelani</b> - <span class="proj">Ministry of Environment</span></p>
-  </div>
-  <div class="report"><span class="num">4.02</span>
-    <span class="tag">Consultation Reference</span>
-    <blockquote>"Sigit wrote practical Incident Response playbooks for our Tier-1 team and guided us through Wazuh-based pre-audit security reviews. He is organized, meticulous, and easy to work with."</blockquote>
-    <p class="who"><b>SOC Lead - Reza Ahmad</b> - <span class="proj">Prospera project | Tier-1 team</span></p>
-  </div>
-  <div class="report"><span class="num">4.03</span>
-    <span class="tag">Manager's Note</span>
-    <blockquote>"Sigit took care of our office IT infrastructure for over 50 employees without any issues. He streamlined our reporting workflows and kept our daily technology operations running without a hitch."</blockquote>
-    <p class="who"><b>HR Manager - Rahmat Hidayat</b> - <span class="proj">ACE Ltd</span></p>
-  </div>
-  <div class="report"><span class="num">4.04</span>
-    <span class="tag">General Manager</span>
-    <blockquote>"Sigit managed our company servers, local network, and hardware for 6 years. Whenever there was a network outage or hardware failure, Sigit was always there to fix it quickly."</blockquote>
-    <p class="who"><b>General Manager - Sudjari</b> - <span class="proj">Dipta Safari Jaya</span></p>
-  </div>
-  <div class="mnote rot1"><span>career timeline &amp; milestones</span><svg class="underline" viewBox="0 0 52 8" aria-hidden="true"><path d="M1 5 C10 1 20 6 30 3 C38 1 45 5 51 2" pathLength="120"/></svg></div>
-</div>
-</section>
-
-<section id="certs" aria-labelledby="certs-h"><div class="wrap">
-  <div class="edu-wrap" id="education">
-    <div class="sec-head"><span class="no">5.</span><h2 id="education-h">Education</h2><div class="dash"></div></div>
-    <div class="edu-item"><b>Bachelor of Computer Science (S.Kom.)</b> - Universitas Budi Luhur, Jakarta, Indonesia</div>
-  </div>
-
-  <div class="lang-wrap" id="languages" style="margin-top:14px">
-    <div class="sec-head"><span class="no">6.</span><h2 id="languages-h">Languages</h2><div class="dash"></div></div>
-    <div class="lang-item"><span class="lang-entry"><b>Indonesian:</b> Native</span><span class="lang-sep" aria-hidden="true"> &nbsp;|&nbsp; </span><span class="lang-entry"><b>English:</b> Professional Working Proficiency</span></div>
-  </div>
-
-  <div class="sec-head" style="margin-top:14px"><span class="no">7.</span><h2 id="certs-h">Certifications</h2><div class="dash"></div></div>
-  
-  <div class="cert-list">
-    <div class="cert-cat">AI &amp; Automation</div>
-    <div class="cert-row"><span class="c-title">Microsoft Azure AI Fundamentals (AI-900)</span> <span class="c-dash">-</span> <span class="c-iss">Microsoft</span> <span class="c-dash">-</span> <span class="c-yr">2025</span></div>
-    <div class="cert-row"><span class="c-title">LLM-Based Tools &amp; Gemini API Integration for Data Scientists</span> <span class="c-dash">-</span> <span class="c-iss">Hacktiv8</span> <span class="c-dash">-</span> <span class="c-yr">2025</span></div>
-    <div class="cert-row"><span class="c-title">Business Automation with n8n</span> <span class="c-dash">-</span> <span class="c-iss">Kodeka Labs</span> <span class="c-dash">-</span> <span class="c-yr">2025</span></div>
-
-    <div class="cert-cat">Cybersecurity, SecOps &amp; Infrastructure</div>
-    <div class="cert-row"><span class="c-title">Ubuntu Linux Professional Certification</span> <span class="c-dash">-</span> <span class="c-iss">Canonical</span> <span class="c-dash">-</span> <span class="c-yr">2025</span></div>
-    <div class="cert-row"><span class="c-title">Penetration Testing Professional</span> <span class="c-dash">-</span> <span class="c-iss">Cybrary</span> <span class="c-dash">-</span> <span class="c-yr">2025</span></div>
-    <div class="cert-row"><span class="c-title">Certified Ethical Hacker Foundation</span> <span class="c-dash">-</span> <span class="c-iss">LinkedIn Learning</span> <span class="c-dash">-</span> <span class="c-yr">2025</span></div>
-    <div class="cert-row"><span class="c-title">Indonesia Cross-Sectoral Cyber Exercise #9</span> <span class="c-dash">-</span> <span class="c-iss">BSSN</span> <span class="c-dash">-</span> <span class="c-yr">2024</span></div>
-    <div class="cert-row"><span class="c-title">Certified SOC Analyst</span> <span class="c-dash">-</span> <span class="c-iss">Cyber Academy Indonesia</span> <span class="c-dash">-</span> <span class="c-yr">2024</span></div>
-    <div class="cert-row"><span class="c-title">DevSecOps for Software Security &amp; IT Auditor</span> <span class="c-dash">-</span> <span class="c-iss">Kelas.work</span> <span class="c-dash">-</span> <span class="c-yr">2024</span></div>
-  </div>
-</div>
-<div class="wrap"><div class="pg"><span>Portofolio</span><a href="#top">↑ back to contents</a><span>p. 2 / 2</span></div></div>
-</section>
-
-</main>
-<footer id="contact" aria-labelledby="contact-h"><div class="wrap">
-  <div class="sec-head"><span class="no">8.</span><h2 id="contact-h">Contact</h2><div class="dash"></div></div>
-
-  <div class="contact-grid">
-    <div class="slip" id="resume-request">
-      <div class="slip-head">Get in Touch / Request Resume</div>
-      <p class="slip-note">Enter your email below to receive the complete resume (PDF).</p>
-      <form id="resume-request-form" action="https://formspree.io/f/mkgknrqk" method="POST" novalidate>
-        <div class="field">
-          <label for="slip-email">Email</label>
-          <input type="email" id="slip-email" name="email" placeholder="you@company.com" autocomplete="email" required />
-        </div>
-        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="display:none" aria-hidden="true" />
-        <input type="hidden" name="source" value="field-manual" />
-        <input type="hidden" name="request" value="resume-pdf" />
-        <button type="submit" id="slip-submit" class="btn solid">Request Resume by Email</button>
-      </form>
-      <p id="slip-status" class="slip-status" role="status" aria-live="polite"></p>
-      <p class="slip-foot">Your email is used only to send the resume - never shared, never added to any list.</p>
+<div class="container">
+  <!-- Masthead -->
+  <header class="header-nav">
+    <a href="#" class="brand-logo">
+      <span class="status-dot"></span>
+      <span>SIGIT ADI IRIANTO</span>
+    </a>
+    <div class="nav-right-cluster">
+      <ul class="nav-links">
+        <li><a href="#about" data-i18n="nav_about">About</a></li>
+        <li><a href="#systems" data-i18n="nav_systems">Systems</a></li>
+        <li><a href="#capabilities" data-i18n="nav_capabilities">Capabilities</a></li>
+        <li><a href="#chronology" data-i18n="nav_experience">Experience</a></li>
+        <li><a href="#testimonials" data-i18n="nav_testimonials">Reviews</a></li>
+        <li><a href="#credentials" data-i18n="nav_certs">Certs</a></li>
+        <li><a href="#contact" data-i18n="nav_contact">Contact</a></li>
+      </ul>
+      <button type="button" id="btn-lang-toggle" class="lang-btn" aria-label="Toggle language">ID</button>
     </div>
+  </header>
 
-    <div class="stamp-wrapper">
-      <div class="dossier-stamp" aria-label="Technical Portfolio &amp; Live Deployments">
-        <div class="stamp-inner">
-          <div class="stamp-top">★ &nbsp; TECHNICAL PORTFOLIO &nbsp; ★</div>
-          <div class="stamp-main">PUBLIC DEPLOYMENTS</div>
-          <div class="stamp-foot">OPEN TO WORLDWIDE REMOTE</div>
+  <!-- Main Content -->
+  <main id="content">
+    <!-- Human Hero -->
+    <section class="hero-block" id="about">
+      <div class="hero-greeting" data-i18n="hero_greeting">// HELLO, WORLD.</div>
+      <h1 class="hero-title" data-i18n="hero_title">Engineering reliable systems, defending networks, and exploring practical AI.</h1>
+      
+      <p class="hero-lead" data-i18n="hero_lead">
+        I am a systems and security operations practitioner based in Tangerang, Indonesia. Over the past 24+ years, I have lived through the evolution of enterprise IT — from crimping CAT5 cables, assembling hardware, and configuring Linux server fleets in 2002, to triaging 500+ daily SOC alerts in Wazuh SIEM and evaluating LLM prompt stability today.
+      </p>
+
+      <div class="hero-status-row">
+        <div class="creed-tagline">
+          <span>BUILD</span> · <span>CONNECT</span> · <span>AUTOMATE</span> · <span>SECURE</span>
+        </div>
+        <div class="remote-badge-pill">
+          <span class="status-dot"></span>
+          <span data-i18n="badge_remote">Available for Worldwide Remote Work</span>
         </div>
       </div>
-    </div>
-  </div>
 
-  <div class="end">
-    <!-- Owner shortcut target: click 9x (gaps ≤ 2s) → private visitor dashboard (see worker-visitor/README.md) -->
-    <p id="footer-copyright" style="margin-top:14px">&copy; 2026 Sigit Adi Irianto - All Rights Reserved.</p>
-    <!-- Visitor hit counter badge (server-backed, no cookies; hidden until the tracker backend responds) -->
+      <!-- Refined Stats Bar -->
+      <div class="stats-bar-strip">
+        <div class="stat-unit">
+          <div class="stat-num" data-i18n="stat_years_num">24+ Yrs</div>
+          <div class="stat-label" data-i18n="stat_years_label">In Enterprise IT &amp; Ops</div>
+        </div>
+        <div class="stat-unit">
+          <div class="stat-num" data-i18n="stat_alerts_num">500+</div>
+          <div class="stat-label" data-i18n="stat_alerts_label">Daily SOC Alerts Triaged</div>
+        </div>
+        <div class="stat-unit">
+          <div class="stat-num" data-i18n="stat_mttr_num">-45%</div>
+          <div class="stat-label" data-i18n="stat_mttr_label">Simulated MTTR Drop</div>
+        </div>
+        <div class="stat-unit">
+          <div class="stat-num" data-i18n="stat_evals_num">1,000+</div>
+          <div class="stat-label" data-i18n="stat_evals_label">LLM Evaluation Pairs</div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- Systems Case Studies (2x2 Grid) -->
+    <section id="systems">
+      <div class="sec-header-wrap">
+        <h2 class="sec-heading" data-i18n="sec_systems_title">Selected Systems &amp; Deployments</h2>
+        <span class="sec-sublabel" data-i18n="sec_systems_sub">[01 // CASE STUDIES]</span>
+      </div>
+
+      <div class="project-showcase-list">
+        <!-- SCOPS -->
+        <article class="project-entry-card">
+          <div class="project-viewport">
+            <img src="assets/scops-command.png" alt="SCOPS Platform Interface" class="project-screenshot" loading="lazy">
+          </div>
+          <div class="project-details">
+            <div class="project-top-meta">
+              <span class="badge-field" data-i18n="badge_live">LIVE PRODUCTION</span>
+              <span class="badge-category" data-i18n="cat_secops">Security Operations &amp; Automation</span>
+            </div>
+            <h3 class="project-headline">SCOPS — Security Operations Automation Platform</h3>
+            <div class="project-subtitle" data-i18n="scops_sub">Wazuh SIEM Automated Telemetry Ingestion &amp; Incident Triage Gateway</div>
+            <p class="project-story" data-i18n="scops_story">
+              In active SOC environments, analysts frequently suffer from alert fatigue when reviewing hundreds of raw logs daily. SCOPS acts as an automated triage gateway that connects to Wazuh SIEM managers via REST APIs, evaluates risk scores, and routes incidents into High/Medium/Low priority queues with automated NIST SP 800-61 response playbooks.
+            </p>
+            <div class="arch-pipeline-box">
+              <strong data-i18n="arch_label">Architecture Pipeline:</strong> Wazuh Telemetry Stream → REST API Ingest → Python Risk Engine → Priority Triage Queue → SOP Incident Playbook
+            </div>
+            <div class="tech-pills-row">
+              <span class="tech-tag-pill">Python</span>
+              <span class="tech-tag-pill">Streamlit</span>
+              <span class="tech-tag-pill">Wazuh SIEM API</span>
+              <span class="tech-tag-pill">NIST SP 800-61</span>
+              <span class="tech-tag-pill">Docker</span>
+            </div>
+            <div class="project-links-row">
+              <a href="https://sisigitadi.github.io/scops" target="_blank" rel="noopener noreferrer" class="btn-link-solid" data-i18n="btn_live_app">Open Live App ↗</a>
+              <a href="https://github.com/sisigitadi" target="_blank" rel="noopener noreferrer" class="btn-link-ghost" data-i18n="btn_source_code">Source Code ↗</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- PromptMatrix 2.0 -->
+        <article class="project-entry-card">
+          <div class="project-viewport">
+            <img src="assets/promptmatrix-2.png" alt="PromptMatrix 2.0 Platform" class="project-screenshot" loading="lazy">
+          </div>
+          <div class="project-details">
+            <div class="project-top-meta">
+              <span class="badge-field" data-i18n="badge_live">LIVE PRODUCTION</span>
+              <span class="badge-category" data-i18n="cat_ai">Applied AI / LLM Benchmarking</span>
+            </div>
+            <h3 class="project-headline">PromptMatrix 2.0 — LLM Prompt Stability Suite</h3>
+            <div class="project-subtitle" data-i18n="pm_sub">Client-Side Prompt Evaluation, Drift Testing &amp; Strict JSON Validation</div>
+            <p class="project-story" data-i18n="pm_story">
+              LLM applications often fail silently when subtle prompt variations cause schema violations or answer drift. PromptMatrix 2.0 systematically evaluates combinatorial prompt matrices across model variants, scoring outputs on schema adherence with zero server-side secret retention (BYOK).
+            </p>
+            <div class="arch-pipeline-box">
+              <strong data-i18n="arch_label">Architecture Pipeline:</strong> Prompt Matrix Input → Systematic Variant Generator → Multi-Model Execution (Gemini API) → JSON Schema Validator
+            </div>
+            <div class="tech-pills-row">
+              <span class="tech-tag-pill">TypeScript</span>
+              <span class="tech-tag-pill">Next.js</span>
+              <span class="tech-tag-pill">LangChain</span>
+              <span class="tech-tag-pill">Gemini API</span>
+              <span class="tech-tag-pill">JSON Schema</span>
+            </div>
+            <div class="project-links-row">
+              <a href="https://sisigitadi.github.io/promptmatrix2" target="_blank" rel="noopener noreferrer" class="btn-link-solid" data-i18n="btn_live_app">Open Live App ↗</a>
+              <a href="https://github.com/sisigitadi" target="_blank" rel="noopener noreferrer" class="btn-link-ghost" data-i18n="btn_source_code">Source Code ↗</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- SmartExpenseML -->
+        <article class="project-entry-card">
+          <div class="project-viewport">
+            <img src="assets/smartexpenseml.png" alt="SmartExpenseML Interface" class="project-screenshot" loading="lazy">
+          </div>
+          <div class="project-details">
+            <div class="project-top-meta">
+              <span class="badge-field" data-i18n="badge_live">LIVE PRODUCTION</span>
+              <span class="badge-category" data-i18n="cat_nlp">Edge NLP / Privacy Engineering</span>
+            </div>
+            <h3 class="project-headline">SmartExpenseML — In-Browser Expense NLP</h3>
+            <div class="project-subtitle" data-i18n="sme_sub">Sub-5ms Colloquial Indonesian Currency Normalizer &amp; Text Classifier</div>
+            <p class="project-story" data-i18n="sme_story">
+              Financial transaction notes must remain private. SmartExpenseML executes 100% on the client device, parsing informal Indonesian amounts (e.g., "35rb", "1.5jt", "ribu") and categorizing expenses without transmitting any data to external servers.
+            </p>
+            <div class="arch-pipeline-box">
+              <strong data-i18n="arch_label">Architecture Pipeline:</strong> Raw Text Input → Tokenizer Regex → Category Mapping Rule → LocalStorage Sync
+            </div>
+            <div class="tech-pills-row">
+              <span class="tech-tag-pill">Vanilla JavaScript</span>
+              <span class="tech-tag-pill">Regex Tokenizer</span>
+              <span class="tech-tag-pill">HTML5 LocalStorage</span>
+            </div>
+            <div class="project-links-row">
+              <a href="https://sisigitadi.github.io/smartexpenseML" target="_blank" rel="noopener noreferrer" class="btn-link-solid" data-i18n="btn_live_app">Open Live App ↗</a>
+              <a href="https://github.com/sisigitadi" target="_blank" rel="noopener noreferrer" class="btn-link-ghost" data-i18n="btn_source_code">Source Code ↗</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- ARYA -->
+        <article class="project-entry-card">
+          <div class="project-viewport">
+            <img src="assets/arya-soc-analytics.png" alt="ARYA Dashboard" class="project-screenshot" loading="lazy">
+          </div>
+          <div class="project-details">
+            <div class="project-top-meta">
+              <span class="badge-field" data-i18n="badge_live">LIVE PRODUCTION</span>
+              <span class="badge-category" data-i18n="cat_data">SecOps / Data Pipeline</span>
+            </div>
+            <h3 class="project-headline">A.R.Y.A. — SOC Analytics &amp; Threat Hunting</h3>
+            <div class="project-subtitle" data-i18n="arya_sub">Heterogeneous Log Stream Normalization Layer</div>
+            <p class="project-story" data-i18n="arya_story">
+              Consolidates disparate log streams (JSON, XML, CSV) across network endpoints into unified threat hunting dashboards, reducing manual log inspection time by 30%.
+            </p>
+            <div class="arch-pipeline-box">
+              <strong data-i18n="arch_label">Architecture Pipeline:</strong> Log Sources (JSON/XML/CSV) → Normalization Layer → Pandas Aggregator → Streamlit Dashboard
+            </div>
+            <div class="tech-pills-row">
+              <span class="tech-tag-pill">Python</span>
+              <span class="tech-tag-pill">Streamlit</span>
+              <span class="tech-tag-pill">Pandas</span>
+              <span class="tech-tag-pill">REST APIs</span>
+            </div>
+            <div class="project-links-row">
+              <a href="https://arya-soc.streamlit.app" target="_blank" rel="noopener noreferrer" class="btn-link-solid" data-i18n="btn_live_app">Open Live App ↗</a>
+              <a href="https://github.com/sisigitadi" target="_blank" rel="noopener noreferrer" class="btn-link-ghost" data-i18n="btn_source_code">Source Code ↗</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- Split Section: Core Capabilities × Engineering Toolbox -->
+    <section id="capabilities">
+      <div class="sec-header-wrap">
+        <h2 class="sec-heading" data-i18n="sec_core_title">Capabilities &amp; Tech Stack</h2>
+        <span class="sec-sublabel" data-i18n="sec_core_sub">[02 // CORE DOMAINS]</span>
+      </div>
+
+      <div class="split-core-grid">
+        <!-- Left: Core Capabilities -->
+        <div class="core-card-block">
+          <div class="core-card-title" data-i18n="cap_title">Core Engineering Capabilities</div>
+          
+          <div class="capability-item">
+            <div class="cap-head" data-i18n="cap_secops_head">SecOps &amp; Threat Telemetry Triage</div>
+            <div class="cap-desc" data-i18n="cap_secops_desc">Wazuh SIEM alert categorization, NIST SP 800-61 incident response playbooks, FortiWeb WAF rule tuning, and server hardening.</div>
+          </div>
+
+          <div class="capability-item">
+            <div class="cap-head" data-i18n="cap_infra_head">Infrastructure &amp; Fleet Operations</div>
+            <div class="cap-desc" data-i18n="cap_infra_desc">Linux Server (Ubuntu/WSL) administration, Docker containerization, network routing, DNS/DHCP configuration, and disaster recovery.</div>
+          </div>
+
+          <div class="capability-item">
+            <div class="cap-head" data-i18n="cap_ai_head">Applied AI &amp; LLM Stability Benchmarking</div>
+            <div class="cap-desc" data-i18n="cap_ai_desc">Combinatorial prompt matrix evaluation, strict JSON Schema output validation, and local model inference (Ollama / Gemini API).</div>
+          </div>
+
+          <div class="capability-item">
+            <div class="cap-head" data-i18n="cap_auto_head">Workflow Automation &amp; Data Normalization</div>
+            <div class="cap-desc" data-i18n="cap_auto_desc">n8n business automation pipelines, Python data processing (Pandas), REST APIs engineering, and edge NLP processing.</div>
+          </div>
+
+          <div class="capability-item">
+            <div class="cap-head" data-i18n="cap_remote_head">Remote &amp; Global Work Readiness</div>
+            <div class="cap-desc" data-i18n="cap_remote_desc">Fully equipped for asynchronous remote operations, multi-timezone team coordination, self-directed troubleshooting, and disciplined documentation.</div>
+          </div>
+        </div>
+
+        <!-- Right: Toolbox & Credentials -->
+        <div class="core-card-block">
+          <div class="core-card-title" data-i18n="tool_title">The Engineering Toolbox</div>
+          
+          <ul class="toolbox-list">
+            <li><strong data-i18n="tool_os">Operating Systems:</strong> Ubuntu Linux Server, WSL, Windows Server</li>
+            <li><strong data-i18n="tool_virt">Virtualization:</strong> Docker, Containerization, Proxmox</li>
+            <li><strong data-i18n="tool_net">Networking:</strong> LAN/WAN Routing, Firewalls, DNS, DHCP</li>
+            <li><strong data-i18n="tool_storage">Storage &amp; DB:</strong> SQL Performance, Backup Protocols</li>
+            <li><strong data-i18n="tool_siem">SIEM &amp; WAF:</strong> Wazuh SIEM, FortiWeb WAF</li>
+            <li><strong data-i18n="tool_ir">Incident Standards:</strong> NIST SP 800-61 Incident Playbooks</li>
+            <li><strong data-i18n="tool_audit">Audit &amp; Hardening:</strong> Vulnerability Assessment, Server Hardening</li>
+            <li><strong data-i18n="tool_soc">SOC Operations:</strong> Tier-1 SOC Telemetry Triage</li>
+            <li><strong data-i18n="tool_models">AI Models:</strong> Gemini API, Ollama (Local LLM), LangChain</li>
+            <li><strong data-i18n="tool_eval">Evaluation:</strong> Prompt Drift, JSON Schema Validation</li>
+            <li><strong data-i18n="tool_workflow">Workflow Automation:</strong> n8n Workflow Automation, REST APIs</li>
+            <li><strong data-i18n="tool_languages">Languages:</strong> Python, TypeScript, Vanilla JS, SQL</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- Experience Chronology -->
+    <section id="chronology">
+      <div class="sec-header-wrap">
+        <h2 class="sec-heading" data-i18n="sec_exp_title">Career Experience (2002 — Present)</h2>
+        <span class="sec-sublabel" data-i18n="sec_exp_sub">[03 // 24 YEARS EXPERIENCE]</span>
+      </div>
+
+      <div class="timeline-stream-retro">
+        <div class="timeline-node">
+          <div class="timeline-period-badge">Mar 2026 — Present</div>
+          <div class="timeline-role"><span data-i18n="exp_klh_role">Web Administrator</span> <span class="timeline-company" data-i18n="exp_klh_company">@ Ministry of Environment</span></div>
+          <p class="timeline-notes" data-i18n="exp_klh_desc">Maintained 5+ containerized web services on Linux Server/WSL with Wazuh SIEM monitoring and server hardening. Reduced weekly manual log review time by 30%.</p>
+        </div>
+
+        <div class="timeline-node">
+          <div class="timeline-period-badge">Oct 2025 — Dec 2025</div>
+          <div class="timeline-role"><span data-i18n="exp_kemendagri1_role">Senior Programmer (Short Contract)</span> <span class="timeline-company" data-i18n="exp_kemendagri1_company">@ Ministry of Home Affairs</span></div>
+          <p class="timeline-notes" data-i18n="exp_kemendagri1_desc">Developed backend components and 10+ REST API endpoints for digital governance platforms processing 5,000+ daily records with 99.5% reliability.</p>
+        </div>
+
+        <div class="timeline-node">
+          <div class="timeline-period-badge">Jan 2025 — Sep 2025</div>
+          <div class="timeline-role"><span data-i18n="exp_prospera_role">SOC Analyst (Part-Time)</span> <span class="timeline-company" data-i18n="exp_prospera_company">@ PT. Prospera Consulting Engineers</span></div>
+          <p class="timeline-notes" data-i18n="exp_prospera_desc">Developed 10+ Incident Response playbooks (NIST SP 800-61 aligned). Reduced alert MTTA by 55% across 500+ daily security events.</p>
+        </div>
+
+        <div class="timeline-node">
+          <div class="timeline-period-badge">Oct 2024 — Dec 2024</div>
+          <div class="timeline-role"><span data-i18n="exp_kemendagri2_role">Incident Handling Operational</span> <span class="timeline-company" data-i18n="exp_kemendagri2_company">@ Ministry of Home Affairs</span></div>
+          <p class="timeline-notes" data-i18n="exp_kemendagri2_desc">Real-time threat monitoring with Wazuh SIEM and FortiWeb WAF with incident containment time under 15 minutes.</p>
+        </div>
+
+        <div class="timeline-node">
+          <div class="timeline-period-badge">Jun 2024 — Present</div>
+          <div class="timeline-role"><span data-i18n="exp_outlier_role">AI Trainer &amp; LLM Evaluator (Freelance)</span> <span class="timeline-company" data-i18n="exp_outlier_company">@ Outlier.ai / Tech Platforms</span></div>
+          <p class="timeline-notes" data-i18n="exp_outlier_desc">Human-in-the-loop evaluation of model factuality, safety, and prompt stability across 1,000+ prompt-response pairs in 5+ model families.</p>
+        </div>
+
+        <div class="timeline-node">
+          <div class="timeline-period-badge">May 2023 — Aug 2024</div>
+          <div class="timeline-role"><span data-i18n="exp_ace_role">IT &amp; Operations Manager</span> <span class="timeline-company" data-i18n="exp_ace_company">@ ACE Ltd.</span></div>
+          <p class="timeline-notes" data-i18n="exp_ace_desc">Maintained 99%+ network and server uptime for a 50+ person engineering team, implementing automated database reporting scripts.</p>
+        </div>
+
+        <div class="timeline-node">
+          <div class="timeline-period-badge">Dec 2020 — Apr 2023</div>
+          <div class="timeline-role"><span data-i18n="exp_pupr_role">Project Office Manager</span> <span class="timeline-company" data-i18n="exp_pupr_company">@ Ministry of Public Works and Housing (PUPR)</span></div>
+          <p class="timeline-notes" data-i18n="exp_pupr_desc">Coordinated IT connectivity, equipment routing, and field operations across 4 concurrent national infrastructure project sites.</p>
+        </div>
+
+        <div class="timeline-node">
+          <div class="timeline-period-badge">Jun 2014 — Apr 2020</div>
+          <div class="timeline-role"><span data-i18n="exp_dipta_role">IT Manager</span> <span class="timeline-company" data-i18n="exp_dipta_company">@ PT. Dipta Safari Jaya</span></div>
+          <p class="timeline-notes" data-i18n="exp_dipta_desc">Administered core server fleet and 40+ endpoints over a 6-year tenure with zero data-loss incidents via daily backup protocols.</p>
+        </div>
+
+        <div class="timeline-node">
+          <div class="timeline-period-badge">2002 — 2014</div>
+          <div class="timeline-role"><span data-i18n="exp_foundation_role">IT Support Engineer &amp; Hardware Technician</span> <span class="timeline-company" data-i18n="exp_foundation_company">@ PT. Laju Karunia Jaya &amp; Arya Mobile</span></div>
+          <p class="timeline-notes" data-i18n="exp_foundation_desc">12-year foundation: LAN routing, hardware assembly, operating system deployments, and 1,000+ technical troubleshooting resolutions.</p>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- Verified Endorsements & Testimonials Carousel -->
+    <section id="testimonials">
+      <div class="sec-header-wrap">
+        <h2 class="sec-heading" data-i18n="sec_testi_title">Verified Endorsements &amp; Peer Reviews</h2>
+        <span class="sec-sublabel" data-i18n="sec_testi_sub">[04 // TESTIMONIALS &amp; REFERENCES]</span>
+      </div>
+
+      <div class="testimonial-carousel-wrap" id="testimonial-container" aria-roledescription="carousel" aria-label="Endorsements">
+        <div class="testimonial-progress-track">
+          <div id="testimonial-progress-bar" class="testimonial-progress-fill"></div>
+        </div>
+
+        <div class="testimonial-slider-viewport">
+          <div id="testimonial-slider-track" class="testimonial-slider-track">
+            <!-- Slide 1: Budi Santoso -->
+            <div class="testimonial-slide-item" role="group" aria-roledescription="slide" aria-label="1 of 4">
+              <div class="testimonial-card-hero">
+                <span class="testimonial-badge" data-i18n="testi_badge_proj">Project Recommendation</span>
+                <p class="testimonial-quote" data-i18n="testi_1_quote">"Sigit handled our Docker server environments and Wazuh monitoring setup with great care. He is very reliable, quick to respond when telemetry alerts come in, and keeps everything running smoothly."</p>
+                <div class="testimonial-author-meta">
+                  <div class="testimonial-avatar-badge">BS</div>
+                  <div>
+                    <div class="testimonial-author-name">Budi Santoso</div>
+                    <div class="testimonial-author-role" data-i18n="testi_1_role">Senior IT Infrastructure Lead • Directorate of Climate Change Control (MoE &amp; BPDLH Project)</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide 2: Rahmat Hidayat -->
+            <div class="testimonial-slide-item" role="group" aria-roledescription="slide" aria-label="2 of 4">
+              <div class="testimonial-card-hero">
+                <span class="testimonial-badge" data-i18n="testi_badge_colleague">Colleague Feedback</span>
+                <p class="testimonial-quote" data-i18n="testi_2_quote">"During our backend system update, Sigit ensured all transaction components ran reliably while maintaining strict compliance with UU PDP data privacy rules. A very solid engineer to have on the team."</p>
+                <div class="testimonial-author-meta">
+                  <div class="testimonial-avatar-badge">RH</div>
+                  <div>
+                    <div class="testimonial-author-name">Rahmat Hidayat</div>
+                    <div class="testimonial-author-role" data-i18n="testi_2_role">Digital Governance Lead • Ministry of Home Affairs RI Project</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide 3: Hendra Wijaya -->
+            <div class="testimonial-slide-item" role="group" aria-roledescription="slide" aria-label="3 of 4">
+              <div class="testimonial-card-hero">
+                <span class="testimonial-badge" data-i18n="testi_badge_consult">Consultant Reference</span>
+                <p class="testimonial-quote" data-i18n="testi_3_quote">"Sigit wrote practical Incident Response playbooks for our Tier-1 team and guided us through Wazuh-based pre-audit security reviews. He is organized, meticulous, and easy to work with."</p>
+                <div class="testimonial-author-meta">
+                  <div class="testimonial-avatar-badge">HW</div>
+                  <div>
+                    <div class="testimonial-author-name">Hendra Wijaya</div>
+                    <div class="testimonial-author-role" data-i18n="testi_3_role">Principal Security Consultant • PT. Prospera Consulting Engineers</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide 4: Aditya Nugroho -->
+            <div class="testimonial-slide-item" role="group" aria-roledescription="slide" aria-label="4 of 4">
+              <div class="testimonial-card-hero">
+                <span class="testimonial-badge" data-i18n="testi_badge_teamlead">Team Lead Feedback</span>
+                <p class="testimonial-quote" data-i18n="testi_4_quote">"Handling night shifts and high-volume security alerts can be stressful, but Sigit kept the team focused and handled Wazuh and WAF triage effectively. Really appreciate his calm demeanor."</p>
+                <div class="testimonial-author-meta">
+                  <div class="testimonial-avatar-badge">AN</div>
+                  <div>
+                    <div class="testimonial-author-name">Aditya Nugroho</div>
+                    <div class="testimonial-author-role" data-i18n="testi_4_role">SOC Operations Manager • Ministry of Home Affairs RI Project</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-nav-bar">
+          <div id="testimonial-dots" class="testimonial-dots" role="tablist" aria-label="Choose testimonial"></div>
+          <div class="testimonial-btn-group">
+            <button type="button" id="testimonial-prev-btn" class="testimonial-ctrl-btn" aria-label="Previous Testimonial">←</button>
+            <button type="button" id="testimonial-next-btn" class="testimonial-ctrl-btn" aria-label="Next Testimonial">→</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- Credentials -->
+    <section id="credentials">
+      <div class="sec-header-wrap">
+        <h2 class="sec-heading" data-i18n="sec_certs_title">Certifications &amp; Education</h2>
+        <span class="sec-sublabel" data-i18n="sec_certs_sub">[05 // 9 VERIFIED CERTS + S.KOM]</span>
+      </div>
+
+      <div class="core-card-block">
+        <ul class="toolbox-list">
+          <li><strong data-i18n="cert_ai_label">AI &amp; Automation:</strong> Microsoft Azure AI Fundamentals (AI-900), Gemini API Integration (Hacktiv8), n8n Business Automation (Kodeka Labs).</li>
+          <li><strong data-i18n="cert_sec_label">Cybersecurity &amp; Infra:</strong> Ubuntu Linux Certified (Canonical), Penetration Testing Professional (Cybrary), Certified Ethical Hacker Foundation (LinkedIn Learning), Cyber Exercise #9 (BSSN), Certified SOC Analyst (Cyber Academy), DevSecOps Auditor (Kelas.work).</li>
+          <li><strong data-i18n="cert_edu_label">Academic Education:</strong> <span data-i18n="cert_edu_desc">Bachelor of Computer Science (S.Kom.) — Universitas Budi Luhur, Jakarta.</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- Contact & Transmission -->
+    <section id="contact">
+      <div class="sec-header-wrap">
+        <h2 class="sec-heading" data-i18n="sec_contact_title">Contact / Communication Channels</h2>
+        <span class="sec-sublabel" data-i18n="sec_contact_sub">[06 // GET IN TOUCH]</span>
+      </div>
+
+      <p style="color:var(--text-secondary); margin-bottom:20px;" data-i18n="contact_lead">
+        I am open for technical collaboration, SecOps systems architecture, or practical AI implementation. Feel free to send a message via email or form:
+      </p>
+
+      <div class="contact-box-grid">
+        <div class="slip" id="resume-request">
+          <div class="slip-head" data-i18n="form_title">Direct Transmission Form</div>
+          <p class="slip-note" data-i18n="form_note">Enter your email to receive a verified resume or collaboration message.</p>
+          <form id="resume-request-form" action="https://formspree.io/f/mkgknrqk" method="POST" novalidate>
+            <div class="form-group">
+              <label for="slip-email" class="form-label" data-i18n="form_email_label">Your Email:</label>
+              <input type="email" id="slip-email" name="email" class="form-control" placeholder="you@company.com" data-i18n-ph="form_email_ph" autocomplete="email" required />
+            </div>
+            <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="display:none" aria-hidden="true" />
+            <input type="hidden" name="source" value="retro-craftsman-master" />
+            <input type="hidden" name="request" value="resume-pdf" />
+            <button type="submit" id="slip-submit" class="btn-link-solid" style="border:none; cursor:pointer; width:100%; margin-top:8px;" data-i18n="btn_submit_msg">Send Message Transmission →</button>
+          </form>
+          <p id="slip-status" class="slip-status" role="status" aria-live="polite"></p>
+        </div>
+
+        <div class="slip">
+          <div class="slip-head" data-i18n="direct_channels_title">Direct Communication Endpoints</div>
+          <p class="slip-note" data-i18n="direct_channels_note">Verified professional contact channels.</p>
+          <ul class="direct-channels-list">
+            <li><strong>Email:</strong> <a href="mailto:si.sigitadi@gmail.com">si.sigitadi@gmail.com</a></li>
+            <li><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/sigitadi/" target="_blank" rel="noopener noreferrer">linkedin.com/in/sigitadi ↗</a></li>
+            <li><strong>GitHub:</strong> <a href="https://github.com/sisigitadi" target="_blank" rel="noopener noreferrer">github.com/sisigitadi ↗</a></li>
+            <li data-i18n="loc_label">Location: Tangerang, Banten, Indonesia (UTC+7)</li>
+            <li><strong>Website:</strong> <a href="https://sigitadi.id" target="_blank" rel="noopener noreferrer">sigitadi.id ↗</a></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer-retro">
+    <div id="footer-copyright" data-i18n="footer_rights">&copy; 2026 Sigit Adi Irianto · All Rights Reserved.</div>
     <div id="visitor-badge" class="visitor-badge" role="status" aria-live="polite">
-      <span>Site Visits</span><span class="vb-sep" aria-hidden="true">:</span><span id="visitor-count" class="vb-count">--</span>
+      <span data-i18n="footer_visits">Visits</span>: <span id="visitor-count" class="vb-count">--</span>
     </div>
-  </div>
-</div></footer>
-</div><!-- /sheet -->
+  </footer>
+</div>
 
 <script>
-  document.documentElement.classList.add('js')
+  document.documentElement.classList.add('js');
   ;(function () {
-    /* wrap each letter of ink notes in <i> - per-letter rotation/baseline, handwritten feel */
-    var notes = document.querySelectorAll('.mnote span, .cta-note span')
-    for (var n = 0; n < notes.length; n++) {
-      var txt = notes[n].textContent
-      notes[n].textContent = ''
-      for (var ch = 0; ch < txt.length; ch++) {
-        var c = txt.charAt(ch)
-        if (c === ' ') { notes[n].appendChild(document.createTextNode(' ')) }
-        else {
-          var i = document.createElement('i')
-          i.textContent = c
-          notes[n].appendChild(i)
-        }
+    var i18nDict = {
+      en: {
+        nav_about: 'About',
+        nav_systems: 'Systems',
+        nav_capabilities: 'Capabilities',
+        nav_experience: 'Experience',
+        nav_testimonials: 'Reviews',
+        nav_certs: 'Certs',
+        nav_contact: 'Contact',
+        hero_greeting: '// HELLO, WORLD.',
+        hero_title: 'Engineering reliable systems, defending networks, and exploring practical AI.',
+        hero_lead: 'I am a systems and security operations practitioner based in Tangerang, Indonesia. Over the past 24+ years, I have lived through the evolution of enterprise IT — from crimping CAT5 cables, assembling hardware, and configuring Linux server fleets in 2002, to triaging 500+ daily SOC alerts in Wazuh SIEM and evaluating LLM prompt stability today.',
+        stat_years_num: '24+ Yrs',
+        stat_years_label: 'In Enterprise IT & Ops',
+        stat_alerts_num: '500+',
+        stat_alerts_label: 'Daily SOC Alerts Triaged',
+        stat_mttr_num: '-45%',
+        stat_mttr_label: 'Simulated MTTR Drop',
+        stat_evals_num: '1,000+',
+        stat_evals_label: 'LLM Evaluation Pairs',
+        sec_systems_title: 'Selected Systems & Deployments',
+        sec_systems_sub: '[01 // CASE STUDIES]',
+        badge_live: 'LIVE PRODUCTION',
+        cat_secops: 'Security Operations & Automation',
+        cat_ai: 'Applied AI / LLM Benchmarking',
+        cat_nlp: 'Edge NLP / Privacy Engineering',
+        cat_data: 'SecOps / Data Pipeline',
+        scops_sub: 'Wazuh SIEM Automated Telemetry Ingestion & Incident Triage Gateway',
+        scops_story: 'In active SOC environments, analysts frequently suffer from alert fatigue when reviewing hundreds of raw logs daily. SCOPS acts as an automated triage gateway that connects to Wazuh SIEM managers via REST APIs, evaluates risk scores, and routes incidents into High/Medium/Low priority queues with automated NIST SP 800-61 response playbooks.',
+        arch_label: 'Architecture Pipeline:',
+        btn_live_app: 'Open Live App ↗',
+        btn_source_code: 'Source Code ↗',
+        pm_sub: 'Client-Side Prompt Evaluation, Drift Testing & Strict JSON Validation',
+        pm_story: 'LLM applications often fail silently when subtle prompt variations cause schema violations or answer drift. PromptMatrix 2.0 systematically evaluates combinatorial prompt matrices across model variants, scoring outputs on schema adherence with zero server-side secret retention (BYOK).',
+        sme_sub: 'Sub-5ms Colloquial Indonesian Currency Normalizer & Text Classifier',
+        sme_story: 'Financial transaction notes must remain private. SmartExpenseML executes 100% on the client device, parsing informal Indonesian amounts (e.g., "35rb", "1.5jt", "ribu") and categorizing expenses without transmitting any data to external servers.',
+        arya_sub: 'Heterogeneous Log Stream Normalization Layer',
+        arya_story: 'Consolidates disparate log streams (JSON, XML, CSV) across network endpoints into unified threat hunting dashboards, reducing manual log inspection time by 30%.',
+        sec_core_title: 'Capabilities & Tech Stack',
+        sec_core_sub: '[02 // CORE DOMAINS]',
+        badge_remote: 'Available for Worldwide Remote Work',
+        cap_title: 'Core Engineering Capabilities',
+        cap_secops_head: 'SecOps & Threat Telemetry Triage',
+        cap_secops_desc: 'Wazuh SIEM alert categorization, NIST SP 800-61 incident response playbooks, FortiWeb WAF rule tuning, and server hardening.',
+        cap_infra_head: 'Infrastructure & Fleet Operations',
+        cap_infra_desc: 'Linux Server (Ubuntu/WSL) administration, Docker containerization, network routing, DNS/DHCP configuration, and disaster recovery.',
+        cap_ai_head: 'Applied AI & LLM Stability Benchmarking',
+        cap_ai_desc: 'Combinatorial prompt matrix evaluation, strict JSON Schema output validation, and local model inference (Ollama / Gemini API).',
+        cap_auto_head: 'Workflow Automation & Data Normalization',
+        cap_auto_desc: 'n8n business automation pipelines, Python data processing (Pandas), REST APIs engineering, and edge NLP processing.',
+        cap_remote_head: 'Remote & Global Work Readiness',
+        cap_remote_desc: 'Fully equipped for asynchronous remote operations, multi-timezone team coordination, self-directed troubleshooting, and disciplined documentation.',
+        tool_title: 'The Engineering Toolbox',
+        tool_os: 'Operating Systems:',
+        tool_virt: 'Virtualization:',
+        tool_net: 'Networking:',
+        tool_storage: 'Storage & DB:',
+        tool_siem: 'SIEM & WAF:',
+        tool_ir: 'Incident Standards:',
+        tool_audit: 'Audit & Hardening:',
+        tool_soc: 'SOC Operations:',
+        tool_models: 'AI Models:',
+        tool_eval: 'Evaluation:',
+        tool_workflow: 'Workflow Automation:',
+        tool_languages: 'Languages:',
+        sec_exp_title: 'Career Experience (2002 — Present)',
+        sec_exp_sub: '[03 // 24 YEARS EXPERIENCE]',
+        exp_klh_role: 'Web Administrator',
+        exp_klh_company: '@ Ministry of Environment',
+        exp_klh_desc: 'Maintained 5+ containerized web services on Linux Server/WSL with Wazuh SIEM monitoring and server hardening. Reduced weekly manual log review time by 30%.',
+        exp_kemendagri1_role: 'Senior Programmer (Short Contract)',
+        exp_kemendagri1_company: '@ Ministry of Home Affairs',
+        exp_kemendagri1_desc: 'Developed backend components and 10+ REST API endpoints for digital governance platforms processing 5,000+ daily records with 99.5% reliability.',
+        exp_prospera_role: 'SOC Analyst (Part-Time)',
+        exp_prospera_company: '@ PT. Prospera Consulting Engineers',
+        exp_prospera_desc: 'Developed 10+ Incident Response playbooks (NIST SP 800-61 aligned). Reduced alert MTTA by 55% across 500+ daily security events.',
+        exp_kemendagri2_role: 'Incident Handling Operational',
+        exp_kemendagri2_company: '@ Ministry of Home Affairs',
+        exp_kemendagri2_desc: 'Real-time threat monitoring with Wazuh SIEM and FortiWeb WAF with incident containment time under 15 minutes.',
+        exp_outlier_role: 'AI Trainer & LLM Evaluator (Freelance)',
+        exp_outlier_company: '@ Outlier.ai / Tech Platforms',
+        exp_outlier_desc: 'Human-in-the-loop evaluation of model factuality, safety, and prompt stability across 1,000+ prompt-response pairs in 5+ model families.',
+        exp_ace_role: 'IT & Operations Manager',
+        exp_ace_company: '@ ACE Ltd.',
+        exp_ace_desc: 'Maintained 99%+ network and server uptime for a 50+ person engineering team, implementing automated database reporting scripts.',
+        exp_pupr_role: 'Project Office Manager',
+        exp_pupr_company: '@ Ministry of Public Works and Housing (PUPR)',
+        exp_pupr_desc: 'Coordinated IT connectivity, equipment routing, and field operations across 4 concurrent national infrastructure project sites.',
+        exp_dipta_role: 'IT Manager',
+        exp_dipta_company: '@ PT. Dipta Safari Jaya',
+        exp_dipta_desc: 'Administered core server fleet and 40+ endpoints over a 6-year tenure with zero data-loss incidents via daily backup protocols.',
+        exp_foundation_role: 'IT Support Engineer & Hardware Technician',
+        exp_foundation_company: '@ PT. Laju Karunia Jaya & Arya Mobile',
+        exp_foundation_desc: '12-year foundation: LAN routing, hardware assembly, operating system deployments, and 1,000+ technical troubleshooting resolutions.',
+        sec_testi_title: 'Verified Endorsements & Peer Reviews',
+        sec_testi_sub: '[04 // TESTIMONIALS & REFERENCES]',
+        testi_badge_proj: 'Project Recommendation',
+        testi_1_quote: '"Sigit handled our Docker server environments and Wazuh monitoring setup with great care. He is very reliable, quick to respond when telemetry alerts come in, and keeps everything running smoothly."',
+        testi_1_role: 'Senior IT Infrastructure Lead • Directorate of Climate Change Control (MoE & BPDLH Project)',
+        testi_badge_colleague: 'Colleague Feedback',
+        testi_2_quote: '"During our backend system update, Sigit ensured all transaction components ran reliably while maintaining strict compliance with UU PDP data privacy rules. A very solid engineer to have on the team."',
+        testi_2_role: 'Digital Governance Lead • Ministry of Home Affairs RI Project',
+        testi_badge_consult: 'Consultant Reference',
+        testi_3_quote: '"Sigit wrote practical Incident Response playbooks for our Tier-1 team and guided us through Wazuh-based pre-audit security reviews. He is organized, meticulous, and easy to work with."',
+        testi_3_role: 'Principal Security Consultant • PT. Prospera Consulting Engineers',
+        testi_badge_teamlead: 'Team Lead Feedback',
+        testi_4_quote: '"Handling night shifts and high-volume security alerts can be stressful, but Sigit kept the team focused and handled Wazuh and WAF triage effectively. Really appreciate his calm demeanor."',
+        testi_4_role: 'SOC Operations Manager • Ministry of Home Affairs RI Project',
+        sec_certs_title: 'Certifications & Education',
+        sec_certs_sub: '[05 // 9 VERIFIED CERTS + S.KOM]',
+        cert_ai_label: 'AI & Automation:',
+        cert_sec_label: 'Cybersecurity & Infra:',
+        cert_edu_label: 'Academic Education:',
+        cert_edu_desc: 'Bachelor of Computer Science (S.Kom.) — Universitas Budi Luhur, Jakarta.',
+        sec_contact_title: 'Contact / Communication Channels',
+        sec_contact_sub: '[06 // GET IN TOUCH]',
+        contact_lead: 'I am open for technical collaboration, SecOps systems architecture, or practical AI implementation. Feel free to send a message via email or form:',
+        form_title: 'Direct Transmission Form',
+        form_note: 'Enter your email to receive a verified resume or collaboration message.',
+        form_email_label: 'Your Email:',
+        form_email_ph: 'you@company.com',
+        btn_submit_msg: 'Send Message Transmission →',
+        direct_channels_title: 'Direct Communication Endpoints',
+        direct_channels_note: 'Verified professional contact channels.',
+        loc_label: 'Location: Tangerang, Banten, Indonesia (UTC+7) — Open to Worldwide Remote Work',
+        footer_rights: '© 2026 Sigit Adi Irianto · All Rights Reserved.',
+        footer_visits: 'Visits'
+      },
+      id: {
+        nav_about: 'Tentang',
+        nav_systems: 'Sistem',
+        nav_capabilities: 'Kapabilitas',
+        nav_experience: 'Pengalaman',
+        nav_testimonials: 'Testimoni',
+        nav_certs: 'Sertifikasi',
+        nav_contact: 'Kontak',
+        hero_greeting: '// HALO, DUNIA.',
+        hero_title: 'Membangun sistem handal, mengamankan jaringan, dan menerapkan AI praktis.',
+        hero_lead: 'Saya adalah praktisi sistem dan operasi keamanan (SecOps) yang berbasis di Tangerang, Indonesia. Selama lebih dari 24 tahun, saya mengikuti evolusi IT enterprise — mulai dari memasang kabel LAN, merakit hardware, dan konfigurasi server Linux di tahun 2002, hingga triase 500+ alert SOC harian di Wazuh SIEM dan evaluasi stabilitas prompt LLM saat ini.',
+        stat_years_num: '24+ Thn',
+        stat_years_label: 'Dalam IT & Operasi Sistem',
+        stat_alerts_num: '500+',
+        stat_alerts_label: 'Alert SOC Harian Ditriase',
+        stat_mttr_num: '-45%',
+        stat_mttr_label: 'Penurunan MTTR Simulasi',
+        stat_evals_num: '1.000+',
+        stat_evals_label: 'Pasang Evaluasi LLM',
+        sec_systems_title: 'Sistem & Proyek Pilihan',
+        sec_systems_sub: '[01 // STUDI KASUS]',
+        badge_live: 'PRODUKSI AKTIF',
+        cat_secops: 'Operasi Keamanan & Otomasi',
+        cat_ai: 'Applied AI / Evaluasi LLM',
+        cat_nlp: 'Edge NLP / Rekayasa Privasi',
+        cat_data: 'SecOps / Pipeline Data',
+        scops_sub: 'Gateway Ingesti Telemetri & Triase Insiden Otomatis Wazuh SIEM',
+        scops_story: 'Dalam lingkungan SOC aktif, analis sering mengalami kelelahan alert saat memeriksa ratusan log mentah setiap hari. SCOPS berfungsi sebagai gateway triase otomatis yang terhubung ke Wazuh SIEM via REST API, mengevaluasi skor risiko, dan mendistribusikan insiden ke antrean prioritas Tinggi/Sedang/Rendah dengan playbook respon NIST SP 800-61.',
+        arch_label: 'Alur Arsitektur:',
+        btn_live_app: 'Buka Aplikasi ↗',
+        btn_source_code: 'Kode Sumber ↗',
+        pm_sub: 'Evaluasi Prompt Client-Side, Uji Drift & Validasi Ketat JSON Schema',
+        pm_story: 'Aplikasi LLM sering kali mengalami kegagalan tersembunyi saat variasi prompt menyebabkan pelanggaran skema atau pergeseran output. PromptMatrix 2.0 secara sistematis mengevaluasi matriks kombinatorial prompt di berbagai model, memvalidasi kepatuhan skema tanpa penyimpanan token di server (BYOK).',
+        sme_sub: 'Normalisasi Format Mata Uang Informal & Klasifikasi Teks Sub-5ms',
+        sme_story: 'Catatan transaksi keuangan harus terjaga kerahasiaannya. SmartExpenseML berjalan 100% di perangkat pengguna, memproses nominal informal Indonesia (seperti "35rb", "1.5jt", "ribu") dan mengklasifikasikan pengeluaran tanpa mengirimkan data apa pun ke server eksternal.',
+        arya_sub: 'Layer Normalisasi Aliran Log Heterogen',
+        arya_story: 'Mengonsolidasikan aliran log yang berbeda (JSON, XML, CSV) dari berbagai endpoint jaringan ke dalam dashboard threat hunting terpadu, memangkas waktu inspeksi log manual sebesar 30%.',
+        sec_core_title: 'Kapabilitas & Stack Teknologi',
+        sec_core_sub: '[02 // DOMAIN UTAMA]',
+        badge_remote: 'Tersedia untuk Kerja Remote Global',
+        cap_title: 'Kapabilitas Rekayasa Inti',
+        cap_secops_head: 'SecOps & Triase Telemetri Ancaman',
+        cap_secops_desc: 'Kategorisasi alert Wazuh SIEM, penyusunan playbook respon insiden NIST SP 800-61, optimasi aturan FortiWeb WAF, dan server hardening.',
+        cap_infra_head: 'Operasional Infrastruktur & Server',
+        cap_infra_desc: 'Administrasi server Linux (Ubuntu/WSL), containerisasi Docker, routing jaringan, konfigurasi DNS/DHCP, dan disaster recovery.',
+        cap_ai_head: 'Applied AI & Benchmarking Stabilitas LLM',
+        cap_ai_desc: 'Evaluasi matriks kombinatorial prompt, validasi ketat output JSON Schema, serta inferensi model lokal (Ollama / Gemini API).',
+        cap_auto_head: 'Otomasi Alur Kerja & Normalisasi Data',
+        cap_auto_desc: 'Pipeline otomasi bisnis n8n, pengolahan data Python (Pandas), rekayasa REST API, dan pemrosesan edge NLP.',
+        cap_remote_head: 'Kesiapan Kerja Remote & Kolaborasi Global',
+        cap_remote_desc: 'Sepenuhnya siap untuk operasional remote asinkron, koordinasi tim multi-zona waktu, pemecahan masalah mandiri, dan dokumentasi berdisiplin tinggi.',
+        tool_title: 'Peralatan Rekayasa (Toolbox)',
+        tool_os: 'Sistem Operasi:',
+        tool_virt: 'Virtualisasi:',
+        tool_net: 'Jaringan:',
+        tool_storage: 'Penyimpanan & DB:',
+        tool_siem: 'SIEM & WAF:',
+        tool_ir: 'Standar Insiden:',
+        tool_audit: 'Audit & Hardening:',
+        tool_soc: 'Operasional SOC:',
+        tool_models: 'Model AI:',
+        tool_eval: 'Evaluasi:',
+        tool_workflow: 'Otomasi Alur:',
+        tool_languages: 'Bahasa Pemrograman:',
+        sec_exp_title: 'Perjalanan Karir (2002 — Sekarang)',
+        sec_exp_sub: '[03 // 24 TAHUN PENGALAMAN]',
+        exp_klh_role: 'Web Administrator',
+        exp_klh_company: '@ Kementerian Lingkungan Hidup',
+        exp_klh_desc: 'Mengelola 5+ layanan web tercontainerisasi di Linux Server/WSL dengan pemantauan Wazuh SIEM dan server hardening. Memangkas waktu inspeksi log manual mingguan sebesar 30%.',
+        exp_kemendagri1_role: 'Senior Programmer (Kontrak Singkat)',
+        exp_kemendagri1_company: '@ Kementerian Dalam Negeri',
+        exp_kemendagri1_desc: 'Membangun komponen backend dan 10+ REST API endpoint untuk platform tata kelola digital pemroses 5.000+ data harian dengan reliabilitas 99,5%.',
+        exp_prospera_role: 'SOC Analyst (Part-Time)',
+        exp_prospera_company: '@ PT. Prospera Consulting Engineers',
+        exp_prospera_desc: 'Menyusun 10+ playbook Incident Response standar NIST SP 800-61. Mengurangi alert MTTA sebesar 55% pada 500+ event keamanan harian.',
+        exp_kemendagri2_role: 'Incident Handling Operational',
+        exp_kemendagri2_company: '@ Kementerian Dalam Negeri',
+        exp_kemendagri2_desc: 'Monitoring ancaman real-time dengan Wazuh SIEM dan FortiWeb WAF pada 500+ alert harian dengan waktu respon insiden di bawah 15 menit.',
+        exp_outlier_role: 'AI Trainer & LLM Evaluator (Freelance)',
+        exp_outlier_company: '@ Outlier.ai / Platform Global',
+        exp_outlier_desc: 'Evaluasi human-in-the-loop terhadap faktualitas, instruksi, dan keamanan model pada 1.000+ pasangan prompt-response di 5+ famili model LLM terkemuka.',
+        exp_ace_role: 'IT & Operations Manager',
+        exp_ace_company: '@ ACE Ltd.',
+        exp_ace_desc: 'Mempertahankan uptime infrastruktur 99%+ untuk tim 50+ personel dan membuat script reporting database otomatis yang menghemat 40% waktu administrasi mingguan.',
+        exp_pupr_role: 'Project Office Manager',
+        exp_pupr_company: '@ Kementerian PUPR',
+        exp_pupr_desc: 'Mengkoordinasikan konektivitas IT, perangkat routing, dan operasional lapangan di 4 lokasi proyek infrastruktur nasional secara simultan.',
+        exp_dipta_role: 'IT Manager',
+        exp_dipta_company: '@ PT. Dipta Safari Jaya',
+        exp_dipta_desc: 'Mengelola armada server fisik dan 40+ endpoint selama 6 tahun dengan ketersediaan jaringan 99%+ dan zero data-loss berkat protokol backup terjadwal.',
+        exp_foundation_role: 'IT Support Engineer & Teknisi Hardware',
+        exp_foundation_company: '@ PT. Laju Karunia Jaya & Arya Mobile',
+        exp_foundation_desc: 'Fondasi 12 tahun: Pengkabelan LAN, perakitan PC/server, instalasi OS, dan penyelesaian lebih dari 1.000 tiket troubleshooting teknis.',
+        sec_testi_title: 'Rekomendasi & Testimoni Rekan Kerja',
+        sec_testi_sub: '[04 // TESTIMONI & REFERENSI]',
+        testi_badge_proj: 'Rekomendasi Proyek',
+        testi_1_quote: '"Sigit mengelola lingkungan server Docker dan konfigurasi pemantauan Wazuh kami dengan sangat cermat. Beliau sangat handal, tanggap merespon peringatan telemetri yang masuk, dan menjaga semua sistem berjalan lancar."',
+        testi_1_role: 'Senior IT Infrastructure Lead • Direktorat PPI (Proyek KLHK & BPDLH)',
+        testi_badge_colleague: 'Ulasan Rekan Tim',
+        testi_2_quote: '"Selama pembaruan sistem backend kami, Sigit memastikan seluruh komponen transaksi berjalan handal sembari mematuhi aturan privasi data UU PDP dengan ketat. Insinyur yang sangat solid di dalam tim."',
+        testi_2_role: 'Digital Governance Lead • Proyek Kementerian Dalam Negeri RI',
+        testi_badge_consult: 'Referensi Konsultan',
+        testi_3_quote: '"Sigit menyusun playbook Incident Response yang sangat praktis untuk tim Tier-1 kami dan memandu kami melalui review keamanan pra-audit berbasis Wazuh. Sangat terorganisir, teliti, dan komunikatif."',
+        testi_3_role: 'Principal Security Consultant • PT. Prospera Consulting Engineers',
+        testi_badge_teamlead: 'Ulasan Team Lead',
+        testi_4_quote: '"Menghadapi shift malam dan volume alert keamanan yang tinggi bisa sangat menegangkan, namun Sigit menjaga fokus tim dan menangani triase Wazuh serta WAF secara efektif. Sangat mengapresiasi ketenangannya."',
+        testi_4_role: 'SOC Operations Manager • Proyek Kementerian Dalam Negeri RI',
+        sec_certs_title: 'Sertifikasi & Pendidikan',
+        sec_certs_sub: '[05 // 9 SERTIFIKASI + S.KOM]',
+        cert_ai_label: 'AI & Otomasi:',
+        cert_sec_label: 'Keamanan Siber & Infrastruktur:',
+        cert_edu_label: 'Pendidikan Akademik:',
+        cert_edu_desc: 'Sarjana Ilmu Komputer (S.Kom.) — Universitas Budi Luhur, Jakarta.',
+        sec_contact_title: 'Hubungi / Jalur Komunikasi',
+        sec_contact_sub: '[06 // JALUR KONTAK]',
+        contact_lead: 'Saya terbuka untuk peluang kolaborasi teknis, arsitektur sistem SecOps, atau penerapan model AI praktis. Silakan kirim pesan langsung via form atau email:',
+        form_title: 'Form Transmisi Pesan',
+        form_note: 'Masukkan email Anda untuk menerima resume terverifikasi atau pesan kerjasama.',
+        form_email_label: 'Email Anda:',
+        form_email_ph: 'nama@perusahaan.com',
+        btn_submit_msg: 'Kirim Transmisi Pesan →',
+        direct_channels_title: 'Saluran Komunikasi Langsung',
+        direct_channels_note: 'Kontak profesional terverifikasi.',
+        loc_label: 'Lokasi: Tangerang, Banten, Indonesia (UTC+7) — Terbuka untuk Remote Work Global',
+        footer_rights: '© 2026 Sigit Adi Irianto · Hak Cipta Dilindungi.',
+        footer_visits: 'Kunjungan'
       }
-    }
-  })()
-  ;(function () {
-    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    if (reduce) return
-    var sheet = document.querySelector('.sheet')
-    if (!sheet) return
-    sheet.classList.add('landing-active')
-    function cleanUp() {
-      sheet.classList.remove('landing-active')
-      window.removeEventListener('scroll', cleanUp)
-      window.removeEventListener('click', cleanUp)
-      window.removeEventListener('keydown', cleanUp)
-    }
-    setTimeout(cleanUp, 1200)
-    window.addEventListener('scroll', cleanUp, { passive: true, once: true })
-    window.addEventListener('click', cleanUp, { passive: true, once: true })
-    window.addEventListener('keydown', cleanUp, { passive: true, once: true })
-  })()
-  ;(function () {
-    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    var els = document.querySelectorAll('.ink, .sec-head .dash, .mnote, .cta-note, .animated-underline, .status-underlined')
-    if (!('IntersectionObserver' in window) || reduce) {
-      for (var i = 0; i < els.length; i++) els[i].classList.add('in-view')
-      var fallbackStamp = document.querySelector('.dossier-stamp')
-      if (fallbackStamp) fallbackStamp.classList.add('in-view')
-      return
-    }
-    var io = new IntersectionObserver(function (entries) {
-      for (var j = 0; j < entries.length; j++) {
-        if (entries[j].isIntersecting) { entries[j].target.classList.add('in-view'); io.unobserve(entries[j].target) }
-      }
-    }, { threshold: 0.3 })
-    for (var k = 0; k < els.length; k++) io.observe(els[k])
+    };
 
-    var contactSec = document.getElementById('contact')
-    var stampEl = document.querySelector('.dossier-stamp')
-    if (contactSec && stampEl) {
-      var stampTimer = null
-      var stampFired = false
-      function triggerStamp() {
-        if (stampFired) return
-        stampFired = true
-        stampEl.classList.add('in-view')
-        if (stampTimer) { clearTimeout(stampTimer); stampTimer = null }
-      }
-      function startStampTimer() {
-        if (stampFired || stampTimer) return
-        stampTimer = setTimeout(triggerStamp, 3000)
-      }
-      contactSec.addEventListener('mouseenter', startStampTimer)
-      contactSec.addEventListener('mousemove', startStampTimer)
-      contactSec.addEventListener('touchstart', startStampTimer, { passive: true })
-      contactSec.addEventListener('focusin', startStampTimer)
-      var contactIo = new IntersectionObserver(function (entries) {
-        for (var n = 0; n < entries.length; n++) {
-          if (entries[n].isIntersecting) startStampTimer()
-        }
-      }, { threshold: 0.15 })
-      contactIo.observe(contactSec)
+    var currentLang = 'en';
+    var userNavLang = (navigator.language || (navigator.languages && navigator.languages[0]) || 'en').toLowerCase();
+    if (userNavLang.startsWith('id')) {
+      currentLang = 'id';
     }
-  })()
-  ;(function () {
-    var form = document.getElementById('resume-request-form')
-    if (!form) return
-    var statusEl = document.getElementById('slip-status')
-    var btn = document.getElementById('slip-submit')
+
+    function applyLanguage(lang) {
+      currentLang = lang;
+      var dict = i18nDict[lang] || i18nDict.en;
+      document.documentElement.lang = lang;
+      var els = document.querySelectorAll('[data-i18n]');
+      for (var i = 0; i < els.length; i++) {
+        var key = els[i].getAttribute('data-i18n');
+        if (dict[key]) {
+          els[i].textContent = dict[key];
+        }
+      }
+      var phEls = document.querySelectorAll('[data-i18n-ph]');
+      for (var j = 0; j < phEls.length; j++) {
+        var phKey = phEls[j].getAttribute('data-i18n-ph');
+        if (dict[phKey]) {
+          phEls[j].setAttribute('placeholder', dict[phKey]);
+        }
+      }
+      var toggleBtn = document.getElementById('btn-lang-toggle');
+      if (toggleBtn) {
+        toggleBtn.textContent = lang === 'id' ? 'EN' : 'ID';
+      }
+    }
+
+    applyLanguage(currentLang);
+
+    var toggleBtn = document.getElementById('btn-lang-toggle');
+    if (toggleBtn) {
+      toggleBtn.addEventListener('click', function () {
+        applyLanguage(currentLang === 'id' ? 'en' : 'id');
+      });
+    }
+
+    var form = document.getElementById('resume-request-form');
+    if (!form) return;
+    var statusEl = document.getElementById('slip-status');
+    var btn = document.getElementById('slip-submit');
     form.addEventListener('submit', function (e) {
-      e.preventDefault()
-      var email = document.getElementById('slip-email').value.trim()
-      var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+      e.preventDefault();
+      var email = document.getElementById('slip-email').value.trim();
+      var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!re.test(email)) {
-        statusEl.textContent = 'Please enter a valid email address.'
-        statusEl.className = 'slip-status err'
-        return
+        statusEl.textContent = currentLang === 'id' ? 'Silakan masukkan alamat email yang valid.' : 'Please enter a valid email address.';
+        statusEl.className = 'slip-status err';
+        return;
       }
-      var hp = form.querySelector('[name="_gotcha"]')
-      if (hp && hp.value) return
-      var now = Date.now()
-      var last = 0
-      try { last = parseInt(localStorage.getItem('fm_last_submit') || '0', 10) || 0 } catch (err) {}
-      if (now - last < 30000) {
-        statusEl.textContent = 'Please wait 30 seconds between requests.'
-        statusEl.className = 'slip-status err'
-        return
-      }
-      try { localStorage.setItem('fm_last_submit', String(now)) } catch (err) {}
-      var data = new FormData(form)
-      btn.disabled = true
-      btn.textContent = 'Sending…'
-      statusEl.textContent = 'Sending request…'
-      statusEl.className = 'slip-status'
+      var hp = form.querySelector('[name="_gotcha"]');
+      if (hp && hp.value) return;
+      var data = new FormData(form);
+      btn.disabled = true;
+      btn.textContent = currentLang === 'id' ? 'Mengirimkan…' : 'Transmitting…';
       fetch(form.action, { method: 'POST', body: data, headers: { 'Accept': 'application/json' } })
         .then(function (res) {
-          if (!res.ok) throw new Error('not ok')
-          return res.json()
+          if (!res.ok) throw new Error('Network error');
+          return res.json();
         })
         .then(function () {
-          form.reset()
-          btn.disabled = false
-          btn.textContent = 'Request Resume (PDF)'
-          statusEl.textContent = 'Request received - resume will be sent to ' + email + '.'
-          statusEl.className = 'slip-status ok'
+          form.reset();
+          btn.disabled = false;
+          btn.textContent = i18nDict[currentLang].btn_submit_msg;
+          statusEl.textContent = currentLang === 'id' ? 'Transmisi terkirim — resume akan dikirimkan ke ' + email + '.' : 'Transmission confirmed — resume sent to ' + email + '.';
+          statusEl.className = 'slip-status ok';
         })
         .catch(function () {
-          btn.disabled = false
-          btn.textContent = 'Request Resume (PDF)'
-          statusEl.textContent = 'Request failed - please try again, or email si.sigitadi@gmail.com directly.'
-          statusEl.className = 'slip-status err'
-        })
-    })
-  })()
+          btn.disabled = false;
+          btn.textContent = i18nDict[currentLang].btn_submit_msg;
+          statusEl.textContent = currentLang === 'id' ? 'Pengiriman gagal — silakan hubungi si.sigitadi@gmail.com secara langsung.' : 'Transmission failed — please contact si.sigitadi@gmail.com directly.';
+          statusEl.className = 'slip-status err';
+        });
+    });
+  })();
   ;(function () {
-    var bar = document.getElementById('read-progress')
-    if (!bar) return
+    var bar = document.getElementById('read-progress');
+    if (!bar) return;
     function updateProgress() {
-      var total = document.documentElement.scrollHeight - document.documentElement.clientHeight
-      var current = window.scrollY || document.documentElement.scrollTop || 0
-      var pct = total > 0 ? Math.min(100, Math.max(0, (current / total) * 100)) : 0
-      bar.style.width = pct + '%'
+      var total = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      var current = window.scrollY || document.documentElement.scrollTop || 0;
+      var pct = total > 0 ? Math.min(100, Math.max(0, (current / total) * 100)) : 0;
+      bar.style.width = pct + '%';
     }
-    window.addEventListener('scroll', updateProgress, { passive: true })
-    window.addEventListener('resize', updateProgress, { passive: true })
-    updateProgress()
-  })()
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    window.addEventListener('resize', updateProgress, { passive: true });
+    updateProgress();
+  })();
   ;(function () {
-    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    var role = document.querySelector('.role')
-    if (!role || reduce) return
-    var text = role.getAttribute('data-role') || role.textContent.trim()
-    role.setAttribute('data-role', text)
-    role.innerHTML = '<span class="role-text"></span><span class="typing-cursor" aria-hidden="true">|</span>'
-    var textSpan = role.querySelector('.role-text')
-    var cursor = role.querySelector('.typing-cursor')
-    var i = 0
-    var dur = 2000
-    var interval = Math.max(25, Math.floor(dur / text.length))
-    var timer = null
-    function type() {
-      if (i <= text.length) {
-        textSpan.textContent = text.slice(0, i)
-        i++
-        timer = setTimeout(type, interval)
-      } else if (cursor) {
-        setTimeout(function () {
-          cursor.classList.add('done')
-        }, 1000)
+    var currentTestimonialIndex = 0;
+    var totalTestimonials = 4;
+    var timer = null;
+    var duration = 6000;
+    var elapsed = 0;
+    var interval = 100;
+    var track = document.getElementById('testimonial-slider-track');
+    var bar = document.getElementById('testimonial-progress-bar');
+    var dotsContainer = document.getElementById('testimonial-dots');
+    var prevBtn = document.getElementById('testimonial-prev-btn');
+    var nextBtn = document.getElementById('testimonial-next-btn');
+    var container = document.getElementById('testimonial-container');
+    if (!track || !bar || !dotsContainer || !prevBtn || !nextBtn || !container) return;
+
+    for (var i = 0; i < totalTestimonials; i++) {
+      (function (idx) {
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.setAttribute('aria-label', 'Go to testimonial ' + (idx + 1));
+        var dot = document.createElement('span');
+        dot.className = 'dot-inner';
+        btn.appendChild(dot);
+        btn.addEventListener('click', function () {
+          goToTestimonial(idx);
+        });
+        dotsContainer.appendChild(btn);
+      })(i);
+    }
+
+    function updateSlider() {
+      track.style.transform = 'translateX(-' + (currentTestimonialIndex * 100) + '%)';
+      var dots = dotsContainer.querySelectorAll('button');
+      for (var d = 0; d < dots.length; d++) {
+        if (d === currentTestimonialIndex) {
+          dots[d].className = 'active';
+          dots[d].setAttribute('aria-current', 'true');
+        } else {
+          dots[d].className = '';
+          dots[d].removeAttribute('aria-current');
+        }
+      }
+      elapsed = 0;
+      bar.style.width = '0%';
+    }
+
+    function moveTestimonial(dir) {
+      currentTestimonialIndex = (currentTestimonialIndex + dir + totalTestimonials) % totalTestimonials;
+      updateSlider();
+    }
+
+    function goToTestimonial(idx) {
+      currentTestimonialIndex = idx;
+      updateSlider();
+    }
+
+    function startTimer() {
+      stopTimer();
+      timer = setInterval(function () {
+        elapsed += interval;
+        var pct = Math.min(100, (elapsed / duration) * 100);
+        bar.style.width = pct + '%';
+        if (elapsed >= duration) {
+          moveTestimonial(1);
+        }
+      }, interval);
+    }
+
+    function stopTimer() {
+      if (timer) {
+        clearInterval(timer);
+        timer = null;
       }
     }
-    window.addEventListener('beforeprint', function () {
-      clearTimeout(timer)
-      role.textContent = text
-    })
-    setTimeout(type, 350)
-  })()
-  ;(function () {
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', function () {
-        navigator.serviceWorker.register('sw.js').catch(function () {})
-      })
-    }
-  })()
-</script>
 
-<!-- Dynamic theme-color meta (syncs with OS dark/light preference) -->
-<script>
-;(function(){var m=document.querySelector('meta[name=theme-color]');if(!m)return;var d=window.matchMedia('(prefers-color-scheme:dark)');function u(){m.setAttribute('content',d.matches?'#111318':'#D6CDB4')}u();d.addEventListener('change',u)})();
-</script>
+    prevBtn.addEventListener('click', function () {
+      moveTestimonial(-1);
+      startTimer();
+    });
 
-<!-- Visitor Tracker Client (hit counter badge + hidden owner dashboard shortcut - Cloudflare Worker backend, see worker-visitor/) -->
+    nextBtn.addEventListener('click', function () {
+      moveTestimonial(1);
+      startTimer();
+    });
+
+    container.addEventListener('mouseenter', stopTimer);
+    container.addEventListener('mouseleave', startTimer);
+    container.addEventListener('touchstart', stopTimer, { passive: true });
+    container.addEventListener('touchend', startTimer, { passive: true });
+
+    updateSlider();
+    startTimer();
+  })();
+</script>
+<script>
+;(function(){var m=document.querySelector('meta[name=theme-color]');if(!m)return;var d=window.matchMedia('(prefers-color-scheme:dark)');function u(){m.setAttribute('content',d.matches?'#0D0F12':'#F8F9FA')}u();d.addEventListener('change',u)})();
+</script>
 <script>
   ;(function () {
-    // Set to your deployed Worker URL, e.g. "https://portofolio-visitor-tracker.<account>.workers.dev"
     var WORKER_URL = 'https://portofolio-visitor-tracker.si-sigitadi.workers.dev';
     if (!WORKER_URL) return;
-
     var badge = document.getElementById('visitor-badge');
     var countEl = document.getElementById('visitor-count');
     if (!badge || !countEl) return;
-
     function setCount(n) {
       if (typeof n !== 'number' || isNaN(n)) { countEl.textContent = '--'; return; }
       countEl.textContent = n.toLocaleString('en-US');
       badge.style.display = 'block';
     }
-
-    // Record this visit (IP + location are hashed/stored server-side by the Worker).
-    var payload = { path: location.pathname, referrer: document.referrer, lang: 'en' };
-    try { payload.w = screen.width; payload.h = screen.height; } catch (e) {}
-    fetch(WORKER_URL + '/hit', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    }).then(function (res) {
+    fetch(WORKER_URL + '/count').then(function (res) {
       return res.json().catch(function () { return null; });
     }).then(function (data) {
       if (data && typeof data.count === 'number') setCount(data.count);
     }).catch(function () {});
-
-    // Keep the badge fresh across tabs / sessions.
-    setInterval(function () {
-      fetch(WORKER_URL + '/count').then(function (res) {
-        return res.json().catch(function () { return null; });
-      }).then(function (data) {
-        if (data && typeof data.count === 'number') setCount(data.count);
-      }).catch(function () {});
-    }, 60000);
-
-    // --- Secret owner shortcut: click the footer copyright 9x within 2s gaps -> dashboard ---
-    // Opens /dashboard (key-protected). Tick 'remember key' on the login page once, and the
-    // login page auto-unlocks on later visits (key lives only in YOUR browser, same origin as
-    // the dashboard - never embedded in this HTML).
-    var copyrightEl = document.getElementById('footer-copyright');
-    var dashClicks = 0;
-    var dashTimer = null;
-    if (copyrightEl) {
-      copyrightEl.addEventListener('click', function () {
-        dashClicks++;
-        clearTimeout(dashTimer);
-        dashTimer = setTimeout(function () { dashClicks = 0; }, 2000);
-        if (dashClicks >= 9) {
-          dashClicks = 0;
-          window.location.href = WORKER_URL + '/dashboard';
-        }
-      });
-    }
   })();
 </script>
-
-<!-- JS-less fallback: 1x1 tracking pixel (records crawlers / no-JS visitors via GET /pixel; no double count - only rendered when JS is off) -->
 <noscript>
   <img src="https://portofolio-visitor-tracker.si-sigitadi.workers.dev/pixel?path=/portofolio" width="1" height="1" alt="" style="position:absolute;left:-9999px;top:-9999px" referrerpolicy="no-referrer-when-downgrade">
 </noscript>
-
 </body>
 </html>
