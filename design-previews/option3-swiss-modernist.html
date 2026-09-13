@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>Sigit Adi Irianto — Systems &amp; Applied AI (Option 3: Swiss Modernist)</title>
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="../favicon.ico" sizes="16x16 32x32">
+
+<style>
+  :root {
+    --bg: #FFFFFF;
+    --text-main: #111827;
+    --text-muted: #6B7280;
+    --text-subtle: #9CA3AF;
+    --border: rgba(0, 0, 0, 0.08);
+    --border-hover: rgba(0, 0, 0, 0.2);
+    --surface-hover: rgba(0, 0, 0, 0.02);
+    --accent: #111827;
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+    --max-w: 1040px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #090A0C;
+      --text-main: #F3F4F6;
+      --text-muted: #9CA3AF;
+      --text-subtle: #4B5563;
+      --border: rgba(255, 255, 255, 0.1);
+      --border-hover: rgba(255, 255, 255, 0.25);
+      --surface-hover: rgba(255, 255, 255, 0.03);
+      --accent: #F3F4F6;
+    }
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background-color: var(--bg);
+    color: var(--text-main);
+    font-family: var(--font-sans);
+    line-height: 1.65;
+    font-size: 14.5px;
+    -webkit-font-smoothing: antialiased;
+    padding: 0 32px 80px;
+  }
+
+  .container {
+    max-width: var(--max-w);
+    margin: 0 auto;
+  }
+
+  /* Option 3 Evaluator Banner */
+  .preview-strip {
+    border-bottom: 1px solid var(--border);
+    padding: 16px 0;
+    margin-bottom: 48px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--text-muted);
+  }
+  .tag-black {
+    background: var(--text-main);
+    color: var(--bg);
+    padding: 2px 6px;
+    border-radius: 2px;
+    font-weight: 700;
+  }
+
+  /* Asymmetric 2-Column Grid */
+  .grid-layout {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 64px;
+  }
+  @media (max-width: 820px) {
+    .grid-layout {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+  }
+
+  /* Left Column (Sticky Bio & Fast Links) */
+  .sticky-col {
+    position: sticky;
+    top: 48px;
+    align-self: start;
+  }
+  .avatar-title {
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 4px;
+  }
+  .avatar-subtitle {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 24px;
+  }
+  .bio-snippet {
+    color: var(--text-muted);
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 32px;
+  }
+
+  .nav-anchors {
+    list-style: none;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    line-height: 2.2;
+  }
+  .nav-anchors a {
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+  .nav-anchors a:hover {
+    color: var(--text-main);
+  }
+
+  .contact-inline {
+    margin-top: 40px;
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    line-height: 2;
+    color: var(--text-muted);
+  }
+  .contact-inline a {
+    color: var(--text-main);
+    text-decoration: none;
+    border-bottom: 1px solid var(--border-hover);
+  }
+
+  /* Right Column (Content Flow) */
+  .section-label {
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-subtle);
+    margin-bottom: 24px;
+    display: block;
+  }
+
+  /* Project Item */
+  .work-item {
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    margin-bottom: 36px;
+    overflow: hidden;
+    transition: border-color 0.2s ease;
+  }
+  .work-item:hover {
+    border-color: var(--border-hover);
+  }
+  .work-media {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-bottom: 1px solid var(--border);
+    object-fit: cover;
+  }
+  .work-content {
+    padding: 24px;
+  }
+  .work-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .work-name {
+    font-size: 17px;
+    font-weight: 700;
+  }
+  .work-domain {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+  .work-desc {
+    color: var(--text-muted);
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+  .work-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 20px;
+  }
+  .tech-item {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    padding: 2px 6px;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    color: var(--text-muted);
+  }
+  .work-links {
+    display: flex;
+    gap: 16px;
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+  }
+  .work-links a {
+    color: var(--text-main);
+    text-decoration: none;
+    font-weight: 600;
+  }
+  .work-links a:hover {
+    text-decoration: underline;
+  }
+
+  /* Timeline Stream */
+  .timeline-block {
+    margin-top: 48px;
+  }
+  .timeline-row {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 16px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  @media (max-width: 600px) {
+    .timeline-row {
+      grid-template-columns: 1fr;
+      gap: 4px;
+    }
+  }
+  .timeline-year {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+  .timeline-info h4 {
+    font-size: 14.5px;
+    font-weight: 600;
+  }
+  .timeline-info .co {
+    color: var(--text-muted);
+    font-weight: 400;
+  }
+  .timeline-info p {
+    font-size: 13.5px;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+
+  /* Footer */
+  footer {
+    margin-top: 64px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--text-subtle);
+    display: flex;
+    justify-content: space-between;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <!-- Option 3 Evaluator Banner -->
+  <div class="preview-strip">
+    <div>
+      <span class="tag-black">OPTION 3 OF 3</span>
+      <strong>Swiss Modernist Tech Workspace (Linear / Minimalist Studio Style)</strong>
+    </div>
+    <div>2-Column Asymmetric Grid · Precision Hairline Borders · Micro-Typography</div>
+  </div>
+
+  <div class="grid-layout">
+    <!-- Left Column (Sticky Info & Navigation) -->
+    <aside class="sticky-col">
+      <h1 class="avatar-title">Sigit Adi Irianto</h1>
+      <div class="avatar-subtitle">Systems, SecOps &amp; Applied AI</div>
+      
+      <p class="bio-snippet">
+        24+ years in IT infrastructure engineering, Wazuh SIEM telemetry triage, automated response playbooks, and LLM prompt stability benchmarking.
+      </p>
+
+      <ul class="nav-anchors">
+        <li><a href="#selected-work">01 // Selected Systems</a></li>
+        <li><a href="#experience">02 // Experience (24 Yrs)</a></li>
+        <li><a href="#credentials">03 // Certifications</a></li>
+      </ul>
+
+      <div class="contact-inline">
+        <div>Email: <a href="mailto:si.sigitadi@gmail.com">si.sigitadi@gmail.com</a></div>
+        <div>LinkedIn: <a href="https://www.linkedin.com/in/sigitadi/" target="_blank" rel="noopener noreferrer">linkedin.com/in/sigitadi ↗</a></div>
+        <div>GitHub: <a href="https://github.com/sisigitadi" target="_blank" rel="noopener noreferrer">github.com/sisigitadi ↗</a></div>
+        <div style="margin-top:16px"><a href="../admin.html">Control Panel ↗</a></div>
+      </div>
+    </aside>
+
+    <!-- Right Column (Content Flow) -->
+    <main>
+      <!-- Selected Work -->
+      <section id="selected-work">
+        <span class="section-label">Selected Systems &amp; Deployments</span>
+
+        <!-- SCOPS -->
+        <article class="work-item">
+          <img src="../assets/SCOPS Command.png" alt="SCOPS Platform" class="work-media">
+          <div class="work-content">
+            <div class="work-head">
+              <h3 class="work-name">SCOPS — Security Operations Automation</h3>
+              <span class="work-domain">SecOps / Automation</span>
+            </div>
+            <p class="work-desc">
+              Automated telemetry ingestion buffer for Wazuh SIEM managers. Classifies alerts into actionable High/Medium/Low priority queues, reducing simulated MTTR by 45% and MTTA by 55%.
+            </p>
+            <div class="work-tech">
+              <span class="tech-item">Python</span>
+              <span class="tech-item">Streamlit</span>
+              <span class="tech-item">Wazuh SIEM API</span>
+              <span class="tech-item">NIST SP 800-61</span>
+              <span class="tech-item">Docker</span>
+            </div>
+            <div class="work-links">
+              <a href="https://sisigitadi.github.io/scops" target="_blank" rel="noopener noreferrer">Live Demo ↗</a>
+              <a href="https://github.com/sisigitadi" target="_blank" rel="noopener noreferrer">Source Code ↗</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- PromptMatrix 2.0 -->
+        <article class="work-item">
+          <img src="../assets/PromptMatrix 2.0.png" alt="PromptMatrix 2.0" class="work-media">
+          <div class="work-content">
+            <div class="work-head">
+              <h3 class="work-name">PromptMatrix 2.0 — LLM Stability Suite</h3>
+              <span class="work-domain">Applied AI / Benchmarking</span>
+            </div>
+            <p class="work-desc">
+              Client-side prompt evaluation engine testing prompt variation stability, instruction adherence, and strict JSON Schema outputs across Gemini API endpoints with zero token retention (BYOK).
+            </p>
+            <div class="work-tech">
+              <span class="tech-item">TypeScript</span>
+              <span class="tech-item">Next.js</span>
+              <span class="tech-item">LangChain</span>
+              <span class="tech-item">Gemini API</span>
+              <span class="tech-item">JSON Schema</span>
+            </div>
+            <div class="work-links">
+              <a href="https://sisigitadi.github.io/promptmatrix2" target="_blank" rel="noopener noreferrer">Live Demo ↗</a>
+              <a href="https://github.com/sisigitadi" target="_blank" rel="noopener noreferrer">Source Code ↗</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- SmartExpenseML -->
+        <article class="work-item">
+          <img src="../assets/SmartExpenseML.png" alt="SmartExpenseML" class="work-media">
+          <div class="work-content">
+            <div class="work-head">
+              <h3 class="work-name">SmartExpenseML — Edge NLP Classifier</h3>
+              <span class="work-domain">Edge NLP / Privacy</span>
+            </div>
+            <p class="work-desc">
+              Sub-5ms deterministic Indonesian currency normalizer (parsing "25rb", "5.5jt") and expense categorizer running 100% on-device in HTML5 LocalStorage.
+            </p>
+            <div class="work-tech">
+              <span class="tech-item">Vanilla JavaScript</span>
+              <span class="tech-item">Regex Tokenizer</span>
+              <span class="tech-item">HTML5 LocalStorage</span>
+            </div>
+            <div class="work-links">
+              <a href="https://sisigitadi.github.io/smartexpenseML" target="_blank" rel="noopener noreferrer">Live Demo ↗</a>
+              <a href="https://github.com/sisigitadi" target="_blank" rel="noopener noreferrer">Source Code ↗</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- ARYA -->
+        <article class="work-item">
+          <img src="../assets/A.R.Y.A. SOC Analytics.png" alt="A.R.Y.A. Threat Hunting" class="work-media">
+          <div class="work-content">
+            <div class="work-head">
+              <h3 class="work-name">A.R.Y.A. — SOC Log Normalization Core</h3>
+              <span class="work-domain">SecOps / Data Pipeline</span>
+            </div>
+            <p class="work-desc">
+              Normalizes disparate log payloads (JSON, XML, and CSV streams) into unified tabular views, reducing manual review time for Tier-1 analysts by 30%.
+            </p>
+            <div class="work-tech">
+              <span class="tech-item">Python</span>
+              <span class="tech-item">Streamlit</span>
+              <span class="tech-item">Pandas</span>
+              <span class="tech-item">REST APIs</span>
+            </div>
+            <div class="work-links">
+              <a href="https://arya-soc.streamlit.app" target="_blank" rel="noopener noreferrer">Live Demo ↗</a>
+              <a href="https://github.com/sisigitadi" target="_blank" rel="noopener noreferrer">Source Code ↗</a>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <!-- Experience Stream -->
+      <section id="experience" class="timeline-block">
+        <span class="section-label">Experience (2002 — Present)</span>
+
+        <div class="timeline-row">
+          <div class="timeline-year">2026 — Present</div>
+          <div class="timeline-info">
+            <h4>Web Administrator <span class="co">@ Ministry of Environment</span></h4>
+            <p>Maintained 5+ containerized web services on Linux Server/WSL with Wazuh SIEM monitoring.</p>
+          </div>
+        </div>
+
+        <div class="timeline-row">
+          <div class="timeline-year">2025 (Q4)</div>
+          <div class="timeline-info">
+            <h4>Senior Programmer <span class="co">@ Ministry of Home Affairs</span></h4>
+            <p>Engineered 10+ REST API endpoints for digital governance platforms with 99.5% reliability.</p>
+          </div>
+        </div>
+
+        <div class="timeline-row">
+          <div class="timeline-year">2025 (Q1–Q3)</div>
+          <div class="timeline-info">
+            <h4>SOC Analyst <span class="co">@ PT. Prospera Consulting Engineers</span></h4>
+            <p>Authored 10+ NIST IR playbooks, reducing alert MTTA by 55% across 500+ daily events.</p>
+          </div>
+        </div>
+
+        <div class="timeline-row">
+          <div class="timeline-year">2024 (Q4)</div>
+          <div class="timeline-info">
+            <h4>Incident Handling Operational <span class="co">@ Ministry of Home Affairs</span></h4>
+            <p>Real-time threat monitoring with Wazuh SIEM and FortiWeb WAF with &lt;15 min containment.</p>
+          </div>
+        </div>
+
+        <div class="timeline-row">
+          <div class="timeline-year">2024 — Present</div>
+          <div class="timeline-info">
+            <h4>AI Trainer &amp; LLM Evaluator <span class="co">@ Outlier.ai / Platforms</span></h4>
+            <p>Human-in-the-loop scoring for model factuality and drift across 1,000+ prompt-response pairs.</p>
+          </div>
+        </div>
+
+        <div class="timeline-row">
+          <div class="timeline-year">2002 — 2024</div>
+          <div class="timeline-info">
+            <h4>IT Manager, Systems Lead &amp; Hardware Tech <span class="co">@ ACE Ltd, PUPR, Dipta Safari, Laju Karunia</span></h4>
+            <p>22-year foundation in enterprise server administration, disaster recovery, and networking.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Credentials -->
+      <section id="credentials" class="timeline-block">
+        <span class="section-label">Certifications &amp; Education</span>
+        
+        <div style="font-family:var(--font-mono); font-size:13px; line-height:2.2; color:var(--text-muted);">
+          <div>• Microsoft Azure AI Fundamentals (AI-900) — <em>Microsoft (2025)</em></div>
+          <div>• LLM-Based Tools &amp; Gemini API Integration — <em>Hacktiv8 (2025)</em></div>
+          <div>• Business Automation with n8n — <em>Kodeka Labs (2025)</em></div>
+          <div>• Ubuntu Linux Professional Certification — <em>Canonical (2025)</em></div>
+          <div>• Penetration Testing Professional — <em>Cybrary (2025)</em></div>
+          <div>• Certified Ethical Hacker Foundation — <em>LinkedIn Learning (2025)</em></div>
+          <div>• Indonesia Cyber Exercise #9 — <em>BSSN (2024)</em></div>
+          <div>• Certified SOC Analyst — <em>Cyber Academy Indonesia (2024)</em></div>
+          <div>• DevSecOps for Software Security — <em>Kelas.work (2024)</em></div>
+          <div>• Bachelor of Computer Science (S.Kom.) — <em>Universitas Budi Luhur</em></div>
+        </div>
+      </section>
+
+      <footer>
+        <div>&copy; 2026 Sigit Adi Irianto · All Rights Reserved.</div>
+        <div>Tangerang, Banten, Indonesia</div>
+      </footer>
+    </main>
+  </div>
+</div>
+
+</body>
+</html>

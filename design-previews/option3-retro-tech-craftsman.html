@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>Sigit Adi Irianto — Systems Architect, SecOps &amp; Applied AI (Retro-Tech Craftsman)</title>
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="icon" href="../favicon.ico" sizes="16x16 32x32">
+
+<style>
+  :root {
+    --bg-page: #FBF9F5;
+    --bg-surface: #FFFFFF;
+    --bg-surface-alt: #F4EFEA;
+    --text-primary: #1C1917;
+    --text-secondary: #57534E;
+    --text-muted: #78716C;
+    --border-main: #E7E0D8;
+    --border-light: #F0EAE1;
+    --accent: #C2410C;
+    --accent-hover: #9A3412;
+    --accent-pine: #15803D;
+    --accent-amber: #D97706;
+    --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-mono: 'Space Mono', ui-monospace, Menlo, Monaco, Consolas, monospace;
+    --max-w: 920px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg-page: #121315;
+      --bg-surface: #191A1D;
+      --bg-surface-alt: #222428;
+      --text-primary: #EDECE8;
+      --text-secondary: #A8A29E;
+      --text-muted: #78716C;
+      --border-main: #2C2E33;
+      --border-light: #222428;
+      --accent: #FB923C;
+      --accent-hover: #FDBA74;
+      --accent-pine: #4ADE80;
+      --accent-amber: #FBBF24;
+    }
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background-color: var(--bg-page);
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    line-height: 1.7;
+    font-size: 15.5px;
+    -webkit-font-smoothing: antialiased;
+    background-image: radial-gradient(var(--border-main) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
+  .container {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* Evaluator Top Banner */
+  .preview-ribbon {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-main);
+    border-radius: 6px;
+    padding: 12px 18px;
+    margin: 28px 0 36px;
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+  }
+  .tag-retro {
+    background: var(--accent);
+    color: #FFF;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-weight: 700;
+  }
+
+  /* Navigation */
+  .header-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--border-main);
+    margin-bottom: 48px;
+    background: var(--bg-page);
+  }
+  .brand-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 14.5px;
+    color: var(--text-primary);
+    text-decoration: none;
+  }
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent-pine);
+    display: inline-block;
+    box-shadow: 0 0 0 2px rgba(21, 128, 61, 0.2);
+  }
+  .nav-links {
+    display: flex;
+    gap: 24px;
+    list-style: none;
+    font-family: var(--font-mono);
+    font-size: 13px;
+  }
+  .nav-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+  .nav-links a:hover {
+    color: var(--accent);
+  }
+
+  /* Hero Section (Human, Warm, Grounded) */
+  .hero-block {
+    margin-bottom: 60px;
+  }
+  .hero-greeting {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--accent);
+    margin-bottom: 8px;
+    letter-spacing: 0.05em;
+  }
+  .hero-title {
+    font-size: clamp(32px, 4.5vw, 44px);
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    line-height: 1.2;
+    margin-bottom: 16px;
+    color: var(--text-primary);
+  }
+  .hero-lead {
+    font-size: 18px;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    margin-bottom: 24px;
+  }
+  .creed-tagline {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-main);
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    color: var(--text-primary);
+    font-weight: 700;
+    margin-bottom: 28px;
+  }
+  .creed-tagline span { color: var(--accent); }
+
+  .quick-stats-strip {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    margin-top: 12px;
+  }
+  .stat-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-main);
+    padding: 14px 18px;
+    border-radius: 6px;
+  }
+  .stat-num {
+    font-family: var(--font-mono);
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--accent);
+  }
+  .stat-label {
+    font-size: 12.5px;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+
+  /* Section Styles */
+  .section-divider {
+    border: none;
+    border-top: 1px solid var(--border-main);
+    margin: 56px 0;
+  }
+  .sec-header-wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 28px;
+  }
+  .sec-heading {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  .sec-sublabel {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  /* Project Case Studies (Retro-Modern Tech Viewports) */
+  .project-showcase-list {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+  .project-entry-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-main);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.02);
+    transition: border-color 0.2s ease, transform 0.2s ease;
+  }
+  .project-entry-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+  .project-viewport {
+    background: var(--bg-surface-alt);
+    border-bottom: 1px solid var(--border-main);
+    position: relative;
+  }
+  .project-screenshot {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+  }
+  .project-details {
+    padding: 28px;
+  }
+  .project-top-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .badge-field {
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    font-weight: 700;
+    color: var(--accent-pine);
+    background: var(--bg-surface-alt);
+    padding: 2px 8px;
+    border-radius: 4px;
+    border: 1px solid var(--border-main);
+  }
+  .badge-category {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+  .project-headline {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .project-subtitle {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+  .project-story {
+    font-size: 14.5px;
+    color: var(--text-secondary);
+    line-height: 1.65;
+    margin-bottom: 18px;
+  }
+  .arch-pipeline-box {
+    background: var(--bg-surface-alt);
+    border: 1px solid var(--border-main);
+    border-left: 3px solid var(--accent);
+    padding: 12px 16px;
+    border-radius: 4px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--text-primary);
+    margin-bottom: 20px;
+  }
+  .tech-pills-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 24px;
+  }
+  .tech-tag-pill {
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    padding: 3px 8px;
+    background: var(--bg-surface-alt);
+    border: 1px solid var(--border-main);
+    border-radius: 4px;
+    color: var(--text-secondary);
+  }
+  .project-links-row {
+    display: flex;
+    gap: 14px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+  }
+  .btn-link-solid {
+    background: var(--text-primary);
+    color: var(--bg-page);
+    padding: 8px 16px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background 0.15s ease;
+  }
+  .btn-link-solid:hover {
+    background: var(--accent);
+  }
+  .btn-link-ghost {
+    background: transparent;
+    color: var(--text-primary);
+    border: 1px solid var(--border-main);
+    padding: 8px 16px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: border-color 0.15s ease;
+  }
+  .btn-link-ghost:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  /* Toolbox / Uses Grid */
+  .toolbox-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+  }
+  .toolbox-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-main);
+    padding: 22px;
+    border-radius: 6px;
+  }
+  .toolbox-title {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 12px;
+    text-transform: uppercase;
+  }
+  .toolbox-list {
+    list-style: none;
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.9;
+  }
+  .toolbox-list li strong {
+    color: var(--text-primary);
+  }
+
+  /* Career Stories Stream */
+  .timeline-stream-retro {
+    border-left: 2px solid var(--border-main);
+    padding-left: 24px;
+    margin-left: 8px;
+  }
+  .timeline-node {
+    position: relative;
+    margin-bottom: 36px;
+  }
+  .timeline-node::before {
+    content: '';
+    position: absolute;
+    left: -31px;
+    top: 6px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--bg-page);
+    border: 2px solid var(--accent);
+  }
+  .timeline-period-badge {
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .timeline-role {
+    font-size: 16.5px;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+  .timeline-company {
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+  .timeline-notes {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-top: 6px;
+    line-height: 1.6;
+  }
+
+  /* Footer */
+  .footer-retro {
+    margin-top: 80px;
+    padding: 32px 0 60px;
+    border-top: 1px solid var(--border-main);
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    color: var(--text-muted);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .footer-retro a {
+    color: var(--text-primary);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--text-muted);
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <!-- Option 3 Evolution Evaluator Banner -->
+  <div class="preview-ribbon">
+    <div>
+      <span class="tag-retro">NEW CONCEPT</span>
+      <strong>The Retro-Tech Craftsman &amp; Systems Architect</strong>
+    </div>
+    <div>Warm Paper Canvas · First-Person Human Story · Real Architecture Case Studies</div>
+  </div>
+
+  <!-- Masthead -->
+  <header class="header-nav">
+    <a href="#" class="brand-logo">
+      <span class="status-dot"></span>
+      <span>SIGIT ADI IRIANTO</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#systems">Systems</a></li>
+      <li><a href="#toolbox">Toolbox</a></li>
+      <li><a href="#chronology">Experience</a></li>
+      <li><a href="#credentials">Certs</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </header>
+
+  <!-- Human Hero -->
+  <section class="hero-block" id="about">
+    <div class="hero-greeting">// HELLO, WORLD.</div>
+    <h1 class="hero-title">Engineering reliable systems, defending networks, and exploring practical AI.</h1>
+    
+    <p class="hero-lead">
+      I am a systems and security operations practitioner based in Tangerang, Indonesia. Over the past <strong>24+ years</strong>, I have lived through the evolution of enterprise IT — from crimping CAT5 cables, assembling hardware, and configuring Linux server fleets in 2002, to triaging 500+ daily SOC alerts in Wazuh SIEM and evaluating LLM prompt stability today.
+    </p>
+
+    <div class="creed-tagline">
+      <span>BUILD</span> · <span>CONNECT</span> · <span>AUTOMATE</span> · <span>SECURE</span>
+    </div>
+
+    <div class="quick-stats-strip">
+      <div class="stat-card">
+        <div class="stat-num">24+ Yrs</div>
+        <div class="stat-label">In Enterprise IT &amp; Ops</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">500+</div>
+        <div class="stat-label">Daily SOC Alerts Triaged</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">-45%</div>
+        <div class="stat-label">Simulated MTTR Drop</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">1,000+</div>
+        <div class="stat-label">LLM Evaluation Pairs</div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider">
+
+  <!-- Systems Case Studies -->
+  <section id="systems">
+    <div class="sec-header-wrap">
+      <h2 class="sec-heading">Selected Systems &amp; Deployments</h2>
+      <span class="sec-sublabel">[01 // CASE STUDIES]</span>
+    </div>
+
+    <div class="project-showcase-list">
+      <!-- SCOPS -->
+      <article class="project-entry-card">
+        <div class="project-viewport">
+          <img src="../assets/SCOPS Command.png" alt="SCOPS Platform Interface" class="project-screenshot">
+        </div>
+        <div class="project-details">
+          <div class="project-top-meta">
+            <span class="badge-field">LIVE PRODUCTION</span>
+            <span class="badge-category">Security Operations &amp; Automation</span>
+          </div>
+          <h3 class="project-headline">SCOPS — Security Operations Automation Platform</h3>
+          <div class="project-subtitle">Wazuh SIEM Automated Telemetry Ingestion &amp; Incident Triage Gateway</div>
+          <p class="project-story">
+            In active SOC environments, analysts easily suffer from alert fatigue when digesting hundreds of unclassified logs every day. I built SCOPS as a centralized telemetry gateway that connects to Wazuh SIEM managers via REST APIs, evaluates risk scores, and routes incidents into High/Medium/Low priority queues with automated NIST SP 800-61 response playbooks.
+          </p>
+          <div class="arch-pipeline-box">
+            <strong>Architecture:</strong> Wazuh Telemetry Stream → REST API Ingest → Python Risk Engine → Priority Triage Queue → SOP Incident Playbook
+          </div>
+          <div class="tech-pills-row">
+            <span class="tech-tag-pill">Python</span>
+            <span class="tech-tag-pill">Streamlit</span>
+            <span class="tech-tag-pill">Wazuh SIEM API</span>
+            <span class="tech-tag-pill">NIST SP 800-61</span>
+            <span class="tech-tag-pill">Docker</span>
+          </div>
+          <div class="project-links-row">
+            <a href="https://sisigitadi.github.io/scops" target="_blank" rel="noopener noreferrer" class="btn-link-solid">Open Live App ↗</a>
+            <a href="https://github.com/sisigitadi" target="_blank" rel="noopener noreferrer" class="btn-link-ghost">Source Code ↗</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- PromptMatrix 2.0 -->
+      <article class="project-entry-card">
+        <div class="project-viewport">
+          <img src="../assets/PromptMatrix 2.0.png" alt="PromptMatrix 2.0 Platform" class="project-screenshot">
+        </div>
+        <div class="project-details">
+          <div class="project-top-meta">
+            <span class="badge-field">LIVE PRODUCTION</span>
+            <span class="badge-category">Applied AI / LLM Benchmarking</span>
+          </div>
+          <h3 class="project-headline">PromptMatrix 2.0 — LLM Prompt Stability Suite</h3>
+          <div class="project-subtitle">Client-Side Prompt Evaluation, Drift Testing &amp; Strict JSON Validation</div>
+          <p class="project-story">
+            LLM applications often break silently when subtle prompt variations cause schema violations or answer drift. I architected PromptMatrix 2.0 to run combinatorial prompt matrices across model variants, validating output consistency and format adherence with zero server-side secret retention (BYOK).
+          </p>
+          <div class="arch-pipeline-box">
+            <strong>Architecture:</strong> Prompt Matrix Input → Systematic Variant Generator → Multi-Model Execution (Gemini API) → JSON Schema Validator
+          </div>
+          <div class="tech-pills-row">
+            <span class="tech-tag-pill">TypeScript</span>
+            <span class="tech-tag-pill">Next.js</span>
+            <span class="tech-tag-pill">LangChain</span>
+            <span class="tech-tag-pill">Gemini API</span>
+            <span class="tech-tag-pill">JSON Schema</span>
+          </div>
+          <div class="project-links-row">
+            <a href="https://sisigitadi.github.io/promptmatrix2" target="_blank" rel="noopener noreferrer" class="btn-link-solid">Open Live App ↗</a>
+            <a href="https://github.com/sisigitadi" target="_blank" rel="noopener noreferrer" class="btn-link-ghost">Source Code ↗</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- SmartExpenseML -->
+      <article class="project-entry-card">
+        <div class="project-viewport">
+          <img src="../assets/SmartExpenseML.png" alt="SmartExpenseML Interface" class="project-screenshot">
+        </div>
+        <div class="project-details">
+          <div class="project-top-meta">
+            <span class="badge-field">LIVE PRODUCTION</span>
+            <span class="badge-category">Edge NLP / Privacy Engineering</span>
+          </div>
+          <h3 class="project-headline">SmartExpenseML — In-Browser Expense NLP</h3>
+          <div class="project-subtitle">Sub-5ms Colloquial Indonesian Currency Normalizer &amp; Text Classifier</div>
+          <p class="project-story">
+            Financial notes should be private. SmartExpenseML executes 100% on the client device, parsing informal Indonesian amounts (e.g. "35rb", "1.5jt", "ribu") and categorizing expenses without sending a single byte to external servers.
+          </p>
+          <div class="tech-pills-row">
+            <span class="tech-tag-pill">Vanilla JavaScript</span>
+            <span class="tech-tag-pill">Regex Tokenizer</span>
+            <span class="tech-tag-pill">HTML5 LocalStorage</span>
+          </div>
+          <div class="project-links-row">
+            <a href="https://sisigitadi.github.io/smartexpenseML" target="_blank" rel="noopener noreferrer" class="btn-link-solid">Open Live App ↗</a>
+            <a href="https://github.com/sisigitadi" target="_blank" rel="noopener noreferrer" class="btn-link-ghost">Source Code ↗</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- ARYA -->
+      <article class="project-entry-card">
+        <div class="project-viewport">
+          <img src="../assets/A.R.Y.A. SOC Analytics.png" alt="ARYA Dashboard" class="project-screenshot">
+        </div>
+        <div class="project-details">
+          <div class="project-top-meta">
+            <span class="badge-field">LIVE PRODUCTION</span>
+            <span class="badge-category">SecOps / Data Pipeline</span>
+          </div>
+          <h3 class="project-headline">A.R.Y.A. — SOC Analytics &amp; Threat Hunting</h3>
+          <div class="project-subtitle">Heterogeneous Log Stream Normalization Layer</div>
+          <p class="project-story">
+            Consolidates diverse log streams (JSON, XML, CSV) across network endpoints into unified threat hunting dashboards, cutting manual log inspection time by 30%.
+          </p>
+          <div class="tech-pills-row">
+            <span class="tech-tag-pill">Python</span>
+            <span class="tech-tag-pill">Streamlit</span>
+            <span class="tech-tag-pill">Pandas</span>
+            <span class="tech-tag-pill">REST APIs</span>
+          </div>
+          <div class="project-links-row">
+            <a href="https://arya-soc.streamlit.app" target="_blank" rel="noopener noreferrer" class="btn-link-solid">Open Live App ↗</a>
+            <a href="https://github.com/sisigitadi" target="_blank" rel="noopener noreferrer" class="btn-link-ghost">Source Code ↗</a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <hr class="section-divider">
+
+  <!-- Toolbox / Uses -->
+  <section id="toolbox">
+    <div class="sec-header-wrap">
+      <h2 class="sec-heading">The Engineering Toolbox</h2>
+      <span class="sec-sublabel">[02 // TECH STACK &amp; USES]</span>
+    </div>
+
+    <div class="toolbox-grid">
+      <div class="toolbox-card">
+        <div class="toolbox-title">Infrastruktur &amp; Sistem</div>
+        <ul class="toolbox-list">
+          <li><strong>OS:</strong> Ubuntu Linux Server, WSL, Windows Server</li>
+          <li><strong>Virtualisasi:</strong> Docker, Containerization, Proxmox</li>
+          <li><strong>Jaringan:</strong> LAN/WAN Routing, Firewalls, DNS, DHCP</li>
+          <li><strong>Penyimpanan:</strong> SQL Performance, Backup Protocols</li>
+        </ul>
+      </div>
+
+      <div class="toolbox-card">
+        <div class="toolbox-title">SecOps &amp; Pertahanan</div>
+        <ul class="toolbox-list">
+          <li><strong>SIEM &amp; WAF:</strong> Wazuh SIEM, FortiWeb WAF</li>
+          <li><strong>Standar IR:</strong> NIST SP 800-61 Incident Playbooks</li>
+          <li><strong>Audit:</strong> Vulnerability Assessment, Server Hardening</li>
+          <li><strong>Operasional:</strong> Tier-1 SOC Telemetry Triage</li>
+        </ul>
+      </div>
+
+      <div class="toolbox-card">
+        <div class="toolbox-title">Applied AI &amp; Otomasi</div>
+        <ul class="toolbox-list">
+          <li><strong>Model AI:</strong> Gemini API, Ollama (Local LLM), LangChain</li>
+          <li><strong>Evaluasi:</strong> Prompt Drift, JSON Schema Validation</li>
+          <li><strong>Otomasi Alur:</strong> n8n Workflow Automation, REST APIs</li>
+          <li><strong>Bahasa:</strong> Python, TypeScript, Vanilla JS, SQL</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider">
+
+  <!-- Experience Chronology -->
+  <section id="chronology">
+    <div class="sec-header-wrap">
+      <h2 class="sec-heading">Perjalanan Karir (2002 — Sekarang)</h2>
+      <span class="sec-sublabel">[03 // 24 TAHUN PENGALAMAN]</span>
+    </div>
+
+    <div class="timeline-stream-retro">
+      <div class="timeline-node">
+        <div class="timeline-period-badge">Mar 2026 — Sekarang</div>
+        <div class="timeline-role">Web Administrator <span class="timeline-company">@ Kementerian Lingkungan Hidup</span></div>
+        <p class="timeline-notes">Mengelola 5+ layanan web tercontainerisasi di Linux Server/WSL dengan pemantauan Wazuh SIEM dan server hardening. Memangkas waktu inspeksi log manual mingguan sebesar 30%.</p>
+      </div>
+
+      <div class="timeline-node">
+        <div class="timeline-period-badge">Okt 2025 — Des 2025</div>
+        <div class="timeline-role">Senior Programmer (Kontrak Singkat) <span class="timeline-company">@ Kementerian Dalam Negeri</span></div>
+        <p class="timeline-notes">Membangun komponen backend dan 10+ REST API endpoint untuk platform tata kelola digital pemroses 5.000+ data harian dengan reliabilitas 99,5%.</p>
+      </div>
+
+      <div class="timeline-node">
+        <div class="timeline-period-badge">Jan 2025 — Sep 2025</div>
+        <div class="timeline-role">SOC Analyst (Part-Time) <span class="timeline-company">@ PT. Prospera Consulting Engineers</span></div>
+        <p class="timeline-notes">Menyusun 10+ playbook Incident Response standar NIST SP 800-61. Mengurangi alert MTTA sebesar 55% pada 500+ event keamanan harian.</p>
+      </div>
+
+      <div class="timeline-node">
+        <div class="timeline-period-badge">Okt 2024 — Des 2024</div>
+        <div class="timeline-role">Incident Handling Operational <span class="timeline-company">@ Kementerian Dalam Negeri</span></div>
+        <p class="timeline-notes">Monitoring ancaman real-time dengan Wazuh SIEM dan FortiWeb WAF pada 500+ alert harian dengan waktu respon insiden di bawah 15 menit.</p>
+      </div>
+
+      <div class="timeline-node">
+        <div class="timeline-period-badge">Jun 2024 — Sekarang</div>
+        <div class="timeline-role">AI Trainer &amp; LLM Evaluator (Freelance) <span class="timeline-company">@ Outlier.ai / Platform Global</span></div>
+        <p class="timeline-notes">Evaluasi human-in-the-loop terhadap faktualitas, instruksi, dan keamanan model pada 1.000+ pasangan prompt-response di 5+ famili model LLM terkemuka.</p>
+      </div>
+
+      <div class="timeline-node">
+        <div class="timeline-period-badge">Mei 2023 — Agu 2024</div>
+        <div class="timeline-role">IT &amp; Operations Manager <span class="timeline-company">@ ACE Ltd.</span></div>
+        <p class="timeline-notes">Mempertahankan uptime infrastruktur 99%+ untuk tim 50+ personel dan membuat script reporting database otomatis yang menghemat 40% waktu administrasi mingguan.</p>
+      </div>
+
+      <div class="timeline-node">
+        <div class="timeline-period-badge">Des 2020 — Apr 2023</div>
+        <div class="timeline-role">Project Office Manager <span class="timeline-company">@ Kementerian PUPR</span></div>
+        <p class="timeline-notes">Mengkoordinasikan konektivitas IT, perangkat routing, dan operasional lapangan di 4 lokasi proyek infrastruktur nasional secara simultan.</p>
+      </div>
+
+      <div class="timeline-node">
+        <div class="timeline-period-badge">Jun 2014 — Apr 2020</div>
+        <div class="timeline-role">IT Manager <span class="timeline-company">@ PT. Dipta Safari Jaya</span></div>
+        <p class="timeline-notes">Mengelola armada server fisik dan 40+ endpoint selama 6 tahun dengan ketersediaan jaringan 99%+ dan zero data-loss berkat protokol backup terjadwal.</p>
+      </div>
+
+      <div class="timeline-node">
+        <div class="timeline-period-badge">2002 — 2014</div>
+        <div class="timeline-role">IT Support Engineer &amp; Hardware Technician <span class="timeline-company">@ PT. Laju Karunia Jaya &amp; Arya Mobile</span></div>
+        <p class="timeline-notes">Fondasi 12 tahun: Pengkabelan LAN, perakitan PC/server, instalasi OS, dan penyelesaian lebih dari 1.000 tiket troubleshooting teknis.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider">
+
+  <!-- Credentials -->
+  <section id="credentials">
+    <div class="sec-header-wrap">
+      <h2 class="sec-heading">Sertifikasi &amp; Pendidikan</h2>
+      <span class="sec-sublabel">[04 // 9 VERIFIED CERTS + S.KOM]</span>
+    </div>
+
+    <div class="toolbox-card">
+      <ul class="toolbox-list">
+        <li><strong>AI &amp; Otomasi:</strong> Microsoft Azure AI Fundamentals (AI-900), Gemini API Integration (Hacktiv8), n8n Business Automation (Kodeka Labs).</li>
+        <li><strong>Cybersecurity &amp; Infra:</strong> Ubuntu Linux Certified (Canonical), Penetration Testing Professional (Cybrary), Certified Ethical Hacker Foundation (LinkedIn Learning), Cyber Exercise #9 (BSSN), Certified SOC Analyst (Cyber Academy), DevSecOps Auditor (Kelas.work).</li>
+        <li><strong>Pendidikan Akademik:</strong> Sarjana Ilmu Komputer (S.Kom.) — Universitas Budi Luhur, Jakarta.</li>
+      </ul>
+    </div>
+  </section>
+
+  <hr class="section-divider">
+
+  <!-- Contact -->
+  <section id="contact">
+    <div class="sec-header-wrap">
+      <h2 class="sec-heading">Hubungi / Jalur Komunikasi</h2>
+      <span class="sec-sublabel">[05 // GET IN TOUCH]</span>
+    </div>
+
+    <p style="color:var(--text-secondary); margin-bottom:20px;">
+      Saya terbuka untuk peluang kolaborasi teknis, arsitektur sistem SecOps, atau penerapan model AI praktis. Silakan hubungi langsung melalui saluran berikut:
+    </p>
+
+    <div style="font-family:var(--font-mono); font-size:14px; line-height:2.2;">
+      <div>• <strong>Email:</strong> <a href="mailto:si.sigitadi@gmail.com" style="color:var(--accent)">si.sigitadi@gmail.com</a></div>
+      <div>• <strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/sigitadi/" target="_blank" rel="noopener noreferrer" style="color:var(--accent)">linkedin.com/in/sigitadi ↗</a></div>
+      <div>• <strong>GitHub:</strong> <a href="https://github.com/sisigitadi" target="_blank" rel="noopener noreferrer" style="color:var(--accent)">github.com/sisigitadi ↗</a></div>
+    </div>
+  </section>
+
+  <footer class="footer-retro">
+    <div>&copy; 2026 Sigit Adi Irianto · All Rights Reserved.</div>
+    <div><a href="../admin.html">Control Panel ↗</a></div>
+  </footer>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,123 @@
+{
+  "profile": {
+    "name": "Sigit Adi Irianto",
+    "empiricalTitle": "IT Infrastructure, SecOps, and Applied AI Engineer",
+    "primaryPositioning": "IT & SecOps Specialist · Applied AI Engineer",
+    "summary": "24+ years in technology infrastructure, systems operations, and technology delivery — now engineering at the intersection of Security Operations (SecOps), Workflow Automation, and Applied AI Systems.",
+    "corePhilosophy": "BUILD. CONNECT. AUTOMATE. SECURE.",
+    "location": {
+      "city": "Tangerang",
+      "province": "Banten",
+      "country": "Indonesia",
+      "timezone": "UTC+7",
+      "workMode": "Open to Worldwide Remote Work"
+    },
+    "contact": {
+      "email": "si.sigitadi@gmail.com",
+      "linkedin": "https://www.linkedin.com/in/sigitadi/",
+      "github": "https://github.com/sisigitadi",
+      "medium": "https://medium.com/@si.sigitadi",
+      "portfolio": "https://sisigitadi.github.io/portofolio"
+    }
+  },
+  "metrics": {
+    "yearsExperience": "24+ Yrs",
+    "fieldExperiencePeriod": "Feb 2002 - Present",
+    "dailyAlertsTriaged": "500+",
+    "simulatedMTTRReduction": "-45%",
+    "mtTaReduction": "-55%",
+    "llmPromptEvaluations": "1,000+",
+    "managedEndpoints": "50+",
+    "operationalUptime": "99%+"
+  },
+  "projects": [
+    {
+      "id": "scops",
+      "slug": "scops",
+      "title": "SCOPS — Security Operations Automation Platform",
+      "tagline": "Wazuh SIEM Automated Telemetry Ingestion & Incident Triage Gateway",
+      "category": "SecOps / Automation",
+      "status": "LIVE",
+      "image": "assets/SCOPS Command.png",
+      "liveUrl": "https://sisigitadi.github.io/scops",
+      "repoUrl": "https://github.com/sisigitadi",
+      "description": "Centralized SOC triage dashboard that digests raw telemetry from Wazuh SIEM agents and classifies incidents into actionable High/Medium/Low priority queues, reducing simulated MTTR by 45% and MTTA by 55%.",
+      "architecture": "Wazuh Manager Telemetry → REST API Ingestion → Python Risk Engine → Priority Triage Queue → SOP Incident Playbook",
+      "technologies": ["Python", "Streamlit", "Wazuh SIEM API", "NIST SP 800-61", "Docker"],
+      "impact": ["-45% simulated MTTR", "-55% MTTA reduction", "500+ daily alert triage"]
+    },
+    {
+      "id": "promptmatrix",
+      "slug": "promptmatrix",
+      "title": "PromptMatrix 2.0 — LLM Prompt Stability Suite",
+      "tagline": "Client-Side Prompt Evaluation, Drift Testing & Strict JSON Validation",
+      "category": "Applied AI / LLM Benchmarking",
+      "status": "LIVE",
+      "image": "assets/PromptMatrix 2.0.png",
+      "liveUrl": "https://sisigitadi.github.io/promptmatrix2",
+      "repoUrl": "https://github.com/sisigitadi",
+      "description": "Architected a client-side prompt evaluation engine testing LLM prompt stability, format adherence, and safety across systematic prompt variations with zero server-side secret retention (BYOK).",
+      "architecture": "Prompt Matrix Input → Systematic Variant Generator → Multi-Model Execution (Gemini API) → JSON Schema Validator",
+      "technologies": ["TypeScript", "Next.js", "LangChain", "Gemini API", "JSON Schema"],
+      "impact": ["1,000+ prompt-response pairs evaluated", "0-byte server secret exposure", "Strict JSON schema validation"]
+    },
+    {
+      "id": "smartexpenseml",
+      "slug": "smartexpenseml",
+      "title": "SmartExpenseML — In-Browser Expense NLP",
+      "tagline": "Client-Side Indonesian Currency Normalizer & Category Classifier",
+      "category": "Client NLP / Privacy Engineering",
+      "status": "LIVE",
+      "image": "assets/SmartExpenseML.png",
+      "liveUrl": "https://sisigitadi.github.io/smartexpenseML",
+      "repoUrl": "https://github.com/sisigitadi",
+      "description": "Browser-based NLP classifier parsing informal Indonesian transaction texts (e.g. '25rb', '5.5jt') with sub-5ms latency and zero server telemetry or data retention.",
+      "architecture": "Indonesian Currency Regex Parser → Token Normalization → Statistical NLP Matcher → LocalStorage Sandbox",
+      "technologies": ["Vanilla JavaScript", "Regex Tokenizer", "Rule-based NLP", "HTML5 LocalStorage"],
+      "impact": ["Sub-5ms parsing latency", "100% on-device execution", "Zero third-party tracking"]
+    },
+    {
+      "id": "arya",
+      "slug": "arya",
+      "title": "A.R.Y.A. — SOC Analytics & Threat Hunting",
+      "tagline": "Heterogeneous Log Stream Normalization & Threat Correlation",
+      "category": "SecOps / Data Pipeline",
+      "status": "LIVE",
+      "image": "assets/A.R.Y.A. SOC Analytics.png",
+      "liveUrl": "https://arya-soc.streamlit.app",
+      "repoUrl": "https://github.com/sisigitadi",
+      "description": "Automated telemetry ingestion pipeline that normalizes heterogeneous log streams (JSON, XML, CSV) into real-time threat hunting dashboards, cutting manual log review time by 30%.",
+      "architecture": "Multi-Format Stream Ingestion → Schema Normalization Layer → Threat Correlation Matrix → Streamlit UI",
+      "technologies": ["Python", "Streamlit", "Pandas", "REST APIs", "JSON/XML Parsers"],
+      "impact": ["-30% manual log inspection time", "Multi-format normalization", "Real-time threat visualizer"]
+    }
+  ],
+  "certifications": [
+    { "title": "Microsoft Azure AI Fundamentals (AI-900)", "issuer": "Microsoft", "year": "2025", "domain": "AI & Automation" },
+    { "title": "LLM-Based Tools & Gemini API Integration", "issuer": "Hacktiv8", "year": "2025", "domain": "AI & Automation" },
+    { "title": "Business Automation with n8n", "issuer": "Kodeka Labs", "year": "2025", "domain": "AI & Automation" },
+    { "title": "Ubuntu Linux Professional Certification", "issuer": "Canonical", "year": "2025", "domain": "Cybersecurity, SecOps & Infrastructure" },
+    { "title": "Penetration Testing Professional", "issuer": "Cybrary", "year": "2025", "domain": "Cybersecurity, SecOps & Infrastructure" },
+    { "title": "Certified Ethical Hacker Foundation", "issuer": "LinkedIn Learning", "year": "2025", "domain": "Cybersecurity, SecOps & Infrastructure" },
+    { "title": "Indonesia Cross-Sectoral Cyber Exercise #9", "issuer": "BSSN", "year": "2024", "domain": "Cybersecurity, SecOps & Infrastructure" },
+    { "title": "Certified SOC Analyst", "issuer": "Cyber Academy Indonesia", "year": "2024", "domain": "Cybersecurity, SecOps & Infrastructure" },
+    { "title": "DevSecOps for Software Security & IT Auditor", "issuer": "Kelas.work", "year": "2024", "domain": "Cybersecurity, SecOps & Infrastructure" }
+  ],
+  "education": {
+    "degree": "Bachelor of Computer Science (S.Kom.)",
+    "institution": "Universitas Budi Luhur",
+    "location": "Jakarta, Indonesia"
+  },
+  "tenures": [
+    { "period": "Mar 2026 - Present", "role": "Web Administrator (Contract)", "company": "Ministry of Environment", "highlights": ["Maintained 5+ containerized web services on Linux Server/WSL with Wazuh SIEM monitoring.", "Streamlined telemetry analysis cut weekly manual log review time by 30%."] },
+    { "period": "Oct 2025 - Dec 2025", "role": "Senior Programmer (Short-Term Contract)", "company": "Ministry of Home Affairs", "highlights": ["Developed backend components and 10+ REST API endpoints for a digital governance system processing 5,000+ daily records.", "Maintained 99.5% API reliability across high-volume transaction cycles."] },
+    { "period": "Jan 2025 - Sep 2025", "role": "SOC Analyst (Part-Time)", "company": "PT. Prospera Consulting Engineers", "highlights": ["Developed 10+ Incident Response playbooks for Tier-1 analysts with structured threat containment.", "Reduced MTTA by 55% across 500+ daily alerts after playbook rollout."] },
+    { "period": "Oct 2024 - Dec 2024", "role": "Incident Handling Operational (Short-Term Contract)", "company": "Ministry of Home Affairs", "highlights": ["Shift operations and real-time threat monitoring with Wazuh SIEM and FortiWeb WAF — triaging 500+ security alerts a day.", "Maintained an average incident response time under 15 minutes."] },
+    { "period": "Jun 2024 - Present", "role": "AI Trainer & LLM Evaluator (Freelance)", "company": "Outlier.ai / Tech Platforms", "highlights": ["Human-in-the-loop evaluation of model factuality, instruction-following, and safety; 1,000+ prompt-response pairs reviewed.", "Tested prompt stability across 5+ major LLM model families."] },
+    { "period": "May 2023 - Aug 2024", "role": "IT & Operations Manager (Full-Time)", "company": "ACE Ltd.", "highlights": ["Maintained 99%+ IT infrastructure uptime and network operations for a 50+ person team.", "Built automated database reporting scripts, cutting manual entry time by 40%."] },
+    { "period": "Dec 2020 - Apr 2023", "role": "Project Office Manager (Contract)", "company": "Ministry of Public Works and Housing (PUPR)", "highlights": ["Coordinated IT support, network connectivity, and field equipment across 4 concurrent infrastructure project sites.", "Unified operational reporting across all 4 sites, reducing data consolidation delays by 35%."] },
+    { "period": "Jun 2020 - Nov 2020", "role": "Assistant to Office Manager (Short-Term Contract)", "company": "Nippon Koei Co., Ltd.", "highlights": ["Audited weekly budget variances and workflow tracking across 3 regional project teams with 100% on-time milestone reporting."] },
+    { "period": "Jun 2014 - Apr 2020", "role": "IT Manager (Full-Time)", "company": "PT. Dipta Safari Jaya", "highlights": ["Managed on-premise server fleet (3 core servers) and 40+ workstations over a 6-year tenure with 99%+ availability.", "Implemented scheduled daily backup protocols with 0 data-loss incidents throughout 6 years."] },
+    { "period": "2002 - 2014", "role": "IT Support Engineer & Hardware Technician (Full-Time)", "company": "PT. Laju Karunia Jaya & Arya Mobile", "highlights": ["Resolved 1,000+ hardware, OS, and network troubleshooting tickets across a 12-year foundation period.", "Managed LAN cabling, PC assembly, server maintenance, and end-user technical support."] }
+  ]
+}

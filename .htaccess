@@ -1,0 +1,25 @@
+# DirectAdmin / Apache Production Configuration for sigitadi.id
+
+# 1. Force HTTPS
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# 2. Correct MIME Types
+<IfModule mod_mime.c>
+    AddType image/x-icon .ico
+    AddType image/jpeg .jpg .jpeg
+    AddType image/png .png
+    AddType image/svg+xml .svg
+    AddType application/manifest+json .webmanifest .json
+</IfModule>
+
+# 3. Enable CORS for Fonts and Images
+<IfModule mod_headers.c>
+    <FilesMatch "\.(ico|jpe?g|png|gif|svg|webp|woff2?|ttf|eot)$">
+        Header set Access-Control-Allow-Origin "*"
+    </FilesMatch>
+</IfModule>
+
+# 4. Disable Directory Browsing
+Options -Indexes

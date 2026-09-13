@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>Sigit Adi Irianto // SecOps &amp; Systems Journal (Option 2: Terminal Slate)</title>
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" href="../favicon.ico" sizes="16x16 32x32">
+
+<style>
+  :root {
+    --bg: #0D1117;
+    --surface: #161B22;
+    --surface-alt: #21262D;
+    --text-primary: #C9D1D9;
+    --text-secondary: #8B949E;
+    --text-heading: #F0F6FC;
+    --border: #30363D;
+    --accent-blue: #58A6FF;
+    --accent-green: #7EE787;
+    --accent-orange: #FFA657;
+    --font-mono: 'Space Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --max-w: 800px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background-color: var(--bg);
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    line-height: 1.7;
+    font-size: 15px;
+    padding: 0 24px 100px;
+  }
+
+  .container {
+    max-width: var(--max-w);
+    margin: 0 auto;
+  }
+
+  /* Preview Banner */
+  .preview-bar {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 10px 16px;
+    border-radius: 4px;
+    margin: 32px auto 40px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .tag-pill {
+    background: var(--surface-alt);
+    color: var(--accent-orange);
+    padding: 2px 6px;
+    border-radius: 3px;
+    border: 1px solid var(--border);
+  }
+
+  /* Console Header */
+  .header-console {
+    padding: 36px 0 24px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 40px;
+  }
+  .prompt-line {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--accent-green);
+    margin-bottom: 12px;
+  }
+  .prompt-line span.path { color: var(--accent-blue); }
+  .name-heading {
+    font-family: var(--font-mono);
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--text-heading);
+    letter-spacing: -0.01em;
+    margin-bottom: 8px;
+  }
+  .position-desc {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: var(--accent-orange);
+    margin-bottom: 20px;
+  }
+  .bio-text {
+    font-size: 15.5px;
+    color: var(--text-primary);
+    line-height: 1.7;
+    margin-bottom: 20px;
+  }
+  .telemetry-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    color: var(--text-secondary);
+    border-top: 1px dashed var(--border);
+    padding-top: 16px;
+    margin-top: 16px;
+  }
+  .telemetry-row span.val { color: var(--accent-green); font-weight: 700; }
+
+  /* Sections */
+  .sec {
+    margin-bottom: 56px;
+  }
+  .sec-title {
+    font-family: var(--font-mono);
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--accent-blue);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .sec-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* Log / Deployments */
+  .deploy-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    margin-bottom: 32px;
+    overflow: hidden;
+  }
+  .deploy-head {
+    background: var(--surface-alt);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .deploy-title {
+    font-family: var(--font-mono);
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-heading);
+  }
+  .deploy-tag {
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    color: var(--accent-green);
+  }
+  .deploy-body {
+    padding: 20px;
+  }
+  .deploy-body p {
+    margin-bottom: 16px;
+    color: var(--text-primary);
+    font-size: 14.5px;
+  }
+  .deploy-img {
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    margin: 14px 0 18px;
+    display: block;
+  }
+  .code-snippet {
+    background: #090D13;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 12px 16px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--text-primary);
+    line-height: 1.6;
+    margin: 14px 0 18px;
+    overflow-x: auto;
+  }
+  .code-snippet span.kw { color: var(--accent-orange); }
+  .code-snippet span.fn { color: var(--accent-blue); }
+  .code-snippet span.str { color: var(--accent-green); }
+  .code-snippet span.cm { color: var(--text-secondary); }
+
+  .deploy-links {
+    display: flex;
+    gap: 16px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px dashed var(--border);
+  }
+  .deploy-links a {
+    color: var(--accent-blue);
+    text-decoration: none;
+  }
+  .deploy-links a:hover {
+    text-decoration: underline;
+  }
+
+  /* Table Style for Chronology */
+  .timeline-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+  .timeline-table tr {
+    border-bottom: 1px solid var(--border);
+  }
+  .timeline-table td {
+    padding: 14px 0;
+    vertical-align: top;
+  }
+  .td-year {
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    color: var(--text-secondary);
+    width: 130px;
+    white-space: nowrap;
+  }
+  .td-role {
+    color: var(--text-heading);
+    font-weight: 600;
+  }
+  .td-org {
+    color: var(--accent-orange);
+    font-weight: 400;
+  }
+  .td-desc {
+    font-size: 13.5px;
+    color: var(--text-secondary);
+    margin-top: 4px;
+  }
+
+  /* Footer */
+  .console-foot {
+    border-top: 1px solid var(--border);
+    padding-top: 24px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--text-secondary);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <!-- Option 2 Evaluator Banner -->
+  <div class="preview-bar">
+    <div>
+      <span class="tag-pill">OPTION 2 OF 3</span>
+      <strong>The SecOps &amp; Systems Engineering Journal (Terminal Slate)</strong>
+    </div>
+    <div>Low-Contrast Dark Slate · Monospace Focus · Real Code Blocks</div>
+  </div>
+
+  <header class="header-console">
+    <div class="prompt-line">
+      sigit@sysops-node:<span class="path">~/portfolio</span>$ cat manifest.nfo
+    </div>
+    <h1 class="name-heading">SIGIT ADI IRIANTO</h1>
+    <div class="position-desc">IT Infrastructure × SecOps Specialist × Applied AI Engineer</div>
+
+    <p class="bio-text">
+      24+ years managing production infrastructure, Linux/Windows server fleets, and network security operations. Currently specializing in Wazuh SIEM telemetry triage, automated threat response playbooks (NIST SP 800-61), and LLM prompt stability evaluation suites.
+    </p>
+
+    <div class="telemetry-row">
+      <div>[OPS_YEARS]: <span class="val">24+ Yrs</span></div>
+      <div>[SOC_TELEMETRY]: <span class="val">500+ Alerts/Day</span></div>
+      <div>[TRIAGE_DROP]: <span class="val">-45% MTTR</span></div>
+      <div>[LLM_EVALS]: <span class="val">1,000+ Pairs</span></div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Section: Selected Systems -->
+    <section class="sec">
+      <div class="sec-title">[01] PRODUCTION DEPLOYMENTS &amp; CASE STUDIES</div>
+
+      <!-- SCOPS -->
+      <div class="deploy-block">
+        <div class="deploy-head">
+          <div class="deploy-title">SCOPS // Security Operations Automation Gateway</div>
+          <div class="deploy-tag">STATUS: LIVE_PRODUCTION</div>
+        </div>
+        <div class="deploy-body">
+          <p>
+            Centralized SOC triage console that ingests raw telemetry from Wazuh SIEM manager nodes, parses alert payloads, and classifies incidents into actionable High/Medium/Low priority queues.
+          </p>
+
+          <img src="../assets/SCOPS Command.png" alt="SCOPS Command Platform" class="deploy-img">
+
+          <div class="code-snippet">
+            <span class="cm"># Wazuh Ingestion &amp; NIST Risk Classification Engine Excerpt</span><br>
+            <span class="kw">def</span> <span class="fn">triage_wazuh_event</span>(event_payload: dict) -&gt; dict:<br>
+            &nbsp;&nbsp;rule_level = event_payload.get(<span class="str">'rule'</span>, {}).get(<span class="str">'level'</span>, 0)<br>
+            &nbsp;&nbsp;<span class="kw">if</span> rule_level &gt;= 10:<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">return</span> {<span class="str">'queue'</span>: <span class="str">'CRITICAL_HIGH'</span>, <span class="str">'playbook'</span>: <span class="str">'host_isolation.yml'</span>}<br>
+            &nbsp;&nbsp;<span class="kw">return</span> {<span class="str">'queue'</span>: <span class="str">'TIER1_REVIEW'</span>, <span class="str">'playbook'</span>: <span class="str">'log_enrichment.yml'</span>}
+          </div>
+
+          <p><strong>Metrics:</strong> Simulated MTTR reduced by 45% · MTTA reduced by 55% across 500+ daily alerts.</p>
+
+          <div class="deploy-links">
+            <a href="https://sisigitadi.github.io/scops" target="_blank" rel="noopener noreferrer">➜ Live Application</a>
+            <a href="https://github.com/sisigitadi" target="_blank" rel="noopener noreferrer">➜ Source Repository</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- PromptMatrix 2.0 -->
+      <div class="deploy-block">
+        <div class="deploy-head">
+          <div class="deploy-title">PromptMatrix 2.0 // LLM Stability &amp; Drift Suite</div>
+          <div class="deploy-tag">STATUS: LIVE_PRODUCTION</div>
+        </div>
+        <div class="deploy-body">
+          <p>
+            Client-side prompt evaluation engine testing LLM prompt variation stability, instruction adherence, and strict JSON Schema outputs across multiple Gemini API endpoints with zero server-side token retention (BYOK).
+          </p>
+
+          <img src="../assets/PromptMatrix 2.0.png" alt="PromptMatrix 2.0 Platform" class="deploy-img">
+
+          <div class="code-snippet">
+            <span class="cm">// Client-side Zero-Knowledge BYOK Execution</span><br>
+            <span class="kw">const</span> evalResult = <span class="kw">await</span> modelRouter.executeMatrix({<br>
+            &nbsp;&nbsp;matrixVariants: [promptA, promptB, promptC],<br>
+            &nbsp;&nbsp;schema: z.object({ analysis: z.string(), score: z.number() }),<br>
+            &nbsp;&nbsp;storage: <span class="str">'transient_memory_only'</span><br>
+            });
+          </div>
+
+          <div class="deploy-links">
+            <a href="https://sisigitadi.github.io/promptmatrix2" target="_blank" rel="noopener noreferrer">➜ Live Application</a>
+            <a href="https://github.com/sisigitadi" target="_blank" rel="noopener noreferrer">➜ Source Repository</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- SmartExpenseML -->
+      <div class="deploy-block">
+        <div class="deploy-head">
+          <div class="deploy-title">SmartExpenseML // Edge NLP Transaction Classifier</div>
+          <div class="deploy-tag">STATUS: LIVE_PRODUCTION</div>
+        </div>
+        <div class="deploy-body">
+          <p>
+            Sub-5ms deterministic Indonesian currency normalizer (parsing "25rb", "5.5jt", "ribu") and rule-based expense categorizer running 100% on-device in HTML5 LocalStorage.
+          </p>
+          <img src="../assets/SmartExpenseML.png" alt="SmartExpenseML Platform" class="deploy-img">
+          <div class="deploy-links">
+            <a href="https://sisigitadi.github.io/smartexpenseML" target="_blank" rel="noopener noreferrer">➜ Live Application</a>
+            <a href="https://github.com/sisigitadi" target="_blank" rel="noopener noreferrer">➜ Source Repository</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: Career Stream -->
+    <section class="sec">
+      <div class="sec-title">[02] OPERATIONAL CAREER CHRONOLOGY (2002–2026)</div>
+
+      <table class="timeline-table">
+        <tbody>
+          <tr>
+            <td class="td-year">2026 — Present</td>
+            <td>
+              <div class="td-role">Web Administrator <span class="td-org">@ Ministry of Environment</span></div>
+              <div class="td-desc">Maintained 5+ containerized web services on Linux Server/WSL with Wazuh SIEM telemetry and server hardening.</div>
+            </td>
+          </tr>
+          <tr>
+            <td class="td-year">2025 (Q4)</td>
+            <td>
+              <div class="td-role">Senior Programmer <span class="td-org">@ Ministry of Home Affairs</span></div>
+              <div class="td-desc">Built 10+ REST API endpoints for digital governance systems processing 5,000+ daily records with 99.5% API reliability.</div>
+            </td>
+          </tr>
+          <tr>
+            <td class="td-year">2025 (Q1–Q3)</td>
+            <td>
+              <div class="td-role">SOC Analyst <span class="td-org">@ PT. Prospera Consulting Engineers</span></div>
+              <div class="td-desc">Authored 10+ NIST SP 800-61 Incident Response playbooks. Reduced alert MTTA by 55% across 500+ daily security events.</div>
+            </td>
+          </tr>
+          <tr>
+            <td class="td-year">2024 (Q4)</td>
+            <td>
+              <div class="td-role">Incident Handling Operational <span class="td-org">@ Ministry of Home Affairs</span></div>
+              <div class="td-desc">Real-time threat monitoring with Wazuh SIEM and FortiWeb WAF, maintaining incident containment time under 15 minutes.</div>
+            </td>
+          </tr>
+          <tr>
+            <td class="td-year">2024 — Present</td>
+            <td>
+              <div class="td-role">AI Trainer &amp; LLM Evaluator <span class="td-org">@ Outlier.ai / Platforms</span></div>
+              <div class="td-desc">Human-in-the-loop scoring for model factuality, safety, and prompt stability across 1,000+ prompt-response pairs.</div>
+            </td>
+          </tr>
+          <tr>
+            <td class="td-year">2002 — 2024</td>
+            <td>
+              <div class="td-role">IT Manager, Systems Lead &amp; Hardware Technician <span class="td-org">@ ACE Ltd, PUPR, Dipta Safari, Laju Karunia</span></div>
+              <div class="td-desc">22-year foundation in enterprise server fleets, backup architectures, routing, and hardware diagnostics with 99%+ uptime.</div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Section: Endpoints -->
+    <section class="sec">
+      <div class="sec-title">[03] COMMUNICATIONS &amp; DISPATCH</div>
+      <div style="font-family:var(--font-mono); font-size:13.5px; line-height:2;">
+        <div>DIRECT_EMAIL : <a href="mailto:si.sigitadi@gmail.com" style="color:var(--accent-blue)">si.sigitadi@gmail.com</a></div>
+        <div>LINKEDIN     : <a href="https://www.linkedin.com/in/sigitadi/" target="_blank" rel="noopener noreferrer" style="color:var(--accent-blue)">linkedin.com/in/sigitadi ↗</a></div>
+        <div>GITHUB       : <a href="https://github.com/sisigitadi" target="_blank" rel="noopener noreferrer" style="color:var(--accent-blue)">github.com/sisigitadi ↗</a></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="console-foot">
+    <div>&copy; 2026 Sigit Adi Irianto · All Systems Nominal.</div>
+    <div><a href="../admin.html" style="color:var(--text-secondary)">Control Panel ↗</a></div>
+  </footer>
+</div>
+
+</body>
+</html>
