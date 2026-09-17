@@ -107,4 +107,4 @@ This repository contains the single-page application (SPA) portfolio showcasing 
 - **Author**: Sigit Adi Irianto
 - **LinkedIn**: [linkedin.com/in/sigitadi](https://www.linkedin.com/in/sigitadi/)
 - **Medium**: [medium.com/@si.sigitadi](https://medium.com/@si.sigitadi)
-- **Email**: [si.sigitadi@gmail.com](mailto:si.sigitadi@gmail.com)
+- **Email**: [x@sigitadi.id](mailto:x@sigitadi.id)

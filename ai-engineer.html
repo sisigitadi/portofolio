@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
 <meta name="theme-color" content="#D6CDB4">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self' https:; script-src 'self' 'sha256-3iJVyGMg+cUlb7wWubSj15zcfRfuDBqhrvQBCLcACzM=' 'sha256-KcJib6eYC2MXOCVUDt5ErXibLp+IBrF/Pt4Keyox/Qg=' 'sha256-inHBrv9fYXZUcMVGLuMvxUXcXNdmbxI8ZVsM75ll5Cc='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com data:; img-src 'self' data: https://portofolio-visitor-tracker.si-sigitadi.workers.dev; connect-src 'self' https://formspree.io https://portofolio-visitor-tracker.si-sigitadi.workers.dev; object-src 'none'; frame-src 'none'; base-uri 'self'; form-action 'self' https://formspree.io; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' https:; script-src 'self' 'sha256-UzomcFPqP4M6Ed6dp6lroE2kt4ZN6eJ3mPBj/H60lwA=' 'sha256-KcJib6eYC2MXOCVUDt5ErXibLp+IBrF/Pt4Keyox/Qg=' 'sha256-inHBrv9fYXZUcMVGLuMvxUXcXNdmbxI8ZVsM75ll5Cc='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com data:; img-src 'self' data: https://portofolio-visitor-tracker.si-sigitadi.workers.dev; connect-src 'self' https://formspree.io https://portofolio-visitor-tracker.si-sigitadi.workers.dev; object-src 'none'; frame-src 'none'; base-uri 'self'; form-action 'self' https://formspree.io; upgrade-insecure-requests">
 
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="referrer" content="strict-origin-when-cross-origin">
@@ -67,7 +67,7 @@
     "https://github.com/sisigitadi",
     "https://www.linkedin.com/in/sigitadi/",
     "https://medium.com/@si.sigitadi",
-    "mailto:si.sigitadi@gmail.com"
+    "mailto:x@sigitadi.id"
   ],
   "knowsAbout": [
     "Applied Artificial Intelligence",
@@ -689,14 +689,11 @@
       font-size: 8.5pt !important;
       border-bottom: none !important;
     }
-    .spec .row.contact-line2::after {
+    .spec .row.contact-line2 + .row.contact-line2::before {
       content: " | " !important;
       color: #94a3b8 !important;
       font-weight: 700 !important;
       margin: 0 3px !important;
-    }
-    .spec .row.contact-line2:last-of-type::after {
-      content: "" !important;
     }
     .spec .k {
       display: none !important;
@@ -916,11 +913,9 @@
   </p>
   <div class="spec">
     <div class="row contact-line1"><div class="k">LOCATION</div><div class="v">Banten, Indonesia (UTC+7) | <span class="animated-underline">Open to Worldwide Remote Work<svg class="pen-stroke" viewBox="0 0 180 12" preserveAspectRatio="none" aria-hidden="true"><path d="M2 8 Q 45 2, 90 8 T 178 6" pathLength="100"/></svg></span></div></div>
-    <div class="row contact-line2"><div class="k">WEBSITE</div><div class="v"><a href="https://sigitadi.id" target="_blank" rel="noopener noreferrer">sigitadi.id</a></div></div>
-    <div class="row contact-line2"><div class="k">EMAIL</div><div class="v"><a href="mailto:si.sigitadi@gmail.com">si.sigitadi@gmail.com</a></div></div>
+    <div class="row contact-line2"><div class="k">EMAIL</div><div class="v"><a href="mailto:x@sigitadi.id">x@sigitadi.id</a></div></div>
     <div class="row contact-line2"><div class="k">LINKEDIN</div><div class="v"><a href="https://www.linkedin.com/in/sigitadi/" target="_blank" rel="noopener noreferrer">linkedin.com/in/sigitadi</a></div></div>
     <div class="row contact-line2"><div class="k">GITHUB</div><div class="v"><a href="https://github.com/sisigitadi" target="_blank" rel="noopener noreferrer">github.com/sisigitadi</a></div></div>
-    <div class="row contact-line2 cv-only"><div class="k">PORTFOLIO</div><div class="v"><a href="https://sigitadi.id" target="_blank" rel="noopener noreferrer">sigitadi.id</a></div></div>
     <div class="row spec-meta"><div class="k">FIELD EXPERIENCE</div><div class="v">Feb 2002 - Present <span class="animated-underline">(24+ Yrs)<svg class="pen-stroke" viewBox="0 0 70 12" preserveAspectRatio="none" aria-hidden="true"><path d="M2 8 Q 20 2, 40 8 T 68 6" pathLength="100"/></svg></span> | IT Infrastructure &amp; Systems → SecOps &amp; Applied AI</div></div>
     <div class="row spec-meta"><div class="k">TRACK RECORD</div><div class="v">1,000+ prompt evaluations | 2 live deployed AI web apps | Prompt stability analysis</div></div>
     <div class="row spec-meta"><div class="k">AI STACK</div><div class="v">Gemini API | LangChain | Ollama | Prompt Evaluation | n8n AI Workflows <svg class="ink" viewBox="0 0 28 26" aria-hidden="true"><path d="M3 15 Q6 19 9 21 Q12 23 15 19 L25 3" pathLength="120"/></svg></div></div>
@@ -1217,7 +1212,7 @@
         .catch(function () {
           btn.disabled = false
           btn.textContent = 'Request Resume (PDF)'
-          statusEl.textContent = 'Request failed - please try again, or email si.sigitadi@gmail.com directly.'
+          statusEl.textContent = 'Request failed - please try again, or email x@sigitadi.id directly.'
           statusEl.className = 'slip-status err'
         })
     })

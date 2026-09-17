@@ -315,7 +315,7 @@ The format is based on [Keep a Changelog](https://keepachamber.com/en/1.0.0/), a
 ### 📄 Changed (index.html + design-previews/02-field-manual.html)
 - **Section 3 & 4 Titles**: TOC and section headings updated to `Career History` and `Testimony`.
 - **Section 6 Header**: Changed from `Request Slip — Resume (PDF)` to `Request Resume (PDF)`.
-- **Hero Email Anchor**: `si.sigitadi@gmail.com` in the spec table is now linked directly to `#contact`.
+- **Hero Email Anchor**: `x@sigitadi.id` in the spec table is now linked directly to `#contact`.
 - **Contact Footer Links**:
   - Removed duplicate email link from `.footer-links`.
   - Moved `.footer-links` (LinkedIn, GitHub, Medium) below `END OF MANUAL`.

@@ -1,7 +1,7 @@
 # SIGIT ADI IRIANTO
 **SecOps Engineer | SIEM | Threat Monitoring | Incident Response**  
 Banten, Indonesia (UTC+7) | Open to Worldwide Remote Work  
-Email: si.sigitadi@gmail.com | LinkedIn: linkedin.com/in/sigitadi | GitHub: github.com/sisigitadi | Portfolio: sisigitadi.github.io/portofolio
+Email: x@sigitadi.id | LinkedIn: linkedin.com/in/sigitadi | GitHub: github.com/sisigitadi
 
 ---
 
