@@ -685,11 +685,14 @@
       font-size: 8.5pt !important;
       border-bottom: none !important;
     }
-    .spec .row.contact-line2 + .row.contact-line2::before {
+    .spec .row.contact-line2::after {
       content: " | " !important;
       color: #94a3b8 !important;
       font-weight: 700 !important;
       margin: 0 3px !important;
+    }
+    .spec .row.contact-line2:last-of-type::after {
+      content: "" !important;
     }
     .spec .k {
       display: none !important;
@@ -918,6 +921,7 @@
   </p>
   <div class="spec">
     <div class="row contact-line1"><div class="k">LOCATION</div><div class="v">Banten, Indonesia (UTC+7) | <span class="animated-underline">Open to Worldwide Remote Work<svg class="pen-stroke" viewBox="0 0 180 12" preserveAspectRatio="none" aria-hidden="true"><path d="M2 8 Q 45 2, 90 8 T 178 6" pathLength="100"/></svg></span></div></div>
+    <div class="row contact-line2"><div class="k">WEBSITE</div><div class="v"><a href="https://sigitadi.id" target="_blank" rel="noopener noreferrer">sigitadi.id</a></div></div>
     <div class="row contact-line2"><div class="k">EMAIL</div><div class="v"><a href="mailto:x@sigitadi.id">x@sigitadi.id</a></div></div>
     <div class="row contact-line2"><div class="k">LINKEDIN</div><div class="v"><a href="https://www.linkedin.com/in/sigitadi/" target="_blank" rel="noopener noreferrer">linkedin.com/in/sigitadi</a></div></div>
     <div class="row contact-line2"><div class="k">GITHUB</div><div class="v"><a href="https://github.com/sisigitadi" target="_blank" rel="noopener noreferrer">github.com/sisigitadi</a></div></div>

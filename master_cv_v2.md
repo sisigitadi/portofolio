@@ -1,7 +1,7 @@
 # SIGIT ADI IRIANTO
 **IT Infrastructure, SecOps, and Applied AI Engineer**  
 Banten, Indonesia (UTC+7) | Open to Worldwide Remote Work  
-Email: x@sigitadi.id | LinkedIn: linkedin.com/in/sigitadi | GitHub: github.com/sisigitadi
+Website: sigitadi.id | Email: x@sigitadi.id | LinkedIn: linkedin.com/in/sigitadi | GitHub: github.com/sisigitadi
 
 ---
 
